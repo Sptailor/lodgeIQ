@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(rmdir:*)",
-      "Bash(npx create-next-app:*)"
+      "Bash(npx create-next-app:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

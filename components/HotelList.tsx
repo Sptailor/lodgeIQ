@@ -8,6 +8,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 // Type definition for Hotel with inspection count
 type Hotel = {
@@ -47,9 +48,10 @@ export default function HotelList({ initialHotels }: HotelListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {hotels.map((hotel) => (
-        <div
+        <Link
           key={hotel.id}
-          className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow"
+          href={`/hotels/${hotel.id}`}
+          className="block bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-blue-300 transition-all cursor-pointer"
         >
           {/* Hotel name */}
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -85,7 +87,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
               {hotel._count?.inspections !== 1 ? 's' : ''}
             </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   )
