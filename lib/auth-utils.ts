@@ -2,22 +2,47 @@
  * Authentication & Authorization Utilities
  *
  * Helper functions for checking user roles and permissions
+ *
+ * AUTHENTICATION TEMPORARILY DISABLED FOR TESTING
+ * Set AUTH_DISABLED to false to enable authentication
  */
 
 import { auth } from '@/auth'
 import { UserRole } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
+
+// TEMPORARY: Disable auth for testing - Set to false to enable auth
+const AUTH_DISABLED = true
 
 /**
  * Get the current session
  * Returns null if not authenticated
  */
 export async function getSession() {
+  if (AUTH_DISABLED) {
+    // Return mock session for testing
+    const defaultUser = await prisma.user.findUnique({
+      where: { email: 'john.doe@lodgeiq.com' },
+    })
+    if (defaultUser) {
+      return {
+        user: {
+          id: defaultUser.id,
+          email: defaultUser.email,
+          name: defaultUser.name,
+          image: defaultUser.image,
+          role: defaultUser.role,
+        },
+      }
+    }
+    return null
+  }
   return await auth()
 }
 
 /**
  * Get the current user
- * Throws error if not authenticated
+ * Throws error if not authenticated (unless AUTH_DISABLED)
  */
 export async function getCurrentUser() {
   const session = await getSession()

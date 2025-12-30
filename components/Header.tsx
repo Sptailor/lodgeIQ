@@ -3,14 +3,17 @@
  *
  * App header with navigation and authentication
  * Shows user info, role badge, and sign in/out button
+ *
+ * AUTHENTICATION TEMPORARILY DISABLED FOR TESTING
+ * Uses mock session from auth-utils
  */
 
 import Link from 'next/link'
-import { auth } from '@/auth'
+import { getSession } from '@/lib/auth-utils'
 import SignOutButton from '@/components/SignOutButton'
 
 export default async function Header() {
-  const session = await auth()
+  const session = await getSession()
 
   return (
     <header className="bg-blue-600 text-white shadow-md">
