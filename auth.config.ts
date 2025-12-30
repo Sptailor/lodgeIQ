@@ -37,19 +37,19 @@ export const authConfig: NextAuthConfig = {
     // Determine which routes are protected
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
-      const isOnDashboard = nextUrl.pathname.startsWith('/hotels') ||
-                           nextUrl.pathname.startsWith('/inspections')
-      const isOnAuth = nextUrl.pathname.startsWith('/auth')
+      const isOnApp = !nextUrl.pathname.startsWith('/auth') &&
+                      nextUrl.pathname !== '/'
 
-      // Protect dashboard routes
-      if (isOnDashboard) {
-        if (isLoggedIn) return true
-        return false // Redirect to login
+      // Redirect unauthenticated users to sign-in
+      if (!isLoggedIn && isOnApp) {
+        const signInUrl = new URL('/auth/signin', nextUrl.origin)
+        signInUrl.searchParams.set('callbackUrl', nextUrl.pathname)
+        return Response.redirect(signInUrl)
       }
 
-      // Redirect logged-in users away from auth pages
-      if (isLoggedIn && isOnAuth) {
-        return Response.redirect(new URL('/', nextUrl))
+      // Redirect authenticated users away from auth pages to home
+      if (isLoggedIn && nextUrl.pathname.startsWith('/auth/signin')) {
+        return Response.redirect(new URL('/', nextUrl.origin))
       }
 
       return true
