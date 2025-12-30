@@ -24,15 +24,7 @@ export default function StartInspectionButton({ hotelId }: StartInspectionButton
     setError(null)
 
     try {
-      // Get default inspector (hardcoded until authentication is added)
-      // In production, this would come from the authenticated user session
-      const inspectorResponse = await fetch('/api/users/default-inspector')
-      if (!inspectorResponse.ok) {
-        throw new Error('Failed to get inspector. Please run: npx prisma db seed')
-      }
-      const inspector = await inspectorResponse.json()
-
-      // Create new inspection
+      // Create new inspection (API will use authenticated user as inspector)
       const response = await fetch('/api/inspections', {
         method: 'POST',
         headers: {
@@ -40,7 +32,6 @@ export default function StartInspectionButton({ hotelId }: StartInspectionButton
         },
         body: JSON.stringify({
           hotelId,
-          inspectorId: inspector.id,
         }),
       })
 

@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getCurrentUser, canModifyInspection } from '@/lib/auth-utils'
 
 /**
  * POST /api/inspection-results
@@ -19,9 +20,13 @@ import { prisma } from '@/lib/prisma'
  *   rating?: number (0-5)
  *   notes?: string
  * }
+ *
+ * Requires authentication and permission to modify the inspection
  */
 export async function POST(request: NextRequest) {
   try {
+    await getCurrentUser()
+
     const body = await request.json()
 
     // Validate required fields
@@ -29,6 +34,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Missing required fields: inspectionId, checklistItemId, result' },
         { status: 400 }
+      )
+    }
+
+    // Check if user can modify this inspection
+    const inspection = await prisma.inspection.findUnique({
+      where: { id: body.inspectionId },
+      select: { inspectorId: true },
+    })
+
+    if (!inspection) {
+      return NextResponse.json(
+        { error: 'Inspection not found' },
+        { status: 404 }
+      )
+    }
+
+    if (!(await canModifyInspection(inspection.inspectorId))) {
+      return NextResponse.json(
+        { error: 'You do not have permission to modify this inspection' },
+        { status: 403 }
       )
     }
 
@@ -71,6 +96,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result, { status: 201 })
   } catch (error) {
     console.error('Error saving inspection result:', error)
+
+    if (error instanceof Error && error.message === 'Not authenticated') {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+
     return NextResponse.json(
       { error: 'Failed to save inspection result' },
       { status: 500 }

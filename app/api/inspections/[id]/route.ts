@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getCurrentUser, canModifyInspection } from '@/lib/auth-utils'
 
 interface RouteParams {
   params: {
@@ -17,12 +18,17 @@ interface RouteParams {
 /**
  * GET /api/inspections/[id]
  * Returns inspection with all results and checklist items
+ *
+ * Requires authentication
  */
 export async function GET(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
+    // Require authentication
+    await getCurrentUser()
+
     const inspection = await prisma.inspection.findUnique({
       where: { id: params.id },
       include: {
@@ -56,6 +62,14 @@ export async function GET(
     return NextResponse.json(inspection, { status: 200 })
   } catch (error) {
     console.error('Error fetching inspection:', error)
+
+    if (error instanceof Error && error.message === 'Not authenticated') {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+
     return NextResponse.json(
       { error: 'Failed to fetch inspection' },
       { status: 500 }
@@ -75,12 +89,37 @@ export async function GET(
  *   followUpRequired?: boolean
  *   followUpNotes?: string
  * }
+ *
+ * Requires authentication and permission to modify this inspection
  */
 export async function PUT(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
+    await getCurrentUser()
+
+    // Get the inspection to check ownership
+    const existingInspection = await prisma.inspection.findUnique({
+      where: { id: params.id },
+      select: { inspectorId: true },
+    })
+
+    if (!existingInspection) {
+      return NextResponse.json(
+        { error: 'Inspection not found' },
+        { status: 404 }
+      )
+    }
+
+    // Check if user can modify this inspection
+    if (!(await canModifyInspection(existingInspection.inspectorId))) {
+      return NextResponse.json(
+        { error: 'You do not have permission to modify this inspection' },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
 
     const updateData: any = {}
@@ -114,6 +153,14 @@ export async function PUT(
     return NextResponse.json(inspection, { status: 200 })
   } catch (error) {
     console.error('Error updating inspection:', error)
+
+    if (error instanceof Error && error.message === 'Not authenticated') {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+
     return NextResponse.json(
       { error: 'Failed to update inspection' },
       { status: 500 }

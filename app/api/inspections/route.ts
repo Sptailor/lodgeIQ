@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getCurrentUser, canCreateInspection } from '@/lib/auth-utils'
 
 /**
  * POST /api/inspections
@@ -14,18 +15,29 @@ import { prisma } from '@/lib/prisma'
  * Expected body:
  * {
  *   hotelId: string (required)
- *   inspectorId: string (required)
  *   notes?: string
  * }
+ *
+ * Requires authentication and INSPECTOR or ADMIN role
  */
 export async function POST(request: NextRequest) {
   try {
+    // Check authentication and permissions
+    const user = await getCurrentUser()
+
+    if (!(await canCreateInspection())) {
+      return NextResponse.json(
+        { error: 'Only inspectors and admins can create inspections' },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
 
     // Validate required fields
-    if (!body.hotelId || !body.inspectorId) {
+    if (!body.hotelId) {
       return NextResponse.json(
-        { error: 'Missing required fields: hotelId, inspectorId' },
+        { error: 'Missing required field: hotelId' },
         { status: 400 }
       )
     }
@@ -42,23 +54,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verify inspector exists
-    const inspector = await prisma.user.findUnique({
-      where: { id: body.inspectorId },
-    })
-
-    if (!inspector) {
-      return NextResponse.json(
-        { error: 'Inspector not found' },
-        { status: 404 }
-      )
-    }
-
     // Create inspection in IN_PROGRESS status
+    // Use authenticated user as inspector
     const inspection = await prisma.inspection.create({
       data: {
         hotelId: body.hotelId,
-        inspectorId: body.inspectorId,
+        inspectorId: user.id,
         status: 'IN_PROGRESS',
         notes: body.notes || '',
         inspectionDate: new Date(),
@@ -78,6 +79,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(inspection, { status: 201 })
   } catch (error) {
     console.error('Error creating inspection:', error)
+
+    // Handle authentication errors
+    if (error instanceof Error && error.message === 'Not authenticated') {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+
     return NextResponse.json(
       { error: 'Failed to create inspection' },
       { status: 500 }
