@@ -1,0 +1,154 @@
+# LodgeIQ - Inspection Workflow (STEP 2)
+
+## Complete User Journey
+
+┌─────────────────────────────────────────────────────────────────┐
+│                      HOME PAGE (/)                               │
+│  ┌────────────────────────────────────────────────────────┐     │
+│  │  [Grand Palace Hotel]  [Sunset Beach]  [Mountain View] │     │
+│  │   Paris, France         Miami, USA      Zurich, CH     │     │
+│  │   0 inspections        0 inspections    0 inspections  │     │
+│  └────────────────────────────────────────────────────────┘     │
+│                                                                  │
+│  Click on hotel card →                                           │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              HOTEL DETAIL PAGE (/hotels/[id])                    │
+│  ┌────────────────────────────────────────────────────────┐     │
+│  │  Grand Palace Hotel                  [+ Start Inspection]│   │
+│  │  Paris, France                                          │    │
+│  │  123 Royal Street                                       │    │
+│  │  Phone: +33 1 23 45 67 89                              │    │
+│  └────────────────────────────────────────────────────────┘    │
+│                                                                 │
+│  Inspection History (0)                                         │
+│  └─ No inspections yet                                          │
+│                                                                 │
+│  Click [+ Start Inspection] →                                   │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                   API: POST /api/inspections
+                   Creates inspection (IN_PROGRESS)
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│           INSPECTION FORM (/inspections/[id])                    │
+│  ┌────────────────────────────────────────────────────────┐     │
+│  │  Inspecting: Grand Palace Hotel                        │     │
+│  │  Inspector: John Doe • Jan 1, 2024                     │     │
+│  │  Status: IN PROGRESS                                   │     │
+│  └────────────────────────────────────────────────────────┘     │
+│                                                                  │
+│  Progress: [████████░░░░░░░░] 8/15 items (53%)                   │
+│                                                                  │
+│  ┌─ Room Quality ──────────────────────────────────────────┐    │
+│  │  Bed Comfort                                            │    │
+│  │  [✓ Pass] [⚠ Needs Attention] [✗ Fail] [N/A]          │    │
+│  │  Notes: [Excellent mattress quality]                    │    │
+│  │                                                         │    │
+│  │  Room Size                                              │    │
+│  │  [✓ Pass] [⚠ Needs Attention] [✗ Fail] [N/A]          │    │
+│  │  Notes: []                                              │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│  ┌─ Cleanliness ────────────────────────────────────────────┐   │
+│  │  Bathroom Cleanliness                                    │   │
+│  │  [✓ Pass] [⚠ Needs Attention] [✗ Fail] [N/A]           │   │
+│  │  Notes: []                                               │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  ... (more categories: Safety, Amenities, Staff & Service)      │
+│                                                                  │
+│  General Notes:                                                  │
+│  [Overall excellent property, minor AC issue in room 305]       │
+│                                                                  │
+│  [Complete Inspection]                                           │
+│                                                                  │
+│  Each button click → API: POST /api/inspection-results          │
+│  Click Complete → API: PUT /api/inspections/[id]                │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                System calculates overall rating
+                Detects follow-up needed (if FAIL/NEEDS_ATTENTION)
+                Updates status to COMPLETED
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│         BACK TO HOTEL DETAIL (/hotels/[id])                      │
+│  ┌────────────────────────────────────────────────────────┐     │
+│  │  Grand Palace Hotel                  [+ Start Inspection]│   │
+│  │  Paris, France                                          │    │
+│  └────────────────────────────────────────────────────────┘    │
+│                                                                 │
+│  Inspection History (1)                                         │
+│  ┌────────────────────────────────────────────────────────┐    │
+│  │  Tuesday, January 1, 2024              [COMPLETED]  4.2/5│  │
+│  │  Inspector: John Doe                                   │    │
+│  │  15 checklist items completed                          │    │
+│  └────────────────────────────────────────────────────────┘    │
+│                                                                 │
+│  Click on inspection to view results →                          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+              View completed inspection (read-only)
+
+## Database State After Workflow
+
+Inspection {
+  id: "abc123"
+  hotelId: "hotel-id"
+  inspectorId: "john-doe-id"
+  status: "COMPLETED"
+  inspectionDate: 2024-01-01
+  overallRating: 4.2
+  followUpRequired: true
+  notes: "Overall excellent property..."
+  completedAt: 2024-01-01
+}
+
+InspectionResult (15 records) {
+  inspectionId: "abc123"
+  checklistItemId: "bed-comfort-id"
+  result: "PASS"
+  notes: "Excellent mattress quality"
+  rating: null
+}
+... (14 more)
+
+## API Endpoints Used
+
+1. GET /api/users/default-inspector
+   → Get hardcoded inspector (John Doe)
+
+2. POST /api/inspections
+   → Create new inspection
+
+3. GET /api/checklist-items
+   → Fetch 15 standard items
+
+4. GET /api/inspections/[id]
+   → Load inspection with results
+
+5. POST /api/inspection-results (called 15+ times)
+   → Save each checklist item result
+
+6. PUT /api/inspections/[id]
+   → Mark inspection complete
+
+## Key Features
+
+✅ Auto-save on every interaction
+✅ Real-time progress tracking
+✅ Category grouping for organization
+✅ Optional notes per item
+✅ Automatic rating calculation
+✅ Follow-up detection
+✅ Complete workflow from start to finish
+✅ Inspection history display
+✅ View completed inspections
+

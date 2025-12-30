@@ -4,7 +4,12 @@
       "Bash(rmdir:*)",
       "Bash(npx create-next-app:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npm install)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)"
     ]
   }
 }
