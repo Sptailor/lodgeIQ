@@ -1,0 +1,137 @@
+// Prisma schema for LodgeIQ
+// This defines the database structure for hotels, inspections, and checklists
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// User model - Represents inspectors, managers, and other users
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(INSPECTOR)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  inspections Inspection[] // Inspections created by this user
+
+  @@map("users")
+}
+
+// Enum for user roles
+enum UserRole {
+  INSPECTOR // Field inspector who performs inspections
+  MANAGER   // Manager who reviews inspections
+  ADMIN     // System administrator
+}
+
+// Hotel model - Represents properties to be inspected
+model Hotel {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  country     String
+  phone       String?
+  email       String?
+  website     String?
+  description String?
+  latitude    Float?
+  longitude   Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  inspections Inspection[] // All inspections for this hotel
+
+  @@map("hotels")
+}
+
+// Inspection model - Represents a single inspection visit to a hotel
+model Inspection {
+  id               String           @id @default(cuid())
+  hotelId          String
+  inspectorId      String
+  inspectionDate   DateTime         @default(now())
+  overallRating    Float? // Composite score (0-5 scale)
+  status           InspectionStatus @default(IN_PROGRESS)
+  notes            String? // General notes about the inspection
+  followUpRequired Boolean          @default(false)
+  followUpNotes    String?
+  completedAt      DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  // Relations
+  hotel            Hotel              @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  inspector        User               @relation(fields: [inspectorId], references: [id])
+  inspectionResults InspectionResult[] // Individual checklist item results
+
+  @@map("inspections")
+}
+
+// Enum for inspection status
+enum InspectionStatus {
+  IN_PROGRESS // Currently being conducted
+  COMPLETED   // Finished and ready for review
+  APPROVED    // Reviewed and approved by manager
+  REJECTED    // Needs re-inspection
+}
+
+// ChecklistItem model - Represents standardized checklist items
+// These are the template items that inspectors check for each hotel
+model ChecklistItem {
+  id          String   @id @default(cuid())
+  category    String // e.g., "Room Quality", "Cleanliness", "Safety", "Staff"
+  itemName    String // e.g., "Bed comfort", "Bathroom cleanliness"
+  description String? // Detailed description of what to check
+  weight      Float    @default(1.0) // Importance weight for scoring (1.0 = normal)
+  isActive    Boolean  @default(true) // Can be disabled without deleting
+  order       Int      @default(0) // Display order within category
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  inspectionResults InspectionResult[] // Results from inspections using this item
+
+  @@map("checklist_items")
+}
+
+// InspectionResult model - Links inspections to checklist items with results
+// This stores the actual inspection data for each checklist item
+model InspectionResult {
+  id              String       @id @default(cuid())
+  inspectionId    String
+  checklistItemId String
+  result          ResultStatus @default(PENDING)
+  rating          Float? // Optional numeric rating (0-5 scale)
+  notes           String? // Inspector's notes for this specific item
+  photoUrls       String[] // Array of photo URLs stored in cloud storage
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  // Relations
+  inspection    Inspection    @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+  checklistItem ChecklistItem @relation(fields: [checklistItemId], references: [id])
+
+  // Ensure one result per checklist item per inspection
+  @@unique([inspectionId, checklistItemId])
+  @@map("inspection_results")
+}
+
+// Enum for checklist item results
+enum ResultStatus {
+  PENDING           // Not yet checked
+  PASS              // Meets standards
+  FAIL              // Does not meet standards
+  NEEDS_IMPROVEMENT // Acceptable but could be better
+  NOT_APPLICABLE    // Item doesn't apply to this property
+}

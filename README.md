@@ -1,8 +1,25 @@
+# LodgeIQ – Smart Hotel & Resort Inspection Checklist
 
+[![Next.js 14](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-5-teal)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-green)](https://neon.tech/)
 
-LodgeIQ – Smart Hotel & Resort Inspection Checklist
+> **STEP 1 COMPLETE** ✅ - Basic project structure with hotel management is ready!
 
-Description
+## Quick Start
+
+See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide.
+
+```bash
+npm install
+# Add your DATABASE_URL to .env
+npx prisma generate
+npx prisma db push
+npm run dev
+```
+
+## Description
 
 LodgeIQ is a mobile and web application designed for tour operators, travel agencies, and hospitality inspectors to systematically inspect, document, and evaluate hotels, resorts, and other lodging facilities before sending clients or guests.
 
@@ -85,8 +102,36 @@ Role-based access: inspectors, managers, and optional hotel representatives.
 
 Offline-first capabilities: local storage and sync.
 
-Summary
+## Current Status - STEP 1
 
-LodgeIQ is a professional, B2B tool for hotel inspections, allowing tour operators and travel agencies to improve quality assurance, reduce client complaints, and keep detailed, organized records of accommodations.
+**What's Built:**
 
-It’s built for efficiency, transparency, and actionable insights — helping businesses provide better experiences for their clients while streamlining operations
+- ✅ Next.js 14 project with TypeScript
+- ✅ Prisma ORM with PostgreSQL (Neon)
+- ✅ Complete database schema (5 models)
+- ✅ API routes for hotel CRUD operations
+- ✅ Basic UI for hotel management
+- ✅ Seed script with sample data
+- ✅ Ready for Vercel deployment
+
+**See:** [STEP1-COMPLETE.md](STEP1-COMPLETE.md) for full details
+
+## Tech Stack
+
+- **Frontend**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL (Neon)
+- **ORM**: Prisma
+- **Deployment**: Vercel
+
+## Documentation
+
+- [QUICKSTART.md](QUICKSTART.md) - Get started in 5 minutes
+- [SETUP.md](SETUP.md) - Comprehensive setup guide
+- [STEP1-COMPLETE.md](STEP1-COMPLETE.md) - What's been built
+
+## Summary
+
+LodgeIQ is a professional, B2B SaaS tool for hotel inspections, allowing tour operators and travel agencies to improve quality assurance, reduce client complaints, and keep detailed, organized records of accommodations.
+
+It's built for efficiency, transparency, and actionable insights — helping businesses provide better experiences for their clients while streamlining operations.

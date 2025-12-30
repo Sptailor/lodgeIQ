@@ -1,0 +1,65 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.venv/
+.env
+.env.*
+.pytest_cache/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+logs/
+*.log
+
+# Build
+dist/
+build/
+out/
+.next/
+.turbo/
+
+# Coverage
+coverage/
+
+# Database
+*.sqlite3
+
+# Next.js
+.next/
+next-env.d.ts
+.vercel
+
+# Secrets
+.env.local
+.env.*.local
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# Personal notes
+notes.txt
+
+# Documentation (exclude all .md files except README.md)
+*.md
+!README.md
