@@ -12,25 +12,31 @@ const prisma = new PrismaClient()
 async function main() {
   console.log('🌱 Starting database seed...')
 
-  // Create sample users
-  const inspector1 = await prisma.user.create({
-    data: {
+  // Create sample users (upsert to make idempotent)
+  const inspector1 = await prisma.user.upsert({
+    where: { email: 'john.doe@lodgeiq.com' },
+    update: {},
+    create: {
       email: 'john.doe@lodgeiq.com',
       name: 'John Doe',
       role: 'INSPECTOR',
     },
   })
 
-  const inspector2 = await prisma.user.create({
-    data: {
+  const inspector2 = await prisma.user.upsert({
+    where: { email: 'jane.smith@lodgeiq.com' },
+    update: {},
+    create: {
       email: 'jane.smith@lodgeiq.com',
       name: 'Jane Smith',
       role: 'INSPECTOR',
     },
   })
 
-  const manager = await prisma.user.create({
-    data: {
+  const manager = await prisma.user.upsert({
+    where: { email: 'manager@lodgeiq.com' },
+    update: {},
+    create: {
       email: 'manager@lodgeiq.com',
       name: 'Sarah Manager',
       role: 'MANAGER',
@@ -86,9 +92,11 @@ async function main() {
 
   console.log('✅ Created hotels')
 
-  // Create sample checklist items
-  const checklistItems = await prisma.checklistItem.createMany({
-    data: [
+  // Create standard checklist items (only if none exist)
+  const existingItems = await prisma.checklistItem.count()
+  if (existingItems === 0) {
+    await prisma.checklistItem.createMany({
+      data: [
       // Room Quality
       {
         category: 'Room Quality',
@@ -199,34 +207,23 @@ async function main() {
         weight: 1.0,
         order: 3,
       },
-    ],
-  })
+      ],
+    })
+    console.log('✅ Created 15 standard checklist items')
+  } else {
+    console.log('✅ Checklist items already exist, skipping')
+  }
 
-  console.log('✅ Created checklist items')
-
-  // Create a sample inspection for Grand Palace Hotel
-  const inspection = await prisma.inspection.create({
-    data: {
-      hotelId: hotel1.id,
-      inspectorId: inspector1.id,
-      status: 'COMPLETED',
-      overallRating: 4.5,
-      notes: 'Excellent property with minor issues in room 305',
-      followUpRequired: true,
-      followUpNotes: 'Replace air conditioning unit in room 305',
-      completedAt: new Date(),
-    },
-  })
-
-  console.log('✅ Created sample inspection')
+  // Note: Inspections will be created through the UI in STEP 2
+  console.log('✅ Skipping sample inspection (will be created via UI)')
 
   console.log('🎉 Seed completed successfully!')
   console.log(`
   Created:
   - 3 users (2 inspectors, 1 manager)
   - 3 hotels (Paris, Miami, Zurich)
-  - 15 checklist items across 5 categories
-  - 1 sample inspection
+  - 15 standard checklist items across 5 categories
+  - Ready for STEP 2: Inspection Workflow
   `)
 }
 
