@@ -19,6 +19,7 @@ import { getCurrentUser, canModifyInspection } from '@/lib/auth-utils'
  *   result: 'PENDING' | 'PASS' | 'FAIL' | 'NEEDS_IMPROVEMENT' | 'NOT_APPLICABLE' (required)
  *   rating?: number (0-5)
  *   notes?: string
+ *   photoUrls?: string[] (array of uploaded photo URLs)
  * }
  *
  * Requires authentication and permission to modify the inspection
@@ -79,6 +80,7 @@ export async function POST(request: NextRequest) {
         result: body.result,
         rating: body.rating || null,
         notes: body.notes || '',
+        photoUrls: body.photoUrls || [],
       },
       create: {
         inspectionId: body.inspectionId,
@@ -86,7 +88,7 @@ export async function POST(request: NextRequest) {
         result: body.result,
         rating: body.rating || null,
         notes: body.notes || '',
-        photoUrls: [], // Empty array for now (photo upload in future step)
+        photoUrls: body.photoUrls || [],
       },
       include: {
         checklistItem: true,
