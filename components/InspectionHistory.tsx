@@ -15,7 +15,7 @@ type Inspection = {
   overallRating: number | null
   inspector: {
     id: string
-    name: string
+    name: string | null
     email: string
   }
   _count: {
@@ -88,7 +88,7 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
 
                   {/* Inspector */}
                   <p className="text-gray-700 mb-2">
-                    Inspector: <span className="font-medium">{inspection.inspector.name}</span>
+                    Inspector: <span className="font-medium">{inspection.inspector.name || inspection.inspector.email}</span>
                   </p>
 
                   {/* Results count */}

@@ -57,7 +57,7 @@ export const authConfig: NextAuthConfig = {
 
     // Add user role to the session
     async jwt({ token, user }) {
-      if (user) {
+      if (user?.id) {
         token.role = user.role
         token.id = user.id
       }
@@ -65,9 +65,9 @@ export const authConfig: NextAuthConfig = {
     },
 
     async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role as string
-        session.user.id = token.id as string
+      if (session.user && token.id) {
+        session.user.role = token.role
+        session.user.id = token.id
       }
       return session
     },

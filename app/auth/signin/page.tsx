@@ -69,7 +69,7 @@ export default function SignInPage({
           </button>
 
           <p className="text-xs text-gray-500 text-center">
-            We'll send you a magic link to sign in
+            We&apos;ll send you a magic link to sign in
           </p>
         </form>
 

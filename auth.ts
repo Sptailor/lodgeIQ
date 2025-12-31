@@ -17,20 +17,12 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as any,
   session: {
     strategy: 'jwt', // Use JWT for serverless compatibility
   },
   callbacks: {
     ...authConfig.callbacks,
-    // Customize user creation - set default role to INSPECTOR
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role as string
-        session.user.id = token.id as string
-      }
-      return session
-    },
   },
   // Events for logging/tracking
   events: {
