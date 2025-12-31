@@ -61,13 +61,20 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
       </h2>
 
       <div className="space-y-4">
-        {inspections.map((inspection) => (
-          <Link
-            key={inspection.id}
-            href={`/inspections/${inspection.id}`}
-            className="block border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex justify-between items-start">
+        {inspections.map((inspection) => {
+          // Link to results page if completed, otherwise to inspection form
+          const href =
+            inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
+              ? `/inspections/${inspection.id}/results`
+              : `/inspections/${inspection.id}`
+
+          return (
+            <Link
+              key={inspection.id}
+              href={href}
+              className="block border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex justify-between items-start">
               <div className="flex-1">
                 {/* Date */}
                 <p className="text-sm text-gray-500 mb-1">
@@ -109,7 +116,8 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
               </div>
             </div>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
