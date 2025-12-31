@@ -75,46 +75,46 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
               className="block border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
             >
               <div className="flex justify-between items-start">
-              <div className="flex-1">
-                {/* Date */}
-                <p className="text-sm text-gray-500 mb-1">
-                  {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-
-                {/* Inspector */}
-                <p className="text-gray-700 mb-2">
-                  Inspector: <span className="font-medium">{inspection.inspector.name}</span>
-                </p>
-
-                {/* Results count */}
-                <p className="text-sm text-gray-600">
-                  {inspection._count.inspectionResults} checklist items completed
-                </p>
-              </div>
-
-              <div className="text-right">
-                {/* Status badge */}
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2 ${
-                    statusColors[inspection.status] || 'bg-gray-100 text-gray-800'
-                  }`}
-                >
-                  {formatStatus(inspection.status)}
-                </span>
-
-                {/* Rating */}
-                {inspection.overallRating && (
-                  <p className="text-lg font-semibold text-gray-900">
-                    ⭐ {inspection.overallRating.toFixed(1)}/5
+                <div className="flex-1">
+                  {/* Date */}
+                  <p className="text-sm text-gray-500 mb-1">
+                    {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
                   </p>
-                )}
+
+                  {/* Inspector */}
+                  <p className="text-gray-700 mb-2">
+                    Inspector: <span className="font-medium">{inspection.inspector.name}</span>
+                  </p>
+
+                  {/* Results count */}
+                  <p className="text-sm text-gray-600">
+                    {inspection._count.inspectionResults} checklist items completed
+                  </p>
+                </div>
+
+                <div className="text-right">
+                  {/* Status badge */}
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2 ${
+                      statusColors[inspection.status] || 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {formatStatus(inspection.status)}
+                  </span>
+
+                  {/* Rating */}
+                  {inspection.overallRating && (
+                    <p className="text-lg font-semibold text-gray-900">
+                      ⭐ {inspection.overallRating.toFixed(1)}/5
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
           </Link>
           )
         })}
