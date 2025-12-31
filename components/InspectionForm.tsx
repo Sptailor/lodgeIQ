@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import PhotoUpload from '@/components/PhotoUpload'
 
 // Types
 type ResultStatus = 'PENDING' | 'PASS' | 'FAIL' | 'NEEDS_IMPROVEMENT' | 'NOT_APPLICABLE'
@@ -29,6 +30,7 @@ type InspectionResult = {
   result: ResultStatus
   rating: number | null
   notes: string | null
+  photoUrls: string[]
   checklistItem: ChecklistItem
 }
 
@@ -51,20 +53,21 @@ interface InspectionFormProps {
 export default function InspectionForm({ inspection, checklistItems }: InspectionFormProps) {
   const router = useRouter()
 
-  // Track results state (checklistItemId -> { result, notes, rating })
-  const [results, setResults] = useState<Record<string, { result: ResultStatus; notes: string; rating: number | null }>>({})
+  // Track results state (checklistItemId -> { result, notes, rating, photoUrls })
+  const [results, setResults] = useState<Record<string, { result: ResultStatus; notes: string; rating: number | null; photoUrls: string[] }>>({})
   const [isSaving, setIsSaving] = useState(false)
   const [isCompleting, setIsCompleting] = useState(false)
   const [generalNotes, setGeneralNotes] = useState(inspection.notes || '')
 
   // Initialize results from existing inspection results
   useEffect(() => {
-    const initialResults: Record<string, { result: ResultStatus; notes: string; rating: number | null }> = {}
+    const initialResults: Record<string, { result: ResultStatus; notes: string; rating: number | null; photoUrls: string[] }> = {}
     inspection.inspectionResults.forEach((ir) => {
       initialResults[ir.checklistItemId] = {
         result: ir.result as ResultStatus,
         notes: ir.notes || '',
         rating: ir.rating,
+        photoUrls: ir.photoUrls || [],
       }
     })
     setResults(initialResults)
@@ -90,6 +93,10 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
     return results[itemId]?.notes || ''
   }
 
+  const getPhotos = (itemId: string): string[] => {
+    return results[itemId]?.photoUrls || []
+  }
+
   // Handle result change and auto-save
   const handleResultChange = async (itemId: string, newResult: ResultStatus) => {
     // Update local state
@@ -99,6 +106,7 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
         result: newResult,
         notes: prev[itemId]?.notes || '',
         rating: prev[itemId]?.rating || null,
+        photoUrls: prev[itemId]?.photoUrls || [],
       },
     }))
 
@@ -112,6 +120,7 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
           checklistItemId: itemId,
           result: newResult,
           notes: results[itemId]?.notes || '',
+          photoUrls: results[itemId]?.photoUrls || [],
         }),
       })
     } catch (error) {
@@ -128,6 +137,7 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
         result: prev[itemId]?.result || 'PENDING',
         notes,
         rating: prev[itemId]?.rating || null,
+        photoUrls: prev[itemId]?.photoUrls || [],
       },
     }))
   }
@@ -146,10 +156,42 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
           checklistItemId: itemId,
           result: currentResult.result,
           notes: currentResult.notes,
+          photoUrls: currentResult.photoUrls || [],
         }),
       })
     } catch (error) {
       console.error('Error saving notes:', error)
+    }
+  }
+
+  // Handle photo changes and auto-save
+  const handlePhotosChange = async (itemId: string, newPhotos: string[]) => {
+    // Update local state
+    setResults((prev) => ({
+      ...prev,
+      [itemId]: {
+        result: prev[itemId]?.result || 'PENDING',
+        notes: prev[itemId]?.notes || '',
+        rating: prev[itemId]?.rating || null,
+        photoUrls: newPhotos,
+      },
+    }))
+
+    // Auto-save to API
+    try {
+      await fetch('/api/inspection-results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          inspectionId: inspection.id,
+          checklistItemId: itemId,
+          result: results[itemId]?.result || 'PENDING',
+          notes: results[itemId]?.notes || '',
+          photoUrls: newPhotos,
+        }),
+      })
+    } catch (error) {
+      console.error('Error saving photos:', error)
     }
   }
 
@@ -317,6 +359,14 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                       placeholder="Add notes (optional)..."
                       rows={2}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
+                    />
+
+                    {/* Photo upload */}
+                    <PhotoUpload
+                      inspectionId={inspection.id}
+                      checklistItemId={item.id}
+                      existingPhotos={getPhotos(item.id)}
+                      onPhotosChange={(newPhotos) => handlePhotosChange(item.id, newPhotos)}
                     />
                   </div>
                 )
