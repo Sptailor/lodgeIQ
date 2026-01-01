@@ -39,8 +39,8 @@ export default async function HomePage() {
     <div className="max-w-6xl mx-auto">
       {/* Page header */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Hotels</h2>
-        <p className="text-gray-600">
+        <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">Hotels</h2>
+        <p className="text-neutral-600 dark:text-neutral-400">
           Manage your hotel database and track inspections
         </p>
       </div>
