@@ -1,14 +1,15 @@
 /**
  * PhotoUpload Component
  *
- * Allows users to upload photos for inspection checklist items
- * Displays uploaded photos with delete option
- * Mobile-friendly with camera access support
+ * Premium photo upload with modern design
+ * Smooth previews, mobile camera support, touch-friendly interface
  */
 
 'use client'
 
 import { useState, useRef } from 'react'
+import { Camera, X, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface PhotoUploadProps {
   inspectionId: string
@@ -97,9 +98,9 @@ export default function PhotoUpload({
   }
 
   return (
-    <div className="mt-3">
+    <div>
       {/* Upload button */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3 mb-3">
         <input
           ref={fileInputRef}
           type="file"
@@ -111,34 +112,26 @@ export default function PhotoUpload({
         />
         <label
           htmlFor={`photo-upload-${checklistItemId}`}
-          className={`inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer transition-colors ${
-            isUploading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          className={cn(
+            "inline-flex items-center gap-2 px-4 py-2.5 border-2 border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 bg-white hover:bg-neutral-50 hover:border-primary-300 cursor-pointer transition-all",
+            isUploading && 'opacity-50 cursor-not-allowed pointer-events-none'
+          )}
         >
-          <svg
-            className="w-4 h-4 mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
-          {isUploading ? 'Uploading...' : 'Add Photo'}
+          {isUploading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Uploading...</span>
+            </>
+          ) : (
+            <>
+              <Camera className="w-4 h-4" />
+              <span>Add Photos</span>
+            </>
+          )}
         </label>
 
         {existingPhotos.length > 0 && (
-          <span className="text-sm text-gray-600">
+          <span className="text-xs font-medium text-neutral-600 bg-neutral-100 px-3 py-1.5 rounded-full">
             {existingPhotos.length} photo{existingPhotos.length !== 1 ? 's' : ''}
           </span>
         )}
@@ -146,39 +139,27 @@ export default function PhotoUpload({
 
       {/* Error message */}
       {error && (
-        <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+        <div className="mb-3 p-3 bg-danger-50 border border-danger-200 rounded-lg text-danger-700 text-sm">
           {error}
         </div>
       )}
 
       {/* Photo grid */}
       {existingPhotos.length > 0 && (
-        <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
           {existingPhotos.map((url, index) => (
-            <div key={url} className="relative group">
+            <div key={url} className="relative group rounded-lg overflow-hidden border-2 border-neutral-200 hover:border-primary-300 transition-all">
               <img
                 src={url}
                 alt={`Photo ${index + 1}`}
-                className="w-full h-24 object-cover rounded border border-gray-200"
+                className="w-full h-28 object-cover"
               />
               <button
                 onClick={() => handleDelete(url)}
-                className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-1.5 right-1.5 bg-danger-600 text-white rounded-lg p-1.5 opacity-0 group-hover:opacity-100 transition-all shadow-lg hover:bg-danger-700"
                 title="Delete photo"
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
           ))}
