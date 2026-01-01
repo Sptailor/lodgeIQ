@@ -9,7 +9,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { X, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -91,13 +91,12 @@ export default function AddHotelForm() {
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft"
-      >
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft"
+    >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">Add New Hotel</h3>
           <button
@@ -262,7 +261,6 @@ export default function AddHotelForm() {
             </Button>
           </div>
         </form>
-      </motion.div>
-    </AnimatePresence>
+    </motion.div>
   )
 }
