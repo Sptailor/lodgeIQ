@@ -7,6 +7,11 @@
   --foreground: #1c1917;
 }
 
+.dark {
+  --background: #0c0a09;
+  --foreground: #fafaf9;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -17,11 +22,28 @@ body {
 
 @layer base {
   * {
-    @apply border-neutral-200;
+    @apply border-neutral-200 dark:border-neutral-800;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-neutral-900;
+    @apply text-neutral-900 dark:text-neutral-50;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-100 dark:bg-neutral-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 dark:bg-neutral-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-400 dark:bg-neutral-600;
   }
 }
 
@@ -29,4 +51,51 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Glass morphism effects */
+  .glass {
+    @apply bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md;
+  }
+
+  .glass-card {
+    @apply bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700;
+  }
+
+  .gradient-success {
+    @apply bg-gradient-to-r from-success-600 to-success-700;
+  }
+
+  .gradient-tertiary {
+    @apply bg-gradient-to-r from-tertiary-600 to-tertiary-700;
+  }
+
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-tertiary-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+  background-size: 1000px 100%;
+}
+
+.dark .shimmer {
+  background: linear-gradient(to right, #1a1a1a 4%, #2a2a2a 25%, #1a1a1a 36%);
 }
