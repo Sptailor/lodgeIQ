@@ -9,13 +9,26 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ClipboardCheck, AlertCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 interface StartInspectionButtonProps {
   hotelId: string
+  hotelName: string
 }
 
-export default function StartInspectionButton({ hotelId }: StartInspectionButtonProps) {
+export default function StartInspectionButton({ hotelId, hotelName }: StartInspectionButtonProps) {
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -51,20 +64,56 @@ export default function StartInspectionButton({ hotelId }: StartInspectionButton
   }
 
   return (
-    <div>
-      <button
-        onClick={handleStartInspection}
-        disabled={isCreating}
-        className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-      >
-        {isCreating ? 'Starting...' : '+ Start Inspection'}
-      </button>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button variant="success" size="lg" className="gap-2">
+          <ClipboardCheck className="w-5 h-5" />
+          Start Inspection
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Start New Inspection</DialogTitle>
+          <DialogDescription>
+            Begin a new inspection for <span className="font-semibold text-neutral-900 dark:text-neutral-50">{hotelName}</span>.
+            You'll be guided through the inspection checklist step by step.
+          </DialogDescription>
+        </DialogHeader>
 
-      {error && (
-        <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-          {error}
-        </div>
-      )}
-    </div>
+        {error && (
+          <div className="flex items-start gap-3 p-3 bg-danger-50 dark:bg-danger-950/20 border border-danger-200 dark:border-danger-800 rounded-lg">
+            <AlertCircle className="w-5 h-5 text-danger-600 dark:text-danger-400 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-danger-700 dark:text-danger-400">{error}</p>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setIsOpen(false)}
+            disabled={isCreating}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            variant="success"
+            onClick={handleStartInspection}
+            disabled={isCreating}
+            className="gap-2"
+          >
+            {isCreating ? (
+              <>Creating...</>
+            ) : (
+              <>
+                <ClipboardCheck className="w-4 h-4" />
+                Begin Inspection
+              </>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

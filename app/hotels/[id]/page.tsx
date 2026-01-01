@@ -56,43 +56,43 @@ export default async function HotelDetailPage({ params }: PageProps) {
       {/* Back link */}
       <a
         href="/"
-        className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6"
+        className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mb-6 transition-colors"
       >
         ← Back to Hotels
       </a>
 
       {/* Hotel header */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 mb-6 shadow-soft">
+        <div className="flex justify-between items-start gap-6">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
               {hotel.name}
             </h1>
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
               {hotel.city}, {hotel.country}
             </p>
-            <p className="text-gray-700 mb-4">{hotel.address}</p>
+            <p className="text-neutral-700 dark:text-neutral-300 mb-4">{hotel.address}</p>
 
             {/* Contact info */}
-            <div className="space-y-1">
+            <div className="space-y-2">
               {hotel.phone && (
-                <p className="text-gray-600">
-                  <span className="font-medium">Phone:</span> {hotel.phone}
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <span className="font-medium text-neutral-900 dark:text-neutral-50">Phone:</span> {hotel.phone}
                 </p>
               )}
               {hotel.email && (
-                <p className="text-gray-600">
-                  <span className="font-medium">Email:</span> {hotel.email}
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <span className="font-medium text-neutral-900 dark:text-neutral-50">Email:</span> {hotel.email}
                 </p>
               )}
               {hotel.website && (
-                <p className="text-gray-600">
-                  <span className="font-medium">Website:</span>{' '}
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <span className="font-medium text-neutral-900 dark:text-neutral-50">Website:</span>{' '}
                   <a
                     href={hotel.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-primary-600 dark:text-primary-400 hover:underline"
                   >
                     {hotel.website}
                   </a>
@@ -101,12 +101,14 @@ export default async function HotelDetailPage({ params }: PageProps) {
             </div>
 
             {hotel.description && (
-              <p className="mt-4 text-gray-700">{hotel.description}</p>
+              <p className="mt-4 text-neutral-700 dark:text-neutral-300">{hotel.description}</p>
             )}
           </div>
 
           {/* Start inspection button */}
-          <StartInspectionButton hotelId={hotel.id} />
+          <div className="flex-shrink-0">
+            <StartInspectionButton hotelId={hotel.id} hotelName={hotel.name} />
+          </div>
         </div>
       </div>
 

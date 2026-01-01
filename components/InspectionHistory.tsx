@@ -8,6 +8,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Calendar, User, CheckCircle2, Clock, FileCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -33,23 +34,23 @@ interface InspectionHistoryProps {
 // Status badge styling with modern colors
 const statusStyles: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
   IN_PROGRESS: {
-    bg: 'bg-warning-100 border-warning-300',
-    text: 'text-warning-800',
+    bg: 'bg-warning-100 dark:bg-warning-950/20 border-warning-300 dark:border-warning-800',
+    text: 'text-warning-800 dark:text-warning-400',
     icon: <Clock className="w-3.5 h-3.5" />,
   },
   COMPLETED: {
-    bg: 'bg-primary-100 border-primary-300',
-    text: 'text-primary-800',
+    bg: 'bg-primary-100 dark:bg-primary-950/20 border-primary-300 dark:border-primary-800',
+    text: 'text-primary-800 dark:text-primary-400',
     icon: <FileCheck className="w-3.5 h-3.5" />,
   },
   APPROVED: {
-    bg: 'bg-success-100 border-success-300',
-    text: 'text-success-800',
+    bg: 'bg-success-100 dark:bg-success-950/20 border-success-300 dark:border-success-800',
+    text: 'text-success-800 dark:text-success-400',
     icon: <CheckCircle2 className="w-3.5 h-3.5" />,
   },
   REJECTED: {
-    bg: 'bg-danger-100 border-danger-300',
-    text: 'text-danger-800',
+    bg: 'bg-danger-100 dark:bg-danger-950/20 border-danger-300 dark:border-danger-800',
+    text: 'text-danger-800 dark:text-danger-400',
     icon: <CheckCircle2 className="w-3.5 h-3.5" />,
   },
 }
@@ -62,25 +63,34 @@ const formatStatus = (status: string) => {
 export default function InspectionHistory({ inspections }: InspectionHistoryProps) {
   if (inspections.length === 0) {
     return (
-      <div className="bg-white border border-neutral-200 rounded-2xl p-8 shadow-soft">
-        <h2 className="text-xl font-semibold text-neutral-900 mb-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-soft"
+      >
+        <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-2">
           Inspection History
         </h2>
-        <p className="text-neutral-500 text-sm">
+        <p className="text-neutral-500 dark:text-neutral-400 text-sm">
           No inspections yet. Start your first inspection above.
         </p>
-      </div>
+      </motion.div>
     )
   }
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-2xl p-6 shadow-soft">
-      <h2 className="text-xl font-semibold text-neutral-900 mb-5">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 }}
+      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft"
+    >
+      <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-5">
         Inspection History ({inspections.length})
       </h2>
 
       <div className="space-y-3">
-        {inspections.map((inspection) => {
+        {inspections.map((inspection, index) => {
           // Link to results page if completed, otherwise to inspection form
           const href =
             inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
@@ -88,79 +98,85 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
               : `/inspections/${inspection.id}`
 
           const statusStyle = statusStyles[inspection.status] || {
-            bg: 'bg-neutral-100 border-neutral-300',
-            text: 'text-neutral-800',
+            bg: 'bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700',
+            text: 'text-neutral-800 dark:text-neutral-300',
             icon: <FileCheck className="w-3.5 h-3.5" />,
           }
 
           return (
-            <Link
+            <motion.div
               key={inspection.id}
-              href={href}
-              className="group block border-2 border-neutral-200 rounded-xl p-4 hover:border-primary-300 hover:shadow-soft transition-all"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex-1 min-w-0">
-                  {/* Date */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-4 h-4 text-neutral-500 flex-shrink-0" />
-                    <p className="text-sm text-neutral-600 truncate">
-                      {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                      })}
-                    </p>
-                  </div>
-
-                  {/* Inspector */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <User className="w-4 h-4 text-neutral-500 flex-shrink-0" />
-                    <p className="text-sm text-neutral-700 truncate">
-                      <span className="font-medium">
-                        {inspection.inspector.name || inspection.inspector.email}
-                      </span>
-                    </p>
-                  </div>
-
-                  {/* Results count */}
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-neutral-500 flex-shrink-0" />
-                    <p className="text-xs text-neutral-600">
-                      {inspection._count.inspectionResults} items completed
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                  {/* Status badge */}
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border",
-                      statusStyle.bg,
-                      statusStyle.text
-                    )}
-                  >
-                    {statusStyle.icon}
-                    {formatStatus(inspection.status)}
-                  </span>
-
-                  {/* Rating */}
-                  {inspection.overallRating && (
-                    <div className="flex items-center gap-1 bg-accent-50 px-2.5 py-1 rounded-lg border border-accent-200">
-                      <span className="text-base">⭐</span>
-                      <span className="text-sm font-semibold text-accent-800">
-                        {inspection.overallRating.toFixed(1)}
-                      </span>
+              <Link
+                href={href}
+                className="group block border-2 border-neutral-200 dark:border-neutral-800 rounded-xl p-4 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-soft transition-all"
+              >
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex-1 min-w-0">
+                    {/* Date */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calendar className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 truncate">
+                        {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                        })}
+                      </p>
                     </div>
-                  )}
+
+                    {/* Inspector */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <User className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                      <p className="text-sm text-neutral-700 dark:text-neutral-300 truncate">
+                        <span className="font-medium">
+                          {inspection.inspector.name || inspection.inspector.email}
+                        </span>
+                      </p>
+                    </div>
+
+                    {/* Results count */}
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                        {inspection._count.inspectionResults} items completed
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                    {/* Status badge */}
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border",
+                        statusStyle.bg,
+                        statusStyle.text
+                      )}
+                    >
+                      {statusStyle.icon}
+                      {formatStatus(inspection.status)}
+                    </span>
+
+                    {/* Rating */}
+                    {inspection.overallRating && (
+                      <div className="flex items-center gap-1 bg-accent-50 dark:bg-accent-950/20 px-2.5 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
+                        <span className="text-base">⭐</span>
+                        <span className="text-sm font-semibold text-accent-800 dark:text-accent-400">
+                          {inspection.overallRating.toFixed(1)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </motion.div>
           )
         })}
       </div>
-    </div>
+    </motion.div>
   )
 }
