@@ -9,7 +9,6 @@ import { prisma } from '@/lib/prisma'
 import HotelList from '@/components/HotelList'
 import AddHotelForm from '@/components/AddHotelForm'
 import { KPICard } from '@/components/ui/kpi-card'
-import { Building2, ClipboardCheck, CheckCircle2, TrendingUp } from 'lucide-react'
 
 /**
  * Fetch hotels on the server (Server Component)
@@ -119,14 +118,14 @@ export default async function HomePage() {
         <KPICard
           title="Total Hotels"
           value={metrics.totalHotels}
-          icon={Building2}
+          icon="building"
           variant="primary"
           subtitle={`${hotels.length} properties managed`}
         />
         <KPICard
           title="Total Inspections"
           value={metrics.totalInspections}
-          icon={ClipboardCheck}
+          icon="clipboard"
           variant="default"
           trend={{
             value: metrics.recentInspections,
@@ -137,7 +136,7 @@ export default async function HomePage() {
         <KPICard
           title="Completed"
           value={metrics.completedInspections}
-          icon={CheckCircle2}
+          icon="check-circle"
           variant="success"
           subtitle={
             metrics.totalInspections > 0
@@ -148,7 +147,7 @@ export default async function HomePage() {
         <KPICard
           title="Avg Rating"
           value={metrics.avgRating > 0 ? metrics.avgRating.toFixed(1) : 'N/A'}
-          icon={TrendingUp}
+          icon="trending-up"
           variant={metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'}
           subtitle={metrics.avgRating > 0 ? 'Out of 5.0 stars' : 'No ratings yet'}
         />

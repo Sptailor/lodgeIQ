@@ -9,13 +9,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { LucideIcon, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, Building2, ClipboardCheck, CheckCircle2, TrendingUp as TrendingUpIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+type IconName = 'building' | 'clipboard' | 'check-circle' | 'trending-up'
 
 interface KPICardProps {
   title: string
   value: string | number
-  icon: LucideIcon
+  icon: IconName
   trend?: {
     value: number
     label?: string
@@ -24,6 +26,13 @@ interface KPICardProps {
   subtitle?: string
   variant?: 'default' | 'success' | 'warning' | 'danger' | 'primary'
   className?: string
+}
+
+const iconMap = {
+  'building': Building2,
+  'clipboard': ClipboardCheck,
+  'check-circle': CheckCircle2,
+  'trending-up': TrendingUpIcon,
 }
 
 const variantStyles = {
@@ -62,13 +71,14 @@ const variantStyles = {
 export function KPICard({
   title,
   value,
-  icon: Icon,
+  icon,
   trend,
   subtitle,
   variant = 'default',
   className,
 }: KPICardProps) {
   const styles = variantStyles[variant]
+  const Icon = iconMap[icon]
 
   // Determine trend direction if not specified
   const trendDirection = trend?.direction || (trend && trend.value > 0 ? 'up' : trend && trend.value < 0 ? 'down' : 'neutral')
