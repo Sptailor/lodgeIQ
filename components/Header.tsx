@@ -20,12 +20,12 @@ export default async function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-soft">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo and brand */}
+          {/* Logo and brand - Only show on mobile (sidebar shows it on desktop) */}
           <Link
             href="/"
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group lg:hidden"
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-tertiary-500 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
@@ -43,21 +43,8 @@ export default async function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-            >
-              Hotels
-            </Link>
-            <Link
-              href="/"
-              className="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-            >
-              Inspections
-            </Link>
-          </nav>
+          {/* Desktop: Spacer to push actions to the right */}
+          <div className="hidden lg:flex flex-1" />
 
           {/* Right side actions */}
           <div className="flex items-center gap-3">
