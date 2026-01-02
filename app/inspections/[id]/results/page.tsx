@@ -8,6 +8,7 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { StatusBadge, InspectionStatus, ResultStatus, getStatusBorderColor } from '@/components/ui/status-badge'
 
 interface PageProps {
   params: {
@@ -45,22 +46,6 @@ async function getInspectionResults(id: string) {
   return inspection
 }
 
-// Status badge styling
-const resultColors: Record<string, string> = {
-  PASS: 'bg-green-100 text-green-800',
-  FAIL: 'bg-red-100 text-red-800',
-  NEEDS_IMPROVEMENT: 'bg-yellow-100 text-yellow-800',
-  NOT_APPLICABLE: 'bg-gray-100 text-gray-800',
-  PENDING: 'bg-blue-100 text-blue-800',
-}
-
-const resultIcons: Record<string, string> = {
-  PASS: '✓',
-  FAIL: '✗',
-  NEEDS_IMPROVEMENT: '⚠',
-  NOT_APPLICABLE: 'N/A',
-  PENDING: '...',
-}
 
 export default async function InspectionResultsPage({ params }: PageProps) {
   const inspection = await getInspectionResults(params.id)
@@ -134,9 +119,7 @@ export default async function InspectionResultsPage({ params }: PageProps) {
           )}
           <div>
             <p className="text-sm text-gray-500">Status</p>
-            <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-              {inspection.status.replace('_', ' ')}
-            </span>
+            <StatusBadge status={inspection.status as InspectionStatus} size="lg" />
           </div>
         </div>
 
@@ -185,14 +168,7 @@ export default async function InspectionResultsPage({ params }: PageProps) {
                   key={result.id}
                   className="border-l-4 pl-4 py-2"
                   style={{
-                    borderLeftColor:
-                      result.result === 'PASS'
-                        ? '#10b981'
-                        : result.result === 'FAIL'
-                        ? '#ef4444'
-                        : result.result === 'NEEDS_IMPROVEMENT'
-                        ? '#f59e0b'
-                        : '#6b7280',
+                    borderLeftColor: getStatusBorderColor(result.result as ResultStatus),
                   }}
                 >
                   {/* Item name and status */}
@@ -207,13 +183,7 @@ export default async function InspectionResultsPage({ params }: PageProps) {
                         </p>
                       )}
                     </div>
-                    <span
-                      className={`ml-4 px-3 py-1 rounded-full text-xs font-medium ${
-                        resultColors[result.result]
-                      }`}
-                    >
-                      {resultIcons[result.result]} {result.result.replace('_', ' ')}
-                    </span>
+                    <StatusBadge status={result.result as ResultStatus} size="sm" className="ml-4" />
                   </div>
 
                   {/* Notes */}

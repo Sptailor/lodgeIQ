@@ -9,8 +9,9 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Calendar, User, CheckCircle2, Clock, FileCheck } from 'lucide-react'
+import { Calendar, User, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
 
 type Inspection = {
   id: string
@@ -31,34 +32,6 @@ interface InspectionHistoryProps {
   inspections: Inspection[]
 }
 
-// Status badge styling with modern colors
-const statusStyles: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
-  IN_PROGRESS: {
-    bg: 'bg-warning-100 dark:bg-warning-950/20 border-warning-300 dark:border-warning-800',
-    text: 'text-warning-800 dark:text-warning-400',
-    icon: <Clock className="w-3.5 h-3.5" />,
-  },
-  COMPLETED: {
-    bg: 'bg-primary-100 dark:bg-primary-950/20 border-primary-300 dark:border-primary-800',
-    text: 'text-primary-800 dark:text-primary-400',
-    icon: <FileCheck className="w-3.5 h-3.5" />,
-  },
-  APPROVED: {
-    bg: 'bg-success-100 dark:bg-success-950/20 border-success-300 dark:border-success-800',
-    text: 'text-success-800 dark:text-success-400',
-    icon: <CheckCircle2 className="w-3.5 h-3.5" />,
-  },
-  REJECTED: {
-    bg: 'bg-danger-100 dark:bg-danger-950/20 border-danger-300 dark:border-danger-800',
-    text: 'text-danger-800 dark:text-danger-400',
-    icon: <CheckCircle2 className="w-3.5 h-3.5" />,
-  },
-}
-
-// Format status for display
-const formatStatus = (status: string) => {
-  return status.replace('_', ' ')
-}
 
 export default function InspectionHistory({ inspections }: InspectionHistoryProps) {
   if (inspections.length === 0) {
@@ -96,12 +69,6 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
             inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
               ? `/inspections/${inspection.id}/results`
               : `/inspections/${inspection.id}`
-
-          const statusStyle = statusStyles[inspection.status] || {
-            bg: 'bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700',
-            text: 'text-neutral-800 dark:text-neutral-300',
-            icon: <FileCheck className="w-3.5 h-3.5" />,
-          }
 
           return (
             <motion.div
@@ -150,16 +117,7 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
 
                   <div className="flex flex-col items-end gap-2 flex-shrink-0">
                     {/* Status badge */}
-                    <span
-                      className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border",
-                        statusStyle.bg,
-                        statusStyle.text
-                      )}
-                    >
-                      {statusStyle.icon}
-                      {formatStatus(inspection.status)}
-                    </span>
+                    <StatusBadge status={inspection.status as InspectionStatus} />
 
                     {/* Rating */}
                     {inspection.overallRating && (
