@@ -76,7 +76,7 @@ export default function StartInspectionButton({ hotelId, hotelName }: StartInspe
           <DialogTitle>Start New Inspection</DialogTitle>
           <DialogDescription>
             Begin a new inspection for <span className="font-semibold text-neutral-900 dark:text-neutral-50">{hotelName}</span>.
-            You'll be guided through the inspection checklist step by step.
+            You&apos;ll be guided through the inspection checklist step by step.
           </DialogDescription>
         </DialogHeader>
 
