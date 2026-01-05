@@ -5,7 +5,7 @@
  * Future: Profile management, notification settings, team management
  */
 
-import { getSession } from '@/lib/session'
+import { getSession } from '@/lib/auth-utils'
 import { Settings as SettingsIcon, User, Bell, Shield, Users } from 'lucide-react'
 
 export default async function SettingsPage() {
