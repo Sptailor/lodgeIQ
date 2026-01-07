@@ -45,12 +45,12 @@ export function Sidebar() {
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-white dark:from-neutral-900 dark:to-neutral-950 border-r border-stone-200 dark:border-neutral-800 transition-all duration-300 z-40 shadow-sm',
+          'hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-white dark:bg-neutral-900/95 dark:backdrop-blur-xl border-r border-stone-200 dark:border-neutral-700/50 transition-all duration-300 z-40 shadow-sm',
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >
         {/* Logo Section */}
-        <div className="h-16 flex items-center justify-between px-6 border-b border-stone-200 dark:border-neutral-800 bg-gradient-to-r from-accent-600 to-accent-700 dark:bg-neutral-900">
+        <div className="h-16 flex items-center justify-between px-6 border-b border-stone-200 dark:border-neutral-700/50 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-700 dark:to-accent-800">
           {!isCollapsed && (
             <div className="flex items-center gap-3">
               <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
@@ -86,8 +86,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 px-3.5 py-3 rounded-lg text-sm font-medium transition-all relative group',
                   isActive
-                    ? 'bg-accent-50 dark:bg-neutral-800 text-accent-700 dark:text-accent-400 border-l-3 border-accent-600'
-                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-stone-100 dark:hover:bg-neutral-800/70 hover:text-accent-600 dark:hover:text-accent-400'
+                    ? 'bg-accent-50 dark:bg-accent-900/20 text-accent-700 dark:text-accent-300 border-l-3 border-accent-600 dark:border-accent-500'
+                    : 'text-neutral-700 dark:text-neutral-300 hover:bg-stone-100 dark:hover:bg-neutral-800/50 hover:text-accent-600 dark:hover:text-accent-400'
                 )}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
@@ -108,7 +108,7 @@ export function Sidebar() {
         </nav>
 
         {/* Collapse Toggle */}
-        <div className="p-4 border-t border-stone-200 dark:border-neutral-800">
+        <div className="p-4 border-t border-stone-200 dark:border-neutral-700/50">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-neutral-700 dark:text-neutral-400 hover:bg-stone-100 dark:hover:bg-neutral-800 hover:text-accent-600 dark:hover:text-accent-400 transition-all group"
@@ -128,7 +128,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 border-t-2 border-stone-200 dark:border-neutral-800 z-40 safe-area-pb shadow-lg">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900/95 dark:backdrop-blur-xl border-t-2 border-stone-200 dark:border-neutral-700/50 z-40 safe-area-pb shadow-lg">
         <div className="flex justify-around py-2">
           {navItems.slice(0, 4).map((item) => {
             const Icon = item.icon

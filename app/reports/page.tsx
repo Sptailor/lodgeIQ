@@ -83,7 +83,7 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-xl p-6 border border-stone-200 dark:border-neutral-800 shadow-sm">
+      <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-xl p-6 border border-stone-200 dark:border-neutral-700/50 shadow-sm">
         <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
           Reports & Analytics
         </h1>

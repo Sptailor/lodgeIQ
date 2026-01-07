@@ -65,7 +65,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
         >
           <Link
             href={`/hotels/${hotel.id}`}
-            className="group block bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:border-accent-300 dark:hover:border-neutral-700 transition-all cursor-pointer h-full flex flex-col"
+            className="group block bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl border border-stone-200 dark:border-neutral-700/50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:border-accent-300 dark:hover:border-accent-500/50 transition-all cursor-pointer h-full flex flex-col"
           >
             {/* Top accent bar - color coded by inspection count */}
             <div className={`h-1.5 ${hotel._count?.inspections && hotel._count.inspections > 5 ? 'bg-gradient-to-r from-emerald-500 to-emerald-600' : hotel._count?.inspections && hotel._count.inspections > 0 ? 'bg-gradient-to-r from-accent-500 to-accent-600' : 'bg-gradient-to-r from-neutral-300 to-neutral-400'}`} />
@@ -74,8 +74,8 @@ export default function HotelList({ initialHotels }: HotelListProps) {
               {/* Hotel header with icon */}
               <div className="mb-4">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-2.5 shadow-sm">
-                    <Building2 className="w-5 h-5 text-accent-600 dark:text-accent-400" />
+                  <div className="bg-accent-50 dark:bg-accent-900/30 rounded-lg p-2.5 shadow-sm">
+                    <Building2 className="w-5 h-5 text-accent-600 dark:text-accent-300" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-50 mb-1 group-hover:text-accent-600 dark:group-hover:text-accent-500 transition-colors line-clamp-1">
@@ -118,9 +118,9 @@ export default function HotelList({ initialHotels }: HotelListProps) {
               <div className="pt-4 mt-auto border-t border-stone-200 dark:border-neutral-800">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Total Inspections</span>
-                  <div className="flex items-center gap-2 bg-accent-50 dark:bg-accent-950/20 px-3 py-1.5 rounded-lg">
-                    <ClipboardCheck className="w-4 h-4 text-accent-600 dark:text-accent-400" />
-                    <span className="text-lg font-bold text-accent-700 dark:text-accent-400">
+                  <div className="flex items-center gap-2 bg-accent-50 dark:bg-accent-900/30 px-3 py-1.5 rounded-lg">
+                    <ClipboardCheck className="w-4 h-4 text-accent-600 dark:text-accent-300" />
+                    <span className="text-lg font-bold text-accent-700 dark:text-accent-300">
                       {hotel._count?.inspections || 0}
                     </span>
                   </div>
