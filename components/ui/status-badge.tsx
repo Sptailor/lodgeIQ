@@ -53,9 +53,9 @@ const inspectionStatusConfig: Record<
   COMPLETED: {
     label: 'Completed',
     icon: FileCheck,
-    bg: 'bg-primary-100 dark:bg-primary-950/20',
-    text: 'text-primary-800 dark:text-primary-400',
-    border: 'border-primary-300 dark:border-primary-800',
+    bg: 'bg-accent-50 dark:bg-accent-950/20',
+    text: 'text-accent-700 dark:text-accent-400',
+    border: 'border-accent-200 dark:border-accent-800',
   },
   APPROVED: {
     label: 'Approved',
@@ -171,7 +171,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-lg font-semibold transition-all',
+        'inline-flex items-center rounded-md font-medium transition-all',
         sizes.padding,
         sizes.text,
         sizes.gap,
