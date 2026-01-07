@@ -41,12 +41,12 @@ export default function HotelList({ initialHotels }: HotelListProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center py-16 bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-soft"
+        className="text-center py-16 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm"
       >
-        <div className="w-16 h-16 mx-auto bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center mb-4">
-          <Building2 className="w-8 h-8 text-neutral-400 dark:text-neutral-600" />
+        <div className="w-14 h-14 mx-auto bg-neutral-50 dark:bg-neutral-800/50 rounded-lg flex items-center justify-center mb-4">
+          <Building2 className="w-7 h-7 text-neutral-400 dark:text-neutral-500" />
         </div>
-        <p className="text-neutral-900 dark:text-neutral-50 text-lg font-medium mb-1">No hotels yet</p>
+        <p className="text-neutral-900 dark:text-neutral-50 text-base font-semibold mb-1">No hotels yet</p>
         <p className="text-neutral-500 dark:text-neutral-400 text-sm">
           Add your first hotel using the form above
         </p>
@@ -66,14 +66,14 @@ export default function HotelList({ initialHotels }: HotelListProps) {
         >
           <Link
             href={`/hotels/${hotel.id}`}
-            className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 hover:shadow-soft-xl hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 cursor-pointer h-full"
+            className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 hover:shadow-md hover:border-accent-200 dark:hover:border-accent-800 transition-all duration-200 cursor-pointer h-full"
           >
             {/* Hotel header */}
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+              <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-50 mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
                 {hotel.name}
               </h3>
-              <div className="flex items-start gap-1.5 text-neutral-600 dark:text-neutral-400">
+              <div className="flex items-start gap-1.5 text-neutral-500 dark:text-neutral-400">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">{hotel.city}, {hotel.country}</span>
               </div>
@@ -99,8 +99,8 @@ export default function HotelList({ initialHotels }: HotelListProps) {
             </div>
 
             {/* Inspection count */}
-            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800">
-              <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400">
+            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700">
+              <div className="flex items-center gap-2 text-accent-600 dark:text-accent-400">
                 <ClipboardCheck className="w-4 h-4" />
                 <span className="text-sm font-medium">
                   {hotel._count?.inspections || 0} inspection{hotel._count?.inspections !== 1 ? 's' : ''}
