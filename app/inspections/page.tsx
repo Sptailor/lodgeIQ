@@ -65,22 +65,22 @@ export default async function InspectionsPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
           <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Total Inspections</p>
           <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
           <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Completed</p>
           <p className="text-2xl font-semibold text-success-600 dark:text-success-400">{completedCount}</p>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
           <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">In Progress</p>
           <p className="text-2xl font-semibold text-warning-600 dark:text-warning-400">{inProgressCount}</p>
         </div>
       </div>
 
       {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-4">
           All Inspections
         </h2>
@@ -101,7 +101,7 @@ export default async function InspectionsPage() {
                 <Link
                   key={inspection.id}
                   href={href}
-                  className="group block border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
+                  className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-sm hover:border-neutral-300 dark:hover:border-neutral-700 transition-all"
                 >
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1 min-w-0">

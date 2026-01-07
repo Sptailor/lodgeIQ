@@ -98,7 +98,7 @@ export function KPICard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        'group relative rounded-lg border bg-white dark:bg-neutral-900 p-6 transition-all hover:border-neutral-300 dark:hover:border-neutral-700',
+        'group relative rounded-lg border bg-white dark:bg-neutral-900 p-6 transition-all shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-700',
         styles.border,
         className
       )}
