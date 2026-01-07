@@ -83,18 +83,23 @@ export default async function ReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
-            <BarChart3 className="w-7 h-7 text-accent-600 dark:text-accent-400" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
-              Reports & Analytics
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-              Insights and trends from your inspection data
-            </p>
+      <div className="relative bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-900 dark:to-primary-950/10 border border-primary-100 dark:border-neutral-800 rounded-xl p-8 shadow-sm overflow-hidden">
+        {/* Decorative background pattern */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100/20 dark:bg-primary-900/5 rounded-full blur-3xl -z-0" />
+
+        <div className="relative z-10">
+          <div className="flex items-center gap-4">
+            <div className="bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg p-3 shadow-md">
+              <BarChart3 className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+                Reports & Analytics
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+                Insights and trends from your inspection data
+              </p>
+            </div>
           </div>
         </div>
       </div>

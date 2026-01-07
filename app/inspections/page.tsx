@@ -54,34 +54,39 @@ export default async function InspectionsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
-            <ClipboardCheck className="w-7 h-7 text-accent-600 dark:text-accent-400" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
-              Inspections
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-              View and manage all hotel inspections
-            </p>
-          </div>
-        </div>
+      <div className="relative bg-gradient-to-br from-white to-success-50/20 dark:from-neutral-900 dark:to-success-950/5 border border-success-100 dark:border-neutral-800 rounded-xl p-8 shadow-sm overflow-hidden">
+        {/* Decorative background pattern */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-success-100/20 dark:bg-success-900/5 rounded-full blur-3xl -z-0" />
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Inspections</p>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="bg-gradient-to-br from-success-500 to-success-600 rounded-lg p-3 shadow-md">
+              <ClipboardCheck className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+                Inspections
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+                View and manage all hotel inspections
+              </p>
+            </div>
           </div>
-          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Completed</p>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{completedCount}</p>
-          </div>
-          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">In Progress</p>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inProgressCount}</p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Inspections</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+            </div>
+            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Completed</p>
+              <p className="text-2xl font-bold text-success-600 dark:text-success-400">{completedCount}</p>
+            </div>
+            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">In Progress</p>
+              <p className="text-2xl font-bold text-warning-600 dark:text-warning-400">{inProgressCount}</p>
+            </div>
           </div>
         </div>
       </div>
