@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
 import { SessionProvider } from '@/components/SessionProvider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toast'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'LodgeIQ - Hotel Inspection Platform',
@@ -21,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={GeistSans.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -38,7 +36,7 @@ export default function RootLayout({
               <Header />
 
               {/* Main content with warm layered background */}
-              <main className="min-h-[calc(100vh-4rem)] bg-stone-50 dark:bg-[#0a0a0a] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 pb-24 lg:pb-10">
+              <main className="min-h-[calc(100vh-4rem)] bg-primary-50 dark:bg-[#0d0c0b] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 pb-24 lg:pb-10">
                 <div className="max-w-7xl mx-auto">
                   {children}
                 </div>

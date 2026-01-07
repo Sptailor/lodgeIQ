@@ -3,22 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
+  --background: #fdfcfb;
+  --foreground: #1c1a18;
 }
 
 .dark {
-  --background: #0a0a0a;
+  --background: #0d0c0b;
   --foreground: #fafaf9;
 }
 
-/* Dark mode background pattern */
+/* Light mode warm gradient background */
+body {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(242, 128, 41, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 183, 62, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(242, 128, 41, 0.02) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(217, 105, 31, 0.02) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Dark mode warm background pattern */
 .dark body {
   background-image:
-    radial-gradient(at 0% 0%, rgba(13, 148, 136, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.04) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.03) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(242, 128, 41, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 183, 62, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(217, 105, 31, 0.04) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(148, 99, 22, 0.03) 0px, transparent 50%);
   background-attachment: fixed;
 }
 
