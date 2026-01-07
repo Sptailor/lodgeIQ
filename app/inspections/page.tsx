@@ -7,7 +7,7 @@
 
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { ClipboardCheck, Calendar, User, Building2, CheckCircle2 } from 'lucide-react'
+import { Calendar, User, Building2, CheckCircle2 } from 'lucide-react'
 import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
 
 /**
@@ -52,57 +52,45 @@ export default async function InspectionsPage() {
   ).length
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-white to-success-50/20 dark:from-neutral-900 dark:to-success-950/5 border border-success-100 dark:border-neutral-800 rounded-xl p-8 shadow-sm overflow-hidden">
-        {/* Decorative background pattern */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-success-100/20 dark:bg-success-900/5 rounded-full blur-3xl -z-0" />
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+          Inspections
+        </h1>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          Track and manage all property inspections
+        </p>
+      </div>
 
-        <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="bg-gradient-to-br from-success-500 to-success-600 rounded-lg p-3 shadow-md">
-              <ClipboardCheck className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
-                Inspections
-              </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-                View and manage all hotel inspections
-              </p>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
-              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Inspections</p>
-              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
-            </div>
-            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
-              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Completed</p>
-              <p className="text-2xl font-bold text-success-600 dark:text-success-400">{completedCount}</p>
-            </div>
-            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-success-100 dark:border-neutral-700 shadow-sm">
-              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">In Progress</p>
-              <p className="text-2xl font-bold text-warning-600 dark:text-warning-400">{inProgressCount}</p>
-            </div>
-          </div>
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Total Inspections</p>
+          <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+        </div>
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Completed</p>
+          <p className="text-2xl font-semibold text-success-600 dark:text-success-400">{completedCount}</p>
+        </div>
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">In Progress</p>
+          <p className="text-2xl font-semibold text-warning-600 dark:text-warning-400">{inProgressCount}</p>
         </div>
       </div>
 
       {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-5">
-          All Inspections ({inspections.length})
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
+        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-4">
+          All Inspections
         </h2>
 
         {inspections.length === 0 ? (
-          <p className="text-neutral-500 dark:text-neutral-400 text-center py-8">
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center py-8">
             No inspections yet. Start your first inspection from a hotel page.
           </p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {inspections.map((inspection) => {
               const href =
                 inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
@@ -113,45 +101,42 @@ export default async function InspectionsPage() {
                 <Link
                   key={inspection.id}
                   href={href}
-                  className="group block border-2 border-neutral-200 dark:border-neutral-800 rounded-xl p-4 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-soft transition-all"
+                  className="group block border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
                 >
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1 min-w-0">
                       {/* Hotel name */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <Building2 className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
-                        <p className="text-base font-semibold text-neutral-900 dark:text-neutral-50 truncate">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Building2 className="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                        <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50 truncate group-hover:text-accent-600 dark:group-hover:text-accent-500 transition-colors">
                           {inspection.hotel.name}
                         </p>
                       </div>
 
-                      {/* Date */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <Calendar className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
-                        <p className="text-sm text-neutral-600 dark:text-neutral-300 truncate">
-                          {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
-                            weekday: 'short',
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          })}
-                        </p>
-                      </div>
-
-                      {/* Inspector */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <User className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
-                        <p className="text-sm text-neutral-700 dark:text-neutral-300 truncate">
-                          <span className="font-medium">
+                      {/* Date & Inspector */}
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-3 h-3 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                          <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                            {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <User className="w-3 h-3 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                          <p className="text-xs text-neutral-600 dark:text-neutral-400 truncate">
                             {inspection.inspector.name || inspection.inspector.email}
-                          </span>
-                        </p>
+                          </p>
+                        </div>
                       </div>
 
                       {/* Results count */}
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
-                        <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3 h-3 text-neutral-500 dark:text-neutral-400 flex-shrink-0" />
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">
                           {inspection._count.inspectionResults} items completed
                         </p>
                       </div>
@@ -163,9 +148,9 @@ export default async function InspectionsPage() {
 
                       {/* Rating */}
                       {inspection.overallRating && (
-                        <div className="flex items-center gap-1 bg-accent-50 dark:bg-accent-950/20 px-2.5 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
-                          <span className="text-base">⭐</span>
-                          <span className="text-sm font-semibold text-accent-800 dark:text-accent-400">
+                        <div className="flex items-center gap-1 bg-accent-50 dark:bg-accent-950/20 px-2 py-1 rounded-md border border-accent-200 dark:border-accent-800">
+                          <span className="text-sm">⭐</span>
+                          <span className="text-xs font-medium text-accent-800 dark:text-accent-400">
                             {inspection.overallRating.toFixed(1)}
                           </span>
                         </div>
