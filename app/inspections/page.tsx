@@ -103,8 +103,8 @@ export default async function InspectionsPage() {
             {inspections.map((inspection) => {
               const href =
                 inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
-                  ? \`/inspections/\${inspection.id}/results\`
-                  : \`/inspections/\${inspection.id}\`
+                  ? `/inspections/${inspection.id}/results`
+                  : `/inspections/${inspection.id}`
 
               return (
                 <Link
