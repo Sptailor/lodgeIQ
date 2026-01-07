@@ -90,7 +90,7 @@ export default async function InspectionsPage() {
             No inspections yet. Start your first inspection from a hotel page.
           </p>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {inspections.map((inspection) => {
               const href =
                 inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'

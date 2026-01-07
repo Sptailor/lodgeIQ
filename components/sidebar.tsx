@@ -86,8 +86,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all relative group',
                   isActive
-                    ? 'bg-white dark:bg-neutral-800 text-accent-600 dark:text-accent-400 shadow-sm'
-                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-white/70 dark:hover:bg-neutral-800/70 hover:text-accent-600 dark:hover:text-accent-400'
+                    ? 'bg-white dark:bg-neutral-800 text-accent-600 dark:text-accent-400 shadow-sm border border-accent-100 dark:border-neutral-700'
+                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-white/70 dark:hover:bg-neutral-800/70 hover:text-accent-600 dark:hover:text-accent-400 border border-transparent'
                 )}
               >
                 {/* Active indicator */}
