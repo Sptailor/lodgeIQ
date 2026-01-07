@@ -19,7 +19,7 @@ export default async function Header() {
   const session = await getSession()
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-soft">
+    <header className="sticky top-0 z-40 w-full border-b border-accent-100 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo and brand - Only show on mobile (sidebar shows it on desktop) */}
@@ -27,18 +27,15 @@ export default async function Header() {
             href="/"
             className="flex items-center gap-3 group lg:hidden"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-tertiary-500 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
-              <div className="relative bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-2 group-hover:from-primary-600 group-hover:to-tertiary-600 transition-all duration-300 shadow-soft">
-                <Building2 className="w-5 h-5 text-white" />
-              </div>
+            <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
+              <Building2 className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-neutral-900 to-neutral-700 dark:from-neutral-50 dark:to-neutral-300 bg-clip-text text-transparent group-hover:from-primary-600 group-hover:to-tertiary-600 transition-all duration-300">
+              <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
                 LodgeIQ
               </h1>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
-                Hotel Inspection Platform
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium hidden sm:block">
+                Inspection Platform
               </p>
             </div>
           </Link>
