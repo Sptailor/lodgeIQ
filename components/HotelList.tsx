@@ -65,7 +65,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
         >
           <Link
             href={`/hotels/${hotel.id}`}
-            className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-5 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-700 transition-all cursor-pointer h-full"
+            className="group block bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-5 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-neutral-700 transition-all cursor-pointer h-full"
           >
             {/* Hotel header */}
             <div className="mb-4">

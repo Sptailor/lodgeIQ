@@ -156,7 +156,7 @@ export default async function HomePage() {
       </div>
 
       {/* Hotels Section */}
-      <div className="space-y-4">
+      <div className="space-y-4 bg-white/60 dark:bg-neutral-900/30 rounded-xl p-6 border border-slate-200/60 dark:border-neutral-800">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
@@ -168,7 +168,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
           <AddHotelForm />
         </div>
 

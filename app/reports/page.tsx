@@ -132,7 +132,7 @@ export default async function ReportsPage() {
       </div>
 
       {/* Coming Soon Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-8 shadow-sm">
+      <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-8 shadow-sm">
         <div className="text-center max-w-2xl mx-auto space-y-5">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-accent-50 dark:bg-accent-950/20 rounded-lg">
             <TrendingUp className="w-6 h-6 text-accent-600 dark:text-accent-400" />

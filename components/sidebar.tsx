@@ -45,7 +45,7 @@ export function Sidebar() {
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-gradient-to-b from-accent-50 to-white dark:from-neutral-900 dark:to-neutral-950 border-r border-accent-100 dark:border-neutral-800 transition-all duration-300 z-40',
+          'hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-gradient-to-b from-indigo-50/50 via-white to-slate-50/30 dark:from-neutral-900 dark:to-neutral-950 border-r border-slate-200 dark:border-neutral-800 transition-all duration-300 z-40',
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >

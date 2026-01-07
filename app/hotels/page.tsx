@@ -48,18 +48,18 @@ export default async function HotelsPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
-          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Total Properties</p>
-          <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
+          <p className="text-xs font-medium text-slate-500 dark:text-neutral-400 mb-2">Total Properties</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-neutral-50">{hotels.length}</p>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
-          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">Active</p>
-          <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
+          <p className="text-xs font-medium text-slate-500 dark:text-neutral-400 mb-2">Active</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-neutral-50">{hotels.length}</p>
         </div>
       </div>
 
       {/* Add Hotel Form */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
+      <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
         <h2 className="text-sm font-medium text-neutral-900 dark:text-neutral-50 mb-4">
           Add New Property
         </h2>

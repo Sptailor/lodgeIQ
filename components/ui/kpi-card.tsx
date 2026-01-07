@@ -38,33 +38,33 @@ const iconMap = {
 const variantStyles = {
   default: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-neutral-50 dark:bg-neutral-800/50',
-    iconColor: 'text-neutral-600 dark:text-neutral-400',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    iconBg: 'bg-slate-100 dark:bg-neutral-800/50',
+    iconColor: 'text-slate-600 dark:text-neutral-400',
+    border: 'border-slate-200 dark:border-neutral-700',
   },
   success: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-success-50 dark:bg-success-950/20',
-    iconColor: 'text-success-600 dark:text-success-500',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    iconBg: 'bg-emerald-50 dark:bg-success-950/20',
+    iconColor: 'text-emerald-600 dark:text-success-500',
+    border: 'border-slate-200 dark:border-neutral-700',
   },
   warning: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-warning-50 dark:bg-warning-950/20',
-    iconColor: 'text-warning-600 dark:text-warning-500',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    iconBg: 'bg-amber-50 dark:bg-warning-950/20',
+    iconColor: 'text-amber-600 dark:text-warning-500',
+    border: 'border-slate-200 dark:border-neutral-700',
   },
   danger: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-danger-50 dark:bg-danger-950/20',
-    iconColor: 'text-danger-600 dark:text-danger-500',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    iconBg: 'bg-red-50 dark:bg-danger-950/20',
+    iconColor: 'text-red-600 dark:text-danger-500',
+    border: 'border-slate-200 dark:border-neutral-700',
   },
   primary: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-accent-50 dark:bg-accent-950/20',
-    iconColor: 'text-accent-600 dark:text-accent-500',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    iconBg: 'bg-indigo-50 dark:bg-accent-950/20',
+    iconColor: 'text-indigo-600 dark:text-accent-500',
+    border: 'border-slate-200 dark:border-neutral-700',
   },
 }
 
