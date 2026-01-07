@@ -105,7 +105,7 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">
-      <div>
+      <div className="relative bg-gradient-to-r from-accent-50 to-white dark:from-accent-950/10 dark:to-neutral-900 border-l-4 border-accent-500 rounded-xl p-6 shadow-sm">
         <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
           Dashboard
         </h2>
@@ -153,7 +153,7 @@ export default async function HomePage() {
         />
       </div>
 
-      <div>
+      <div className="bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">

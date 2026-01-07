@@ -38,30 +38,35 @@ export default async function HotelsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
-            <Building2 className="w-7 h-7 text-accent-600 dark:text-accent-400" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
-              Hotels
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-              Manage your hotel database and track inspections
-            </p>
-          </div>
-        </div>
+      <div className="relative bg-gradient-to-br from-white to-accent-50/30 dark:from-neutral-900 dark:to-accent-950/10 border border-accent-100 dark:border-neutral-800 rounded-xl p-8 shadow-sm overflow-hidden">
+        {/* Decorative background pattern */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-100/20 dark:bg-accent-900/5 rounded-full blur-3xl -z-0" />
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Hotels</p>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-3 shadow-md">
+              <Building2 className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+                Hotels
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+                Manage your hotel database and track inspections
+              </p>
+            </div>
           </div>
-          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Properties Managed</p>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-accent-100 dark:border-neutral-700 shadow-sm">
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Hotels</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+            </div>
+            <div className="bg-white dark:bg-neutral-800/50 rounded-lg p-4 border border-accent-100 dark:border-neutral-700 shadow-sm">
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Properties Managed</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{hotels.length}</p>
+            </div>
           </div>
         </div>
       </div>
