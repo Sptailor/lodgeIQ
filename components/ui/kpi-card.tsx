@@ -38,33 +38,38 @@ const iconMap = {
 const variantStyles = {
   default: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-slate-100 dark:bg-neutral-800/50',
-    iconColor: 'text-slate-600 dark:text-neutral-400',
-    border: 'border-slate-200 dark:border-neutral-700',
+    iconBg: 'bg-neutral-100 dark:bg-neutral-800/50',
+    iconColor: 'text-neutral-600 dark:text-neutral-400',
+    border: 'border-stone-200 dark:border-neutral-700',
+    accentBar: 'bg-neutral-300',
   },
   success: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-emerald-50 dark:bg-success-950/20',
+    bg: 'bg-gradient-to-br from-emerald-50/50 to-white dark:bg-neutral-900',
+    iconBg: 'bg-emerald-100 dark:bg-success-950/20',
     iconColor: 'text-emerald-600 dark:text-success-500',
-    border: 'border-slate-200 dark:border-neutral-700',
+    border: 'border-emerald-200/60 dark:border-neutral-700',
+    accentBar: 'bg-gradient-to-r from-emerald-500 to-emerald-600',
   },
   warning: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-amber-50 dark:bg-warning-950/20',
+    bg: 'bg-gradient-to-br from-amber-50/50 to-white dark:bg-neutral-900',
+    iconBg: 'bg-amber-100 dark:bg-warning-950/20',
     iconColor: 'text-amber-600 dark:text-warning-500',
-    border: 'border-slate-200 dark:border-neutral-700',
+    border: 'border-amber-200/60 dark:border-neutral-700',
+    accentBar: 'bg-gradient-to-r from-amber-500 to-amber-600',
   },
   danger: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-red-50 dark:bg-danger-950/20',
+    bg: 'bg-gradient-to-br from-red-50/50 to-white dark:bg-neutral-900',
+    iconBg: 'bg-red-100 dark:bg-danger-950/20',
     iconColor: 'text-red-600 dark:text-danger-500',
-    border: 'border-slate-200 dark:border-neutral-700',
+    border: 'border-red-200/60 dark:border-neutral-700',
+    accentBar: 'bg-gradient-to-r from-red-500 to-red-600',
   },
   primary: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-indigo-50 dark:bg-accent-950/20',
-    iconColor: 'text-indigo-600 dark:text-accent-500',
-    border: 'border-slate-200 dark:border-neutral-700',
+    bg: 'bg-gradient-to-br from-accent-50/50 to-white dark:bg-neutral-900',
+    iconBg: 'bg-accent-100 dark:bg-accent-950/20',
+    iconColor: 'text-accent-600 dark:text-accent-500',
+    border: 'border-accent-200/60 dark:border-neutral-700',
+    accentBar: 'bg-gradient-to-r from-accent-500 to-accent-600',
   },
 }
 
@@ -98,30 +103,36 @@ export function KPICard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        'group relative rounded-lg border bg-white dark:bg-neutral-900 p-6 transition-all shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-700',
+        'group relative rounded-xl border overflow-hidden transition-all shadow-sm hover:shadow-lg',
+        styles.bg,
         styles.border,
         className
       )}
     >
-      <div className="flex items-start justify-between">
-        <div className="flex-1 space-y-3">
-          <div className="flex items-center gap-2">
-            <div className={cn('rounded-md p-2', styles.iconBg)}>
-              <Icon className={cn('w-4 h-4', styles.iconColor)} />
+      {/* Top accent bar */}
+      <div className={cn('h-1.5', styles.accentBar)} />
+
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className={cn('rounded-lg p-2.5 shadow-sm', styles.iconBg)}>
+              <Icon className={cn('w-5 h-5', styles.iconColor)} />
             </div>
-            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-400">
               {title}
             </p>
           </div>
+        </div>
 
+        <div className="space-y-3">
           <div className="flex items-baseline gap-3">
-            <h3 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+            <h3 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
               {value}
             </h3>
             {trend && (
               <div
                 className={cn(
-                  'flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium',
+                  'flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold shadow-sm',
                   trendColor
                 )}
               >
@@ -132,7 +143,7 @@ export function KPICard({
           </div>
 
           {(subtitle || trend?.label) && (
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
               {subtitle || trend?.label}
             </p>
           )}

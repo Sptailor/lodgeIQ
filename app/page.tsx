@@ -104,19 +104,19 @@ export default async function HomePage() {
     : 0
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+      <div className="bg-white dark:bg-neutral-900 rounded-xl p-6 border border-stone-200 dark:border-neutral-800 shadow-sm">
+        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
           Dashboard
         </h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+        <p className="text-base text-neutral-600 dark:text-neutral-400 mt-2">
           Overview of your hotel inspection operations
         </p>
       </div>
 
       {/* KPI Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <KPICard
           title="Total Hotels"
           value={metrics.totalHotels}
@@ -156,19 +156,20 @@ export default async function HomePage() {
       </div>
 
       {/* Hotels Section */}
-      <div className="space-y-4 bg-white/60 dark:bg-neutral-900/30 rounded-xl p-6 border border-slate-200/60 dark:border-neutral-800">
+      <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Hotels
+            <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
+              Properties
             </h2>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+            <p className="text-base text-neutral-600 dark:text-neutral-400 mt-1">
               {hotels.length} {hotels.length === 1 ? 'property' : 'properties'} in your portfolio
             </p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
+          <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-4">Add New Property</h3>
           <AddHotelForm />
         </div>
 
