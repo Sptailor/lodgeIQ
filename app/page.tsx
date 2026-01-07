@@ -104,17 +104,19 @@ export default async function HomePage() {
     : 0
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      <div className="relative bg-gradient-to-r from-accent-50 to-white dark:from-accent-950/10 dark:to-neutral-900 border-l-4 border-accent-500 rounded-xl p-6 shadow-sm">
-        <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
           Dashboard
-        </h2>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Welcome to your hotel inspection platform overview
+        </h1>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          Overview of your hotel inspection operations
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* KPI Metrics Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Hotels"
           value={metrics.totalHotels}
@@ -153,19 +155,20 @@ export default async function HomePage() {
         />
       </div>
 
-      <div className="bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-6">
+      {/* Hotels Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
               Hotels
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              Manage your hotel database and track inspections
+            </h2>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+              {hotels.length} {hotels.length === 1 ? 'property' : 'properties'} in your portfolio
             </p>
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
           <AddHotelForm />
         </div>
 

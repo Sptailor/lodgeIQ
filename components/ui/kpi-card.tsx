@@ -94,51 +94,50 @@ export function KPICard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
       className={cn(
-        'rounded-xl border p-5 shadow-sm hover:shadow-md transition-all',
-        styles.bg,
+        'group relative rounded-lg border bg-white dark:bg-neutral-900 p-6 transition-all hover:border-neutral-300 dark:hover:border-neutral-700',
         styles.border,
         className
       )}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-2">
-            {title}
-          </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
+      <div className="flex items-start justify-between">
+        <div className="flex-1 space-y-3">
+          <div className="flex items-center gap-2">
+            <div className={cn('rounded-md p-2', styles.iconBg)}>
+              <Icon className={cn('w-4 h-4', styles.iconColor)} />
+            </div>
+            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+              {title}
+            </p>
+          </div>
+
+          <div className="flex items-baseline gap-3">
+            <h3 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
               {value}
             </h3>
             {trend && (
               <div
                 className={cn(
-                  'flex items-center gap-1 px-1.5 py-0.5 rounded-md text-xs font-medium',
+                  'flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium',
                   trendColor
                 )}
               >
-                <TrendIcon className="w-3 h-3" />
+                <TrendIcon className="w-3.5 h-3.5" />
                 <span>{Math.abs(trend.value)}%</span>
               </div>
             )}
           </div>
-        </div>
 
-        {/* Icon */}
-        <div className={cn('rounded-lg p-2.5', styles.iconBg)}>
-          <Icon className={cn('w-5 h-5', styles.iconColor)} />
+          {(subtitle || trend?.label) && (
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              {subtitle || trend?.label}
+            </p>
+          )}
         </div>
       </div>
-
-      {/* Subtitle or trend label */}
-      {(subtitle || trend?.label) && (
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
-          {subtitle || trend?.label}
-        </p>
-      )}
     </motion.div>
   )
 }
