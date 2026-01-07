@@ -37,11 +37,11 @@ export default async function HotelsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-xl p-6 border border-stone-200 dark:border-neutral-700/50 shadow-sm">
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+      <div className="bg-gradient-to-br from-white via-accent-50/20 to-gold-50/30 dark:from-neutral-800/60 dark:via-accent-950/20 dark:to-neutral-900/50 dark:backdrop-blur-xl rounded-2xl p-8 border border-accent-200/60 dark:border-accent-800/40 shadow-soft-lg ring-1 ring-accent-100/50 dark:ring-accent-900/20">
+        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
           Properties
         </h1>
-        <p className="text-base text-neutral-600 dark:text-neutral-400 mt-2">
+        <p className="text-base text-neutral-600 dark:text-neutral-300 font-medium">
           Manage your property portfolio and inspections
         </p>
       </div>
@@ -65,8 +65,8 @@ export default async function HotelsPage() {
       </div>
 
       {/* Add Hotel Form */}
-      <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl border border-stone-200 dark:border-neutral-700/50 rounded-xl p-6 shadow-sm">
-        <h2 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-4">
+      <div className="bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50 dark:backdrop-blur-xl border border-primary-200/70 dark:border-primary-800/40 rounded-2xl p-7 shadow-soft ring-1 ring-primary-100/50 dark:ring-primary-900/20">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-5">
           Add New Property
         </h2>
         <AddHotelForm />

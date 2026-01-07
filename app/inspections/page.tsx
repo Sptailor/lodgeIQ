@@ -54,11 +54,11 @@ export default async function InspectionsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-xl p-6 border border-stone-200 dark:border-neutral-700/50 shadow-sm">
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+      <div className="bg-gradient-to-br from-white via-accent-50/20 to-gold-50/30 dark:from-neutral-800/60 dark:via-accent-950/20 dark:to-neutral-900/50 dark:backdrop-blur-xl rounded-2xl p-8 border border-accent-200/60 dark:border-accent-800/40 shadow-soft-lg ring-1 ring-accent-100/50 dark:ring-accent-900/20">
+        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
           Inspections
         </h1>
-        <p className="text-base text-neutral-600 dark:text-neutral-400 mt-2">
+        <p className="text-base text-neutral-600 dark:text-neutral-300 font-medium">
           Track and manage all property inspections
         </p>
       </div>
