@@ -54,46 +54,41 @@ export default async function InspectionsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
-        <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-              <ClipboardCheck className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-white mb-1">
-                Inspections
-              </h1>
-              <p className="text-primary-100 dark:text-primary-200 text-lg">
-                View and manage all hotel inspections
-              </p>
-            </div>
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+            <ClipboardCheck className="w-7 h-7 text-accent-600 dark:text-accent-400" />
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <p className="text-xs text-primary-200 mb-1">Total Inspections</p>
-              <p className="text-3xl font-bold text-white">{inspections.length}</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <p className="text-xs text-primary-200 mb-1">Completed</p>
-              <p className="text-3xl font-bold text-white">{completedCount}</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <p className="text-xs text-primary-200 mb-1">In Progress</p>
-              <p className="text-3xl font-bold text-white">{inProgressCount}</p>
-            </div>
+          <div>
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+              Inspections
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+              View and manage all hotel inspections
+            </p>
           </div>
         </div>
 
-        {/* Decorative gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 pointer-events-none" />
+        {/* Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Total Inspections</p>
+            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+          </div>
+          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">Completed</p>
+            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{completedCount}</p>
+          </div>
+          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1">In Progress</p>
+            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">{inProgressCount}</p>
+          </div>
+        </div>
       </div>
 
       {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
-        <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-5">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-5">
           All Inspections ({inspections.length})
         </h2>
 

@@ -14,33 +14,28 @@ export default async function SettingsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
-        <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-              <SettingsIcon className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-white mb-1">Settings</h1>
-              <p className="text-primary-100 dark:text-primary-200 text-lg">
-                Manage your account and application preferences
-              </p>
-            </div>
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
+        <div className="flex items-center gap-4">
+          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+            <SettingsIcon className="w-7 h-7 text-accent-600 dark:text-accent-400" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">Settings</h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+              Manage your account and application preferences
+            </p>
           </div>
         </div>
-
-        {/* Decorative gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 pointer-events-none" />
       </div>
 
       {/* User Profile Section */}
       {session?.user && (
-        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-6">
-            <div className="bg-primary-100 dark:bg-primary-950/20 rounded-xl p-3">
-              <User className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+            <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+              <User className="w-5 h-5 text-accent-600 dark:text-accent-400" />
             </div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
               Profile Information
             </h2>
           </div>
@@ -70,12 +65,12 @@ export default async function SettingsPage() {
       {/* Settings Categories */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Notifications */}
-        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-accent-100 dark:bg-accent-950/20 rounded-xl p-3">
-              <Bell className="w-6 h-6 text-accent-600 dark:text-accent-400" />
+            <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+              <Bell className="w-5 h-5 text-accent-600 dark:text-accent-400" />
             </div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+            <h2 className="text-base font-semibold text-neutral-900 dark:text-neutral-50">
               Notifications
             </h2>
           </div>
@@ -84,19 +79,19 @@ export default async function SettingsPage() {
             and team activities.
           </p>
           <div className="mt-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
               Coming Soon
             </span>
           </div>
         </div>
 
         {/* Security */}
-        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-success-100 dark:bg-success-950/20 rounded-xl p-3">
-              <Shield className="w-6 h-6 text-success-600 dark:text-success-400" />
+            <div className="bg-success-50 dark:bg-success-950/20 rounded-lg p-3">
+              <Shield className="w-5 h-5 text-success-600 dark:text-success-400" />
             </div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+            <h2 className="text-base font-semibold text-neutral-900 dark:text-neutral-50">
               Security & Privacy
             </h2>
           </div>
@@ -105,19 +100,19 @@ export default async function SettingsPage() {
             your account secure.
           </p>
           <div className="mt-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
               Coming Soon
             </span>
           </div>
         </div>
 
         {/* Team Management */}
-        <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-tertiary-100 dark:bg-tertiary-950/20 rounded-xl p-3">
-              <Users className="w-6 h-6 text-tertiary-600 dark:text-tertiary-400" />
+            <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+              <Users className="w-5 h-5 text-accent-600 dark:text-accent-400" />
             </div>
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+            <h2 className="text-base font-semibold text-neutral-900 dark:text-neutral-50">
               Team Management
             </h2>
           </div>
@@ -126,7 +121,7 @@ export default async function SettingsPage() {
             hotels and inspections.
           </p>
           <div className="mt-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-400">
               Coming Soon
             </span>
           </div>

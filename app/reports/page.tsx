@@ -83,25 +83,20 @@ export default async function ReportsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
-        <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-              <BarChart3 className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-white mb-1">
-                Reports & Analytics
-              </h1>
-              <p className="text-primary-100 dark:text-primary-200 text-lg">
-                Insights and trends from your inspection data
-              </p>
-            </div>
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
+        <div className="flex items-center gap-4">
+          <div className="bg-accent-50 dark:bg-accent-950/20 rounded-lg p-3">
+            <BarChart3 className="w-7 h-7 text-accent-600 dark:text-accent-400" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+              Reports & Analytics
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+              Insights and trends from your inspection data
+            </p>
           </div>
         </div>
-
-        {/* Decorative gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 pointer-events-none" />
       </div>
 
       {/* Key Metrics */}
@@ -144,14 +139,14 @@ export default async function ReportsPage() {
       </div>
 
       {/* Coming Soon Section */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
         <div className="text-center max-w-2xl mx-auto space-y-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-950/20 rounded-2xl">
-            <TrendingUp className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-accent-50 dark:bg-accent-950/20 rounded-lg">
+            <TrendingUp className="w-7 h-7 text-accent-600 dark:text-accent-400" />
           </div>
 
           <div>
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
               Advanced Analytics Coming Soon
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400">
@@ -161,22 +156,22 @@ export default async function ReportsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-xl p-4 border border-neutral-200 dark:border-neutral-700">
-              <Calendar className="w-6 h-6 text-primary-600 dark:text-primary-400 mb-2" />
-              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1">
+            <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+              <Calendar className="w-5 h-5 text-accent-600 dark:text-accent-400 mb-2" />
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1 text-sm">
                 Time-based Trends
               </h4>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 Track performance over time with interactive charts
               </p>
             </div>
 
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-xl p-4 border border-neutral-200 dark:border-neutral-700">
-              <Download className="w-6 h-6 text-primary-600 dark:text-primary-400 mb-2" />
-              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1">
+            <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+              <Download className="w-5 h-5 text-accent-600 dark:text-accent-400 mb-2" />
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1 text-sm">
                 Data Export
               </h4>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 Export reports to PDF, Excel, and CSV formats
               </p>
             </div>
