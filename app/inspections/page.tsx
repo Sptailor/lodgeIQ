@@ -52,35 +52,44 @@ export default async function InspectionsPage() {
   ).length
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+      <div className="bg-white dark:bg-neutral-900 rounded-xl p-6 border border-stone-200 dark:border-neutral-800 shadow-sm">
+        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
           Inspections
         </h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+        <p className="text-base text-neutral-600 dark:text-neutral-400 mt-2">
           Track and manage all property inspections
         </p>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
-          <p className="text-xs font-medium text-slate-500 dark:text-neutral-400 mb-2">Total Inspections</p>
-          <p className="text-2xl font-semibold text-slate-900 dark:text-neutral-50">{inspections.length}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
+          <div className="h-1.5 bg-neutral-300" />
+          <div className="p-6">
+            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-400 mb-3">Total Inspections</p>
+            <p className="text-4xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+          </div>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
-          <p className="text-xs font-medium text-slate-500 dark:text-neutral-400 mb-2">Completed</p>
-          <p className="text-2xl font-semibold text-emerald-600 dark:text-success-400">{completedCount}</p>
+        <div className="bg-gradient-to-br from-emerald-50/50 to-white dark:bg-neutral-900 border border-emerald-200/60 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
+          <div className="h-1.5 bg-gradient-to-r from-emerald-500 to-emerald-600" />
+          <div className="p-6">
+            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-400 mb-3">Completed</p>
+            <p className="text-4xl font-bold text-emerald-600 dark:text-success-400">{completedCount}</p>
+          </div>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 shadow-sm">
-          <p className="text-xs font-medium text-slate-500 dark:text-neutral-400 mb-2">In Progress</p>
-          <p className="text-2xl font-semibold text-amber-600 dark:text-warning-400">{inProgressCount}</p>
+        <div className="bg-gradient-to-br from-amber-50/50 to-white dark:bg-neutral-900 border border-amber-200/60 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
+          <div className="h-1.5 bg-gradient-to-r from-amber-500 to-amber-600" />
+          <div className="p-6">
+            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-400 mb-3">In Progress</p>
+            <p className="text-4xl font-bold text-amber-600 dark:text-warning-400">{inProgressCount}</p>
+          </div>
         </div>
       </div>
 
       {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
+      <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-4">
           All Inspections
         </h2>
@@ -94,14 +103,14 @@ export default async function InspectionsPage() {
             {inspections.map((inspection) => {
               const href =
                 inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
-                  ? `/inspections/${inspection.id}/results`
-                  : `/inspections/${inspection.id}`
+                  ? \`/inspections/\${inspection.id}/results\`
+                  : \`/inspections/\${inspection.id}\`
 
               return (
                 <Link
                   key={inspection.id}
                   href={href}
-                  className="group block bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-sm hover:border-indigo-200 dark:hover:border-neutral-700 transition-all"
+                  className="group block bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-md hover:border-accent-300 dark:hover:border-neutral-700 transition-all"
                 >
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1 min-w-0">

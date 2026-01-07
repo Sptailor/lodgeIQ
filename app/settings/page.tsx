@@ -25,7 +25,7 @@ export default async function SettingsPage() {
 
       {/* User Profile Section */}
       {session?.user && (
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-6 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="bg-accent-50 dark:bg-accent-950/20 rounded-md p-2">
               <User className="w-4 h-4 text-accent-600 dark:text-accent-400" />
@@ -60,7 +60,7 @@ export default async function SettingsPage() {
       {/* Settings Categories */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Notifications */}
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="bg-accent-50 dark:bg-accent-950/20 rounded-md p-2">
               <Bell className="w-4 h-4 text-accent-600 dark:text-accent-400" />
@@ -81,7 +81,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* Security */}
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="bg-success-50 dark:bg-success-950/20 rounded-md p-2">
               <Shield className="w-4 h-4 text-success-600 dark:text-success-400" />
@@ -102,7 +102,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* Team Management */}
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="bg-accent-50 dark:bg-accent-950/20 rounded-md p-2">
               <Users className="w-4 h-4 text-accent-600 dark:text-accent-400" />
