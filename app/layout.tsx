@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toast'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
+import { LayoutWrapper } from '@/components/layout-wrapper'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -30,8 +31,8 @@ export default function RootLayout({
             {/* Sidebar Navigation */}
             <Sidebar />
 
-            {/* Main Layout Container */}
-            <div className="lg:pl-64">
+            {/* Main Layout Container with dynamic padding */}
+            <LayoutWrapper>
               {/* Header with auth */}
               <Header />
 
@@ -53,7 +54,7 @@ export default function RootLayout({
                   </div>
                 </div>
               </footer>
-            </div>
+            </LayoutWrapper>
 
             {/* Toast notifications */}
             <Toaster />

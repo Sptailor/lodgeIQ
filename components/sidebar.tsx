@@ -8,7 +8,6 @@
 
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -21,6 +20,7 @@ import {
   Home
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useSidebar } from '@/components/layout-wrapper'
 
 interface NavItem {
   label: string
@@ -38,7 +38,7 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { isCollapsed, setIsCollapsed } = useSidebar()
 
   return (
     <>
