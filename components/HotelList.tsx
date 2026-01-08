@@ -41,9 +41,9 @@ export default function HotelList({ initialHotels }: HotelListProps) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center py-16 bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-2xl border border-primary-200/60 dark:border-primary-800/30 shadow-soft"
+        className="text-center py-16 bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-lg border border-primary-200/60 dark:border-primary-800/30 shadow-soft"
       >
-        <div className="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-800/40 rounded-2xl flex items-center justify-center mb-4 ring-1 ring-primary-200/50 dark:ring-primary-700/30">
+        <div className="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-800/40 rounded-lg flex items-center justify-center mb-4 ring-1 ring-primary-200/50 dark:ring-primary-700/30">
           <Building2 className="w-8 h-8 text-primary-600 dark:text-primary-300" />
         </div>
         <p className="text-base font-bold text-neutral-900 dark:text-white mb-2">No properties yet</p>
@@ -65,7 +65,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
         >
           <Link
             href={`/hotels/${hotel.id}`}
-            className="group block bg-gradient-to-br from-white via-white to-accent-50/30 dark:from-neutral-800/60 dark:via-neutral-850/50 dark:to-accent-950/20 dark:backdrop-blur-xl border border-accent-200/60 dark:border-accent-800/40 rounded-2xl overflow-hidden shadow-soft hover:shadow-soft-xl hover:border-accent-400/80 dark:hover:border-accent-600/60 hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full flex flex-col"
+            className="group block bg-gradient-to-br from-white via-white to-accent-50/30 dark:from-neutral-800/60 dark:via-neutral-850/50 dark:to-accent-950/20 dark:backdrop-blur-xl border border-accent-200/60 dark:border-accent-800/40 rounded-lg overflow-hidden shadow-soft hover:shadow-soft-xl hover:border-accent-400/80 dark:hover:border-accent-600/60 hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full flex flex-col"
           >
             {/* Top accent bar - warm gradient with shimmer */}
             <div className={`h-2 ${hotel._count?.inspections && hotel._count.inspections > 5 ? 'bg-gradient-to-r from-success-500 via-success-600 to-emerald-600' : hotel._count?.inspections && hotel._count.inspections > 0 ? 'bg-gradient-to-r from-accent-500 via-accent-600 to-gold-600' : 'bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600'}`} />

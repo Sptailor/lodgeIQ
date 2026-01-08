@@ -52,9 +52,9 @@ export default async function InspectionsPage() {
   ).length
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Page Header */}
-      <div className="bg-gradient-to-br from-white via-accent-50/20 to-gold-50/30 dark:from-neutral-800/60 dark:via-accent-950/20 dark:to-neutral-900/50 dark:backdrop-blur-xl rounded-2xl p-8 border border-accent-200/60 dark:border-accent-800/40 shadow-soft-lg ring-1 ring-accent-100/50 dark:ring-accent-900/20">
+      <div className="bg-gradient-to-br from-white via-accent-50/20 to-gold-50/30 dark:from-neutral-800/60 dark:via-accent-950/20 dark:to-neutral-900/50 dark:backdrop-blur-xl rounded-lg p-5 border border-accent-200/60 dark:border-accent-800/40 shadow-soft-lg ring-1 ring-accent-100/50 dark:ring-accent-900/20">
         <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-3">
           Inspections
         </h1>

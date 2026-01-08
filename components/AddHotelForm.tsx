@@ -95,7 +95,7 @@ export default function AddHotelForm() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="bg-gradient-to-br from-white to-accent-50/20 dark:from-neutral-850/50 dark:to-neutral-900/50 border border-accent-200/50 dark:border-accent-900/30 rounded-2xl p-7 shadow-soft-lg ring-1 ring-accent-100/40 dark:ring-accent-950/20"
+      className="bg-gradient-to-br from-white to-accent-50/20 dark:from-neutral-850/50 dark:to-neutral-900/50 border border-accent-200/50 dark:border-accent-900/30 rounded-lg p-7 shadow-soft-lg ring-1 ring-accent-100/40 dark:ring-accent-950/20"
     >
         <div className="flex justify-between items-center mb-7">
           <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Add New Property</h3>

@@ -103,7 +103,7 @@ export function KPICard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className={cn(
-        'group relative rounded-2xl border overflow-hidden transition-all duration-300 shadow-soft hover:shadow-soft-lg',
+        'group relative rounded-lg border overflow-hidden transition-all duration-300 shadow-soft hover:shadow-soft-lg',
         styles.bg,
         styles.border,
         className
