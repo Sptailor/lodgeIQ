@@ -42,37 +42,32 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
+      {/* Fixed Logo Header - Always visible, never collapses */}
+      <div className="hidden lg:block fixed left-0 top-0 w-64 h-16 z-50 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 border-b border-accent-700 dark:border-accent-900">
+        <div className="h-full flex items-center px-6">
+          <div className="flex items-center gap-3">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+              <Building2 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white">
+                LodgeIQ
+              </h1>
+              <p className="text-xs text-white/80 font-medium">
+                Inspection Platform
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Collapsible Navigation Sidebar */}
       <aside
         className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-0 h-screen bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 z-40 shadow-xl',
+          'hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 z-40 shadow-xl',
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >
-        {/* Logo Section */}
-        <div className="h-16 flex items-center justify-between px-6 border-b border-neutral-200 dark:border-neutral-800 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900">
-          {!isCollapsed && (
-            <div className="flex items-center gap-3">
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
-                <Building2 className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-white">
-                  LodgeIQ
-                </h1>
-                <p className="text-xs text-white/80 font-medium">
-                  Inspection Platform
-                </p>
-              </div>
-            </div>
-          )}
-          {isCollapsed && (
-            <div className="mx-auto bg-white/20 backdrop-blur-sm rounded-lg p-2">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-          )}
-        </div>
-
         {/* Navigation Items */}
         <nav className="flex-1 py-6 px-4 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
