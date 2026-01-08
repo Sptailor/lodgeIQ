@@ -31,16 +31,25 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       className={cn(
-        'relative w-10 h-10 rounded-lg transition-all',
-        'bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700',
-        'border border-neutral-200 dark:border-neutral-700',
-        'flex items-center justify-center',
-        'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'
+        'relative group w-14 h-8 rounded-full transition-all duration-300',
+        'bg-gradient-to-r from-accent-500 to-accent-600 dark:from-neutral-700 dark:to-neutral-800',
+        'shadow-md hover:shadow-lg',
+        'focus:outline-none focus:ring-2 focus:ring-accent-400 dark:focus:ring-accent-600 focus:ring-offset-2',
+        'border-2 border-white dark:border-neutral-900'
       )}
       aria-label="Toggle theme"
     >
-      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
-      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
+      <span
+        className={cn(
+          'absolute top-0.5 left-0.5 w-6 h-6 rounded-full transition-all duration-300',
+          'bg-white dark:bg-neutral-900 shadow-lg',
+          'flex items-center justify-center',
+          'dark:translate-x-6'
+        )}
+      >
+        <Sun className="h-3.5 w-3.5 scale-100 transition-all dark:scale-0 text-accent-600" />
+        <Moon className="absolute h-3.5 w-3.5 scale-0 transition-all dark:scale-100 text-accent-400" />
+      </span>
     </button>
   )
 }
