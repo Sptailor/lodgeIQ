@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toast'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
-import { LayoutWrapper } from '@/components/layout-wrapper'
+import { LayoutWrapper, MainContentWrapper } from '@/components/layout-wrapper'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -28,32 +28,34 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider>
-            {/* Sidebar Navigation */}
-            <Sidebar />
-
-            {/* Main Layout Container with dynamic padding */}
             <LayoutWrapper>
-              {/* Header with auth */}
-              <Header />
+              {/* Sidebar Navigation */}
+              <Sidebar />
 
-              {/* Main content with clean background */}
-              <main className="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-neutral-950 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-24 lg:pb-10">
-                <div className="max-w-7xl mx-auto">
-                  {children}
-                </div>
-              </main>
+              {/* Main content area with dynamic padding */}
+              <MainContentWrapper>
+                {/* Header with auth */}
+                <Header />
 
-              {/* Enhanced footer */}
-              <footer className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-t border-stone-200 dark:border-neutral-800/50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                  <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400">
-                    <p>© 2026 LodgeIQ. All rights reserved.</p>
-                    <div className="flex gap-6">
-                      <span className="text-neutral-400 dark:text-neutral-500">v1.0.0</span>
+                {/* Main content with clean background */}
+                <main className="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-neutral-950 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-24 lg:pb-10">
+                  <div className="max-w-7xl mx-auto">
+                    {children}
+                  </div>
+                </main>
+
+                {/* Enhanced footer */}
+                <footer className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-t border-stone-200 dark:border-neutral-800/50">
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400">
+                      <p>© 2026 LodgeIQ. All rights reserved.</p>
+                      <div className="flex gap-6">
+                        <span className="text-neutral-400 dark:text-neutral-500">v1.0.0</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </footer>
+                </footer>
+              </MainContentWrapper>
             </LayoutWrapper>
 
             {/* Toast notifications */}

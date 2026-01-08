@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, createContext, useContext } from 'react'
+import { useState, createContext, useContext, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface SidebarContextType {
@@ -15,19 +15,27 @@ const SidebarContext = createContext<SidebarContextType>({
 
 export const useSidebar = () => useContext(SidebarContext)
 
-export function LayoutWrapper({ children }: { children: React.ReactNode }) {
+export function LayoutWrapper({ children }: { children: ReactNode }) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   return (
     <SidebarContext.Provider value={{ isCollapsed, setIsCollapsed }}>
-      <div
-        className={cn(
-          'transition-all duration-300',
-          isCollapsed ? 'lg:pl-20' : 'lg:pl-64'
-        )}
-      >
-        {children}
-      </div>
+      {children}
     </SidebarContext.Provider>
+  )
+}
+
+export function MainContentWrapper({ children }: { children: ReactNode }) {
+  const { isCollapsed } = useSidebar()
+
+  return (
+    <div
+      className={cn(
+        'transition-all duration-300',
+        isCollapsed ? 'lg:pl-20' : 'lg:pl-64'
+      )}
+    >
+      {children}
+    </div>
   )
 }
