@@ -37,39 +37,39 @@ const iconMap = {
 
 const variantStyles = {
   default: {
-    bg: 'bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50 dark:backdrop-blur-xl',
-    iconBg: 'bg-primary-100 dark:bg-primary-800/40 ring-1 ring-primary-200/50 dark:ring-primary-700/30',
-    iconColor: 'text-primary-700 dark:text-primary-300',
-    border: 'border-primary-200/70 dark:border-primary-800/40',
-    accentBar: 'bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-neutral-100 dark:bg-neutral-800',
+    iconColor: 'text-neutral-700 dark:text-neutral-300',
+    border: 'border-neutral-200 dark:border-neutral-800',
+    accentBar: 'bg-neutral-300 dark:bg-neutral-700',
   },
   success: {
-    bg: 'bg-gradient-to-br from-white to-success-50/40 dark:from-success-950/30 dark:to-neutral-900/50 dark:backdrop-blur-xl',
-    iconBg: 'bg-success-100 dark:bg-success-900/40 ring-1 ring-success-200/50 dark:ring-success-800/30',
-    iconColor: 'text-success-700 dark:text-success-300',
-    border: 'border-success-200/70 dark:border-success-800/40',
-    accentBar: 'bg-gradient-to-r from-success-500 via-success-600 to-emerald-600',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-success-100 dark:bg-success-900/30',
+    iconColor: 'text-success-700 dark:text-success-400',
+    border: 'border-success-200 dark:border-success-800/40',
+    accentBar: 'bg-success-500',
   },
   warning: {
-    bg: 'bg-gradient-to-br from-white to-gold-50/40 dark:from-gold-950/30 dark:to-neutral-900/50 dark:backdrop-blur-xl',
-    iconBg: 'bg-gold-100 dark:bg-gold-900/40 ring-1 ring-gold-200/50 dark:ring-gold-800/30',
-    iconColor: 'text-gold-700 dark:text-gold-300',
-    border: 'border-gold-200/70 dark:border-gold-800/40',
-    accentBar: 'bg-gradient-to-r from-gold-500 via-gold-600 to-warning-600',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-warning-100 dark:bg-warning-900/30',
+    iconColor: 'text-warning-700 dark:text-warning-400',
+    border: 'border-warning-200 dark:border-warning-800/40',
+    accentBar: 'bg-warning-500',
   },
   danger: {
-    bg: 'bg-gradient-to-br from-white to-danger-50/40 dark:from-danger-950/30 dark:to-neutral-900/50 dark:backdrop-blur-xl',
-    iconBg: 'bg-danger-100 dark:bg-danger-900/40 ring-1 ring-danger-200/50 dark:ring-danger-800/30',
-    iconColor: 'text-danger-700 dark:text-danger-300',
-    border: 'border-danger-200/70 dark:border-danger-800/40',
-    accentBar: 'bg-gradient-to-r from-danger-500 via-danger-600 to-red-600',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-danger-100 dark:bg-danger-900/30',
+    iconColor: 'text-danger-700 dark:text-danger-400',
+    border: 'border-danger-200 dark:border-danger-800/40',
+    accentBar: 'bg-danger-500',
   },
   primary: {
-    bg: 'bg-gradient-to-br from-white to-accent-50/50 dark:from-accent-950/40 dark:to-neutral-900/50 dark:backdrop-blur-xl',
-    iconBg: 'bg-accent-100 dark:bg-accent-900/50 ring-1 ring-accent-200/60 dark:ring-accent-700/40',
-    iconColor: 'text-accent-700 dark:text-accent-200',
-    border: 'border-accent-200/80 dark:border-accent-700/50',
-    accentBar: 'bg-gradient-to-r from-accent-500 via-accent-600 to-accent-700',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-accent-100 dark:bg-accent-900/30',
+    iconColor: 'text-accent-700 dark:text-accent-400',
+    border: 'border-accent-200 dark:border-accent-800/40',
+    accentBar: 'bg-accent-600',
   },
 }
 
@@ -101,51 +101,49 @@ export function KPICard({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{ duration: 0.2 }}
       className={cn(
-        'group relative rounded-lg border overflow-hidden transition-all duration-300 shadow-soft hover:shadow-soft-lg',
+        'relative rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow',
         styles.bg,
         styles.border,
         className
       )}
     >
-      {/* Top accent bar with shimmer effect */}
-      <div className={cn('h-2', styles.accentBar)} />
+      {/* Top accent bar */}
+      <div className={cn('h-1', styles.accentBar)} />
 
-      <div className="p-6 space-y-5">
-        <div className="flex items-center gap-3.5">
-          <div className={cn('rounded-xl p-3 shadow-soft transition-transform group-hover:scale-105', styles.iconBg)}>
-            <Icon className={cn('w-6 h-6', styles.iconColor)} />
+      <div className="p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className={cn('rounded-lg p-2', styles.iconBg)}>
+            <Icon className={cn('w-5 h-5', styles.iconColor)} />
           </div>
-          <p className="text-sm font-bold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">
-            {title}
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex items-baseline gap-3">
-            <h3 className="text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
-              {value}
-            </h3>
-            {trend && (
-              <div
-                className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold shadow-soft ring-1',
-                  trendColor
-                )}
-              >
-                <TrendIcon className="w-4 h-4" />
-                <span>{Math.abs(trend.value)}%</span>
-              </div>
-            )}
-          </div>
-
-          {(subtitle || trend?.label) && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 font-semibold leading-relaxed">
-              {subtitle || trend?.label}
-            </p>
+          {trend && (
+            <div
+              className={cn(
+                'flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium',
+                trendColor
+              )}
+            >
+              <TrendIcon className="w-3 h-3" />
+              <span>{Math.abs(trend.value)}%</span>
+            </div>
           )}
         </div>
+
+        <div>
+          <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide mb-1">
+            {title}
+          </p>
+          <h3 className="text-3xl font-bold text-neutral-900 dark:text-white">
+            {value}
+          </h3>
+        </div>
+
+        {(subtitle || trend?.label) && (
+          <p className="text-xs text-neutral-600 dark:text-neutral-400">
+            {subtitle || trend?.label}
+          </p>
+        )}
       </div>
     </motion.div>
   )
