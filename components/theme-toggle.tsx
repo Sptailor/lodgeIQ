@@ -10,7 +10,7 @@
 import * as React from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -23,33 +23,93 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
+      <div className="w-16 h-9 rounded-full bg-neutral-200 dark:bg-neutral-700 animate-pulse" />
     )
   }
 
+  const isDark = theme === 'dark'
+
   return (
-    <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className={cn(
-        'relative group w-14 h-8 rounded-full transition-all duration-300',
-        'bg-gradient-to-r from-accent-500 to-accent-600 dark:from-neutral-700 dark:to-neutral-800',
-        'shadow-md hover:shadow-lg',
-        'focus:outline-none focus:ring-2 focus:ring-accent-400 dark:focus:ring-accent-600 focus:ring-offset-2',
-        'border-2 border-white dark:border-neutral-900'
-      )}
+    <motion.button
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className="relative group w-16 h-9 rounded-full transition-all duration-500 overflow-hidden backdrop-blur-md border-2 border-neutral-300 dark:border-neutral-600 hover:border-accent-400 dark:hover:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 dark:focus:ring-accent-600 focus:ring-offset-2"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
     >
-      <span
-        className={cn(
-          'absolute top-0.5 left-0.5 w-6 h-6 rounded-full transition-all duration-300',
-          'bg-white dark:bg-neutral-900 shadow-lg',
-          'flex items-center justify-center',
-          'dark:translate-x-6'
-        )}
+      {/* Animated gradient background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 dark:from-indigo-600 dark:via-purple-600 dark:to-blue-600"
+        animate={{
+          opacity: isDark ? 0.9 : 1,
+        }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* Shimmer effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:translate-x-full transition-transform duration-1000" />
+
+      {/* Toggle circle with icon */}
+      <motion.span
+        className="absolute top-0.5 left-0.5 w-7 h-7 rounded-full bg-white dark:bg-neutral-900 shadow-xl flex items-center justify-center"
+        animate={{
+          x: isDark ? 24 : 0,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 500,
+          damping: 30,
+        }}
       >
-        <Sun className="h-3.5 w-3.5 scale-100 transition-all dark:scale-0 text-accent-600" />
-        <Moon className="absolute h-3.5 w-3.5 scale-0 transition-all dark:scale-100 text-accent-400" />
-      </span>
-    </button>
+        <motion.div
+          animate={{
+            rotate: isDark ? 360 : 0,
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <Sun className="h-4 w-4 scale-100 dark:scale-0 absolute transition-all duration-300 text-amber-500" />
+          <Moon className="h-4 w-4 scale-0 dark:scale-100 transition-all duration-300 text-indigo-500" />
+        </motion.div>
+
+        {/* Glow effect around icon */}
+        <motion.div
+          className="absolute inset-0 rounded-full bg-amber-400 dark:bg-indigo-500 blur-md"
+          animate={{
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </motion.span>
+
+      {/* Stars decoration in dark mode */}
+      {isDark && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 flex items-center justify-end pr-2"
+        >
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="w-1 h-1 rounded-full bg-yellow-200"
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [0.8, 1.2, 0.8],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+              style={{ marginLeft: i === 0 ? 0 : 2 }}
+            />
+          ))}
+        </motion.div>
+      )}
+    </motion.button>
   )
 }
