@@ -74,23 +74,6 @@ export function ThemeToggle() {
         {/* Glow effect around icon */}
         <div className="absolute inset-0 rounded-full bg-amber-400 dark:bg-indigo-500 blur-md opacity-30" />
       </motion.span>
-
-      {/* Stars decoration in dark mode */}
-      {isDark && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 flex items-center justify-end pr-2 gap-0.5"
-        >
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="w-1 h-1 rounded-full bg-yellow-200 opacity-70"
-            />
-          ))}
-        </motion.div>
-      )}
     </motion.button>
   )
 }
