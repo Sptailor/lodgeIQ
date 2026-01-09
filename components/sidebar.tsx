@@ -15,7 +15,6 @@ import {
   ClipboardCheck,
   BarChart3,
   Settings,
-  ChevronLeft,
   Home
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -48,34 +47,53 @@ export function Sidebar() {
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >
-        {/* Collapse Toggle at Top */}
+        {/* Animated Hamburger Menu Toggle */}
         <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className={cn(
-              'relative w-full flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all text-sm font-bold group overflow-hidden',
-              'bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50',
-              'hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10',
-              'text-neutral-700 dark:text-neutral-300 hover:text-accent-700 dark:hover:text-accent-400',
-              'border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600',
-              'shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
-              isCollapsed ? 'justify-center' : 'justify-between'
-            )}
-            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
+          <label className={cn(
+            'relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all group overflow-hidden',
+            'bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50',
+            'hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10',
+            'border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600',
+            'shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
+            isCollapsed ? 'justify-center' : 'justify-between'
+          )}
+          title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
             {/* Shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
 
             {!isCollapsed && (
-              <span className="relative text-xs font-black uppercase tracking-wider">Menu</span>
+              <span className="relative text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
+                Menu
+              </span>
             )}
-            <ChevronLeft
-              className={cn(
-                'relative w-4 h-4 transition-all duration-500 group-hover:scale-110',
-                isCollapsed && 'rotate-180'
-              )}
+
+            {/* Hidden checkbox */}
+            <input
+              type="checkbox"
+              className="peer hidden"
+              checked={isCollapsed}
+              onChange={(e) => setIsCollapsed(e.target.checked)}
             />
-          </button>
+
+            {/* Animated hamburger icon */}
+            <div className="relative flex flex-col gap-2 w-8">
+              <div className={cn(
+                'rounded-2xl h-[3px] w-1/2 bg-neutral-700 dark:bg-neutral-300 duration-500 origin-right transition-all',
+                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
+                isCollapsed && 'rotate-[225deg] -translate-x-[12px] -translate-y-[1px]'
+              )} />
+              <div className={cn(
+                'rounded-2xl h-[3px] w-full bg-neutral-700 dark:bg-neutral-300 duration-500 transition-all',
+                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
+                isCollapsed && '-rotate-45'
+              )} />
+              <div className={cn(
+                'rounded-2xl h-[3px] w-1/2 bg-neutral-700 dark:bg-neutral-300 duration-500 origin-left place-self-end transition-all',
+                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
+                isCollapsed && 'rotate-[225deg] translate-x-[12px] translate-y-[1px]'
+              )} />
+            </div>
+          </label>
         </div>
 
         {/* Navigation Items */}
