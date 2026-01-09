@@ -10,7 +10,7 @@
 
 import Link from 'next/link'
 import { getSession } from '@/lib/auth-utils'
-import { Building2, Menu } from 'lucide-react'
+import { Building2 } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
 import { MobileNav } from '@/components/mobile-nav'
@@ -19,57 +19,73 @@ export default async function Header() {
   const session = await getSession()
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-accent-100 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo and brand - Only show on mobile (sidebar shows it on desktop) */}
-          <Link
-            href="/"
-            className="flex items-center gap-3 group lg:hidden"
-          >
-            <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
-                LodgeIQ
-              </h1>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium hidden sm:block">
-                Inspection Platform
-              </p>
-            </div>
-          </Link>
-
-          {/* Desktop: Spacer to push actions to the right */}
-          <div className="hidden lg:flex flex-1" />
-
-          {/* Right side actions */}
-          <div className="flex items-center gap-3">
-            {/* Theme toggle */}
-            <ThemeToggle />
-
-            {session?.user ? (
-              <>
-                {/* User menu - desktop */}
-                <div className="hidden sm:block">
-                  <UserMenu user={session.user} />
-                </div>
-
-                {/* Mobile menu */}
-                <div className="md:hidden">
-                  <MobileNav user={session.user} />
-                </div>
-              </>
-            ) : (
-              /* Sign in link */
-              <Link
-                href="/auth/signin"
-                className="px-4 py-2 bg-gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-all shadow-soft"
-              >
-                Sign In
-              </Link>
-            )}
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-accent-700 dark:border-accent-900 shadow-sm">
+      {/* Desktop: Logo section - fixed width to match sidebar */}
+      <div className="hidden lg:flex items-center w-64 h-full px-6 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 flex-shrink-0">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+            <Building2 className="w-5 h-5 text-white" />
           </div>
+          <div>
+            <h1 className="text-lg font-bold text-white">
+              LodgeIQ
+            </h1>
+            <p className="text-xs text-white/80 font-medium">
+              Inspection Platform
+            </p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Main header content area */}
+      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60">
+        {/* Mobile: Logo and brand */}
+        <Link
+          href="/"
+          className="flex items-center gap-3 group lg:hidden"
+        >
+          <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
+            <Building2 className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
+              LodgeIQ
+            </h1>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium hidden sm:block">
+              Inspection Platform
+            </p>
+          </div>
+        </Link>
+
+        {/* Desktop: Spacer */}
+        <div className="hidden lg:flex flex-1" />
+
+        {/* Right side actions */}
+        <div className="flex items-center gap-3">
+          {/* Theme toggle */}
+          <ThemeToggle />
+
+          {session?.user ? (
+            <>
+              {/* User menu - desktop */}
+              <div className="hidden sm:block">
+                <UserMenu user={session.user} />
+              </div>
+
+              {/* Mobile menu */}
+              <div className="md:hidden">
+                <MobileNav user={session.user} />
+              </div>
+            </>
+          ) : (
+            /* Sign in link */
+            <Link
+              href="/auth/signin"
+              className="px-4 py-2 bg-gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-all shadow-soft"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </header>

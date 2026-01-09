@@ -10,7 +10,6 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
 import {
   Building2,
   ClipboardCheck,
@@ -42,25 +41,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Fixed Logo Header - Always visible, never collapses */}
-      <div className="hidden lg:block fixed left-0 top-0 w-64 h-16 z-50 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 border-b border-accent-700 dark:border-accent-900">
-        <div className="h-full flex items-center px-6">
-          <div className="flex items-center gap-3">
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-white">
-                LodgeIQ
-              </h1>
-              <p className="text-xs text-white/80 font-medium">
-                Inspection Platform
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Collapsible Navigation Sidebar */}
       <aside
         className={cn(
