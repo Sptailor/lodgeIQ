@@ -40,60 +40,58 @@ export function Sidebar() {
 
   return (
     <>
+      {/* Floating Toggle Button - Only visible when collapsed */}
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className={cn(
+          'hidden lg:flex fixed left-4 top-20 z-50 items-center justify-center w-12 h-12',
+          'rounded-xl backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
+          'border-2 border-neutral-200 dark:border-neutral-700',
+          'hover:border-accent-400 dark:hover:border-accent-500',
+          'shadow-lg hover:shadow-xl hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
+          'transition-all duration-300 group',
+          isCollapsed ? 'opacity-100 scale-100' : 'opacity-0 scale-0 pointer-events-none'
+        )}
+        title="Expand sidebar"
+      >
+        {/* Shimmer effect */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent-400/20 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700" />
+
+        {/* Menu icon */}
+        <div className="relative flex flex-col gap-1.5 w-5">
+          <div className="h-0.5 w-full bg-neutral-700 dark:bg-neutral-300 rounded-full group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
+          <div className="h-0.5 w-full bg-neutral-700 dark:bg-neutral-300 rounded-full group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
+          <div className="h-0.5 w-full bg-neutral-700 dark:bg-neutral-300 rounded-full group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
+        </div>
+      </button>
+
       {/* Collapsible Navigation Sidebar */}
       <aside
         className={cn(
           'hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 z-40 shadow-xl',
-          isCollapsed ? 'w-20' : 'w-64'
+          isCollapsed ? '-translate-x-full' : 'translate-x-0 w-64'
         )}
       >
-        {/* Animated Hamburger Menu Toggle */}
+        {/* Close Button */}
         <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
-          <label className={cn(
-            'relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all group overflow-hidden',
-            'bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50',
-            'hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10',
-            'border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600',
-            'shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
-            isCollapsed ? 'justify-center' : 'justify-between'
-          )}
-          title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
+          <button
+            onClick={() => setIsCollapsed(true)}
+            className="relative w-full flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all group overflow-hidden bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50 hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10 border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600 shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10"
+            title="Collapse sidebar"
+          >
             {/* Shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
 
-            {!isCollapsed && (
-              <span className="relative text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
-                Menu
-              </span>
-            )}
+            <span className="relative text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
+              Menu
+            </span>
 
-            {/* Hidden checkbox */}
-            <input
-              type="checkbox"
-              className="peer hidden"
-              checked={isCollapsed}
-              onChange={(e) => setIsCollapsed(e.target.checked)}
-            />
-
-            {/* Animated hamburger icon */}
-            <div className="relative flex flex-col gap-2 w-8">
-              <div className={cn(
-                'rounded-2xl h-[3px] w-1/2 bg-neutral-700 dark:bg-neutral-300 duration-500 origin-right transition-all',
-                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
-                isCollapsed && 'rotate-[225deg] -translate-x-[12px] -translate-y-[1px]'
-              )} />
-              <div className={cn(
-                'rounded-2xl h-[3px] w-full bg-neutral-700 dark:bg-neutral-300 duration-500 transition-all',
-                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
-                isCollapsed && '-rotate-45'
-              )} />
-              <div className={cn(
-                'rounded-2xl h-[3px] w-1/2 bg-neutral-700 dark:bg-neutral-300 duration-500 origin-left place-self-end transition-all',
-                'group-hover:bg-accent-600 dark:group-hover:bg-accent-400',
-                isCollapsed && 'rotate-[225deg] translate-x-[12px] translate-y-[1px]'
-              )} />
+            {/* Close icon (X) */}
+            <div className="relative w-5 h-5">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-700 dark:bg-neutral-300 rounded-full rotate-45 group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-700 dark:bg-neutral-300 rounded-full -rotate-45 group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
             </div>
-          </label>
+          </button>
         </div>
 
         {/* Navigation Items */}

@@ -32,7 +32,7 @@ export function MainContentWrapper({ children }: { children: ReactNode }) {
     <div
       className={cn(
         'transition-all duration-300 lg:pt-16',
-        isCollapsed ? 'lg:pl-20' : 'lg:pl-64'
+        isCollapsed ? 'lg:pl-0' : 'lg:pl-64'
       )}
     >
       {children}
