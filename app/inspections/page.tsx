@@ -65,7 +65,7 @@ export default async function InspectionsPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl border border-stone-200 dark:border-neutral-700/50 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl border border-neutral-200 dark:border-neutral-700/50 rounded-xl overflow-hidden shadow-sm">
           <div className="h-1.5 bg-neutral-300" />
           <div className="p-6">
             <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">Total Inspections</p>
@@ -89,7 +89,7 @@ export default async function InspectionsPage() {
       </div>
 
       {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-4">
           All Inspections
         </h2>
@@ -110,7 +110,7 @@ export default async function InspectionsPage() {
                 <Link
                   key={inspection.id}
                   href={href}
-                  className="group block bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-md hover:border-accent-300 dark:hover:border-neutral-700 transition-all"
+                  className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-md hover:border-accent-300 dark:hover:border-neutral-700 transition-all"
                 >
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1 min-w-0">

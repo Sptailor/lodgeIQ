@@ -83,18 +83,18 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-white dark:bg-gradient-to-br dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-xl p-6 border border-stone-200 dark:border-neutral-700/50 shadow-sm">
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+      <div className="bg-white dark:bg-neutral-900 rounded-lg p-5 border border-neutral-200 dark:border-neutral-800 shadow-sm">
+        <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
           Reports & Analytics
         </h1>
-        <p className="text-base text-neutral-600 dark:text-neutral-400 mt-2">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
           Insights and trends from your inspection data
         </p>
       </div>
 
       {/* Key Metrics */}
       <div>
-        <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-6">
+        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-6">
           Overview Metrics
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -132,7 +132,7 @@ export default async function ReportsPage() {
       </div>
 
       {/* Coming Soon Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
         <div className="text-center max-w-2xl mx-auto space-y-5">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-accent-50 dark:bg-accent-950/20 rounded-lg">
             <TrendingUp className="w-6 h-6 text-accent-600 dark:text-accent-400" />

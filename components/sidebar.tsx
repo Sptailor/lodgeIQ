@@ -68,8 +68,33 @@ export function Sidebar() {
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >
+        {/* Collapse Toggle at Top */}
+        <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={cn(
+              'w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm font-medium group',
+              'bg-neutral-50 dark:bg-neutral-800/50 hover:bg-accent-50 dark:hover:bg-accent-900/20',
+              'text-neutral-700 dark:text-neutral-300 hover:text-accent-700 dark:hover:text-accent-400',
+              'border border-neutral-200 dark:border-neutral-700 hover:border-accent-300 dark:hover:border-accent-700',
+              isCollapsed ? 'justify-center' : 'justify-between'
+            )}
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {!isCollapsed && (
+              <span className="text-xs font-semibold uppercase tracking-wide">Menu</span>
+            )}
+            <ChevronLeft
+              className={cn(
+                'w-4 h-4 transition-transform duration-300',
+                isCollapsed && 'rotate-180'
+              )}
+            />
+          </button>
+        </div>
+
         {/* Navigation Items */}
-        <nav className="flex-1 py-6 px-4 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 py-4 px-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -79,13 +104,17 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative group',
+                  'flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all relative group',
                   isActive
-                    ? 'bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300'
-                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200'
+                    ? 'bg-gradient-to-r from-accent-100 to-accent-50 dark:from-accent-900/40 dark:to-accent-900/20 text-accent-700 dark:text-accent-300 shadow-sm'
+                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200',
+                  isActive && 'border-l-2 border-accent-600 dark:border-accent-500 pl-2.5'
                 )}
               >
-                <Icon className="w-5 h-5 flex-shrink-0" />
+                <Icon className={cn(
+                  'w-5 h-5 flex-shrink-0 transition-transform',
+                  'group-hover:scale-110'
+                )} />
 
                 {!isCollapsed && (
                   <span className="truncate">{item.label}</span>
@@ -93,33 +122,15 @@ export function Sidebar() {
 
                 {/* Tooltip for collapsed state */}
                 {isCollapsed && (
-                  <div className="absolute left-full ml-2 px-2.5 py-1.5 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-opacity shadow-lg">
+                  <div className="absolute left-full ml-3 px-3 py-1.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-opacity shadow-lg z-50">
                     {item.label}
+                    <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 rotate-45 bg-neutral-900 dark:bg-white"></div>
                   </div>
                 )}
               </Link>
             )
           })}
         </nav>
-
-        {/* Collapse Toggle */}
-        <div className="p-4 border-t border-neutral-200 dark:border-neutral-800">
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors text-sm font-medium"
-            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            <ChevronLeft
-              className={cn(
-                'w-4 h-4 transition-transform',
-                isCollapsed && 'rotate-180'
-              )}
-            />
-            {!isCollapsed && (
-              <span>Collapse</span>
-            )}
-          </button>
-        </div>
       </aside>
 
       {/* Mobile Bottom Navigation */}
