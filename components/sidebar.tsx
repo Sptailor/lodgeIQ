@@ -53,20 +53,25 @@ export function Sidebar() {
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className={cn(
-              'w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm font-medium group',
-              'bg-neutral-50 dark:bg-neutral-800/50 hover:bg-accent-50 dark:hover:bg-accent-900/20',
+              'relative w-full flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all text-sm font-bold group overflow-hidden',
+              'bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50',
+              'hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10',
               'text-neutral-700 dark:text-neutral-300 hover:text-accent-700 dark:hover:text-accent-400',
-              'border border-neutral-200 dark:border-neutral-700 hover:border-accent-300 dark:hover:border-accent-700',
+              'border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600',
+              'shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
               isCollapsed ? 'justify-center' : 'justify-between'
             )}
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
             {!isCollapsed && (
-              <span className="text-xs font-semibold uppercase tracking-wide">Menu</span>
+              <span className="relative text-xs font-black uppercase tracking-wider">Menu</span>
             )}
             <ChevronLeft
               className={cn(
-                'w-4 h-4 transition-transform duration-300',
+                'relative w-4 h-4 transition-all duration-500 group-hover:scale-110',
                 isCollapsed && 'rotate-180'
               )}
             />
@@ -74,7 +79,7 @@ export function Sidebar() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 py-4 px-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 py-4 px-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -84,27 +89,43 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all relative group',
+                  'relative flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold transition-all group overflow-hidden',
                   isActive
-                    ? 'bg-gradient-to-r from-accent-100 to-accent-50 dark:from-accent-900/40 dark:to-accent-900/20 text-accent-700 dark:text-accent-300 shadow-sm'
-                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200',
-                  isActive && 'border-l-2 border-accent-600 dark:border-accent-500 pl-2.5'
+                    ? 'bg-gradient-to-r from-accent-100 via-accent-50 to-accent-100/50 dark:from-accent-900/50 dark:via-accent-900/30 dark:to-accent-900/10 text-accent-700 dark:text-accent-300 shadow-md shadow-accent-500/20'
+                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-gradient-to-r hover:from-neutral-100 hover:to-neutral-50 dark:hover:from-neutral-800 dark:hover:to-neutral-800/50 hover:text-neutral-900 dark:hover:text-neutral-200 hover:shadow-md',
+                  isActive && 'border-l-4 border-accent-600 dark:border-accent-500 pl-2'
                 )}
               >
-                <Icon className={cn(
-                  'w-5 h-5 flex-shrink-0 transition-transform',
-                  'group-hover:scale-110'
-                )} />
+                {/* Active indicator background glow */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent-500/10 to-transparent blur-sm" />
+                )}
+
+                {/* Hover shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
+                <div className={cn(
+                  'relative rounded-lg p-2 transition-all duration-300',
+                  isActive
+                    ? 'bg-accent-200/50 dark:bg-accent-800/30 shadow-inner'
+                    : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-accent-100 dark:group-hover:bg-accent-900/20'
+                )}>
+                  <Icon className={cn(
+                    'w-5 h-5 flex-shrink-0 transition-all duration-300',
+                    'group-hover:scale-125 group-hover:rotate-6',
+                    isActive && 'drop-shadow-md'
+                  )} />
+                </div>
 
                 {!isCollapsed && (
-                  <span className="truncate">{item.label}</span>
+                  <span className="relative truncate">{item.label}</span>
                 )}
 
                 {/* Tooltip for collapsed state */}
                 {isCollapsed && (
-                  <div className="absolute left-full ml-3 px-3 py-1.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-opacity shadow-lg z-50">
+                  <div className="absolute left-full ml-4 px-4 py-2 bg-gradient-to-r from-neutral-900 to-neutral-800 dark:from-white dark:to-neutral-100 text-white dark:text-neutral-900 text-xs font-bold rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-300 shadow-2xl z-50 border border-neutral-700 dark:border-neutral-300">
                     {item.label}
-                    <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 rotate-45 bg-neutral-900 dark:bg-white"></div>
+                    <div className="absolute left-0 top-1/2 -translate-x-1.5 -translate-y-1/2 w-3 h-3 rotate-45 bg-neutral-900 dark:bg-white border-l border-b border-neutral-700 dark:border-neutral-300"></div>
                   </div>
                 )}
               </Link>
