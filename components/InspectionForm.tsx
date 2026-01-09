@@ -273,20 +273,20 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
   return (
     <div className="space-y-6">
       {/* Progress indicator */}
-      <div className="bg-white border border-neutral-200 rounded-2xl p-6 shadow-soft sticky top-4 z-10">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft sticky top-4 z-10">
         <div className="flex justify-between items-center mb-3">
-          <h3 className="text-sm font-semibold text-neutral-900">Inspection Progress</h3>
-          <span className="text-sm font-medium text-primary-600">
+          <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">Inspection Progress</h3>
+          <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
             {completedItems} / {totalItems} items
           </span>
         </div>
-        <div className="relative w-full bg-neutral-100 rounded-full h-3 overflow-hidden">
+        <div className="relative w-full bg-neutral-100 dark:bg-neutral-800 rounded-full h-3 overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-500 ease-out"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <p className="text-xs text-neutral-500 mt-2">{progressPercent}% complete</p>
+        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">{progressPercent}% complete</p>
       </div>
 
       {/* Checklist by category */}
@@ -299,22 +299,22 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
           const isExpanded = expandedCategories[category]
 
           return (
-            <div key={category} className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-soft">
+            <div key={category} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-soft">
               {/* Category header */}
               <button
                 onClick={() => toggleCategory(category)}
-                className="w-full px-6 py-4 flex items-center justify-between bg-neutral-50 hover:bg-neutral-100 transition-colors"
+                className="w-full px-6 py-4 flex items-center justify-between bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <h3 className="text-lg font-semibold text-neutral-900">{category}</h3>
-                  <span className="text-xs font-medium px-2.5 py-1 bg-white rounded-full text-neutral-600 border border-neutral-200">
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{category}</h3>
+                  <span className="text-xs font-medium px-2.5 py-1 bg-white dark:bg-neutral-900 rounded-full text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
                     {categoryCompleted} / {categoryItems.length}
                   </span>
                 </div>
                 {isExpanded ? (
-                  <ChevronUp className="w-5 h-5 text-neutral-500" />
+                  <ChevronUp className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-neutral-500" />
+                  <ChevronDown className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
                 )}
               </button>
 
@@ -330,20 +330,20 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                         key={item.id}
                         className={cn(
                           "border-2 rounded-xl p-5 transition-all",
-                          currentResult === 'PENDING' && "border-neutral-200 bg-white",
-                          currentResult === 'PASS' && "border-success-300 bg-success-50",
-                          currentResult === 'FAIL' && "border-danger-300 bg-danger-50",
-                          currentResult === 'NEEDS_IMPROVEMENT' && "border-warning-300 bg-warning-50",
-                          currentResult === 'NOT_APPLICABLE' && "border-neutral-300 bg-neutral-50"
+                          currentResult === 'PENDING' && "border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800",
+                          currentResult === 'PASS' && "border-success-300 dark:border-success-700 bg-success-50 dark:bg-success-950/20",
+                          currentResult === 'FAIL' && "border-danger-300 dark:border-danger-700 bg-danger-50 dark:bg-danger-950/20",
+                          currentResult === 'NEEDS_IMPROVEMENT' && "border-warning-300 dark:border-warning-700 bg-warning-50 dark:bg-warning-950/20",
+                          currentResult === 'NOT_APPLICABLE' && "border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800"
                         )}
                       >
                         {/* Item header */}
                         <div className="mb-4">
-                          <h4 className="font-semibold text-neutral-900 mb-1.5 text-base">
+                          <h4 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1.5 text-base">
                             {item.itemName}
                           </h4>
                           {item.description && (
-                            <p className="text-sm text-neutral-600 leading-relaxed">{item.description}</p>
+                            <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{item.description}</p>
                           )}
                         </div>
 
@@ -354,8 +354,8 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                             className={cn(
                               "flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-semibold text-sm transition-all",
                               currentResult === 'PASS'
-                                ? 'bg-success-600 text-white shadow-soft-lg scale-105'
-                                : 'bg-white text-neutral-700 border-2 border-neutral-200 hover:border-success-400 hover:bg-success-50'
+                                ? 'bg-success-600 dark:bg-success-700 text-white shadow-soft-lg scale-105'
+                                : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 border-2 border-neutral-200 dark:border-neutral-700 hover:border-success-400 dark:hover:border-success-600 hover:bg-success-50 dark:hover:bg-success-950/20'
                             )}
                           >
                             <Check className="w-5 h-5" />
@@ -367,8 +367,8 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                             className={cn(
                               "flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-semibold text-sm transition-all",
                               currentResult === 'FAIL'
-                                ? 'bg-danger-600 text-white shadow-soft-lg scale-105'
-                                : 'bg-white text-neutral-700 border-2 border-neutral-200 hover:border-danger-400 hover:bg-danger-50'
+                                ? 'bg-danger-600 dark:bg-danger-700 text-white shadow-soft-lg scale-105'
+                                : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 border-2 border-neutral-200 dark:border-neutral-700 hover:border-danger-400 dark:hover:border-danger-600 hover:bg-danger-50 dark:hover:bg-danger-950/20'
                             )}
                           >
                             <X className="w-5 h-5" />
@@ -380,8 +380,8 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                             className={cn(
                               "flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-semibold text-sm transition-all",
                               currentResult === 'NEEDS_IMPROVEMENT'
-                                ? 'bg-warning-600 text-white shadow-soft-lg scale-105'
-                                : 'bg-white text-neutral-700 border-2 border-neutral-200 hover:border-warning-400 hover:bg-warning-50'
+                                ? 'bg-warning-600 dark:bg-warning-700 text-white shadow-soft-lg scale-105'
+                                : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 border-2 border-neutral-200 dark:border-neutral-700 hover:border-warning-400 dark:hover:border-warning-600 hover:bg-warning-50 dark:hover:bg-warning-950/20'
                             )}
                           >
                             <AlertTriangle className="w-5 h-5" />
@@ -393,8 +393,8 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                             className={cn(
                               "flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-semibold text-sm transition-all",
                               currentResult === 'NOT_APPLICABLE'
-                                ? 'bg-neutral-600 text-white shadow-soft-lg scale-105'
-                                : 'bg-white text-neutral-700 border-2 border-neutral-200 hover:border-neutral-400 hover:bg-neutral-100'
+                                ? 'bg-neutral-600 dark:bg-neutral-500 text-white shadow-soft-lg scale-105'
+                                : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-800'
                             )}
                           >
                             <Minus className="w-5 h-5" />
@@ -409,7 +409,7 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
                           onBlur={() => handleNotesBlur(item.id)}
                           placeholder="Add notes (optional)..."
                           rows={3}
-                          className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
+                          className="w-full px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 transition-all resize-none"
                         />
 
                         {/* Photo upload */}
@@ -432,11 +432,11 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
       </div>
 
       {/* Complete inspection button */}
-      <div className="bg-white border border-neutral-200 rounded-2xl p-6 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
         <button
           onClick={handleComplete}
           disabled={isCompleting}
-          className="w-full bg-gradient-to-r from-success-600 to-success-700 text-white px-8 py-4 rounded-xl font-semibold text-base hover:from-success-700 hover:to-success-800 transition-all shadow-soft-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-success-600 to-success-700 dark:from-success-700 dark:to-success-800 text-white px-8 py-4 rounded-xl font-semibold text-base hover:from-success-700 hover:to-success-800 dark:hover:from-success-800 dark:hover:to-success-900 transition-all shadow-soft-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isCompleting ? 'Completing Inspection...' : 'Complete Inspection'}
         </button>
