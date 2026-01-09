@@ -83,13 +83,19 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg p-5 border border-neutral-200 dark:border-neutral-800 shadow-sm">
-        <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-          Reports & Analytics
-        </h1>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
-          Insights and trends from your inspection data
-        </p>
+      <div className="relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-neutral-900/90 dark:via-neutral-900/80 dark:to-neutral-900/90 rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-800/50 shadow-xl shadow-neutral-200/50 dark:shadow-neutral-950/50">
+        {/* Decorative gradient orbs */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-accent-500/10 to-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+        <div className="relative">
+          <h1 className="text-3xl font-black bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent mb-2">
+            Reports & Analytics
+          </h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+            Insights and trends from your inspection data
+          </p>
+        </div>
       </div>
 
       {/* Key Metrics */}
