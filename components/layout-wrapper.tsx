@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, createContext, useContext, ReactNode } from 'react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface SidebarContextType {
@@ -29,13 +30,19 @@ export function MainContentWrapper({ children }: { children: ReactNode }) {
   const { isCollapsed } = useSidebar()
 
   return (
-    <div
-      className={cn(
-        'transition-all duration-300 lg:pt-16',
-        isCollapsed ? 'lg:pl-0' : 'lg:pl-64'
-      )}
+    <motion.div
+      initial={false}
+      animate={{
+        paddingLeft: isCollapsed ? 0 : 256,
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 300,
+        damping: 30,
+      }}
+      className="lg:pt-16"
     >
       {children}
-    </div>
+    </motion.div>
   )
 }

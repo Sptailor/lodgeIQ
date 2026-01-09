@@ -17,6 +17,7 @@ import {
   Settings,
   Home
 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useSidebar } from '@/components/layout-wrapper'
 
@@ -41,18 +42,30 @@ export function Sidebar() {
   return (
     <>
       {/* Floating Toggle Button - Only visible when collapsed */}
-      <button
+      <motion.button
         onClick={() => setIsCollapsed(!isCollapsed)}
+        initial={false}
+        animate={{
+          opacity: isCollapsed ? 1 : 0,
+          scale: isCollapsed ? 1 : 0,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 400,
+          damping: 25,
+        }}
         className={cn(
           'hidden lg:flex fixed left-4 top-20 z-50 items-center justify-center w-12 h-12',
           'rounded-xl backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
           'border-2 border-neutral-200 dark:border-neutral-700',
           'hover:border-accent-400 dark:hover:border-accent-500',
           'shadow-lg hover:shadow-xl hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
-          'transition-all duration-300 group',
-          isCollapsed ? 'opacity-100 scale-100' : 'opacity-0 scale-0 pointer-events-none'
+          'group',
+          !isCollapsed && 'pointer-events-none'
         )}
         title="Expand sidebar"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         {/* Shimmer effect */}
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-accent-400/20 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700" />
@@ -63,14 +76,20 @@ export function Sidebar() {
           <div className="h-0.5 w-full bg-neutral-700 dark:bg-neutral-300 rounded-full group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
           <div className="h-0.5 w-full bg-neutral-700 dark:bg-neutral-300 rounded-full group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
         </div>
-      </button>
+      </motion.button>
 
       {/* Collapsible Navigation Sidebar */}
-      <aside
-        className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 z-40 shadow-xl',
-          isCollapsed ? '-translate-x-full' : 'translate-x-0 w-64'
-        )}
+      <motion.aside
+        initial={false}
+        animate={{
+          x: isCollapsed ? -256 : 0,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 300,
+          damping: 30,
+        }}
+        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 z-40 shadow-xl"
       >
         {/* Close Button */}
         <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
@@ -148,7 +167,7 @@ export function Sidebar() {
             )
           })}
         </nav>
-      </aside>
+      </motion.aside>
 
       {/* Mobile Bottom Navigation */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-40 safe-area-pb shadow-xl">
