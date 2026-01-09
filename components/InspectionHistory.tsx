@@ -9,7 +9,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Calendar, User, CheckCircle2 } from 'lucide-react'
+import { Calendar, User, CheckCircle2, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
 
@@ -122,7 +122,7 @@ export default function InspectionHistory({ inspections }: InspectionHistoryProp
                     {/* Rating */}
                     {inspection.overallRating && (
                       <div className="flex items-center gap-1 bg-accent-50 dark:bg-accent-950/20 px-2.5 py-1 rounded-lg border border-accent-200 dark:border-accent-800">
-                        <span className="text-base">⭐</span>
+                        <Star className="w-4 h-4 text-accent-600 dark:text-accent-400 fill-accent-600 dark:fill-accent-400" />
                         <span className="text-sm font-semibold text-accent-800 dark:text-accent-400">
                           {inspection.overallRating.toFixed(1)}
                         </span>

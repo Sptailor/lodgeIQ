@@ -7,7 +7,7 @@
 
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { Calendar, User, Building2, CheckCircle2 } from 'lucide-react'
+import { Calendar, User, Building2, CheckCircle2, Star } from 'lucide-react'
 import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
 
 /**
@@ -164,7 +164,7 @@ export default async function InspectionsPage() {
                       {/* Rating */}
                       {inspection.overallRating && (
                         <div className="flex items-center gap-1 bg-accent-50 dark:bg-accent-950/20 px-2 py-1 rounded-md border border-accent-200 dark:border-accent-800">
-                          <span className="text-sm">⭐</span>
+                          <Star className="w-3.5 h-3.5 text-accent-600 dark:text-accent-400 fill-accent-600 dark:fill-accent-400" />
                           <span className="text-xs font-medium text-accent-800 dark:text-accent-400">
                             {inspection.overallRating.toFixed(1)}
                           </span>
