@@ -99,52 +99,104 @@ export function KPICard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       className={cn(
-        'relative rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow',
-        styles.bg,
+        'group relative rounded-2xl border overflow-hidden backdrop-blur-md bg-white/80 dark:bg-neutral-900/80',
+        'shadow-lg shadow-neutral-200/50 dark:shadow-neutral-950/50',
+        'hover:shadow-2xl hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
+        'transition-all duration-300',
         styles.border,
         className
       )}
     >
-      {/* Top accent bar */}
-      <div className={cn('h-1', styles.accentBar)} />
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className={cn('absolute inset-0 bg-gradient-to-br', styles.accentBar, 'opacity-5')} />
+      </div>
 
-      <div className="p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className={cn('rounded-lg p-2', styles.iconBg)}>
-            <Icon className={cn('w-5 h-5', styles.iconColor)} />
-          </div>
+      {/* Glowing border effect on hover */}
+      <div className={cn(
+        'absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300',
+        'ring-1 ring-inset',
+        styles.accentBar.replace('bg-', 'ring-')
+      )} />
+
+      {/* Top accent line with gradient */}
+      <div className={cn('h-1 bg-gradient-to-r', styles.accentBar)} />
+
+      <div className="relative p-5 space-y-4">
+        <div className="flex items-start justify-between">
+          {/* Icon with floating animation */}
+          <motion.div
+            whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            className={cn(
+              'relative rounded-xl p-3',
+              'bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900',
+              'shadow-md',
+              styles.iconBg,
+              'group-hover:shadow-lg transition-shadow duration-300'
+            )}
+          >
+            <Icon className={cn('w-6 h-6', styles.iconColor)} />
+            {/* Icon glow effect */}
+            <div className={cn(
+              'absolute inset-0 rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300',
+              styles.iconBg
+            )} />
+          </motion.div>
+
+          {/* Trend indicator with pulse animation */}
           {trend && (
-            <div
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
               className={cn(
-                'flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium',
+                'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold',
+                'backdrop-blur-sm border',
                 trendColor
               )}
             >
-              <TrendIcon className="w-3 h-3" />
+              <TrendIcon className="w-3.5 h-3.5" />
               <span>{Math.abs(trend.value)}%</span>
-            </div>
+            </motion.div>
           )}
         </div>
 
-        <div>
-          <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide mb-1">
+        <div className="space-y-2">
+          <p className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
             {title}
           </p>
-          <h3 className="text-3xl font-bold text-neutral-900 dark:text-white">
+          <motion.h3
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.05 }}
+            className="text-4xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
+          >
             {value}
-          </h3>
+          </motion.h3>
         </div>
 
         {(subtitle || trend?.label) && (
-          <p className="text-xs text-neutral-600 dark:text-neutral-400">
-            {subtitle || trend?.label}
-          </p>
+          <div className="flex items-center gap-2">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
+              {subtitle || trend?.label}
+            </p>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
+          </div>
         )}
       </div>
+
+      {/* Corner accent decoration */}
+      <div className={cn(
+        'absolute top-0 right-0 w-20 h-20 rounded-bl-full opacity-10',
+        styles.accentBar
+      )} />
     </motion.div>
   )
 }
