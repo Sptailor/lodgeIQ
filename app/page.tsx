@@ -103,9 +103,9 @@ export default async function HomePage() {
     : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Hero Header */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
         <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
           Dashboard
         </h1>
@@ -115,7 +115,7 @@ export default async function HomePage() {
       </div>
 
       {/* KPI Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Hotels"
           value={metrics.totalHotels}
@@ -155,8 +155,8 @@ export default async function HomePage() {
       </div>
 
       {/* Recent Properties Section */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
-        <div className="flex items-center justify-between mb-5">
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
+        <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
               Recent Properties
