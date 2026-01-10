@@ -104,8 +104,8 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-4">
-      {/* Hero Header */}
-      <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+      {/* Hero Header - Glass UI */}
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-6 shadow-lg">
         {/* Decorative gradient accent */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
 
@@ -163,8 +163,8 @@ export default async function HomePage() {
         />
       </div>
 
-      {/* Recent Properties Section */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
+      {/* Recent Properties Section - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">

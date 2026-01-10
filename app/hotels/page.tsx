@@ -36,8 +36,8 @@ export default async function HotelsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-2xl p-5 border-2 border-neutral-200 dark:border-neutral-800 shadow-soft">
+      {/* Page Header - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-2xl p-5 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
@@ -54,13 +54,13 @@ export default async function HotelsPage() {
         </div>
       </div>
 
-      {/* Add Hotel Form */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
+      {/* Add Hotel Form - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
         <AddHotelForm />
       </div>
 
-      {/* Hotels List */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
+      {/* Hotels List - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
         <div className="mb-4">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
             All Properties
