@@ -100,7 +100,6 @@ export default function AddHotelForm() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-soft-lg"
     >
         <div className="flex justify-between items-center mb-7">
           <div className="flex items-center gap-3">
