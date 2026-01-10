@@ -95,13 +95,13 @@ export default function AddHotelForm() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="bg-gradient-to-br from-white to-accent-50/20 dark:from-neutral-850/50 dark:to-neutral-900/50 border border-accent-200/50 dark:border-accent-900/30 rounded-lg p-7 shadow-soft-lg ring-1 ring-accent-100/40 dark:ring-accent-950/20"
+      className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-soft-lg"
     >
         <div className="flex justify-between items-center mb-7">
-          <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Add New Property</h3>
+          <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">Add New Property</h3>
           <button
             onClick={() => setIsOpen(false)}
-            className="flex items-center justify-center w-9 h-9 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-accent-700 dark:hover:text-accent-300 transition-all shadow-sm"
+            className="flex items-center justify-center w-9 h-9 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-50 transition-all"
             aria-label="Close form"
           >
             <X className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function AddHotelForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Name - Required */}
           <div>
-            <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Hotel Name *
             </label>
             <input
@@ -130,14 +130,14 @@ export default function AddHotelForm() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
               placeholder="Grand Palace Hotel"
             />
           </div>
 
           {/* Address - Required */}
           <div>
-            <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Address *
             </label>
             <input
@@ -146,7 +146,7 @@ export default function AddHotelForm() {
               value={formData.address}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
               placeholder="123 Main Street"
             />
           </div>
@@ -154,7 +154,7 @@ export default function AddHotelForm() {
           {/* City and Country */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 City *
               </label>
               <input
@@ -163,12 +163,12 @@ export default function AddHotelForm() {
                 value={formData.city}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
                 placeholder="Paris"
               />
             </div>
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Country *
               </label>
               <input
@@ -177,7 +177,7 @@ export default function AddHotelForm() {
                 value={formData.country}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
                 placeholder="France"
               />
             </div>
@@ -186,7 +186,7 @@ export default function AddHotelForm() {
           {/* Phone and Email */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Phone
               </label>
               <input
@@ -194,12 +194,12 @@ export default function AddHotelForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
                 placeholder="+1 234 567 8900"
               />
             </div>
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Email
               </label>
               <input
@@ -207,7 +207,7 @@ export default function AddHotelForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
                 placeholder="info@hotel.com"
               />
             </div>
@@ -215,7 +215,7 @@ export default function AddHotelForm() {
 
           {/* Website */}
           <div>
-            <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Website
             </label>
             <input
@@ -223,14 +223,14 @@ export default function AddHotelForm() {
               name="website"
               value={formData.website}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
               placeholder="https://hotel.com"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Description
             </label>
             <textarea
