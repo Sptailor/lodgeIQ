@@ -104,17 +104,14 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* Hero Header with Gradient */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-500 via-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
-        <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            Dashboard
-          </h1>
-          <p className="text-white/90 dark:text-primary-200 text-lg">
-            Overview of your hotel inspection operations
-          </p>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-black/10 pointer-events-none" />
+      {/* Hero Header */}
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-soft">
+        <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+          Dashboard
+        </h1>
+        <p className="text-neutral-600 dark:text-neutral-400 text-lg">
+          Overview of your hotel inspection operations
+        </p>
       </div>
 
       {/* KPI Metrics Grid */}
