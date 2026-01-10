@@ -37,8 +37,8 @@ export default function RootLayout({
                 {/* Header with auth */}
                 <Header />
 
-                {/* Main content with clean background */}
-                <main className="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-neutral-950 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-24 lg:pb-10">
+                {/* Main content with transparent background */}
+                <main className="min-h-[calc(100vh-4rem)] bg-transparent px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-24 lg:pb-10">
                   <div className="max-w-7xl mx-auto">
                     {children}
                   </div>
