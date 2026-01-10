@@ -83,7 +83,7 @@ export default function LogoPreview() {
             Next Steps
           </h2>
           <p className="text-blue-800 dark:text-blue-200">
-            If you're happy with this logo, let me know and I'll integrate it throughout the app (header, mobile nav, etc.). If you want changes, just tell me what to adjust!
+            If you&apos;re happy with this logo, let me know and I&apos;ll integrate it throughout the app (header, mobile nav, etc.). If you want changes, just tell me what to adjust!
           </p>
         </div>
       </div>
