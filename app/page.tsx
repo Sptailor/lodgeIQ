@@ -7,7 +7,6 @@
 
 import { prisma } from '@/lib/prisma'
 import HotelList from '@/components/HotelList'
-import AddHotelForm from '@/components/AddHotelForm'
 import { KPICard } from '@/components/ui/kpi-card'
 
 /**
@@ -104,15 +103,18 @@ export default async function HomePage() {
     : 0
 
   return (
-    <div className="space-y-5">
-      {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg p-5 border border-neutral-200 dark:border-neutral-800 shadow-sm">
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">
-          Dashboard
-        </h1>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          Overview of your hotel inspection operations
-        </p>
+    <div className="space-y-6">
+      {/* Hero Header with Gradient */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
+        <div className="relative z-10">
+          <h1 className="text-4xl font-bold text-white mb-2">
+            Dashboard
+          </h1>
+          <p className="text-primary-100 dark:text-primary-200 text-lg">
+            Overview of your hotel inspection operations
+          </p>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 pointer-events-none" />
       </div>
 
       {/* KPI Metrics Grid */}
@@ -155,26 +157,20 @@ export default async function HomePage() {
         />
       </div>
 
-      {/* Hotels Section */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      {/* Recent Properties Section */}
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
-              Properties
+              Recent Properties
             </h2>
-            <p className="text-base text-neutral-600 dark:text-neutral-400 mt-1">
-              {hotels.length} {hotels.length === 1 ? 'property' : 'properties'} in your portfolio
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+              Latest {Math.min(hotels.length, 6)} properties in your portfolio
             </p>
           </div>
         </div>
-
-        <div className="bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50 dark:backdrop-blur-xl border border-primary-200/70 dark:border-primary-800/40 rounded-lg p-7 shadow-soft ring-1 ring-primary-100/50 dark:ring-primary-900/20">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-700 dark:text-neutral-200 mb-5">Add New Property</h3>
-          <AddHotelForm />
-        </div>
-
         <div>
-          <HotelList initialHotels={hotels} />
+          <HotelList initialHotels={hotels.slice(0, 6)} />
         </div>
       </div>
     </div>
