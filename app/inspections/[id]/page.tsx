@@ -84,21 +84,21 @@ export default async function InspectionPage({ params }: PageProps) {
       </Link>
 
       {/* Header Card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-5 shadow-soft-2xl">
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
         <div className="relative z-10">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
             {inspection.hotel.name}
           </h1>
-          <p className="text-primary-100 dark:text-primary-200 mb-4">
+          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
             {inspection.hotel.city}, {inspection.hotel.country}
           </p>
 
           <div className="flex flex-wrap gap-6">
-            <div className="flex items-center gap-2 text-white">
-              <Calendar className="w-5 h-5 text-primary-200" />
+            <div className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-primary-600 dark:text-primary-400" />
               <div>
-                <p className="text-xs text-primary-200">Inspection Date</p>
-                <p className="font-semibold">
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">Inspection Date</p>
+                <p className="font-semibold text-neutral-900 dark:text-white">
                   {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
                     weekday: 'short',
                     year: 'numeric',
@@ -109,23 +109,20 @@ export default async function InspectionPage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-white">
-              <User className="w-5 h-5 text-primary-200" />
+            <div className="flex items-center gap-2">
+              <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
               <div>
-                <p className="text-xs text-primary-200">Inspector</p>
-                <p className="font-semibold">{inspection.inspector.name || inspection.inspector.email}</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">Inspector</p>
+                <p className="font-semibold text-neutral-900 dark:text-white">{inspection.inspector.name || inspection.inspector.email}</p>
               </div>
             </div>
 
             <div>
-              <p className="text-xs text-primary-200 mb-1">Status</p>
-              <StatusBadge status={inspection.status as InspectionStatus} size="md" className="bg-white/10 backdrop-blur-sm border-white/20" />
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Status</p>
+              <StatusBadge status={inspection.status as InspectionStatus} size="md" />
             </div>
           </div>
         </div>
-
-        {/* Decorative gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 pointer-events-none" />
       </div>
 
       {/* Inspection form */}
