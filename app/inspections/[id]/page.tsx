@@ -73,7 +73,7 @@ export default async function InspectionPage({ params }: PageProps) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-4">
       {/* Back link */}
       <Link
         href={`/hotels/${inspection.hotel.id}`}
@@ -84,7 +84,7 @@ export default async function InspectionPage({ params }: PageProps) {
       </Link>
 
       {/* Header Card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-6 shadow-soft-2xl">
+      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-5 shadow-soft-2xl">
         <div className="relative z-10">
           <h1 className="text-3xl font-bold text-white mb-2">
             {inspection.hotel.name}

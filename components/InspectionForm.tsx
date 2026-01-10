@@ -271,9 +271,9 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
   const progressPercent = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Progress indicator */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft sticky top-4 z-10">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft sticky top-4 z-10">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">Inspection Progress</h3>
           <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
@@ -432,7 +432,7 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
       </div>
 
       {/* Complete inspection button */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
         <button
           onClick={handleComplete}
           disabled={isCompleting}
