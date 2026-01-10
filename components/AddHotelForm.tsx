@@ -10,7 +10,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { X, Plus } from 'lucide-react'
+import { X, Plus, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function AddHotelForm() {
@@ -83,10 +83,15 @@ export default function AddHotelForm() {
 
   if (!isOpen) {
     return (
-      <Button onClick={() => setIsOpen(true)} size="lg" className="gap-2">
-        <Plus className="w-5 h-5" />
-        Add New Hotel
-      </Button>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Button onClick={() => setIsOpen(true)} size="lg" className="gap-2 shadow-lg">
+          <Plus className="w-5 h-5" />
+          Add New Hotel
+        </Button>
+      </motion.div>
     )
   }
 
@@ -98,14 +103,21 @@ export default function AddHotelForm() {
       className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-soft-lg"
     >
         <div className="flex justify-between items-center mb-7">
-          <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">Add New Property</h3>
-          <button
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 flex items-center justify-center shadow-soft">
+              <Building2 className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-50">Add New Property</h3>
+          </div>
+          <motion.button
             onClick={() => setIsOpen(false)}
-            className="flex items-center justify-center w-9 h-9 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-50 transition-all"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="flex items-center justify-center w-9 h-9 rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors"
             aria-label="Close form"
           >
             <X className="w-5 h-5" />
-          </button>
+          </motion.button>
         </div>
 
         {error && (
@@ -120,9 +132,13 @@ export default function AddHotelForm() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Name - Required */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
             <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
-              Hotel Name *
+              Hotel Name <span className="text-danger-500">*</span>
             </label>
             <input
               type="text"
@@ -130,15 +146,19 @@ export default function AddHotelForm() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
               placeholder="Grand Palace Hotel"
             />
-          </div>
+          </motion.div>
 
           {/* Address - Required */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+          >
             <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
-              Address *
+              Address <span className="text-danger-500">*</span>
             </label>
             <input
               type="text"
@@ -146,16 +166,21 @@ export default function AddHotelForm() {
               value={formData.address}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
               placeholder="123 Main Street"
             />
-          </div>
+          </motion.div>
 
           {/* City and Country */}
-          <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 gap-4"
+          >
             <div>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
-                City *
+                City <span className="text-danger-500">*</span>
               </label>
               <input
                 type="text"
@@ -163,13 +188,13 @@ export default function AddHotelForm() {
                 value={formData.city}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
                 placeholder="Paris"
               />
             </div>
             <div>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
-                Country *
+                Country <span className="text-danger-500">*</span>
               </label>
               <input
                 type="text"
@@ -177,14 +202,19 @@ export default function AddHotelForm() {
                 value={formData.country}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
                 placeholder="France"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Phone and Email */}
-          <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="grid grid-cols-2 gap-4"
+          >
             <div>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Phone
@@ -194,7 +224,7 @@ export default function AddHotelForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
                 placeholder="+1 234 567 8900"
               />
             </div>
@@ -207,14 +237,18 @@ export default function AddHotelForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+                className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
                 placeholder="info@hotel.com"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Website */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
             <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Website
             </label>
@@ -223,13 +257,17 @@ export default function AddHotelForm() {
               name="website"
               value={formData.website}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600"
               placeholder="https://hotel.com"
             />
-          </div>
+          </motion.div>
 
           {/* Description */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+          >
             <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Description
             </label>
@@ -238,17 +276,22 @@ export default function AddHotelForm() {
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-3 bg-white dark:bg-neutral-900/50 border-2 border-primary-200 dark:border-primary-800/40 rounded-xl focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-600 focus:border-accent-400 dark:focus:border-accent-600 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all font-medium shadow-sm resize-none"
+              className="w-full px-4 py-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 focus:border-primary-500 dark:focus:border-primary-600 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all shadow-sm resize-none hover:border-neutral-300 dark:hover:border-neutral-600"
               placeholder="Brief description of the property..."
             />
-          </div>
+          </motion.div>
 
           {/* Buttons */}
-          <div className="flex gap-3 pt-2">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex gap-3 pt-4"
+          >
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1"
+              className="flex-1 shadow-soft-lg"
             >
               {isSubmitting ? 'Creating...' : 'Create Hotel'}
             </Button>
@@ -256,10 +299,11 @@ export default function AddHotelForm() {
               type="button"
               onClick={() => setIsOpen(false)}
               variant="outline"
+              className="shadow-sm"
             >
               Cancel
             </Button>
-          </div>
+          </motion.div>
         </form>
     </motion.div>
   )
