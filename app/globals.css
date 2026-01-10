@@ -12,12 +12,15 @@
   --foreground: #fafafa;
 }
 
-/* Light mode subtle gradient background */
+/* Light mode subtle gradient background with dot pattern */
 body {
+  background-color: #fafafa;
   background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.03) 1px, transparent 0),
     radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
     radial-gradient(at 100% 0%, rgba(20, 184, 166, 0.04) 0px, transparent 50%),
     radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.03) 0px, transparent 50%);
+  background-size: 20px 20px, 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
 }
 
