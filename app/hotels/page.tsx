@@ -35,9 +35,9 @@ export default async function HotelsPage() {
   const hotels = await getHotels()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Page Header */}
-      <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border-2 border-neutral-200 dark:border-neutral-800 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 rounded-2xl p-5 border-2 border-neutral-200 dark:border-neutral-800 shadow-soft">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
@@ -55,13 +55,13 @@ export default async function HotelsPage() {
       </div>
 
       {/* Add Hotel Form */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
         <AddHotelForm />
       </div>
 
       {/* Hotels List */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
-        <div className="mb-5">
+      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-soft">
+        <div className="mb-4">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
             All Properties
           </h2>
