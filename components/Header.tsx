@@ -9,8 +9,8 @@
  */
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { getSession } from '@/lib/auth-utils'
+import { Building2 } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
 import { MobileNav } from '@/components/mobile-nav'
@@ -23,13 +23,9 @@ export default async function Header() {
       {/* Desktop: Logo section - fixed width to match sidebar */}
       <div className="hidden lg:flex items-center w-64 h-full px-6 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 flex-shrink-0">
         <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/logo.png"
-            alt="LodgeIQ Logo"
-            width={40}
-            height={40}
-            className="object-contain"
-          />
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+            <Building2 className="w-5 h-5 text-white" />
+          </div>
           <div>
             <h1 className="text-lg font-bold text-white">
               LodgeIQ
@@ -48,13 +44,9 @@ export default async function Header() {
           href="/"
           className="flex items-center gap-3 group lg:hidden"
         >
-          <Image
-            src="/logo.png"
-            alt="LodgeIQ Logo"
-            width={36}
-            height={36}
-            className="object-contain"
-          />
+          <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
+            <Building2 className="w-5 h-5 text-white" />
+          </div>
           <div>
             <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
               LodgeIQ
