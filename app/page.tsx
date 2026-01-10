@@ -105,13 +105,22 @@ export default async function HomePage() {
   return (
     <div className="space-y-4">
       {/* Hero Header */}
-      <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
-        <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-          Dashboard
-        </h1>
-        <p className="text-neutral-600 dark:text-neutral-400 text-lg">
-          Overview of your hotel inspection operations
-        </p>
+      <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-soft">
+        {/* Decorative gradient accent */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
+
+        {/* Decorative circles */}
+        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100 to-tertiary-100 dark:from-primary-900/20 dark:to-tertiary-900/20 rounded-full blur-2xl opacity-50"></div>
+        <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
+
+        <div className="relative z-10">
+          <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+            Dashboard
+          </h1>
+          <p className="text-neutral-600 dark:text-neutral-400 text-lg">
+            Overview of your hotel inspection operations
+          </p>
+        </div>
       </div>
 
       {/* KPI Metrics Grid */}
