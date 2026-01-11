@@ -37,35 +37,35 @@ export default async function HotelsPage() {
   return (
     <div className="space-y-4">
       {/* Page Header - Glass UI */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-2xl p-5 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
-        <div className="flex items-center justify-between">
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-1 sm:mb-2">
               Property Management
             </h1>
-            <p className="text-base text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
               Manage your property portfolio and inspections
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">Total Properties</p>
-            <p className="text-4xl font-bold text-primary-600 dark:text-primary-400">{hotels.length}</p>
+          <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-0">
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 sm:mb-1">Total Properties</p>
+            <p className="text-2xl sm:text-4xl font-bold text-primary-600 dark:text-primary-400">{hotels.length}</p>
           </div>
         </div>
       </div>
 
       {/* Add Hotel Form - Glass UI */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg">
         <AddHotelForm />
       </div>
 
       {/* Hotels List - Glass UI */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg">
         <div className="mb-4">
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
             All Properties
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
             {hotels.length} {hotels.length === 1 ? 'property' : 'properties'} in total
           </p>
         </div>
