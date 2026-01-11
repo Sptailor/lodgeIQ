@@ -84,21 +84,21 @@ export default async function InspectionPage({ params }: PageProps) {
       </Link>
 
       {/* Header Card */}
-      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg">
         <div className="relative z-10">
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-1 sm:mb-2">
             {inspection.hotel.name}
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+          <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mb-3 sm:mb-4">
             {inspection.hotel.city}, {inspection.hotel.country}
           </p>
 
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-              <div>
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
+              <div className="min-w-0">
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">Inspection Date</p>
-                <p className="font-semibold text-neutral-900 dark:text-white">
+                <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white truncate">
                   {new Date(inspection.inspectionDate).toLocaleDateString('en-US', {
                     weekday: 'short',
                     year: 'numeric',
@@ -110,10 +110,10 @@ export default async function InspectionPage({ params }: PageProps) {
             </div>
 
             <div className="flex items-center gap-2">
-              <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-              <div>
+              <User className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
+              <div className="min-w-0">
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">Inspector</p>
-                <p className="font-semibold text-neutral-900 dark:text-white">{inspection.inspector.name || inspection.inspector.email}</p>
+                <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white truncate">{inspection.inspector.name || inspection.inspector.email}</p>
               </div>
             </div>
 
