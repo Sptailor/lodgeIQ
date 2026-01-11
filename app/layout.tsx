@@ -38,7 +38,7 @@ export default function RootLayout({
                 <Header />
 
                 {/* Main content with transparent background */}
-                <main className="min-h-[calc(100vh-4rem)] bg-transparent px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-24 lg:pb-10">
+                <main className="min-h-[calc(100vh-4rem)] bg-transparent px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 pb-20 sm:pb-24 lg:pb-10">
                   <div className="max-w-7xl mx-auto">
                     {children}
                   </div>
