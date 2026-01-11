@@ -127,21 +127,21 @@ export function KPICard({
       {/* Top accent line with gradient */}
       <div className={cn('h-1 bg-gradient-to-r', styles.accentBar)} />
 
-      <div className="relative p-5 sm:p-6 space-y-4">
+      <div className="relative p-4 sm:p-6 space-y-3 sm:space-y-4">
         <div className="flex items-start justify-between">
           {/* Icon with floating animation */}
           <motion.div
             whileHover={{ rotate: [0, -5, 5, -5, 0], scale: 1.05 }}
             transition={{ duration: 0.5 }}
             className={cn(
-              'relative rounded-xl p-3',
+              'relative rounded-lg sm:rounded-xl p-2 sm:p-3',
               'bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900',
               'shadow-md',
               styles.iconBg,
               'group-hover:shadow-lg transition-shadow duration-300'
             )}
           >
-            <Icon className={cn('w-6 h-6', styles.iconColor)} />
+            <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6', styles.iconColor)} />
             {/* Icon glow effect */}
             <div className={cn(
               'absolute inset-0 rounded-lg sm:rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300',
@@ -167,24 +167,24 @@ export function KPICard({
           )}
         </div>
 
-        <div className="space-y-2">
-          <p className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+        <div className="space-y-1 sm:space-y-2">
+          <p className="text-[10px] sm:text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
             {title}
           </p>
           <motion.h3
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.05 }}
-            className="text-4xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
           >
             {value}
           </motion.h3>
         </div>
 
         {(subtitle || trend?.label) && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium text-center">
+            <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 font-medium text-center">
               {subtitle || trend?.label}
             </p>
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
