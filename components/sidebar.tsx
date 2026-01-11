@@ -169,9 +169,9 @@ export function Sidebar() {
         </nav>
       </motion.aside>
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-40 safe-area-pb shadow-xl">
-        <div className="flex justify-around py-2">
+      {/* Mobile Bottom Navigation - Enhanced for better visibility */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-t-2 border-neutral-200 dark:border-neutral-800 z-50 safe-area-pb shadow-2xl">
+        <div className="flex justify-around py-3 px-2">
           {navItems.slice(0, 4).map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -181,17 +181,23 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex flex-col items-center gap-1 px-3 py-2 min-w-0 flex-1 relative transition-colors',
+                  'flex flex-col items-center justify-center gap-1.5 px-4 py-2.5 min-w-0 flex-1 relative transition-all duration-200 rounded-xl',
                   isActive
-                    ? 'text-accent-600 dark:text-accent-400'
-                    : 'text-neutral-600 dark:text-neutral-400'
+                    ? 'text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/20'
+                    : 'text-neutral-600 dark:text-neutral-400 active:bg-neutral-100 dark:active:bg-neutral-800'
                 )}
               >
                 {isActive && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-accent-600 rounded-b-full" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-accent-500 via-accent-600 to-accent-500 rounded-b-full shadow-lg shadow-accent-500/50" />
                 )}
-                <Icon className="w-6 h-6" />
-                <span className="text-xs font-medium truncate w-full text-center">
+                <Icon className={cn(
+                  'w-7 h-7 transition-transform',
+                  isActive && 'scale-110'
+                )} />
+                <span className={cn(
+                  'text-xs font-semibold truncate w-full text-center',
+                  isActive && 'font-bold'
+                )}>
                   {item.label}
                 </span>
               </Link>
