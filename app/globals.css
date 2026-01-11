@@ -82,6 +82,26 @@ body {
   .text-gradient-primary {
     @apply bg-gradient-to-r from-primary-600 to-tertiary-600 bg-clip-text text-transparent;
   }
+
+  /* Mobile-optimized inputs */
+  @media (max-width: 640px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select {
+      font-size: 16px !important; /* Prevents zoom on iOS */
+      min-height: 44px; /* Touch-friendly size */
+    }
+
+    button {
+      min-height: 44px; /* Touch-friendly button size */
+      touch-action: manipulation; /* Removes double-tap delay */
+    }
+  }
 }
 
 /* Animations */
