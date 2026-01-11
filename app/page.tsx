@@ -105,19 +105,19 @@ export default async function HomePage() {
   return (
     <div className="space-y-4">
       {/* Hero Header - Glass UI */}
-      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-6 shadow-lg">
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
         {/* Decorative gradient accent */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
 
-        {/* Decorative circles */}
-        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100 to-tertiary-100 dark:from-primary-900/20 dark:to-tertiary-900/20 rounded-full blur-2xl opacity-50"></div>
-        <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
+        {/* Decorative circles - hidden on mobile */}
+        <div className="hidden sm:block absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100 to-tertiary-100 dark:from-primary-900/20 dark:to-tertiary-900/20 rounded-full blur-2xl opacity-50"></div>
+        <div className="hidden sm:block absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
 
         <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-1 sm:mb-2">
             Dashboard
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 text-lg">
+          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base md:text-lg">
             Overview of your hotel inspection operations
           </p>
         </div>
@@ -164,13 +164,13 @@ export default async function HomePage() {
       </div>
 
       {/* Recent Properties Section - Glass UI */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 shadow-lg">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
           <div>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
+            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50">
               Recent Properties
             </h2>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
               Latest {Math.min(hotels.length, 6)} properties in your portfolio
             </p>
           </div>
