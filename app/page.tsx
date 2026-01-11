@@ -103,9 +103,9 @@ export default async function HomePage() {
     : 0
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5 sm:space-y-6">
       {/* Hero Header - Glass UI */}
-      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 sm:p-6 shadow-lg">
         {/* Decorative gradient accent */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
 
@@ -114,7 +114,7 @@ export default async function HomePage() {
         <div className="hidden sm:block absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
 
         <div className="relative z-10">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-1 sm:mb-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
             Dashboard
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base md:text-lg">
@@ -123,8 +123,8 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* KPI Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* KPI Metrics Grid - Improved spacing and layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         <KPICard
           title="Total Hotels"
           value={metrics.totalHotels}
@@ -164,16 +164,14 @@ export default async function HomePage() {
       </div>
 
       {/* Recent Properties Section - Glass UI */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50">
-              Recent Properties
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-              Latest {Math.min(hotels.length, 6)} properties in your portfolio
-            </p>
-          </div>
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-2xl p-5 sm:p-6 shadow-lg">
+        <div className="mb-5">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+            Recent Properties
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+            Latest {Math.min(hotels.length, 6)} properties in your portfolio
+          </p>
         </div>
         <div>
           <HotelList initialHotels={hotels.slice(0, 6)} />
