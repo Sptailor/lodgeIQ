@@ -17,12 +17,15 @@ import {
   Settings,
   Home,
   Menu,
-  X
+  X,
+  User as UserIcon,
+  LogOut
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useSidebar } from '@/components/layout-wrapper'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 interface NavItem {
   label: string
@@ -42,6 +45,15 @@ export function Sidebar() {
   const pathname = usePathname()
   const { isCollapsed, setIsCollapsed } = useSidebar()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    // Fetch user session on mount
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(data => setUser(data?.user || null))
+      .catch(() => setUser(null))
+  }, [])
 
   return (
     <>
@@ -260,6 +272,48 @@ export function Sidebar() {
                   )
                 })}
               </nav>
+
+              {/* Footer with Theme Toggle and User Info */}
+              <div className="border-t-2 border-neutral-200 dark:border-neutral-800 p-4 space-y-3">
+                {/* Theme Toggle */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                    Theme
+                  </span>
+                  <ThemeToggle />
+                </div>
+
+                {/* User Info */}
+                {user && (
+                  <div className="pt-3 border-t border-neutral-200 dark:border-neutral-800">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="bg-accent-100 dark:bg-accent-900/50 rounded-full p-2">
+                        <UserIcon className="w-5 h-5 text-accent-700 dark:text-accent-300" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+                          {user.name || user.email}
+                        </p>
+                        {user.name && user.email && (
+                          <p className="text-xs text-neutral-600 dark:text-neutral-400 truncate">
+                            {user.email}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        // Sign out functionality would go here
+                        window.location.href = '/api/auth/signout'
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span className="text-sm font-semibold">Sign Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             </motion.aside>
           </>
         )}

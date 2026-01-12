@@ -60,23 +60,14 @@ export default async function Header() {
         {/* Desktop: Spacer */}
         <div className="hidden lg:flex flex-1" />
 
-        {/* Right side actions */}
-        <div className="flex items-center gap-3">
-          {/* Theme toggle */}
+        {/* Right side actions - Hidden on mobile, shown on desktop */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* Theme toggle - desktop only */}
           <ThemeToggle />
 
           {session?.user ? (
-            <>
-              {/* User menu - desktop */}
-              <div className="hidden sm:block">
-                <UserMenu user={session.user} />
-              </div>
-
-              {/* Mobile menu */}
-              <div className="md:hidden">
-                <MobileNav user={session.user} />
-              </div>
-            </>
+            /* User menu - desktop */}
+            <UserMenu user={session.user} />
           ) : (
             /* Sign in link */
             <Link
