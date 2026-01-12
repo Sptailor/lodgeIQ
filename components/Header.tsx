@@ -38,7 +38,7 @@ export default async function Header() {
       </div>
 
       {/* Main header content area */}
-      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60">
+      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white dark:bg-neutral-900">
         {/* Mobile: Logo and brand - with scroll detection */}
         <MobileHeader />
 
