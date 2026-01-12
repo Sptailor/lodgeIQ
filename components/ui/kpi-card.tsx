@@ -9,8 +9,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { TrendingUp, TrendingDown, Minus, Building2, ClipboardCheck, CheckCircle2, TrendingUp as TrendingUpIcon } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, Building2, ClipboardCheck, CheckCircle2, TrendingUp as TrendingUpIcon, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useState, useEffect } from 'react'
 
 type IconName = 'building' | 'clipboard' | 'check-circle' | 'trending-up'
 
@@ -84,6 +85,15 @@ export function KPICard({
 }: KPICardProps) {
   const styles = variantStyles[variant]
   const Icon = iconMap[icon]
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Determine trend direction if not specified
   const trendDirection = trend?.direction || (trend && trend.value > 0 ? 'up' : trend && trend.value < 0 ? 'down' : 'neutral')
@@ -103,11 +113,12 @@ export function KPICard({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -2, scale: 1.005 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
+      onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
         'group relative rounded-2xl border-2 overflow-hidden backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
         'shadow-lg shadow-neutral-200/50 dark:shadow-neutral-950/50',
         'hover:shadow-xl hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
-        'transition-all duration-300 touch-manipulation',
+        'transition-all duration-300 touch-manipulation cursor-pointer sm:cursor-default',
         styles.border,
         className
       )}
@@ -129,28 +140,39 @@ export function KPICard({
 
       <div className="relative p-4 sm:p-6 space-y-3 sm:space-y-4">
         <div className="flex items-start justify-between">
-          {/* Icon with floating animation */}
-          <motion.div
-            whileHover={{ rotate: [0, -5, 5, -5, 0], scale: 1.05 }}
-            transition={{ duration: 0.5 }}
-            className={cn(
-              'relative rounded-lg sm:rounded-xl p-2 sm:p-3',
-              'bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900',
-              'shadow-md',
-              styles.iconBg,
-              'group-hover:shadow-lg transition-shadow duration-300'
-            )}
-          >
-            <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6', styles.iconColor)} />
-            {/* Icon glow effect */}
-            <div className={cn(
-              'absolute inset-0 rounded-lg sm:rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300',
-              styles.iconBg
-            )} />
-          </motion.div>
+          <div className="flex items-center gap-3">
+            {/* Icon with floating animation */}
+            <motion.div
+              whileHover={{ rotate: [0, -5, 5, -5, 0], scale: 1.05 }}
+              transition={{ duration: 0.5 }}
+              className={cn(
+                'relative rounded-lg sm:rounded-xl p-2 sm:p-3',
+                'bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900',
+                'shadow-md',
+                styles.iconBg,
+                'group-hover:shadow-lg transition-shadow duration-300'
+              )}
+            >
+              <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6', styles.iconColor)} />
+              {/* Icon glow effect */}
+              <div className={cn(
+                'absolute inset-0 rounded-lg sm:rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300',
+                styles.iconBg
+              )} />
+            </motion.div>
+
+            {/* Mobile expand indicator */}
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="sm:hidden"
+            >
+              <ChevronDown className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
+            </motion.div>
+          </div>
 
           {/* Trend indicator with pulse animation */}
-          {trend && (
+          {trend && (isExpanded || !isMobile) && (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -182,13 +204,23 @@ export function KPICard({
         </div>
 
         {(subtitle || trend?.label) && (
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-            <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 font-medium text-center">
-              {subtitle || trend?.label}
-            </p>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-          </div>
+          <motion.div
+            initial={false}
+            animate={{
+              height: isExpanded || !isMobile ? 'auto' : 0,
+              opacity: isExpanded || !isMobile ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
+              <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 font-medium text-center">
+                {subtitle || trend?.label}
+              </p>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
+            </div>
+          </motion.div>
         )}
       </div>
 
