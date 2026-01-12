@@ -15,11 +15,14 @@ import {
   ClipboardCheck,
   BarChart3,
   Settings,
-  Home
+  Home,
+  Menu,
+  X
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useSidebar } from '@/components/layout-wrapper'
+import { useState } from 'react'
 
 interface NavItem {
   label: string
@@ -38,6 +41,7 @@ const navItems: NavItem[] = [
 export function Sidebar() {
   const pathname = usePathname()
   const { isCollapsed, setIsCollapsed } = useSidebar()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <>
@@ -169,42 +173,97 @@ export function Sidebar() {
         </nav>
       </motion.aside>
 
-      {/* Mobile Bottom Navigation - Enhanced for better visibility */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-t-2 border-neutral-200 dark:border-neutral-800 z-50 safe-area-pb shadow-2xl">
-        <div className="flex justify-around py-3 px-2">
-          {navItems.slice(0, 4).map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-20 right-4 z-50 p-3 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-2 border-neutral-200 dark:border-neutral-800 shadow-xl hover:shadow-2xl transition-all touch-manipulation"
+        aria-label="Toggle mobile menu"
+      >
+        {mobileMenuOpen ? (
+          <X className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+        ) : (
+          <Menu className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+        )}
+      </button>
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'flex flex-col items-center justify-center gap-1.5 px-4 py-2.5 min-w-0 flex-1 relative transition-all duration-200 rounded-xl',
-                  isActive
-                    ? 'text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/20'
-                    : 'text-neutral-600 dark:text-neutral-400 active:bg-neutral-100 dark:active:bg-neutral-800'
-                )}
-              >
-                {isActive && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-accent-500 via-accent-600 to-accent-500 rounded-b-full shadow-lg shadow-accent-500/50" />
-                )}
-                <Icon className={cn(
-                  'w-7 h-7 transition-transform',
-                  isActive && 'scale-110'
-                )} />
-                <span className={cn(
-                  'text-xs font-semibold truncate w-full text-center',
-                  isActive && 'font-bold'
-                )}>
-                  {item.label}
-                </span>
-              </Link>
-            )
-          })}
-        </div>
-      </nav>
+      {/* Mobile Slide-out Navigation */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Slide-out Menu */}
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-900 border-r-2 border-neutral-200 dark:border-neutral-800 z-50 shadow-2xl"
+            >
+              {/* Mobile Menu Header */}
+              <div className="p-4 border-b-2 border-neutral-200 dark:border-neutral-800 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+                      <Building2 className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-white">LodgeIQ</h2>
+                      <p className="text-xs text-white/80">Menu</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 rounded-lg hover:bg-white/20 transition-colors"
+                  >
+                    <X className="w-5 h-5 text-white" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile Navigation Items */}
+              <nav className="flex-1 py-4 px-3 space-y-2 overflow-y-auto">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all',
+                        isActive
+                          ? 'bg-gradient-to-r from-accent-100 via-accent-50 to-accent-100/50 dark:from-accent-900/50 dark:via-accent-900/30 dark:to-accent-900/10 text-accent-700 dark:text-accent-300 shadow-md border-l-4 border-accent-600 dark:border-accent-500'
+                          : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200'
+                      )}
+                    >
+                      <div className={cn(
+                        'rounded-lg p-2',
+                        isActive
+                          ? 'bg-accent-200/50 dark:bg-accent-800/30'
+                          : 'bg-neutral-100 dark:bg-neutral-800'
+                      )}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span>{item.label}</span>
+                    </Link>
+                  )
+                })}
+              </nav>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </>
   )
 }
