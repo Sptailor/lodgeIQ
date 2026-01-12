@@ -40,7 +40,7 @@ export function MainContentWrapper({ children }: { children: ReactNode }) {
         stiffness: 300,
         damping: 30,
       }}
-      className="lg:pt-16 max-lg:!pl-0"
+      className="pt-16 max-lg:!pl-0"
     >
       {children}
     </motion.div>
