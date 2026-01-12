@@ -13,6 +13,7 @@ import { getSession } from '@/lib/auth-utils'
 import { Building2 } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
+import { MobileHeader } from '@/components/MobileHeader'
 
 export default async function Header() {
   const session = await getSession()
@@ -38,23 +39,8 @@ export default async function Header() {
 
       {/* Main header content area */}
       <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/95 dark:bg-neutral-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60">
-        {/* Mobile: Logo and brand */}
-        <Link
-          href="/"
-          className="flex items-center gap-3 group lg:hidden"
-        >
-          <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
-            <Building2 className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
-              LodgeIQ
-            </h1>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium hidden sm:block">
-              Inspection Platform
-            </p>
-          </div>
-        </Link>
+        {/* Mobile: Logo and brand - with scroll detection */}
+        <MobileHeader />
 
         {/* Desktop: Spacer */}
         <div className="hidden lg:flex flex-1" />
