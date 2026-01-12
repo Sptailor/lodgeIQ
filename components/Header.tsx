@@ -13,7 +13,6 @@ import { getSession } from '@/lib/auth-utils'
 import { Building2 } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
-import { MobileNav } from '@/components/mobile-nav'
 
 export default async function Header() {
   const session = await getSession()
@@ -66,10 +65,8 @@ export default async function Header() {
           <ThemeToggle />
 
           {session?.user ? (
-            /* User menu - desktop */}
             <UserMenu user={session.user} />
           ) : (
-            /* Sign in link */
             <Link
               href="/auth/signin"
               className="px-4 py-2 bg-gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-all shadow-soft"
