@@ -77,7 +77,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
             transition={{ delay: index * 0.03, duration: 0.2 }}
           >
             <div
-              className="group block bg-gradient-to-br from-white via-white to-accent-50/30 dark:from-neutral-800/60 dark:via-neutral-850/50 dark:to-accent-950/20 dark:backdrop-blur-xl border border-accent-200/60 dark:border-accent-800/40 rounded-lg overflow-hidden shadow-soft hover:shadow-soft-xl hover:border-accent-400/80 dark:hover:border-accent-600/60 md:hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full flex flex-col"
+              className="group block bg-gradient-to-br from-white via-white to-accent-50/30 dark:from-neutral-800/60 dark:via-neutral-850/50 dark:to-accent-950/20 dark:backdrop-blur-xl border border-accent-200/40 dark:border-accent-800/30 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-accent-400/60 dark:hover:border-accent-600/50 md:hover:scale-[1.01] transition-all duration-300 cursor-pointer h-full flex flex-col"
             >
               {/* Top accent bar - warm gradient with shimmer */}
               <div className={`h-2 ${hotel._count?.inspections && hotel._count.inspections > 5 ? 'bg-gradient-to-r from-success-500 via-success-600 to-emerald-600' : hotel._count?.inspections && hotel._count.inspections > 0 ? 'bg-gradient-to-r from-accent-500 via-accent-600 to-gold-600' : 'bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600'}`} />

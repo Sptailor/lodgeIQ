@@ -115,9 +115,9 @@ export function KPICard({
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
-        'group relative rounded-2xl border-2 overflow-hidden backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
-        'shadow-lg shadow-neutral-200/50 dark:shadow-neutral-950/50',
-        'hover:shadow-xl hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10',
+        'group relative rounded-2xl border overflow-hidden backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
+        'shadow-sm shadow-neutral-200/30 dark:shadow-neutral-950/30',
+        'hover:shadow-md hover:shadow-neutral-300/40 dark:hover:shadow-neutral-900/40',
         'transition-all duration-300 touch-manipulation cursor-pointer sm:cursor-default',
         styles.border,
         className
