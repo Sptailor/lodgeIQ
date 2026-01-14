@@ -189,18 +189,18 @@ export function KPICard({
           )}
         </div>
 
-        <div className="space-y-1 sm:space-y-2">
-          <p className="text-[10px] sm:text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-            {title}
-          </p>
+        <div className="space-y-1.5 sm:space-y-2">
           <motion.h3
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.05 }}
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
+            className="text-4xl sm:text-5xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
           >
             {value}
           </motion.h3>
+          <p className="text-[11px] sm:text-sm font-semibold text-neutral-600 dark:text-neutral-400 tracking-wide">
+            {title}
+          </p>
         </div>
 
         {(subtitle || trend?.label) && (
