@@ -18,7 +18,7 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
   const data = [
     { name: 'Completed', value: completed },
     { name: 'In Progress', value: inProgress },
-    { name: 'Pending', value: pending },
+    { name: 'Rejected', value: pending },
   ].filter(item => item.value > 0)
 
   return (

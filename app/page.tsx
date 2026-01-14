@@ -194,11 +194,11 @@ async function getInspectionStatusCounts() {
       where: { status: 'IN_PROGRESS' },
     })
 
-    const pending = await prisma.inspection.count({
-      where: { status: 'SCHEDULED' },
+    const rejected = await prisma.inspection.count({
+      where: { status: 'REJECTED' },
     })
 
-    return { completed, inProgress, pending }
+    return { completed, inProgress, pending: rejected }
   } catch (error) {
     console.error('Error fetching inspection status counts:', error)
     return { completed: 0, inProgress: 0, pending: 0 }
