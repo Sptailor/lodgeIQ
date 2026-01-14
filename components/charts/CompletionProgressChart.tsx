@@ -28,10 +28,11 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
           data={data}
           cx="50%"
           cy="50%"
-          innerRadius={60}
-          outerRadius={90}
-          paddingAngle={2}
+          innerRadius={70}
+          outerRadius={100}
+          paddingAngle={3}
           dataKey="value"
+          animationDuration={1500}
         >
           {data.map((entry, index) => (
             <Cell
@@ -42,17 +43,20 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
         </Pie>
         <Tooltip
           contentStyle={{
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
-            padding: '8px 12px',
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            border: 'none',
+            borderRadius: '12px',
+            padding: '12px 16px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
+          itemStyle={{ fontWeight: 500 }}
         />
         <Legend
           verticalAlign="bottom"
-          height={36}
+          height={40}
           iconType="circle"
-          formatter={(value) => <span style={{ fontSize: 12, fontWeight: 500 }}>{value}</span>}
+          iconSize={10}
+          formatter={(value) => <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>{value}</span>}
         />
       </PieChart>
     </ResponsiveContainer>

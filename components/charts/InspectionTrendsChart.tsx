@@ -13,35 +13,45 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
+        <defs>
+          <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#d97706" stopOpacity={0.3}/>
+            <stop offset="95%" stopColor="#d97706" stopOpacity={0}/>
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.2} vertical={false} />
         <XAxis
           dataKey="month"
-          stroke="#6b7280"
-          fontSize={12}
+          stroke="#9ca3af"
+          fontSize={11}
           tickLine={false}
+          axisLine={false}
         />
         <YAxis
-          stroke="#6b7280"
-          fontSize={12}
+          stroke="#9ca3af"
+          fontSize={11}
           tickLine={false}
           axisLine={false}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
-            padding: '8px 12px',
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            border: 'none',
+            borderRadius: '12px',
+            padding: '12px 16px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
-          labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+          labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#111827' }}
+          itemStyle={{ color: '#d97706', fontWeight: 500 }}
         />
         <Line
           type="monotone"
           dataKey="inspections"
           stroke="#d97706"
-          strokeWidth={3}
-          dot={{ fill: '#d97706', strokeWidth: 2, r: 4 }}
-          activeDot={{ r: 6 }}
+          strokeWidth={2.5}
+          dot={{ fill: '#d97706', strokeWidth: 0, r: 5 }}
+          activeDot={{ r: 7, fill: '#d97706', stroke: '#fff', strokeWidth: 2 }}
+          animationDuration={1500}
         />
       </LineChart>
     </ResponsiveContainer>
