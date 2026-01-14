@@ -9,6 +9,8 @@ import { prisma } from '@/lib/prisma'
 import HotelList from '@/components/HotelList'
 import { KPICard } from '@/components/ui/kpi-card'
 import { InspectionTrendsChart } from '@/components/charts/InspectionTrendsChart'
+import { RatingDistributionChart } from '@/components/charts/RatingDistributionChart'
+import { CompletionProgressChart } from '@/components/charts/CompletionProgressChart'
 
 /**
  * Fetch hotels on the server (Server Component)
@@ -141,10 +143,74 @@ async function getInspectionTrends() {
   }
 }
 
+/**
+ * Fetch rating distribution for chart
+ */
+async function getRatingDistribution() {
+  try {
+    const inspectionsWithRatings = await prisma.inspection.findMany({
+      where: {
+        overallRating: {
+          not: null,
+        },
+      },
+      select: {
+        overallRating: true,
+      },
+    })
+
+    const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+
+    inspectionsWithRatings.forEach((inspection) => {
+      const rating = Math.floor(inspection.overallRating || 0)
+      if (rating >= 1 && rating <= 5) {
+        distribution[rating]++
+      }
+    })
+
+    return [
+      { rating: '1 Star', count: distribution[1] },
+      { rating: '2 Stars', count: distribution[2] },
+      { rating: '3 Stars', count: distribution[3] },
+      { rating: '4 Stars', count: distribution[4] },
+      { rating: '5 Stars', count: distribution[5] },
+    ]
+  } catch (error) {
+    console.error('Error fetching rating distribution:', error)
+    return []
+  }
+}
+
+/**
+ * Fetch inspection status counts
+ */
+async function getInspectionStatusCounts() {
+  try {
+    const completed = await prisma.inspection.count({
+      where: { status: { in: ['COMPLETED', 'APPROVED'] } },
+    })
+
+    const inProgress = await prisma.inspection.count({
+      where: { status: 'IN_PROGRESS' },
+    })
+
+    const pending = await prisma.inspection.count({
+      where: { status: 'SCHEDULED' },
+    })
+
+    return { completed, inProgress, pending }
+  } catch (error) {
+    console.error('Error fetching inspection status counts:', error)
+    return { completed: 0, inProgress: 0, pending: 0 }
+  }
+}
+
 export default async function HomePage() {
   const hotels = await getHotels()
   const metrics = await getDashboardMetrics()
   const trendsData = await getInspectionTrends()
+  const ratingData = await getRatingDistribution()
+  const statusCounts = await getInspectionStatusCounts()
 
   const completionRate = metrics.totalInspections > 0
     ? Math.round((metrics.completedInspections / metrics.totalInspections) * 100)
@@ -211,17 +277,50 @@ export default async function HomePage() {
         />
       </div>
 
-      {/* Inspection Trends Chart */}
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* Inspection Trends Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Inspection Trends
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Last 6 months
+            </p>
+          </div>
+          <InspectionTrendsChart data={trendsData} />
+        </div>
+
+        {/* Rating Distribution Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Rating Distribution
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              All completed inspections
+            </p>
+          </div>
+          <RatingDistributionChart data={ratingData} />
+        </div>
+      </div>
+
+      {/* Completion Progress Chart */}
       <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
         <div className="mb-5 sm:mb-6">
           <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-2.5">
-            Inspection Trends
+            Inspection Status
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-            Inspections completed over the last 6 months
+            Current status breakdown across all inspections
           </p>
         </div>
-        <InspectionTrendsChart data={trendsData} />
+        <CompletionProgressChart
+          completed={statusCounts.completed}
+          inProgress={statusCounts.inProgress}
+          pending={statusCounts.pending}
+        />
       </div>
 
       {/* Recent Properties Section - Glass UI */}
