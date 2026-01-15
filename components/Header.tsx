@@ -27,11 +27,11 @@ export default async function Header() {
             <ClipboardCheck className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">
+            <h1 className="text-xl font-extrabold text-white tracking-tight">
               LodgeIQ
             </h1>
-            <p className="text-xs text-white/80 font-medium">
-              Inspection Platform
+            <p className="text-[10px] text-white/60 font-normal tracking-wide">
+              Property Inspection & Compliance
             </p>
           </div>
         </Link>
