@@ -10,7 +10,7 @@
 
 import Link from 'next/link'
 import { getSession } from '@/lib/auth-utils'
-import { Building2 } from 'lucide-react'
+import { ClipboardCheck } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
 import { MobileHeader } from '@/components/MobileHeader'
@@ -24,7 +24,7 @@ export default async function Header() {
       <div className="hidden lg:flex items-center w-64 h-full px-6 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 flex-shrink-0">
         <Link href="/" className="flex items-center gap-3 group">
           <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
-            <Building2 className="w-5 h-5 text-white" />
+            <ClipboardCheck className="w-5 h-5 text-white" />
           </div>
           <div>
             <h1 className="text-lg font-bold text-white">
