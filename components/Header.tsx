@@ -19,9 +19,9 @@ export default async function Header() {
   const session = await getSession()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-accent-700 dark:border-accent-900 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm">
       {/* Desktop: Logo section - fixed width to match sidebar */}
-      <div className="hidden lg:flex items-center w-64 h-full px-6 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900 flex-shrink-0">
+      <div className="hidden lg:flex items-center w-64 h-full px-6 bg-gradient-to-r from-accent-600/90 via-accent-600/70 to-transparent dark:from-accent-800/90 dark:via-accent-800/60 dark:to-neutral-900/40 flex-shrink-0">
         <Link href="/" className="flex items-center gap-3 group">
           <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
             <ClipboardCheck className="w-5 h-5 text-white" />
