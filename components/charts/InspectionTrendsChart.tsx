@@ -15,8 +15,13 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
       <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
         <defs>
           <linearGradient id="colorInspections" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15}/>
-            <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+            <stop offset="95%" stopColor="#6366f1" stopOpacity={0.05}/>
+          </linearGradient>
+          <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#6366f1" />
+            <stop offset="50%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#6366f1" />
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" opacity={0.3} vertical={false} />
@@ -42,15 +47,22 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
-          itemStyle={{ color: '#6366f1', fontWeight: 500 }}
+          itemStyle={{ color: '#6366f1', fontWeight: 600 }}
+        />
+        <Area
+          type="monotone"
+          dataKey="inspections"
+          stroke="none"
+          fill="url(#colorInspections)"
+          animationDuration={1500}
         />
         <Line
           type="monotone"
           dataKey="inspections"
-          stroke="#6366f1"
-          strokeWidth={3}
-          dot={{ fill: '#6366f1', strokeWidth: 0, r: 5 }}
-          activeDot={{ r: 7, fill: '#6366f1', stroke: '#fff', strokeWidth: 2 }}
+          stroke="url(#lineGradient)"
+          strokeWidth={3.5}
+          dot={{ fill: '#6366f1', strokeWidth: 0, r: 6 }}
+          activeDot={{ r: 8, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1500}
         />
       </LineChart>
