@@ -65,7 +65,11 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
           height={50}
           iconType="circle"
           iconSize={12}
-          formatter={(value) => <span style={{ fontSize: 14, fontWeight: 600, color: '#171717' }}>{value}</span>}
+          formatter={(value) => (
+            <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+              {value}
+            </span>
+          )}
         />
       </PieChart>
     </ResponsiveContainer>
