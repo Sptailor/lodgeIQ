@@ -9,12 +9,20 @@ interface RatingDistributionChartProps {
   }>
 }
 
-const COLORS = ['#ef4444', '#f59e0b', '#818cf8', '#4ade80', '#16a34a']
+const COLORS = ['#ef4444', '#f97316', '#fbbf24', '#84cc16', '#22c55e']
 
 export function RatingDistributionChart({ data }: RatingDistributionChartProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+        <defs>
+          {COLORS.map((color, index) => (
+            <linearGradient key={`gradient-${index}`} id={`barGradient${index}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.9} />
+              <stop offset="100%" stopColor={color} stopOpacity={0.7} />
+            </linearGradient>
+          ))}
+        </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" opacity={0.3} vertical={false} />
         <XAxis
           dataKey="rating"
@@ -42,11 +50,11 @@ export function RatingDistributionChart({ data }: RatingDistributionChartProps) 
         />
         <Bar
           dataKey="count"
-          radius={[6, 6, 0, 0]}
+          radius={[8, 8, 0, 0]}
           animationDuration={1500}
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            <Cell key={`cell-${index}`} fill={`url(#barGradient${index})`} />
           ))}
         </Bar>
       </BarChart>
