@@ -20,7 +20,11 @@ const COLORS = [
 
 export function RatingDistributionChart({ data }: RatingDistributionChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <div className="relative">
+      {/* Glass UI background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/30 dark:from-neutral-800/60 dark:to-neutral-900/30 backdrop-blur-xl rounded-2xl border border-white/40 dark:border-neutral-700/40 shadow-2xl" />
+
+      <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
         <defs>
           {COLORS.map((color, index) => (
@@ -66,5 +70,6 @@ export function RatingDistributionChart({ data }: RatingDistributionChartProps) 
         </Bar>
       </BarChart>
     </ResponsiveContainer>
+    </div>
   )
 }

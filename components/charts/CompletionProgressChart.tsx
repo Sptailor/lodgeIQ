@@ -67,8 +67,12 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
   }
 
   return (
-    <ResponsiveContainer width="100%" height={380}>
-      <PieChart>
+    <div className="relative">
+      {/* Glass UI background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/30 dark:from-neutral-800/60 dark:to-neutral-900/30 backdrop-blur-xl rounded-2xl border border-white/40 dark:border-neutral-700/40 shadow-2xl" />
+
+      <ResponsiveContainer width="100%" height={380}>
+        <PieChart>
         <defs>
           {/* Gradient for Completed */}
           <linearGradient id="completedGradient" x1="0" y1="0" x2="0" y2="1">
@@ -136,5 +140,6 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
         />
       </PieChart>
     </ResponsiveContainer>
+    </div>
   )
 }
