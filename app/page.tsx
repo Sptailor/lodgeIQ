@@ -330,12 +330,12 @@ export default async function HomePage() {
           {/* Status Cards */}
           <div className="flex flex-col justify-center gap-4">
             {/* Completed Card */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-4 border border-green-200/50 dark:border-green-800/50">
+            <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/30 dark:to-green-950/30 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-800/50">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
                 <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Completed</h3>
               </div>
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">{statusCounts.completed}</p>
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-1">{statusCounts.completed}</p>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 {metrics.totalInspections > 0
                   ? `${Math.round((statusCounts.completed / metrics.totalInspections) * 100)}% of total`
