@@ -8,10 +8,11 @@ interface CompletionProgressChartProps {
   inProgress: number
 }
 
+// Using UI color palette for consistency
 const COLORS = {
-  completed: '#22c55e',
-  inProgress: '#f59e0b',
-  pending: '#8b5cf6',
+  completed: '#22c55e',  // success-500
+  inProgress: '#f59e0b', // warning-500
+  pending: '#6366f1',    // accent-500 (changed from purple to indigo)
 }
 
 export function CompletionProgressChart({ completed, pending, inProgress }: CompletionProgressChartProps) {
