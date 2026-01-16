@@ -310,17 +310,68 @@ export default async function HomePage() {
       <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
         <div className="mb-5 sm:mb-6">
           <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-2.5">
-            Inspection Status
+            Inspection Status Overview
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
             Current status breakdown across all inspections
           </p>
         </div>
-        <CompletionProgressChart
-          completed={statusCounts.completed}
-          inProgress={statusCounts.inProgress}
-          pending={statusCounts.pending}
-        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Chart */}
+          <div className="flex items-center justify-center">
+            <CompletionProgressChart
+              completed={statusCounts.completed}
+              inProgress={statusCounts.inProgress}
+              pending={statusCounts.pending}
+            />
+          </div>
+
+          {/* Status Cards */}
+          <div className="flex flex-col justify-center gap-4">
+            {/* Completed Card */}
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-4 border border-green-200/50 dark:border-green-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Completed</h3>
+              </div>
+              <p className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">{statusCounts.completed}</p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                {metrics.totalInspections > 0
+                  ? `${Math.round((statusCounts.completed / metrics.totalInspections) * 100)}% of total`
+                  : 'No inspections'}
+              </p>
+            </div>
+
+            {/* In Progress Card */}
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-xl p-4 border border-amber-200/50 dark:border-amber-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">In Progress</h3>
+              </div>
+              <p className="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-1">{statusCounts.inProgress}</p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                {metrics.totalInspections > 0
+                  ? `${Math.round((statusCounts.inProgress / metrics.totalInspections) * 100)}% of total`
+                  : 'No inspections'}
+              </p>
+            </div>
+
+            {/* Rejected Card */}
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 rounded-xl p-4 border border-violet-200/50 dark:border-violet-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-violet-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Rejected</h3>
+              </div>
+              <p className="text-2xl font-bold text-violet-600 dark:text-violet-400 mb-1">{statusCounts.pending}</p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                {metrics.totalInspections > 0
+                  ? `${Math.round((statusCounts.pending / metrics.totalInspections) * 100)}% of total`
+                  : 'No inspections'}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Recent Properties Section - Glass UI */}
