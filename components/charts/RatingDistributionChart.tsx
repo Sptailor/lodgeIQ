@@ -9,7 +9,8 @@ interface RatingDistributionChartProps {
   }>
 }
 
-const COLORS = ['#ef4444', '#f97316', '#fbbf24', '#84cc16', '#22c55e']
+// Using UI color palette: danger -> warning -> accent -> teal -> success
+const COLORS = ['#ef4444', '#f59e0b', '#6366f1', '#14b8a6', '#22c55e']
 
 export function RatingDistributionChart({ data }: RatingDistributionChartProps) {
   return (
