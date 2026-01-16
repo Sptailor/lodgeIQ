@@ -8,16 +8,16 @@ interface CompletionProgressChartProps {
   inProgress: number
 }
 
-// Futuristic color palette with gradients
+// Vibrant color palette with gradients
 const COLORS = {
   completed: {
-    base: '#22c55e',     // green-500
-    light: '#4ade80',    // green-400
+    base: '#10b981',     // emerald-500 (brighter green)
+    light: '#34d399',    // emerald-400
     gradient: 'url(#completedGradient)'
   },
   inProgress: {
     base: '#f59e0b',     // amber-500
-    light: '#fbbf24',    // amber-400
+    light: '#fcd34d',    // amber-300 (brighter yellow)
     gradient: 'url(#inProgressGradient)'
   },
   pending: {
