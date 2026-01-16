@@ -9,8 +9,14 @@ interface RatingDistributionChartProps {
   }>
 }
 
-// Using UI color palette: danger -> warning -> accent -> teal -> success
-const COLORS = ['#ef4444', '#f59e0b', '#6366f1', '#14b8a6', '#22c55e']
+// Matching UI color palette with consistent shades
+const COLORS = [
+  '#ef4444', // red-500 (1 star)
+  '#f97316', // orange-500 (2 stars)
+  '#f59e0b', // amber-500 (3 stars)
+  '#84cc16', // lime-500 (4 stars)
+  '#22c55e', // green-500 (5 stars)
+]
 
 export function RatingDistributionChart({ data }: RatingDistributionChartProps) {
   return (
