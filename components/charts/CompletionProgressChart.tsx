@@ -9,9 +9,9 @@ interface CompletionProgressChartProps {
 }
 
 const COLORS = {
-  completed: '#10b981',
+  completed: '#16a34a',
   inProgress: '#f59e0b',
-  pending: '#6b7280',
+  pending: '#737373',
 }
 
 export function CompletionProgressChart({ completed, pending, inProgress }: CompletionProgressChartProps) {
