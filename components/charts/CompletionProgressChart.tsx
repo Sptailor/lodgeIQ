@@ -9,9 +9,9 @@ interface CompletionProgressChartProps {
 }
 
 const COLORS = {
-  completed: '#16a34a',
+  completed: '#22c55e',
   inProgress: '#f59e0b',
-  pending: '#737373',
+  pending: '#8b5cf6',
 }
 
 export function CompletionProgressChart({ completed, pending, inProgress }: CompletionProgressChartProps) {
@@ -22,22 +22,30 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
   ].filter(item => item.value > 0)
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={350}>
       <PieChart>
+        <defs>
+          <filter id="shadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3"/>
+          </filter>
+        </defs>
         <Pie
           data={data}
           cx="50%"
-          cy="50%"
-          innerRadius={70}
-          outerRadius={100}
-          paddingAngle={3}
+          cy="45%"
+          innerRadius={80}
+          outerRadius={110}
+          paddingAngle={4}
           dataKey="value"
           animationDuration={1500}
+          animationBegin={0}
+          style={{ filter: 'url(#shadow)' }}
         >
           {data.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
               fill={entry.name === 'Completed' ? COLORS.completed : entry.name === 'In Progress' ? COLORS.inProgress : COLORS.pending}
+              stroke="none"
             />
           ))}
         </Pie>
@@ -49,14 +57,14 @@ export function CompletionProgressChart({ completed, pending, inProgress }: Comp
             padding: '12px 16px',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
-          itemStyle={{ fontWeight: 500 }}
+          itemStyle={{ fontWeight: 600 }}
         />
         <Legend
           verticalAlign="bottom"
-          height={40}
+          height={50}
           iconType="circle"
-          iconSize={10}
-          formatter={(value) => <span style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>{value}</span>}
+          iconSize={12}
+          formatter={(value) => <span style={{ fontSize: 14, fontWeight: 600, color: '#171717' }}>{value}</span>}
         />
       </PieChart>
     </ResponsiveContainer>
