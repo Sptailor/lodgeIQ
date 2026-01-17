@@ -5,225 +5,257 @@
  * Usage: npx prisma db seed
  */
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, InspectionStatus } from '@prisma/client'
 
 const prisma = new PrismaClient()
+
+// Helper to generate random date in past 12 months
+function randomDate(start: Date, end: Date): Date {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+}
+
+// Helper to generate random rating
+function randomRating(min: number = 1, max: number = 5): number {
+  return Math.round((Math.random() * (max - min) + min) * 10) / 10
+}
 
 async function main() {
   console.log('🌱 Starting database seed...')
 
-  // Create sample users (upsert to make idempotent)
-  const inspector1 = await prisma.user.upsert({
-    where: { email: 'john.doe@lodgeiq.com' },
-    update: {},
-    create: {
-      email: 'john.doe@lodgeiq.com',
-      name: 'John Doe',
-      role: 'INSPECTOR',
-    },
-  })
+  // Clear existing data
+  await prisma.inspectionResult.deleteMany()
+  await prisma.inspection.deleteMany()
+  await prisma.hotel.deleteMany()
+  await prisma.checklistItem.deleteMany()
+  await prisma.user.deleteMany()
 
-  const inspector2 = await prisma.user.upsert({
-    where: { email: 'jane.smith@lodgeiq.com' },
-    update: {},
-    create: {
-      email: 'jane.smith@lodgeiq.com',
-      name: 'Jane Smith',
-      role: 'INSPECTOR',
-    },
-  })
+  // Create 7 inspectors (2 highly active, 5 normal)
+  const inspectorData = [
+    { name: 'John Davis', email: 'john.davis@lodgeiq.com', active: true },
+    { name: 'Sarah Wilson', email: 'sarah.wilson@lodgeiq.com', active: true },
+    { name: 'Michael Chen', email: 'michael.chen@lodgeiq.com', active: false },
+    { name: 'Emma Johnson', email: 'emma.johnson@lodgeiq.com', active: false },
+    { name: 'David Martinez', email: 'david.martinez@lodgeiq.com', active: false },
+    { name: 'Lisa Anderson', email: 'lisa.anderson@lodgeiq.com', active: false },
+    { name: 'Robert Taylor', email: 'robert.taylor@lodgeiq.com', active: false },
+  ]
 
-  const manager = await prisma.user.upsert({
-    where: { email: 'manager@lodgeiq.com' },
-    update: {},
-    create: {
-      email: 'manager@lodgeiq.com',
-      name: 'Sarah Manager',
-      role: 'MANAGER',
-    },
-  })
+  const inspectors = await Promise.all(
+    inspectorData.map((data) =>
+      prisma.user.create({
+        data: {
+          email: data.email,
+          name: data.name,
+          role: 'INSPECTOR',
+        },
+      })
+    )
+  )
 
-  console.log('✅ Created users')
+  console.log('✅ Created 7 inspectors')
 
-  // Create sample hotels
-  const hotel1 = await prisma.hotel.create({
-    data: {
+  // Create 10 hotels with geographic diversity
+  const hotelData = [
+    {
       name: 'Grand Palace Hotel',
       address: '123 Royal Street',
       city: 'Paris',
       country: 'France',
-      phone: '+33 1 23 45 67 89',
-      email: 'info@grandpalace.fr',
-      website: 'https://grandpalace.fr',
-      description: 'Luxury 5-star hotel in the heart of Paris',
       latitude: 48.8566,
       longitude: 2.3522,
+      phone: '+33 1 23 45 67 89',
+      pendingIssues: true,
     },
-  })
-
-  const hotel2 = await prisma.hotel.create({
-    data: {
+    {
       name: 'Sunset Beach Resort',
       address: '456 Ocean Drive',
       city: 'Miami',
       country: 'USA',
-      phone: '+1 305 123 4567',
-      email: 'reservations@sunsetbeach.com',
-      website: 'https://sunsetbeach.com',
-      description: 'Beachfront resort with stunning ocean views',
       latitude: 25.7617,
       longitude: -80.1918,
+      phone: '+1 305 123 4567',
+      pendingIssues: false,
     },
-  })
-
-  const hotel3 = await prisma.hotel.create({
-    data: {
+    {
       name: 'Mountain View Lodge',
       address: '789 Alpine Road',
       city: 'Zurich',
       country: 'Switzerland',
-      phone: '+41 44 123 45 67',
-      email: 'info@mountainview.ch',
-      description: 'Cozy lodge with spectacular mountain views',
       latitude: 47.3769,
       longitude: 8.5417,
+      phone: '+41 44 123 45 67',
+      pendingIssues: false,
     },
+    {
+      name: 'Tokyo Imperial Suites',
+      address: '12 Ginza Avenue',
+      city: 'Tokyo',
+      country: 'Japan',
+      latitude: 35.6762,
+      longitude: 139.6503,
+      phone: '+81 3 1234 5678',
+      pendingIssues: true,
+    },
+    {
+      name: 'Sydney Harbor Hotel',
+      address: '88 Harbour Street',
+      city: 'Sydney',
+      country: 'Australia',
+      latitude: -33.8688,
+      longitude: 151.2093,
+      phone: '+61 2 1234 5678',
+      pendingIssues: false,
+    },
+    {
+      name: 'London Westminster Inn',
+      address: '34 Westminster Road',
+      city: 'London',
+      country: 'UK',
+      latitude: 51.5074,
+      longitude: -0.1278,
+      phone: '+44 20 1234 5678',
+      pendingIssues: false,
+    },
+    {
+      name: 'Dubai Marina Resort',
+      address: '567 Marina Walk',
+      city: 'Dubai',
+      country: 'UAE',
+      latitude: 25.0760,
+      longitude: 55.1380,
+      phone: '+971 4 123 4567',
+      pendingIssues: true,
+    },
+    {
+      name: 'New York Central Plaza',
+      address: '901 Fifth Avenue',
+      city: 'New York',
+      country: 'USA',
+      latitude: 40.7128,
+      longitude: -74.0060,
+      phone: '+1 212 123 4567',
+      pendingIssues: false,
+    },
+    {
+      name: 'Barcelona Beach Club',
+      address: '45 La Rambla',
+      city: 'Barcelona',
+      country: 'Spain',
+      latitude: 41.3851,
+      longitude: 2.1734,
+      phone: '+34 93 123 4567',
+      pendingIssues: false,
+    },
+    {
+      name: 'Singapore Sky Tower',
+      address: '78 Orchard Road',
+      city: 'Singapore',
+      country: 'Singapore',
+      latitude: 1.3521,
+      longitude: 103.8198,
+      phone: '+65 6123 4567',
+      pendingIssues: false,
+    },
+  ]
+
+  const hotels = await Promise.all(
+    hotelData.map((data) =>
+      prisma.hotel.create({
+        data: {
+          name: data.name,
+          address: data.address,
+          city: data.city,
+          country: data.country,
+          phone: data.phone,
+          email: `info@${data.name.toLowerCase().replace(/\s+/g, '')}.com`,
+          latitude: data.latitude,
+          longitude: data.longitude,
+        },
+      })
+    )
+  )
+
+  console.log('✅ Created 10 hotels')
+
+  // Create checklist items
+  await prisma.checklistItem.createMany({
+    data: [
+      // Cleanliness
+      { category: 'Cleanliness', itemName: 'Bathroom Cleanliness', weight: 2.0, order: 1 },
+      { category: 'Cleanliness', itemName: 'Room Cleanliness', weight: 1.5, order: 2 },
+      { category: 'Cleanliness', itemName: 'Linen Quality', weight: 1.5, order: 3 },
+      // Safety
+      { category: 'Safety', itemName: 'Fire Safety Equipment', weight: 2.0, order: 1 },
+      { category: 'Safety', itemName: 'Door Locks', weight: 1.5, order: 2 },
+      { category: 'Safety', itemName: 'Emergency Information', weight: 1.0, order: 3 },
+      // Amenities
+      { category: 'Amenities', itemName: 'WiFi Quality', weight: 1.5, order: 1 },
+      { category: 'Amenities', itemName: 'TV and Entertainment', weight: 0.5, order: 2 },
+      { category: 'Amenities', itemName: 'Bathroom Amenities', weight: 1.0, order: 3 },
+    ],
   })
 
-  console.log('✅ Created hotels')
+  console.log('✅ Created checklist items')
 
-  // Create standard checklist items (only if none exist)
-  const existingItems = await prisma.checklistItem.count()
-  if (existingItems === 0) {
-    await prisma.checklistItem.createMany({
-      data: [
-      // Room Quality
-      {
-        category: 'Room Quality',
-        itemName: 'Bed Comfort',
-        description: 'Check mattress quality, pillows, and bedding',
-        weight: 1.5,
-        order: 1,
+  // Generate 100 inspections
+  const startDate = new Date()
+  startDate.setMonth(startDate.getMonth() - 12)
+  const endDate = new Date()
+
+  const statuses: InspectionStatus[] = ['COMPLETED', 'APPROVED', 'IN_PROGRESS', 'REJECTED']
+
+  for (let i = 0; i < 100; i++) {
+    // Highly active inspectors (0, 1) get 60% of inspections
+    const inspectorIndex = Math.random() < 0.6 ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * 5) + 2
+    const inspector = inspectors[inspectorIndex]
+
+    // Hotels with pending issues (0, 3, 6) get more REJECTED/IN_PROGRESS
+    const hotelIndex = Math.floor(Math.random() * hotels.length)
+    const hotel = hotels[hotelIndex]
+    const hasPendingIssues = hotelData[hotelIndex].pendingIssues
+
+    let status: InspectionStatus
+    if (hasPendingIssues && Math.random() < 0.4) {
+      status = Math.random() < 0.5 ? 'REJECTED' : 'IN_PROGRESS'
+    } else if (Math.random() < 0.7) {
+      status = 'COMPLETED'
+    } else if (Math.random() < 0.85) {
+      status = 'APPROVED'
+    } else {
+      status = 'IN_PROGRESS'
+    }
+
+    const inspectionDate = randomDate(startDate, endDate)
+    const completedAt = status === 'COMPLETED' || status === 'APPROVED' ? inspectionDate : null
+
+    // Rating varies by status
+    let rating: number | null = null
+    if (status === 'COMPLETED' || status === 'APPROVED') {
+      rating = hasPendingIssues ? randomRating(2, 4) : randomRating(3, 5)
+    }
+
+    await prisma.inspection.create({
+      data: {
+        hotelId: hotel.id,
+        inspectorId: inspector.id,
+        inspectionDate,
+        overallRating: rating,
+        status,
+        completedAt,
+        notes: `Inspection ${i + 1} - ${status}`,
       },
-      {
-        category: 'Room Quality',
-        itemName: 'Room Size',
-        description: 'Adequate space for guests and luggage',
-        weight: 1.0,
-        order: 2,
-      },
-      {
-        category: 'Room Quality',
-        itemName: 'Air Conditioning/Heating',
-        description: 'Temperature control functionality',
-        weight: 1.5,
-        order: 3,
-      },
-      // Cleanliness
-      {
-        category: 'Cleanliness',
-        itemName: 'Bathroom Cleanliness',
-        description: 'Check toilet, shower, sink, and floors',
-        weight: 2.0,
-        order: 1,
-      },
-      {
-        category: 'Cleanliness',
-        itemName: 'Room Cleanliness',
-        description: 'Overall room hygiene and tidiness',
-        weight: 1.5,
-        order: 2,
-      },
-      {
-        category: 'Cleanliness',
-        itemName: 'Linen Quality',
-        description: 'Clean, fresh sheets and towels',
-        weight: 1.5,
-        order: 3,
-      },
-      // Safety
-      {
-        category: 'Safety',
-        itemName: 'Fire Safety Equipment',
-        description: 'Check smoke detectors, fire extinguishers, exits',
-        weight: 2.0,
-        order: 1,
-      },
-      {
-        category: 'Safety',
-        itemName: 'Door Locks',
-        description: 'Secure locks and peephole functionality',
-        weight: 1.5,
-        order: 2,
-      },
-      {
-        category: 'Safety',
-        itemName: 'Emergency Information',
-        description: 'Visible emergency exits and contact info',
-        weight: 1.0,
-        order: 3,
-      },
-      // Amenities
-      {
-        category: 'Amenities',
-        itemName: 'WiFi Quality',
-        description: 'Internet speed and reliability',
-        weight: 1.5,
-        order: 1,
-      },
-      {
-        category: 'Amenities',
-        itemName: 'TV and Entertainment',
-        description: 'TV functionality and channel selection',
-        weight: 0.5,
-        order: 2,
-      },
-      {
-        category: 'Amenities',
-        itemName: 'Bathroom Amenities',
-        description: 'Toiletries, hair dryer, etc.',
-        weight: 1.0,
-        order: 3,
-      },
-      // Staff & Service
-      {
-        category: 'Staff & Service',
-        itemName: 'Check-in Process',
-        description: 'Efficiency and friendliness at reception',
-        weight: 1.5,
-        order: 1,
-      },
-      {
-        category: 'Staff & Service',
-        itemName: 'Staff Responsiveness',
-        description: 'Staff availability and helpfulness',
-        weight: 1.5,
-        order: 2,
-      },
-      {
-        category: 'Staff & Service',
-        itemName: 'Language Skills',
-        description: 'Staff ability to communicate in required languages',
-        weight: 1.0,
-        order: 3,
-      },
-      ],
     })
-    console.log('✅ Created 15 standard checklist items')
-  } else {
-    console.log('✅ Checklist items already exist, skipping')
   }
 
-  // Note: Inspections will be created through the UI in STEP 2
-  console.log('✅ Skipping sample inspection (will be created via UI)')
+  console.log('✅ Created 100 inspections')
 
   console.log('🎉 Seed completed successfully!')
   console.log(`
   Created:
-  - 3 users (2 inspectors, 1 manager)
-  - 3 hotels (Paris, Miami, Zurich)
-  - 15 standard checklist items across 5 categories
-  - Ready for STEP 2: Inspection Workflow
+  - 7 inspectors (2 highly active: John Davis, Sarah Wilson)
+  - 10 hotels across major cities
+  - 100 inspections over 12 months
+  - Anomalies: 3 hotels with many pending/rejected inspections
   `)
 }
 
