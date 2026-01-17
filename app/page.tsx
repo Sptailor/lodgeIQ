@@ -145,7 +145,7 @@ export default async function DashboardPage() {
         <KPICard
           title="Avg Rating"
           value={metrics.avgRating > 0 ? metrics.avgRating.toFixed(1) : 'N/A'}
-          icon="star"
+          icon="trending-up"
           variant={metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'}
           subtitle="Overall rating"
         />
