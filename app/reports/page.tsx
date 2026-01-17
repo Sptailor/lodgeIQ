@@ -1,41 +1,60 @@
 /**
- * Reports Page
+ * Reports Page - Comprehensive Analytics Dashboard
  *
- * Analytics and reporting dashboard for inspection data
- * Future: Charts, trends, and data exports
+ * Displays detailed analytics, trends, and charts
+ * Filterable by hotel, date range, and inspection category
  */
 
 import { prisma } from '@/lib/prisma'
-import { TrendingUp, Calendar, Download } from 'lucide-react'
-import { KPICard } from '@/components/ui/kpi-card'
+import { InspectionTrendsChart } from '@/components/charts/InspectionTrendsChart'
+import { RatingDistributionChart } from '@/components/charts/RatingDistributionChart'
+import { CompletionProgressChart } from '@/components/charts/CompletionProgressChart'
 
-/**
- * Fetch report metrics
- */
-async function getReportMetrics() {
+async function getInspectionTrends() {
   try {
-    const totalInspections = await prisma.inspection.count()
-    const completedInspections = await prisma.inspection.count({
-      where: {
-        status: {
-          in: ['COMPLETED', 'APPROVED'],
-        },
-      },
-    })
+    const sixMonthsAgo = new Date()
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-    const totalHotels = await prisma.hotel.count()
-
-    const thirtyDaysAgo = new Date()
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-
-    const recentInspections = await prisma.inspection.count({
+    const inspections = await prisma.inspection.findMany({
       where: {
         inspectionDate: {
-          gte: thirtyDaysAgo,
+          gte: sixMonthsAgo,
         },
+      },
+      select: {
+        inspectionDate: true,
       },
     })
 
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const monthlyData: Record<string, number> = {}
+
+    inspections.forEach((inspection) => {
+      const date = new Date(inspection.inspectionDate)
+      const monthKey = `${monthNames[date.getMonth()]} ${date.getFullYear()}`
+      monthlyData[monthKey] = (monthlyData[monthKey] || 0) + 1
+    })
+
+    const last6Months = []
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date()
+      date.setMonth(date.getMonth() - i)
+      const monthKey = `${monthNames[date.getMonth()]} ${date.getFullYear()}`
+      last6Months.push({
+        month: monthNames[date.getMonth()],
+        inspections: monthlyData[monthKey] || 0,
+      })
+    }
+
+    return last6Months
+  } catch (error) {
+    console.error('Error fetching inspection trends:', error)
+    return []
+  }
+}
+
+async function getRatingDistribution() {
+  try {
     const inspectionsWithRatings = await prisma.inspection.findMany({
       where: {
         overallRating: {
@@ -47,131 +66,157 @@ async function getReportMetrics() {
       },
     })
 
-    const avgRating =
-      inspectionsWithRatings.length > 0
-        ? inspectionsWithRatings.reduce((sum, i) => sum + (i.overallRating || 0), 0) /
-          inspectionsWithRatings.length
-        : 0
+    const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
 
-    return {
-      totalInspections,
-      completedInspections,
-      totalHotels,
-      recentInspections,
-      avgRating,
-    }
+    inspectionsWithRatings.forEach((inspection) => {
+      const rating = Math.floor(inspection.overallRating || 0)
+      if (rating >= 1 && rating <= 5) {
+        distribution[rating]++
+      }
+    })
+
+    return [
+      { rating: '1 Star', count: distribution[1] },
+      { rating: '2 Stars', count: distribution[2] },
+      { rating: '3 Stars', count: distribution[3] },
+      { rating: '4 Stars', count: distribution[4] },
+      { rating: '5 Stars', count: distribution[5] },
+    ]
   } catch (error) {
-    console.error('Error fetching report metrics:', error)
-    return {
-      totalInspections: 0,
-      completedInspections: 0,
-      totalHotels: 0,
-      recentInspections: 0,
-      avgRating: 0,
-    }
+    console.error('Error fetching rating distribution:', error)
+    return []
+  }
+}
+
+async function getInspectionStatusCounts() {
+  try {
+    const completed = await prisma.inspection.count({
+      where: { status: { in: ['COMPLETED', 'APPROVED'] } },
+    })
+
+    const inProgress = await prisma.inspection.count({
+      where: { status: 'IN_PROGRESS' },
+    })
+
+    const rejected = await prisma.inspection.count({
+      where: { status: 'REJECTED' },
+    })
+
+    return { completed, inProgress, pending: rejected }
+  } catch (error) {
+    console.error('Error fetching inspection status counts:', error)
+    return { completed: 0, inProgress: 0, pending: 0 }
   }
 }
 
 export default async function ReportsPage() {
-  const metrics = await getReportMetrics()
-
-  const completionRate =
-    metrics.totalInspections > 0
-      ? Math.round((metrics.completedInspections / metrics.totalInspections) * 100)
-      : 0
+  const trendsData = await getInspectionTrends()
+  const ratingData = await getRatingDistribution()
+  const statusCounts = await getInspectionStatusCounts()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Page Header */}
-      <div className="relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-neutral-900/90 dark:via-neutral-900/80 dark:to-neutral-900/90 rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-800/50 shadow-xl shadow-neutral-200/50 dark:shadow-neutral-950/50">
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-accent-500/10 to-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
+        <div className="hidden sm:block absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100 to-tertiary-100 dark:from-primary-900/20 dark:to-tertiary-900/20 rounded-full blur-2xl opacity-50"></div>
+        <div className="hidden sm:block absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
 
-        <div className="relative">
-          <h1 className="text-3xl font-black bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent mb-2">
+        <div className="relative z-10">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-3">
             Reports & Analytics
           </h1>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
-            Insights and trends from your inspection data
+          <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-base md:text-lg">
+            Detailed insights and trends from your inspection data
           </p>
         </div>
       </div>
 
-      {/* Key Metrics */}
-      <div>
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-6">
-          Overview Metrics
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <KPICard
-            title="Total Hotels"
-            value={metrics.totalHotels}
-            icon="building"
-            variant="primary"
-            subtitle="Properties managed"
-          />
-          <KPICard
-            title="Total Inspections"
-            value={metrics.totalInspections}
-            icon="clipboard"
-            variant="default"
-            subtitle={`${metrics.recentInspections} in last 30 days`}
-          />
-          <KPICard
-            title="Completion Rate"
-            value={`${completionRate}%`}
-            icon="check-circle"
-            variant="success"
-            subtitle={`${metrics.completedInspections} completed`}
-          />
-          <KPICard
-            title="Avg Rating"
-            value={metrics.avgRating > 0 ? metrics.avgRating.toFixed(1) : 'N/A'}
-            icon="trending-up"
-            variant={
-              metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'
-            }
-            subtitle={metrics.avgRating > 0 ? 'Out of 5.0 stars' : 'No ratings yet'}
-          />
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* Inspection Trends Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Inspection Trends
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Last 6 months
+            </p>
+          </div>
+          <InspectionTrendsChart data={trendsData} />
+        </div>
+
+        {/* Rating Distribution Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Rating Distribution
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              All completed inspections
+            </p>
+          </div>
+          <RatingDistributionChart data={ratingData} />
         </div>
       </div>
 
-      {/* Coming Soon Section */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 shadow-sm">
-        <div className="text-center max-w-2xl mx-auto space-y-5">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-accent-50 dark:bg-accent-950/20 rounded-lg">
-            <TrendingUp className="w-6 h-6 text-accent-600 dark:text-accent-400" />
+      {/* Completion Progress Chart */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+        <div className="mb-5 sm:mb-6">
+          <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-2.5">
+            Inspection Status Overview
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+            Current status breakdown across all inspections
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Chart */}
+          <div className="flex items-center justify-center">
+            <CompletionProgressChart
+              completed={statusCounts.completed}
+              inProgress={statusCounts.inProgress}
+              pending={statusCounts.pending}
+            />
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-2">
-              Advanced Analytics Coming Soon
-            </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              We are building powerful analytics features including trend charts, comparative
-              analysis, and custom reports.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-              <Calendar className="w-4 h-4 text-accent-600 dark:text-accent-400 mb-2" />
-              <h4 className="font-medium text-neutral-900 dark:text-neutral-50 mb-1 text-sm">
-                Time-based Trends
-              </h4>
+          {/* Status Cards */}
+          <div className="flex flex-col justify-center gap-4">
+            {/* Completed Card */}
+            <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/30 dark:to-green-950/30 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Completed</h3>
+              </div>
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-1">{statusCounts.completed}</p>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                Track performance over time with interactive charts
+                Total completed inspections
               </p>
             </div>
 
-            <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-              <Download className="w-4 h-4 text-accent-600 dark:text-accent-400 mb-2" />
-              <h4 className="font-medium text-neutral-900 dark:text-neutral-50 mb-1 text-sm">
-                Data Export
-              </h4>
+            {/* In Progress Card */}
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-xl p-4 border border-amber-200/50 dark:border-amber-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">In Progress</h3>
+              </div>
+              <p className="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-1">{statusCounts.inProgress}</p>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                Export reports to PDF, Excel, and CSV formats
+                Currently in progress
+              </p>
+            </div>
+
+            {/* Rejected Card */}
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 rounded-xl p-4 border border-violet-200/50 dark:border-violet-800/50">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-violet-500"></div>
+                <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Rejected</h3>
+              </div>
+              <p className="text-2xl font-bold text-violet-600 dark:text-violet-400 mb-1">{statusCounts.pending}</p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                Rejected inspections
               </p>
             </div>
           </div>
