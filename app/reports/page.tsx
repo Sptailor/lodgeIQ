@@ -9,6 +9,9 @@ import { prisma } from '@/lib/prisma'
 import { InspectionTrendsChart } from '@/components/charts/InspectionTrendsChart'
 import { RatingDistributionChart } from '@/components/charts/RatingDistributionChart'
 import { CompletionProgressChart } from '@/components/charts/CompletionProgressChart'
+import { HotelPerformanceChart } from '@/components/charts/HotelPerformanceChart'
+import { InspectorActivityChart } from '@/components/charts/InspectorActivityChart'
+import { CategoryRatingsChart } from '@/components/charts/CategoryRatingsChart'
 
 async function getInspectionTrends() {
   try {
@@ -109,10 +112,111 @@ async function getInspectionStatusCounts() {
   }
 }
 
+async function getHotelPerformance() {
+  try {
+    const hotels = await prisma.hotel.findMany({
+      include: {
+        inspections: {
+          where: {
+            overallRating: { not: null },
+          },
+          select: {
+            overallRating: true,
+          },
+        },
+      },
+    })
+
+    return hotels.map((hotel) => {
+      const ratings = hotel.inspections.map((i) => i.overallRating || 0)
+      const avgRating = ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0
+      return {
+        hotel: hotel.name.length > 20 ? hotel.name.substring(0, 18) + '...' : hotel.name,
+        avgRating,
+        inspections: hotel.inspections.length,
+      }
+    }).sort((a, b) => b.avgRating - a.avgRating).slice(0, 10)
+  } catch (error) {
+    console.error('Error fetching hotel performance:', error)
+    return []
+  }
+}
+
+async function getInspectorActivity() {
+  try {
+    const inspectors = await prisma.user.findMany({
+      where: { role: 'INSPECTOR' },
+      include: {
+        inspections: {
+          where: {
+            status: { in: ['COMPLETED', 'APPROVED'] },
+          },
+          select: {
+            overallRating: true,
+          },
+        },
+      },
+    })
+
+    return inspectors.map((inspector) => {
+      const ratings = inspector.inspections.map((i) => i.overallRating || 0).filter((r) => r > 0)
+      const avgRating = ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0
+      return {
+        inspector: inspector.name || 'Unknown',
+        completed: inspector.inspections.length,
+        avgRating,
+      }
+    }).sort((a, b) => b.completed - a.completed)
+  } catch (error) {
+    console.error('Error fetching inspector activity:', error)
+    return []
+  }
+}
+
+async function getCategoryRatings() {
+  try {
+    const categories = ['Cleanliness', 'Safety', 'Amenities']
+
+    const categoryData = await Promise.all(
+      categories.map(async (category) => {
+        const items = await prisma.checklistItem.findMany({
+          where: { category },
+          include: {
+            inspectionResults: {
+              where: {
+                rating: { not: null },
+              },
+              select: {
+                rating: true,
+              },
+            },
+          },
+        })
+
+        const allRatings = items.flatMap((item) => item.inspectionResults.map((r) => r.rating || 0))
+        const avgRating = allRatings.length > 0 ? allRatings.reduce((a, b) => a + b, 0) / allRatings.length : 0
+
+        return {
+          category,
+          rating: avgRating,
+        }
+      })
+    )
+
+    return categoryData
+  } catch (error) {
+    console.error('Error fetching category ratings:', error)
+    return []
+  }
+}
+
 export default async function ReportsPage() {
   const trendsData = await getInspectionTrends()
   const ratingData = await getRatingDistribution()
   const statusCounts = await getInspectionStatusCounts()
+  const hotelPerformance = await getHotelPerformance()
+  const inspectorActivity = await getInspectorActivity()
+  const categoryRatings = await getCategoryRatings()
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -158,6 +262,45 @@ export default async function ReportsPage() {
             </p>
           </div>
           <RatingDistributionChart data={ratingData} />
+        </div>
+
+        {/* Hotel Performance Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Hotel Performance
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Average ratings by hotel
+            </p>
+          </div>
+          <HotelPerformanceChart data={hotelPerformance} />
+        </div>
+
+        {/* Inspector Activity Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Inspector Activity
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Completed inspections and ratings
+            </p>
+          </div>
+          <InspectorActivityChart data={inspectorActivity} />
+        </div>
+
+        {/* Category Ratings Chart */}
+        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Category Ratings
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Average ratings by category
+            </p>
+          </div>
+          <CategoryRatingsChart data={categoryRatings} />
         </div>
       </div>
 
