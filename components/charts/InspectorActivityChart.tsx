@@ -51,10 +51,11 @@ export function InspectorActivityChart({ data }: InspectorActivityChartProps) {
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
           cursor={{ fill: 'rgba(99, 102, 241, 0.1)' }}
-          formatter={(value: number, name: string) => {
+          formatter={(value: number | undefined, name: string | undefined) => {
+            if (!value) return ['0', name || 'Value']
             if (name === 'completed') return [value, 'Completed']
             if (name === 'avgRating') return [value.toFixed(2), 'Avg Rating']
-            return [value, name]
+            return [value, name || 'Value']
           }}
         />
         <Legend

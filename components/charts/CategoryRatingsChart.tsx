@@ -38,7 +38,7 @@ export function CategoryRatingsChart({ data }: CategoryRatingsChartProps) {
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
-          formatter={(value: number) => [value.toFixed(2), 'Avg Rating']}
+          formatter={(value: number | undefined) => [value ? value.toFixed(2) : '0', 'Avg Rating']}
         />
         <Radar
           name="Rating"
