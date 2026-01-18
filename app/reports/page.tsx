@@ -12,6 +12,7 @@ import { CompletionProgressChart } from '@/components/charts/CompletionProgressC
 import { HotelPerformanceChart } from '@/components/charts/HotelPerformanceChart'
 import { InspectorActivityChart } from '@/components/charts/InspectorActivityChart'
 import { CategoryRatingsChart } from '@/components/charts/CategoryRatingsChart'
+import { GeographicMap } from '@/components/charts/GeographicMap'
 
 async function getInspectionTrends() {
   try {
@@ -218,6 +219,39 @@ async function getCategoryRatings() {
   }
 }
 
+async function getGeographicData() {
+  try {
+    const hotels = await prisma.hotel.findMany({
+      include: {
+        inspections: {
+          where: {
+            overallRating: { not: null },
+          },
+          select: {
+            overallRating: true,
+          },
+        },
+      },
+    })
+
+    return hotels.map((hotel) => {
+      const ratings = hotel.inspections.map((i) => i.overallRating || 0)
+      const avgRating = ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0
+      return {
+        id: hotel.id,
+        name: hotel.name,
+        city: hotel.city,
+        country: hotel.country,
+        inspectionCount: hotel.inspections.length,
+        avgRating,
+      }
+    })
+  } catch (error) {
+    console.error('Error fetching geographic data:', error)
+    return []
+  }
+}
+
 export default async function ReportsPage() {
   const trendsData = await getInspectionTrends()
   const ratingData = await getRatingDistribution()
@@ -225,6 +259,7 @@ export default async function ReportsPage() {
   const hotelPerformance = await getHotelPerformance()
   const inspectorActivity = await getInspectorActivity()
   const categoryRatings = await getCategoryRatings()
+  const geographicData = await getGeographicData()
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -310,6 +345,19 @@ export default async function ReportsPage() {
           </div>
           <CategoryRatingsChart data={categoryRatings} />
         </div>
+      </div>
+
+      {/* Geographic View */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+        <div className="mb-5 sm:mb-6">
+          <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-2.5">
+            Geographic View
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+            Hotel locations and inspection activity
+          </p>
+        </div>
+        <GeographicMap hotels={geographicData} />
       </div>
 
       {/* Completion Progress Chart */}
