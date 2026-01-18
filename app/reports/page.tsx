@@ -26,16 +26,23 @@ async function getInspectionTrends() {
       },
       select: {
         inspectionDate: true,
+        status: true,
       },
     })
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const monthlyData: Record<string, number> = {}
+    const monthlyData: Record<string, { total: number, completed: number }> = {}
 
     inspections.forEach((inspection) => {
       const date = new Date(inspection.inspectionDate)
       const monthKey = `${monthNames[date.getMonth()]} ${date.getFullYear()}`
-      monthlyData[monthKey] = (monthlyData[monthKey] || 0) + 1
+      if (!monthlyData[monthKey]) {
+        monthlyData[monthKey] = { total: 0, completed: 0 }
+      }
+      monthlyData[monthKey].total++
+      if (inspection.status === 'COMPLETED' || inspection.status === 'APPROVED') {
+        monthlyData[monthKey].completed++
+      }
     })
 
     const last6Months = []
@@ -45,7 +52,8 @@ async function getInspectionTrends() {
       const monthKey = `${monthNames[date.getMonth()]} ${date.getFullYear()}`
       last6Months.push({
         month: monthNames[date.getMonth()],
-        inspections: monthlyData[monthKey] || 0,
+        inspections: monthlyData[monthKey]?.total || 0,
+        completed: monthlyData[monthKey]?.completed || 0,
       })
     }
 
