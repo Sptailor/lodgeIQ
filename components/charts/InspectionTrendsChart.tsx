@@ -52,7 +52,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           dot={{ fill: '#6366f1', strokeWidth: 0, r: 5 }}
           activeDot={{ r: 7, fill: '#6366f1', stroke: '#fff', strokeWidth: 2 }}
           animationDuration={1500}
-          name="Total"
+          name="Total Inspections"
         />
         <Line
           type="monotone"
@@ -62,7 +62,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           dot={{ fill: '#10b981', strokeWidth: 0, r: 5 }}
           activeDot={{ r: 7, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }}
           animationDuration={1500}
-          name="Completed"
+          name="Completed Inspections"
         />
       </LineChart>
     </ResponsiveContainer>
