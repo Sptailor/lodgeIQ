@@ -21,7 +21,7 @@ export default function SignInPage({
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">Welcome to LodgeIQ</h1>
-          <p className="text-neutral-600 dark:text-neutral-400">Sign in to continue</p>
+          <p className="text-neutral-700 dark:text-neutral-300">Sign in to continue</p>
         </div>
 
         {/* Error message */}
@@ -68,7 +68,7 @@ export default function SignInPage({
             Continue with Email
           </button>
 
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center">
             We&apos;ll send you a magic link to sign in
           </p>
         </form>
@@ -81,7 +81,7 @@ export default function SignInPage({
                 <div className="w-full border-t border-neutral-300 dark:border-neutral-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400">Or continue with</span>
+                <span className="px-2 bg-white/90 dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-300">Or continue with</span>
               </div>
             </div>
 
@@ -121,7 +121,7 @@ export default function SignInPage({
 
         {/* Info */}
         <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center">
             By signing in, you agree to our Terms of Service and Privacy Policy.
           </p>
         </div>
