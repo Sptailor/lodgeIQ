@@ -17,11 +17,11 @@ export default function SignInPage({
 
   return (
     <div className="max-w-md mx-auto mt-12">
-      <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl p-8 shadow-lg">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to LodgeIQ</h1>
-          <p className="text-gray-600">Sign in to continue</p>
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">Welcome to LodgeIQ</h1>
+          <p className="text-neutral-600 dark:text-neutral-400">Sign in to continue</p>
         </div>
 
         {/* Error message */}
@@ -48,7 +48,7 @@ export default function SignInPage({
           className="space-y-4 mb-6"
         >
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
               Email Address
             </label>
             <input
@@ -57,18 +57,18 @@ export default function SignInPage({
               type="email"
               required
               placeholder="you@example.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors"
+            className="w-full bg-gradient-to-r from-primary-600 to-accent-600 text-white py-3 rounded-md font-semibold hover:from-primary-700 hover:to-accent-700 transition-all shadow-md hover:shadow-lg"
           >
             Continue with Email
           </button>
 
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
             We&apos;ll send you a magic link to sign in
           </p>
         </form>
@@ -78,10 +78,10 @@ export default function SignInPage({
           <>
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-neutral-300 dark:border-neutral-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                <span className="px-2 bg-white dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400">Or continue with</span>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ export default function SignInPage({
             >
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 py-3 rounded-md font-medium hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-center gap-3 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 py-3 rounded-md font-medium hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -120,8 +120,8 @@ export default function SignInPage({
         )}
 
         {/* Info */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-xs text-gray-500 text-center">
+        <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
             By signing in, you agree to our Terms of Service and Privacy Policy.
           </p>
         </div>
