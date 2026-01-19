@@ -63,7 +63,7 @@ export default function SignInPage({
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-primary-600 to-accent-600 text-white py-3 rounded-md font-semibold hover:from-primary-700 hover:to-accent-700 transition-all shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-primary-600 to-accent-600 text-white py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-accent-700 transition-all shadow-md hover:shadow-lg"
           >
             Continue with Email
           </button>
