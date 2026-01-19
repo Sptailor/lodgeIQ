@@ -48,9 +48,9 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           type="monotone"
           dataKey="inspections"
           stroke="#6366f1"
-          strokeWidth={3}
-          dot={{ fill: '#6366f1', strokeWidth: 0, r: 5 }}
-          activeDot={{ r: 7, fill: '#6366f1', stroke: '#fff', strokeWidth: 2 }}
+          strokeWidth={4}
+          dot={{ fill: '#6366f1', strokeWidth: 0, r: 6 }}
+          activeDot={{ r: 8, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1500}
           name="Total Inspections"
         />
@@ -58,9 +58,9 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           type="monotone"
           dataKey="completed"
           stroke="#10b981"
-          strokeWidth={3}
-          dot={{ fill: '#10b981', strokeWidth: 0, r: 5 }}
-          activeDot={{ r: 7, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }}
+          strokeWidth={4}
+          dot={{ fill: '#10b981', strokeWidth: 0, r: 6 }}
+          activeDot={{ r: 8, fill: '#10b981', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1500}
           name="Completed Inspections"
         />
