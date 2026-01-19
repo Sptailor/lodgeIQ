@@ -17,13 +17,13 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} vertical={false} />
         <XAxis
           dataKey="month"
-          stroke="#a3a3a3"
+          stroke="#9ca3af"
           fontSize={11}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
-          stroke="#a3a3a3"
+          stroke="#9ca3af"
           fontSize={11}
           tickLine={false}
           axisLine={false}
