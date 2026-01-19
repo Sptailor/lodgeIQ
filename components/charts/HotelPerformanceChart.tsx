@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 interface HotelPerformanceChartProps {
   data: Array<{
@@ -10,19 +10,18 @@ interface HotelPerformanceChartProps {
   }>
 }
 
-const COLORS = ['#6366f1', '#14b8a6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444', '#ec4899', '#06b6d4', '#84cc16', '#f97316']
-
 export function HotelPerformanceChart({ data }: HotelPerformanceChartProps) {
+  // Show only top 5 hotels to keep it clean
+  const topHotels = data.slice(0, 5)
+
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 60 }}>
+      <BarChart data={topHotels} margin={{ top: 5, right: 20, left: 0, bottom: 60 }}>
         <defs>
-          {COLORS.map((color, index) => (
-            <linearGradient key={`gradient-${index}`} id={`hotelGradient${index}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={color} stopOpacity={0.9} />
-              <stop offset="100%" stopColor={color} stopOpacity={0.6} />
-            </linearGradient>
-          ))}
+          <linearGradient id="hotelGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#6366f1" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#4f46e5" stopOpacity={0.7} />
+          </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" opacity={0.3} vertical={false} />
         <XAxis
@@ -61,13 +60,10 @@ export function HotelPerformanceChart({ data }: HotelPerformanceChartProps) {
         />
         <Bar
           dataKey="avgRating"
+          fill="url(#hotelGradient)"
           radius={[8, 8, 0, 0]}
           animationDuration={1500}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={`url(#hotelGradient${index % COLORS.length})`} />
-          ))}
-        </Bar>
+        />
       </BarChart>
     </ResponsiveContainer>
   )
