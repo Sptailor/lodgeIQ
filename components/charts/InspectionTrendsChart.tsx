@@ -1,6 +1,6 @@
 'use client'
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, Legend } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 interface InspectionTrendsChartProps {
   data: Array<{
@@ -14,25 +14,6 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-        <defs>
-          <linearGradient id="colorInspections" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
-            <stop offset="95%" stopColor="#6366f1" stopOpacity={0.05}/>
-          </linearGradient>
-          <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-            <stop offset="95%" stopColor="#10b981" stopOpacity={0.05}/>
-          </linearGradient>
-          <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="50%" stopColor="#14b8a6" />
-            <stop offset="100%" stopColor="#4f46e5" />
-          </linearGradient>
-          <linearGradient id="completedGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#10b981" />
-            <stop offset="100%" stopColor="#059669" />
-          </linearGradient>
-        </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" opacity={0.3} vertical={false} />
         <XAxis
           dataKey="month"
@@ -63,34 +44,20 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           }}
           iconType="circle"
         />
-        <Area
-          type="monotone"
-          dataKey="inspections"
-          stroke="none"
-          fill="url(#colorInspections)"
-          animationDuration={1500}
-        />
-        <Area
-          type="monotone"
-          dataKey="completed"
-          stroke="none"
-          fill="url(#colorCompleted)"
-          animationDuration={1500}
-        />
         <Line
           type="monotone"
           dataKey="inspections"
-          stroke="url(#lineGradient)"
+          stroke="#6366f1"
           strokeWidth={3}
           dot={{ fill: '#6366f1', strokeWidth: 0, r: 5 }}
           activeDot={{ r: 7, fill: '#6366f1', stroke: '#fff', strokeWidth: 2 }}
           animationDuration={1500}
-          name="Total Inspections"
+          name="Total"
         />
         <Line
           type="monotone"
           dataKey="completed"
-          stroke="url(#completedGradient)"
+          stroke="#10b981"
           strokeWidth={3}
           dot={{ fill: '#10b981', strokeWidth: 0, r: 5 }}
           activeDot={{ r: 7, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }}
