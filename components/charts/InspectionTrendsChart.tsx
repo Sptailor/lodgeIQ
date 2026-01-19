@@ -50,7 +50,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           stroke="#6366f1"
           strokeWidth={4}
           dot={{ fill: '#6366f1', strokeWidth: 0, r: 6 }}
-          activeDot={{ r: 8, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
+          activeDot={{ r: 9, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1500}
           name="Total Inspections"
         />
@@ -60,7 +60,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           stroke="#10b981"
           strokeWidth={4}
           dot={{ fill: '#10b981', strokeWidth: 0, r: 6 }}
-          activeDot={{ r: 8, fill: '#10b981', stroke: '#fff', strokeWidth: 3 }}
+          activeDot={{ r: 9, fill: '#10b981', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1500}
           name="Completed Inspections"
         />
