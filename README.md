@@ -2,6 +2,8 @@
 
 Professional hotel and resort inspection platform for tour operators, travel agencies, and hospitality inspectors.
 
+**Live Demo:** [https://lodge-iq.vercel.app/](https://lodge-iq.vercel.app/)
+
 ## Overview
 
 LodgeIQ is a comprehensive inspection management system designed to help tour operators and travel agencies systematically evaluate and document lodging facilities. The platform streamlines quality assurance processes, reduces client complaints, and maintains detailed records of property inspections.
