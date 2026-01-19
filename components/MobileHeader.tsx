@@ -33,7 +33,7 @@ export function MobileHeader() {
                 <Building2 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold bg-gradient-to-r from-accent-600 to-accent-700 bg-clip-text text-transparent">
+                <h1 className="text-lg font-bold text-neutral-900 dark:text-white">
                   LodgeIQ
                 </h1>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium hidden sm:block">
