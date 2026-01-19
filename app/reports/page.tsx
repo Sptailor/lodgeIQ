@@ -9,7 +9,6 @@ import { prisma } from '@/lib/prisma'
 import { InspectionTrendsChart } from '@/components/charts/InspectionTrendsChart'
 import { RatingDistributionChart } from '@/components/charts/RatingDistributionChart'
 import { CompletionProgressChart } from '@/components/charts/CompletionProgressChart'
-import { HotelPerformanceChart } from '@/components/charts/HotelPerformanceChart'
 import { InspectorActivityChart } from '@/components/charts/InspectorActivityChart'
 import { CategoryRatingsChart } from '@/components/charts/CategoryRatingsChart'
 import { GeographicMap } from '@/components/charts/GeographicMap'
@@ -121,36 +120,6 @@ async function getInspectionStatusCounts() {
   }
 }
 
-async function getHotelPerformance() {
-  try {
-    const hotels = await prisma.hotel.findMany({
-      include: {
-        inspections: {
-          where: {
-            overallRating: { not: null },
-          },
-          select: {
-            overallRating: true,
-          },
-        },
-      },
-    })
-
-    return hotels.map((hotel) => {
-      const ratings = hotel.inspections.map((i) => i.overallRating || 0)
-      const avgRating = ratings.length > 0 ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0
-      return {
-        hotel: hotel.name.length > 20 ? hotel.name.substring(0, 18) + '...' : hotel.name,
-        avgRating,
-        inspections: hotel.inspections.length,
-      }
-    }).sort((a, b) => b.avgRating - a.avgRating).slice(0, 10)
-  } catch (error) {
-    console.error('Error fetching hotel performance:', error)
-    return []
-  }
-}
-
 async function getInspectorActivity() {
   try {
     const inspectors = await prisma.user.findMany({
@@ -250,7 +219,6 @@ export default async function ReportsPage() {
   const trendsData = await getInspectionTrends()
   const ratingData = await getRatingDistribution()
   const statusCounts = await getInspectionStatusCounts()
-  const hotelPerformance = await getHotelPerformance()
   const inspectorActivity = await getInspectorActivity()
   const categoryRatings = await getCategoryRatings()
   const geographicData = await getGeographicData()
@@ -299,19 +267,6 @@ export default async function ReportsPage() {
             </p>
           </div>
           <RatingDistributionChart data={ratingData} />
-        </div>
-
-        {/* Hotel Performance Chart */}
-        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-          <div className="mb-5 sm:mb-6">
-            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-              Top Hotel Performance
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-              Top 5 hotels by average rating
-            </p>
-          </div>
-          <HotelPerformanceChart data={hotelPerformance} />
         </div>
 
         {/* Inspector Activity Chart */}
