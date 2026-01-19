@@ -51,7 +51,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           strokeWidth={4}
           dot={{ fill: '#6366f1', strokeWidth: 0, r: 6 }}
           activeDot={{ r: 9, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
-          animationDuration={1500}
+          animationDuration={1200}
           name="Total Inspections"
         />
         <Line
@@ -61,7 +61,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
           strokeWidth={4}
           dot={{ fill: '#10b981', strokeWidth: 0, r: 6 }}
           activeDot={{ r: 9, fill: '#10b981', stroke: '#fff', strokeWidth: 3 }}
-          animationDuration={1500}
+          animationDuration={1200}
           name="Completed Inspections"
         />
       </LineChart>
