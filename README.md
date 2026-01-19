@@ -1,137 +1,61 @@
-# LodgeIQ – Smart Hotel & Resort Inspection Checklist
+# LodgeIQ
 
-[![Next.js 14](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-5-teal)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-green)](https://neon.tech/)
+Professional hotel and resort inspection platform for tour operators, travel agencies, and hospitality inspectors.
 
-> **STEP 1 COMPLETE** ✅ - Basic project structure with hotel management is ready!
+## Overview
 
-## Quick Start
+LodgeIQ is a comprehensive inspection management system designed to help tour operators and travel agencies systematically evaluate and document lodging facilities. The platform streamlines quality assurance processes, reduces client complaints, and maintains detailed records of property inspections.
 
-See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide.
+## Purpose
 
-```bash
-npm install
-# Add your DATABASE_URL to .env
-npx prisma generate
-npx prisma db push
-npm run dev
-```
+Tour operators and travel agencies need reliable methods to assess accommodation quality before sending clients. LodgeIQ provides a standardized approach to property inspections, ensuring consistent evaluation criteria and transparent communication between operators, hotels, and clients.
 
-## Description
+## Target Users
 
-LodgeIQ is a mobile and web application designed for tour operators, travel agencies, and hospitality inspectors to systematically inspect, document, and evaluate hotels, resorts, and other lodging facilities before sending clients or guests.
+**Tour Operators** - Companies managing accommodations for tours and travel packages, particularly safari operators and destination specialists.
 
-The app provides a digital checklist, photo capture, rating system, and data storage capabilities so operators can ensure high-quality accommodations, avoid client complaints, and maintain detailed records of every property they work with.
+**Travel Agencies** - Agencies coordinating lodging for multiple clients across various properties.
 
-LodgeIQ helps standardize inspections, improves transparency, and streamlines communication between tour operators, hotels, and clients.
+**Hospitality Inspectors** - Independent consultants and quality assurance professionals evaluating accommodation standards.
 
-Target Customers
+**Hotel Management** - Properties conducting self-assessments and pre-audit quality checks.
 
-Tour Operators: Companies sending clients on tours and trips, especially safari operators in Kenya and other travel destinations.
+## Core Features
 
-Travel Agencies: Agencies that manage accommodations for multiple clients.
+**Digital Inspection Checklists** - Customizable evaluation criteria covering rooms, amenities, cleanliness, safety protocols, and service quality. Items can be marked as Pass, Fail, or Needs Improvement with contextual notes.
 
-Hospitality Inspectors: Individuals or consultants responsible for assessing hotel or resort quality.
+**Visual Documentation** - Integrated photo capture linking images directly to specific checklist items and inspection sections, providing visual evidence of property conditions.
 
-Small-to-Medium Hotels: Optional — hotels may use the platform to manage self-inspections or pre-audit their services.
+**Rating and Scoring** - Section-specific ratings for cleanliness, service, and facilities, with composite scoring for overall property evaluation.
 
-Key Features / Use Cases
-1. Inspection Checklist
+**Property Database** - Centralized repository of inspected properties including complete inspection history, contact information, location data, and operational notes.
 
-Operators can follow a predefined or customizable checklist to inspect rooms, amenities, cleanliness, safety, staff behavior, and other service aspects.
+**Report Generation** - Professional inspection reports with export capabilities for management review and client communication.
 
-Checklist items can be marked as Pass/Fail/Needs Improvement, and notes can be added for context.
+**Team Collaboration** - Role-based access for inspectors, managers, and optional hotel representatives with shared visibility and communication tools.
 
-2. Photo & Media Capture
+**Analytics Dashboard** - Comprehensive metrics tracking inspection trends, property performance, rating distributions, and inspector activity across your portfolio.
 
-Capture photos of rooms, facilities, and amenities to provide visual proof of inspections.
+## Technology Stack
 
-Store photos in association with the specific checklist item or hotel.
+**Frontend** - Next.js 14 with App Router, React 18, TypeScript, and Tailwind CSS for responsive, modern interface design.
 
-3. Rating System
+**Backend** - Next.js API Routes providing RESTful endpoints for data operations.
 
-Assign ratings to each section (cleanliness, service, facilities) for a quick overview.
+**Database** - PostgreSQL hosted on Neon with Prisma ORM for type-safe database operations.
 
-Generate a composite score for each property.
+**Authentication** - NextAuth.js supporting email magic links and OAuth providers.
 
-4. Hotel Database
+**Charts and Visualization** - Recharts library for interactive data visualization and reporting.
 
-Maintain a centralized database of inspected hotels with history of all inspections.
+**Deployment** - Optimized for Vercel platform with edge runtime capabilities.
 
-Include hotel contact info, location, and notes.
+## Business Model
 
-5. Reports & Sharing
+LodgeIQ operates as a B2B SaaS platform with subscription-based pricing. Monthly and annual plans are available for tour operators and travel agencies. Premium tiers offer advanced reporting, multi-team access, and comprehensive analytics dashboards. Optional add-ons include integration with booking systems and client-facing reporting portals.
 
-Export inspection reports as PDF or Excel for management or client review.
+## Value Proposition
 
-Share reports with team members or clients directly through the app.
+LodgeIQ transforms ad-hoc hotel inspections into a systematic quality assurance process. By standardizing evaluation criteria and centralizing inspection data, operators can make informed decisions about property partnerships, identify trends across their accommodation portfolio, and provide clients with confidence in their travel experiences.
 
-6. Offline Support
-
-Conduct inspections in areas with poor connectivity.
-
-Sync data automatically when online.
-
-7. Alerts & Follow-Ups
-
-Highlight items that need improvement.
-
-Track follow-up inspections for recurring issues.
-
-Potential Monetization
-
-B2B SaaS subscription model: monthly/annual subscription for tour operators.
-
-Premium tiers: advanced reporting, multi-team access, or analytics dashboards.
-
-Optional add-ons: integration with booking systems or client-facing reporting portal.
-
-Technology / Implementation Notes
-
-(Useful for Claude or AI to understand how to build it)
-
-Mobile-first design (iOS/Android) or responsive web app.
-
-Cloud-based backend for data storage (AWS, Firebase, or similar).
-
-Database stores hotels, inspections, ratings, photos, and users.
-
-Role-based access: inspectors, managers, and optional hotel representatives.
-
-Offline-first capabilities: local storage and sync.
-
-## Current Status - STEP 1
-
-**What's Built:**
-
-- ✅ Next.js 14 project with TypeScript
-- ✅ Prisma ORM with PostgreSQL (Neon)
-- ✅ Complete database schema (5 models)
-- ✅ API routes for hotel CRUD operations
-- ✅ Basic UI for hotel management
-- ✅ Seed script with sample data
-- ✅ Ready for Vercel deployment
-
-**See:** [STEP1-COMPLETE.md](STEP1-COMPLETE.md) for full details
-
-## Tech Stack
-
-- **Frontend**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Database**: PostgreSQL (Neon)
-- **ORM**: Prisma
-- **Deployment**: Vercel
-
-## Documentation
-
-- [QUICKSTART.md](QUICKSTART.md) - Get started in 5 minutes
-- [SETUP.md](SETUP.md) - Comprehensive setup guide
-- [STEP1-COMPLETE.md](STEP1-COMPLETE.md) - What's been built
-
-## Summary
-
-LodgeIQ is a professional, B2B SaaS tool for hotel inspections, allowing tour operators and travel agencies to improve quality assurance, reduce client complaints, and keep detailed, organized records of accommodations.
-
-It's built for efficiency, transparency, and actionable insights — helping businesses provide better experiences for their clients while streamlining operations.
+The platform reduces operational overhead by eliminating manual paperwork, improves accountability through visual documentation, and enables data-driven decision-making through comprehensive analytics.
