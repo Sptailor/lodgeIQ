@@ -34,7 +34,7 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
             border: 'none',
             borderRadius: '12px',
             padding: '12px 16px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
         />
