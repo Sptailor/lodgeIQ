@@ -164,6 +164,8 @@ model InspectionResult {
   rating          Float? // Optional numeric rating (0-5 scale)
   notes           String? // Inspector's notes for this specific item
   photoUrls       String[] // Array of photo URLs stored in cloud storage
+  category        String? // Category name (Cleanliness, Safety, Amenities)
+  categoryRating  Float? // Rating specific to this category (0-5 scale)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 
