@@ -55,7 +55,7 @@ export default async function Header() {
           ) : (
             <Link
               href="/auth/signin"
-              className="px-4 py-2 bg-gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-all shadow-soft"
+              className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
             >
               Sign In
             </Link>
