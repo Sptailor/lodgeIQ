@@ -4,6 +4,8 @@
 
 import { prisma } from '@/lib/prisma'
 import { KPICard } from '@/components/ui/kpi-card'
+import { DashboardAlerts } from '@/components/DashboardAlerts'
+import Link from 'next/link'
 
 async function getDashboardMetrics() {
   try {
@@ -77,7 +79,7 @@ async function getDashboardMetrics() {
 async function getRecentActivity() {
   try {
     const recentInspections = await prisma.inspection.findMany({
-      take: 10,
+      take: 5,
       orderBy: {
         inspectionDate: 'desc',
       },
@@ -97,8 +99,68 @@ async function getRecentActivity() {
   }
 }
 
+async function getAlerts() {
+  try {
+    const sevenDaysAgo = new Date()
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+
+    const thirtyDaysAgo = new Date()
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+
+    // Pending inspections
+    const pendingInspections = await prisma.inspection.count({
+      where: {
+        status: {
+          in: ['IN_PROGRESS', 'REJECTED'],
+        },
+      },
+    })
+
+    // Low ratings in last 7 days
+    const lowRatings = await prisma.inspection.count({
+      where: {
+        inspectionDate: {
+          gte: sevenDaysAgo,
+        },
+        overallRating: {
+          lt: 3.0,
+        },
+      },
+    })
+
+    // Hotels without recent inspections (no inspection in last 30 days)
+    const allHotels = await prisma.hotel.count()
+    const hotelsWithRecentInspections = await prisma.hotel.count({
+      where: {
+        inspections: {
+          some: {
+            inspectionDate: {
+              gte: thirtyDaysAgo,
+            },
+          },
+        },
+      },
+    })
+    const hotelsWithoutRecentInspections = allHotels - hotelsWithRecentInspections
+
+    return {
+      pendingInspections,
+      lowRatings,
+      hotelsWithoutRecentInspections,
+    }
+  } catch (error) {
+    console.error('Error fetching alerts:', error)
+    return {
+      pendingInspections: 0,
+      lowRatings: 0,
+      hotelsWithoutRecentInspections: 0,
+    }
+  }
+}
+
 export default async function DashboardPage() {
   const metrics = await getDashboardMetrics()
+  const alerts = await getAlerts()
   const recentActivity = await getRecentActivity()
 
   return (
@@ -151,15 +213,26 @@ export default async function DashboardPage() {
         />
       </div>
 
+      {/* Alerts & Notifications */}
+      <DashboardAlerts alerts={alerts} />
+
       {/* Recent Activity Feed */}
       <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-        <div className="mb-5 sm:mb-6">
-          <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-            Recent Activity
-          </h2>
-          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-            Latest inspection activity across all properties
-          </p>
+        <div className="mb-5 sm:mb-6 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Recent Activity
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Latest inspection activity across all properties
+            </p>
+          </div>
+          <Link
+            href="/reports"
+            className="text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+          >
+            View All
+          </Link>
         </div>
 
         <div className="space-y-3">
