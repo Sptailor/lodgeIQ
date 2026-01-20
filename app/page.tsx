@@ -274,7 +274,7 @@ export default async function DashboardPage() {
           variant="success"
           subtitle="Total completed"
           trend={{
-            value: Math.abs(metrics.completedTrend),
+            value: Number(Math.abs(metrics.completedTrend).toFixed(1)),
             label: 'vs previous period',
             direction: metrics.completedTrend > 0 ? 'up' : metrics.completedTrend < 0 ? 'down' : 'neutral',
           }}
