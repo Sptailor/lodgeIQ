@@ -40,6 +40,7 @@ export function DataTable<T extends Record<string, any>>({
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>(defaultSort?.direction || 'asc')
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(pagination.pageSize || 10)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   // Sorting logic
   const sortedData = useMemo(() => {
@@ -75,6 +76,7 @@ export function DataTable<T extends Record<string, any>>({
   const totalPages = Math.ceil(sortedData.length / pageSize)
 
   const handleSort = (key: string) => {
+    setIsTransitioning(true)
     if (sortKey === key) {
       setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
     } else {
@@ -82,15 +84,20 @@ export function DataTable<T extends Record<string, any>>({
       setSortDirection('asc')
     }
     setCurrentPage(1) // Reset to first page on sort
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   const handlePageChange = (page: number) => {
+    setIsTransitioning(true)
     setCurrentPage(page)
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   const handlePageSizeChange = (size: number) => {
+    setIsTransitioning(true)
     setPageSize(size)
     setCurrentPage(1)
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   // Empty state
@@ -106,7 +113,12 @@ export function DataTable<T extends Record<string, any>>({
   return (
     <div className="space-y-4">
       {/* Desktop Table View */}
-      <div className="hidden md:block overflow-x-auto bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-800 rounded-xl">
+      <div className="hidden md:block overflow-x-auto bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-800 rounded-xl relative">
+        {isTransitioning && (
+          <div className="absolute inset-0 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center z-10 rounded-xl">
+            <div className="w-8 h-8 border-4 border-accent-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         <table className="w-full">
           <thead>
             <tr className="border-b border-neutral-200 dark:border-neutral-800">
@@ -168,7 +180,12 @@ export function DataTable<T extends Record<string, any>>({
       </div>
 
       {/* Mobile Card View */}
-      <div className="md:hidden space-y-3">
+      <div className="md:hidden space-y-3 relative">
+        {isTransitioning && (
+          <div className="absolute inset-0 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center z-10 rounded-xl">
+            <div className="w-8 h-8 border-4 border-accent-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         <AnimatePresence mode="popLayout">
           {paginatedData.map((row, index) => (
             <motion.div
