@@ -262,7 +262,7 @@ export default async function DashboardPage() {
           variant="default"
           subtitle="Last 30 days"
           trend={{
-            value: Math.abs(metrics.inspectionsTrend),
+            value: Number(Math.abs(metrics.inspectionsTrend).toFixed(1)),
             label: 'vs previous period',
             direction: metrics.inspectionsTrend > 0 ? 'up' : metrics.inspectionsTrend < 0 ? 'down' : 'neutral',
           }}
