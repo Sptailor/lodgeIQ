@@ -40,6 +40,8 @@ export default function HotelList({ initialHotels }: HotelListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCity, setSelectedCity] = useState<string>('all')
+  const [selectedCountry, setSelectedCountry] = useState<string>('all')
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -48,19 +50,45 @@ export default function HotelList({ initialHotels }: HotelListProps) {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Filter hotels based on search query
-  const filteredHotels = useMemo(() => {
-    if (!searchQuery.trim()) return hotels
+  // Get unique cities and countries for filter options
+  const cities = useMemo(() => {
+    const uniqueCities = Array.from(new Set(hotels.map((h) => h.city))).sort()
+    return uniqueCities
+  }, [hotels])
 
-    const query = searchQuery.toLowerCase()
-    return hotels.filter(
-      (hotel) =>
-        hotel.name.toLowerCase().includes(query) ||
-        hotel.city.toLowerCase().includes(query) ||
-        hotel.country.toLowerCase().includes(query) ||
-        hotel.address.toLowerCase().includes(query)
-    )
-  }, [hotels, searchQuery])
+  const countries = useMemo(() => {
+    const uniqueCountries = Array.from(new Set(hotels.map((h) => h.country))).sort()
+    return uniqueCountries
+  }, [hotels])
+
+  // Filter hotels based on search query and filters
+  const filteredHotels = useMemo(() => {
+    let filtered = hotels
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(
+        (hotel) =>
+          hotel.name.toLowerCase().includes(query) ||
+          hotel.city.toLowerCase().includes(query) ||
+          hotel.country.toLowerCase().includes(query) ||
+          hotel.address.toLowerCase().includes(query)
+      )
+    }
+
+    // Apply city filter
+    if (selectedCity !== 'all') {
+      filtered = filtered.filter((hotel) => hotel.city === selectedCity)
+    }
+
+    // Apply country filter
+    if (selectedCountry !== 'all') {
+      filtered = filtered.filter((hotel) => hotel.country === selectedCountry)
+    }
+
+    return filtered
+  }, [hotels, searchQuery, selectedCity, selectedCountry])
 
   if (hotels.length === 0) {
     return (
@@ -82,19 +110,60 @@ export default function HotelList({ initialHotels }: HotelListProps) {
 
   return (
     <div className="space-y-5">
-      {/* Search Bar */}
-      <div className="flex items-center gap-4">
+      {/* Search and Filters */}
+      <div className="space-y-4">
         <SearchBar
           value={searchQuery}
           onChange={setSearchQuery}
           placeholder="Search hotels by name, city, country, or address..."
-          className="flex-1"
         />
-        {searchQuery && (
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
-            {filteredHotels.length} {filteredHotels.length === 1 ? 'result' : 'results'}
-          </p>
-        )}
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          {/* City Filter */}
+          <div className="flex-1">
+            <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1.5">
+              Filter by City
+            </label>
+            <select
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+              className="w-full px-3 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+            >
+              <option value="all">All Cities</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Country Filter */}
+          <div className="flex-1">
+            <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1.5">
+              Filter by Country
+            </label>
+            <select
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              className="w-full px-3 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+            >
+              <option value="all">All Countries</option>
+              {countries.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Results Count */}
+          <div className="flex items-end">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 pb-2.5 whitespace-nowrap">
+              {filteredHotels.length} {filteredHotels.length === 1 ? 'result' : 'results'}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Hotels Grid */}
