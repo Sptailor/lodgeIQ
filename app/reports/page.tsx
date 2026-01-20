@@ -354,6 +354,124 @@ export default async function ReportsPage({
     }
   })
 
+  // Prepare data for hotel performance table
+  const hotelPerformanceData = Object.values(
+    inspections.reduce((acc: Record<string, any>, inspection) => {
+      if (!inspection.hotel) return acc
+
+      const hotelId = inspection.hotel.id
+      if (!acc[hotelId]) {
+        acc[hotelId] = {
+          id: hotelId,
+          name: inspection.hotel.name,
+          city: inspection.hotel.city,
+          country: inspection.hotel.country,
+          inspections: [],
+          categoryRatings: { Cleanliness: [], Safety: [], Amenities: [] },
+          hasPendingIssues: false,
+        }
+      }
+
+      acc[hotelId].inspections.push({
+        rating: inspection.overallRating || 0,
+        date: inspection.inspectionDate,
+        status: inspection.status,
+      })
+
+      // Collect category ratings
+      inspection.inspectionResults.forEach((result: any) => {
+        if (result.category && result.categoryRating !== null) {
+          if (acc[hotelId].categoryRatings[result.category]) {
+            acc[hotelId].categoryRatings[result.category].push(result.categoryRating)
+          }
+        }
+      })
+
+      // Check for pending issues
+      if (inspection.status === 'REJECTED' || inspection.status === 'IN_PROGRESS') {
+        acc[hotelId].hasPendingIssues = true
+      }
+
+      return acc
+    }, {})
+  ).map((hotel: any) => {
+    const completedInspections = hotel.inspections.filter(
+      (i: any) => i.rating > 0
+    )
+    const avgRating =
+      completedInspections.length > 0
+        ? completedInspections.reduce((sum: number, i: any) => sum + i.rating, 0) /
+          completedInspections.length
+        : 0
+
+    // Calculate category averages
+    const avgCleanliness =
+      hotel.categoryRatings.Cleanliness.length > 0
+        ? hotel.categoryRatings.Cleanliness.reduce((a: number, b: number) => a + b, 0) /
+          hotel.categoryRatings.Cleanliness.length
+        : 0
+    const avgSafety =
+      hotel.categoryRatings.Safety.length > 0
+        ? hotel.categoryRatings.Safety.reduce((a: number, b: number) => a + b, 0) /
+          hotel.categoryRatings.Safety.length
+        : 0
+    const avgAmenities =
+      hotel.categoryRatings.Amenities.length > 0
+        ? hotel.categoryRatings.Amenities.reduce((a: number, b: number) => a + b, 0) /
+          hotel.categoryRatings.Amenities.length
+        : 0
+
+    // Calculate trend
+    const sortedInspections = [...completedInspections].sort(
+      (a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
+    let trend: 'improving' | 'stable' | 'declining' = 'stable'
+    if (sortedInspections.length >= 3) {
+      const recent = sortedInspections.slice(-3)
+      const previous = sortedInspections.slice(-6, -3)
+      if (previous.length > 0) {
+        const recentAvg = recent.reduce((sum: number, i: any) => sum + i.rating, 0) / recent.length
+        const previousAvg =
+          previous.reduce((sum: number, i: any) => sum + i.rating, 0) / previous.length
+        const diff = recentAvg - previousAvg
+        if (diff > 0.3) trend = 'improving'
+        else if (diff < -0.3) trend = 'declining'
+      }
+    }
+
+    // Determine if at risk
+    const isAtRisk = hotel.hasPendingIssues || avgRating < 3.0 || trend === 'declining'
+
+    // Find last inspection date
+    const lastInspectionDate =
+      hotel.inspections.length > 0
+        ? new Date(
+            Math.max(...hotel.inspections.map((i: any) => new Date(i.date).getTime()))
+          )
+        : null
+
+    return {
+      id: hotel.id,
+      name: hotel.name,
+      location: `${hotel.city}, ${hotel.country}`,
+      totalInspections: hotel.inspections.length,
+      avgRating,
+      cleanliness: avgCleanliness,
+      safety: avgSafety,
+      amenities: avgAmenities,
+      lastInspection: lastInspectionDate,
+      trend,
+      isAtRisk,
+    }
+  })
+
+  // Sort: At-risk first, then by average rating descending
+  hotelPerformanceData.sort((a, b) => {
+    if (a.isAtRisk && !b.isAtRisk) return -1
+    if (!a.isAtRisk && b.isAtRisk) return 1
+    return b.avgRating - a.avgRating
+  })
+
   return (
     <ReportsClientWrapper
       hotels={filterOptions.hotels}
@@ -361,6 +479,7 @@ export default async function ReportsPage({
       totalInspections={inspections.length}
       activeFilters={activeFilters}
       inspectionsData={inspectionsTableData}
+      hotelPerformanceData={hotelPerformanceData}
     >
       <div className="space-y-6 sm:space-y-8">
         {/* Inspection Status Overview */}
