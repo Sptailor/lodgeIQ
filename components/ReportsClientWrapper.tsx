@@ -40,6 +40,19 @@ interface HotelPerformanceRow {
   isAtRisk: boolean
 }
 
+interface InspectorLeaderboardRow {
+  id: string
+  name: string
+  total: number
+  completed: number
+  completedThisMonth: number
+  avgRating: number
+  cleanliness: number
+  safety: number
+  amenities: number
+  completionRate: number
+}
+
 interface ReportsClientWrapperProps {
   hotels: FilterOption[]
   inspectors: FilterOption[]
@@ -47,6 +60,7 @@ interface ReportsClientWrapperProps {
   activeFilters: Record<string, any>
   inspectionsData: InspectionRow[]
   hotelPerformanceData: HotelPerformanceRow[]
+  inspectorLeaderboardData: InspectorLeaderboardRow[]
   children: React.ReactNode
 }
 
@@ -57,6 +71,7 @@ export function ReportsClientWrapper({
   activeFilters,
   inspectionsData,
   hotelPerformanceData,
+  inspectorLeaderboardData,
   children,
 }: ReportsClientWrapperProps) {
   const handleFilterChange = (filters: FilterState) => {
@@ -70,6 +85,9 @@ export function ReportsClientWrapper({
     .sort((a, b) => b.avgRating - a.avgRating)
     .slice(0, 3)
     .map((h) => h.id)
+
+  // Find top 3 inspectors by completed inspections
+  const topInspectors = inspectorLeaderboardData.slice(0, 3).map((i) => i.id)
 
   // Status badge component
   const StatusBadge = ({ status }: { status: string }) => {
@@ -324,6 +342,129 @@ export function ReportsClientWrapper({
     { key: 'isAtRisk', label: 'At Risk', format: (value) => (value ? 'Yes' : 'No') },
   ]
 
+  // Progress bar component
+  const ProgressBar = ({ value, color = 'accent' }: { value: number; color?: string }) => {
+    const colorClasses = {
+      accent: 'bg-accent-600',
+      emerald: 'bg-emerald-600',
+      amber: 'bg-amber-600',
+    }
+
+    return (
+      <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
+        <div
+          className={`h-2 rounded-full ${colorClasses[color as keyof typeof colorClasses] || colorClasses.accent} transition-all duration-500`}
+          style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+        />
+      </div>
+    )
+  }
+
+  // Inspector leaderboard table columns
+  const inspectorLeaderboardColumns: Column<InspectorLeaderboardRow>[] = [
+    {
+      key: 'name',
+      label: 'Inspector',
+      sortable: true,
+      render: (value, row) => {
+        const rankIndex = topInspectors.indexOf(row.id)
+        const isTopInspector = rankIndex !== -1
+
+        return (
+          <div className="flex items-center gap-2">
+            {isTopInspector && (
+              <Trophy
+                className={`w-4 h-4 ${
+                  rankIndex === 0
+                    ? 'text-yellow-500 fill-yellow-500'
+                    : rankIndex === 1
+                      ? 'text-gray-400 fill-gray-400'
+                      : 'text-amber-600 fill-amber-600'
+                }`}
+              />
+            )}
+            <span className="font-medium">{value}</span>
+          </div>
+        )
+      },
+    },
+    {
+      key: 'completed',
+      label: 'Completed',
+      sortable: true,
+      render: (value) => <span className="font-semibold text-emerald-600 dark:text-emerald-400">{value}</span>,
+    },
+    {
+      key: 'total',
+      label: 'Total',
+      sortable: true,
+      className: 'hidden md:table-cell',
+    },
+    {
+      key: 'completedThisMonth',
+      label: 'This Month',
+      sortable: true,
+      render: (value) => <span className="text-sm font-medium">{value}</span>,
+      className: 'hidden lg:table-cell',
+    },
+    {
+      key: 'avgRating',
+      label: 'Avg Rating',
+      sortable: true,
+      render: (value) => <RatingStars rating={value} />,
+    },
+    {
+      key: 'cleanliness',
+      label: 'Cleanliness',
+      sortable: true,
+      render: (value) => <span className="text-sm">{value.toFixed(1)}</span>,
+      className: 'hidden xl:table-cell',
+    },
+    {
+      key: 'safety',
+      label: 'Safety',
+      sortable: true,
+      render: (value) => <span className="text-sm">{value.toFixed(1)}</span>,
+      className: 'hidden xl:table-cell',
+    },
+    {
+      key: 'amenities',
+      label: 'Amenities',
+      sortable: true,
+      render: (value) => <span className="text-sm">{value.toFixed(1)}</span>,
+      className: 'hidden xl:table-cell',
+    },
+    {
+      key: 'completionRate',
+      label: 'Completion Rate',
+      sortable: true,
+      render: (value) => (
+        <div className="space-y-1 min-w-[120px]">
+          <div className="flex items-center justify-between text-sm">
+            <span className="font-semibold">{value.toFixed(0)}%</span>
+            {value >= 90 && (
+              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Excellent</span>
+            )}
+          </div>
+          <ProgressBar value={value} color={value >= 90 ? 'emerald' : value >= 70 ? 'accent' : 'amber'} />
+        </div>
+      ),
+    },
+  ]
+
+  // Export columns for Inspector Leaderboard table
+  const inspectorLeaderboardExportColumns: ExportColumn[] = [
+    { key: 'name', label: 'Inspector' },
+    { key: 'total', label: 'Total Inspections' },
+    { key: 'completed', label: 'Completed' },
+    { key: 'completedThisMonth', label: 'Completed This Month' },
+    { key: 'avgRating', label: 'Average Rating', format: (value) => value.toFixed(1) },
+    { key: 'cleanliness', label: 'Cleanliness', format: (value) => value.toFixed(1) },
+    { key: 'safety', label: 'Safety', format: (value) => value.toFixed(1) },
+    { key: 'amenities', label: 'Amenities', format: (value) => value.toFixed(1) },
+    { key: 'completionRate', label: 'Completion Rate (%)', format: (value) => value.toFixed(0) },
+  ]
+
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Page Header with Export */}
@@ -405,6 +546,34 @@ export function ReportsClientWrapper({
           defaultSort={{ key: 'avgRating', direction: 'desc' }}
           pagination={{ enabled: true, pageSize: 10, pageSizeOptions: [10, 25, 50] }}
           emptyMessage="No hotel data available"
+        />
+      </div>
+
+      {/* Inspector Activity Leaderboard */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+        <div className="mb-5 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Inspector Activity Leaderboard
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              Inspector rankings, completion rates, and performance metrics
+            </p>
+          </div>
+          <ExportButton
+            data={inspectorLeaderboardData}
+            columns={inspectorLeaderboardExportColumns}
+            filename="inspector-leaderboard-report"
+            title="Inspector Activity Leaderboard"
+            filters={activeFilters}
+          />
+        </div>
+        <DataTable
+          columns={inspectorLeaderboardColumns}
+          data={inspectorLeaderboardData}
+          defaultSort={{ key: 'completed', direction: 'desc' }}
+          pagination={{ enabled: true, pageSize: 10, pageSizeOptions: [10, 25, 50] }}
+          emptyMessage="No inspector data available"
         />
       </div>
 

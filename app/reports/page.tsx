@@ -472,6 +472,94 @@ export default async function ReportsPage({
     return b.avgRating - a.avgRating
   })
 
+  // Prepare data for inspector leaderboard
+  const now = new Date()
+  const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1)
+
+  const inspectorLeaderboardData = Object.values(
+    inspections.reduce((acc: Record<string, any>, inspection) => {
+      if (!inspection.inspector) return acc
+
+      const inspectorId = inspection.inspector.id
+      if (!acc[inspectorId]) {
+        acc[inspectorId] = {
+          id: inspectorId,
+          name: inspection.inspector.name || 'Unknown',
+          total: 0,
+          completed: 0,
+          completedThisMonth: 0,
+          ratings: [],
+          categoryRatings: { Cleanliness: [], Safety: [], Amenities: [] },
+        }
+      }
+
+      acc[inspectorId].total++
+
+      if (inspection.status === 'COMPLETED' || inspection.status === 'APPROVED') {
+        acc[inspectorId].completed++
+
+        if (inspection.inspectionDate >= thisMonthStart) {
+          acc[inspectorId].completedThisMonth++
+        }
+
+        if (inspection.overallRating) {
+          acc[inspectorId].ratings.push(inspection.overallRating)
+        }
+
+        // Collect category ratings
+        inspection.inspectionResults.forEach((result: any) => {
+          if (result.category && result.categoryRating !== null) {
+            if (acc[inspectorId].categoryRatings[result.category]) {
+              acc[inspectorId].categoryRatings[result.category].push(result.categoryRating)
+            }
+          }
+        })
+      }
+
+      return acc
+    }, {})
+  )
+    .map((inspector: any) => {
+      const avgRating =
+        inspector.ratings.length > 0
+          ? inspector.ratings.reduce((a: number, b: number) => a + b, 0) / inspector.ratings.length
+          : 0
+
+      const avgCleanliness =
+        inspector.categoryRatings.Cleanliness.length > 0
+          ? inspector.categoryRatings.Cleanliness.reduce((a: number, b: number) => a + b, 0) /
+            inspector.categoryRatings.Cleanliness.length
+          : 0
+
+      const avgSafety =
+        inspector.categoryRatings.Safety.length > 0
+          ? inspector.categoryRatings.Safety.reduce((a: number, b: number) => a + b, 0) /
+            inspector.categoryRatings.Safety.length
+          : 0
+
+      const avgAmenities =
+        inspector.categoryRatings.Amenities.length > 0
+          ? inspector.categoryRatings.Amenities.reduce((a: number, b: number) => a + b, 0) /
+            inspector.categoryRatings.Amenities.length
+          : 0
+
+      const completionRate = inspector.total > 0 ? (inspector.completed / inspector.total) * 100 : 0
+
+      return {
+        id: inspector.id,
+        name: inspector.name,
+        total: inspector.total,
+        completed: inspector.completed,
+        completedThisMonth: inspector.completedThisMonth,
+        avgRating,
+        cleanliness: avgCleanliness,
+        safety: avgSafety,
+        amenities: avgAmenities,
+        completionRate,
+      }
+    })
+    .sort((a, b) => b.completed - a.completed) // Sort by completed inspections
+
   return (
     <ReportsClientWrapper
       hotels={filterOptions.hotels}
@@ -480,6 +568,7 @@ export default async function ReportsPage({
       activeFilters={activeFilters}
       inspectionsData={inspectionsTableData}
       hotelPerformanceData={hotelPerformanceData}
+      inspectorLeaderboardData={inspectorLeaderboardData}
     >
       <div className="space-y-6 sm:space-y-8">
         {/* Inspection Status Overview */}
