@@ -328,12 +328,39 @@ export default async function ReportsPage({
     activeFilters.Statuses = searchParams.statuses.split(',').join(', ')
   }
 
+  // Prepare data for inspections table
+  const inspectionsTableData = inspections.map((inspection) => {
+    const categoryRatings = inspection.inspectionResults.reduce(
+      (acc: Record<string, number>, result: any) => {
+        if (result.category && result.categoryRating !== null) {
+          acc[result.category] = result.categoryRating
+        }
+        return acc
+      },
+      {}
+    )
+
+    return {
+      id: inspection.id,
+      date: inspection.inspectionDate,
+      hotel: inspection.hotel?.name || 'Unknown',
+      hotelId: inspection.hotel?.id,
+      inspector: inspection.inspector?.name || 'Unknown',
+      rating: inspection.overallRating || 0,
+      cleanliness: categoryRatings.Cleanliness || 0,
+      safety: categoryRatings.Safety || 0,
+      amenities: categoryRatings.Amenities || 0,
+      status: inspection.status,
+    }
+  })
+
   return (
     <ReportsClientWrapper
       hotels={filterOptions.hotels}
       inspectors={filterOptions.inspectors}
       totalInspections={inspections.length}
       activeFilters={activeFilters}
+      inspectionsData={inspectionsTableData}
     >
       <div className="space-y-6 sm:space-y-8">
         {/* Inspection Status Overview */}
