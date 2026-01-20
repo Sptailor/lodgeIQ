@@ -14,6 +14,10 @@ async function getDashboardMetrics() {
     const thirtyDaysAgo = new Date()
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
 
+    const sixtyDaysAgo = new Date()
+    sixtyDaysAgo.setDate(sixtyDaysAgo.getDate() - 60)
+
+    // Recent inspections (last 30 days)
     const recentInspections = await prisma.inspection.count({
       where: {
         inspectionDate: {
@@ -22,10 +26,32 @@ async function getDashboardMetrics() {
       },
     })
 
+    // Previous period inspections (30-60 days ago)
+    const previousInspections = await prisma.inspection.count({
+      where: {
+        inspectionDate: {
+          gte: sixtyDaysAgo,
+          lt: thirtyDaysAgo,
+        },
+      },
+    })
+
     const completedInspections = await prisma.inspection.count({
       where: {
         status: {
           in: ['COMPLETED', 'APPROVED'],
+        },
+      },
+    })
+
+    // Previous completed inspections for trend
+    const previousCompleted = await prisma.inspection.count({
+      where: {
+        status: {
+          in: ['COMPLETED', 'APPROVED'],
+        },
+        inspectionDate: {
+          lt: thirtyDaysAgo,
         },
       },
     })
@@ -40,10 +66,30 @@ async function getDashboardMetrics() {
       },
     })
 
-    const inspectionsWithRatings = await prisma.inspection.findMany({
+    // Recent ratings (last 30 days)
+    const recentRatings = await prisma.inspection.findMany({
       where: {
         overallRating: {
           not: null,
+        },
+        inspectionDate: {
+          gte: thirtyDaysAgo,
+        },
+      },
+      select: {
+        overallRating: true,
+      },
+    })
+
+    // Previous ratings (30-60 days ago)
+    const previousRatings = await prisma.inspection.findMany({
+      where: {
+        overallRating: {
+          not: null,
+        },
+        inspectionDate: {
+          gte: sixtyDaysAgo,
+          lt: thirtyDaysAgo,
         },
       },
       select: {
@@ -52,10 +98,23 @@ async function getDashboardMetrics() {
     })
 
     const avgRating =
-      inspectionsWithRatings.length > 0
-        ? inspectionsWithRatings.reduce((sum, i) => sum + (i.overallRating || 0), 0) /
-          inspectionsWithRatings.length
+      recentRatings.length > 0
+        ? recentRatings.reduce((sum, i) => sum + (i.overallRating || 0), 0) / recentRatings.length
         : 0
+
+    const previousAvgRating =
+      previousRatings.length > 0
+        ? previousRatings.reduce((sum, i) => sum + (i.overallRating || 0), 0) / previousRatings.length
+        : 0
+
+    // Calculate trends
+    const inspectionsTrend =
+      previousInspections > 0 ? ((recentInspections - previousInspections) / previousInspections) * 100 : 0
+
+    const completedTrend =
+      previousCompleted > 0 ? ((completedInspections - previousCompleted) / previousCompleted) * 100 : 0
+
+    const ratingTrend = previousAvgRating > 0 ? ((avgRating - previousAvgRating) / previousAvgRating) * 100 : 0
 
     return {
       totalHotels,
@@ -63,6 +122,9 @@ async function getDashboardMetrics() {
       completedInspections,
       pendingInspections,
       avgRating,
+      inspectionsTrend,
+      completedTrend,
+      ratingTrend,
     }
   } catch (error) {
     console.error('Error fetching dashboard metrics:', error)
@@ -72,6 +134,9 @@ async function getDashboardMetrics() {
       completedInspections: 0,
       pendingInspections: 0,
       avgRating: 0,
+      inspectionsTrend: 0,
+      completedTrend: 0,
+      ratingTrend: 0,
     }
   }
 }
@@ -196,6 +261,11 @@ export default async function DashboardPage() {
           icon="clipboard"
           variant="default"
           subtitle="Last 30 days"
+          trend={{
+            value: Math.abs(metrics.inspectionsTrend),
+            label: 'vs previous period',
+            direction: metrics.inspectionsTrend > 0 ? 'up' : metrics.inspectionsTrend < 0 ? 'down' : 'neutral',
+          }}
         />
         <KPICard
           title="Completed"
@@ -203,6 +273,11 @@ export default async function DashboardPage() {
           icon="check-circle"
           variant="success"
           subtitle="Total completed"
+          trend={{
+            value: Math.abs(metrics.completedTrend),
+            label: 'vs previous period',
+            direction: metrics.completedTrend > 0 ? 'up' : metrics.completedTrend < 0 ? 'down' : 'neutral',
+          }}
         />
         <KPICard
           title="Avg Rating"
@@ -210,6 +285,15 @@ export default async function DashboardPage() {
           icon="trending-up"
           variant={metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'}
           subtitle="Overall rating"
+          trend={
+            metrics.avgRating > 0
+              ? {
+                  value: Math.abs(metrics.ratingTrend),
+                  label: 'vs previous period',
+                  direction: metrics.ratingTrend > 0 ? 'up' : metrics.ratingTrend < 0 ? 'down' : 'neutral',
+                }
+              : undefined
+          }
         />
       </div>
 
