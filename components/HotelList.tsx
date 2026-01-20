@@ -8,10 +8,11 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Phone, Mail, ClipboardCheck, Building2, ChevronDown } from 'lucide-react'
+import { SearchBar } from '@/components/ui/search-bar'
 
 // Type definition for Hotel with inspection count
 type Hotel = {
@@ -38,6 +39,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
   const [hotels] = useState<Hotel[]>(initialHotels)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -45,6 +47,20 @@ export default function HotelList({ initialHotels }: HotelListProps) {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // Filter hotels based on search query
+  const filteredHotels = useMemo(() => {
+    if (!searchQuery.trim()) return hotels
+
+    const query = searchQuery.toLowerCase()
+    return hotels.filter(
+      (hotel) =>
+        hotel.name.toLowerCase().includes(query) ||
+        hotel.city.toLowerCase().includes(query) ||
+        hotel.country.toLowerCase().includes(query) ||
+        hotel.address.toLowerCase().includes(query)
+    )
+  }, [hotels, searchQuery])
 
   if (hotels.length === 0) {
     return (
@@ -65,8 +81,40 @@ export default function HotelList({ initialHotels }: HotelListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {hotels.map((hotel, index) => {
+    <div className="space-y-5">
+      {/* Search Bar */}
+      <div className="flex items-center gap-4">
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search hotels by name, city, country, or address..."
+          className="flex-1"
+        />
+        {searchQuery && (
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
+            {filteredHotels.length} {filteredHotels.length === 1 ? 'result' : 'results'}
+          </p>
+        )}
+      </div>
+
+      {/* Hotels Grid */}
+      {filteredHotels.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16 bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-800/40 dark:to-neutral-900/40 dark:backdrop-blur-xl rounded-lg border border-primary-200/60 dark:border-primary-800/30 shadow-soft"
+        >
+          <div className="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-800/40 rounded-lg flex items-center justify-center mb-4 ring-1 ring-primary-200/50 dark:ring-primary-700/30">
+            <Building2 className="w-8 h-8 text-primary-600 dark:text-primary-300" />
+          </div>
+          <p className="text-base font-bold text-neutral-900 dark:text-white mb-2">No properties found</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+            Try adjusting your search criteria
+          </p>
+        </motion.div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredHotels.map((hotel, index) => {
         const isExpanded = expandedId === hotel.id
 
         return (
@@ -181,6 +229,8 @@ export default function HotelList({ initialHotels }: HotelListProps) {
         </motion.div>
         )
       })}
+        </div>
+      )}
     </div>
   )
 }
