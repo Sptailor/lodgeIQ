@@ -603,8 +603,29 @@ export default async function ReportsPage({
                 <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-1">
                   {statusCounts.completed}
                 </p>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-3">
                   Total completed inspections
+                </p>
+                {/* Progress Bar */}
+                <div className="w-full bg-emerald-200/30 dark:bg-emerald-900/30 rounded-full h-2">
+                  <div
+                    className="h-2 rounded-full bg-emerald-500 transition-all duration-500"
+                    style={{
+                      width: `${Math.round(
+                        (statusCounts.completed /
+                          (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                          100
+                      )}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 text-right">
+                  {Math.round(
+                    (statusCounts.completed /
+                      (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                      100
+                  )}
+                  % of total
                 </p>
               </div>
 
@@ -617,8 +638,29 @@ export default async function ReportsPage({
                 <p className="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-1">
                   {statusCounts.inProgress}
                 </p>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-3">
                   Currently in progress
+                </p>
+                {/* Progress Bar */}
+                <div className="w-full bg-amber-200/30 dark:bg-amber-900/30 rounded-full h-2">
+                  <div
+                    className="h-2 rounded-full bg-amber-500 transition-all duration-500"
+                    style={{
+                      width: `${Math.round(
+                        (statusCounts.inProgress /
+                          (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                          100
+                      )}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 text-right">
+                  {Math.round(
+                    (statusCounts.inProgress /
+                      (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                      100
+                  )}
+                  % of total
                 </p>
               </div>
 
@@ -631,7 +673,28 @@ export default async function ReportsPage({
                 <p className="text-2xl font-bold text-violet-600 dark:text-violet-400 mb-1">
                   {statusCounts.pending}
                 </p>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400">Rejected inspections</p>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-3">Rejected inspections</p>
+                {/* Progress Bar */}
+                <div className="w-full bg-violet-200/30 dark:bg-violet-900/30 rounded-full h-2">
+                  <div
+                    className="h-2 rounded-full bg-violet-500 transition-all duration-500"
+                    style={{
+                      width: `${Math.round(
+                        (statusCounts.pending /
+                          (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                          100
+                      )}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 text-right">
+                  {Math.round(
+                    (statusCounts.pending /
+                      (statusCounts.completed + statusCounts.inProgress + statusCounts.pending)) *
+                      100
+                  )}
+                  % of total
+                </p>
               </div>
             </div>
           </div>
