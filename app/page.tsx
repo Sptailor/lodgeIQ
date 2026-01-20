@@ -288,7 +288,7 @@ export default async function DashboardPage() {
           trend={
             metrics.avgRating > 0
               ? {
-                  value: Math.abs(metrics.ratingTrend),
+                  value: Number(Math.abs(metrics.ratingTrend).toFixed(1)),
                   label: 'vs previous period',
                   direction: metrics.ratingTrend > 0 ? 'up' : metrics.ratingTrend < 0 ? 'down' : 'neutral',
                 }
