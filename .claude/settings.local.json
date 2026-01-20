@@ -13,7 +13,9 @@
       "Bash(npm run build:*)",
       "Bash(curl:*)",
       "Bash(open http://localhost:3002)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git push)",
+      "Bash(npx prisma migrate:*)"
     ]
   }
 }
