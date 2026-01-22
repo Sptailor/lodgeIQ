@@ -7,7 +7,7 @@
 
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { Calendar, User, Building2, CheckCircle2, Star } from 'lucide-react'
 import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
@@ -41,6 +41,8 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
   const [selectedHotel, setSelectedHotel] = useState<string>('all')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 15
 
   // Get unique hotels and statuses for filter options
   const hotels = useMemo(() => {
@@ -83,6 +85,19 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
     return filtered
   }, [inspections, searchQuery, selectedStatus, selectedHotel])
+
+  // Paginate filtered inspections
+  const paginatedInspections = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    return filteredInspections.slice(startIndex, startIndex + itemsPerPage)
+  }, [filteredInspections, currentPage, itemsPerPage])
+
+  const totalPages = Math.ceil(filteredInspections.length / itemsPerPage)
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, selectedStatus, selectedHotel])
 
   if (inspections.length === 0) {
     return (
@@ -159,8 +174,9 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
           </p>
         </div>
       ) : (
-        <div className="space-y-2.5">
-          {filteredInspections.map((inspection) => {
+        <>
+          <div className="space-y-2.5">
+            {paginatedInspections.map((inspection) => {
             const href =
               inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
                 ? `/inspections/${inspection.id}/results`
@@ -229,7 +245,61 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
               </Link>
             )
           })}
-        </div>
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between pt-4">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredInspections.length)} of {filteredInspections.length}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Previous
+                </button>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                    let pageNumber
+                    if (totalPages <= 5) {
+                      pageNumber = i + 1
+                    } else if (currentPage <= 3) {
+                      pageNumber = i + 1
+                    } else if (currentPage >= totalPages - 2) {
+                      pageNumber = totalPages - 4 + i
+                    } else {
+                      pageNumber = currentPage - 2 + i
+                    }
+
+                    return (
+                      <button
+                        key={pageNumber}
+                        onClick={() => setCurrentPage(pageNumber)}
+                        className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+                          currentPage === pageNumber
+                            ? 'bg-accent-600 text-white'
+                            : 'text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-700'
+                        }`}
+                      >
+                        {pageNumber}
+                      </button>
+                    )
+                  })}
+                </div>
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
