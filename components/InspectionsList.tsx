@@ -249,7 +249,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
                 Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredInspections.length)} of {filteredInspections.length}
               </p>
@@ -261,7 +261,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                 >
                   Previous
                 </button>
-                <div className="flex items-center gap-1">
+                <div className="hidden sm:flex items-center gap-1">
                   {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                     let pageNumber
                     if (totalPages <= 5) {
@@ -288,6 +288,10 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                       </button>
                     )
                   })}
+                </div>
+                {/* Mobile page indicator */}
+                <div className="sm:hidden px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  {currentPage} / {totalPages}
                 </div>
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
