@@ -157,7 +157,7 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
       </div>
 
       {/* Filter Content - Collapsible */}
-      <div className={`${isExpanded ? 'block' : 'hidden'}`}>
+      <div className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Hotel Filter */}
           <div>
