@@ -59,7 +59,7 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
     statuses: searchParams?.get('statuses')?.split(',').filter(Boolean) || [],
   })
 
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(true)
 
   // Update URL when filters change
   useEffect(() => {
