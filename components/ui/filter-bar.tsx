@@ -145,7 +145,7 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
           )}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="lg:hidden p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
           >
             <ChevronDown
               className={`w-5 h-5 text-neutral-600 dark:text-neutral-400 transition-transform ${
@@ -156,8 +156,8 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
         </div>
       </div>
 
-      {/* Filter Content - Collapsible on Mobile */}
-      <div className={`${isExpanded ? 'block' : 'hidden'} lg:block`}>
+      {/* Filter Content - Collapsible */}
+      <div className={`${isExpanded ? 'block' : 'hidden'}`}>
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Hotel Filter */}
           <div>
