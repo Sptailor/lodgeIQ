@@ -133,7 +133,7 @@ export function Sidebar() {
         <nav className="flex-1 py-4 px-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+            const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')
 
             return (
               <Link
@@ -245,7 +245,7 @@ export function Sidebar() {
               <nav className="flex-1 py-4 px-3 space-y-2 overflow-y-auto">
                 {navItems.map((item) => {
                   const Icon = item.icon
-                  const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+                  const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')
 
                   return (
                     <Link
