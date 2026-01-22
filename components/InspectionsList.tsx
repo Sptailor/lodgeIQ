@@ -111,9 +111,14 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
   if (inspections.length === 0) {
     return (
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center py-8">
-        No inspections yet. Start your first inspection from a hotel page.
-      </p>
+      <div className="text-center py-12">
+        <p className="text-base font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
+          No inspections yet
+        </p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          Start your first inspection from a hotel page
+        </p>
+      </div>
     )
   }
 
