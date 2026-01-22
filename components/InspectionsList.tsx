@@ -259,7 +259,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 mt-6 border-t border-neutral-200 dark:border-neutral-800">
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
                 Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredInspections.length)} of {filteredInspections.length}
               </p>
