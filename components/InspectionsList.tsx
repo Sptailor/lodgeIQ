@@ -42,6 +42,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
   const [selectedHotel, setSelectedHotel] = useState<string>('all')
   const [currentPage, setCurrentPage] = useState(1)
+  const [isChangingPage, setIsChangingPage] = useState(false)
   const itemsPerPage = 15
 
   // Get unique hotels and statuses for filter options
@@ -98,6 +99,15 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   useEffect(() => {
     setCurrentPage(1)
   }, [searchQuery, selectedStatus, selectedHotel])
+
+  // Handle page change with smooth transition
+  const handlePageChange = (newPage: number) => {
+    setIsChangingPage(true)
+    setCurrentPage(newPage)
+    setTimeout(() => setIsChangingPage(false), 300)
+    // Scroll to top of list
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   if (inspections.length === 0) {
     return (
@@ -175,7 +185,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
         </div>
       ) : (
         <>
-          <div className="space-y-2.5">
+          <div className={`space-y-2.5 transition-opacity duration-300 ${isChangingPage ? 'opacity-50' : 'opacity-100'}`}>
             {paginatedInspections.map((inspection) => {
             const href =
               inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
@@ -255,7 +265,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
               </p>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                   className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
@@ -277,7 +287,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                     return (
                       <button
                         key={pageNumber}
-                        onClick={() => setCurrentPage(pageNumber)}
+                        onClick={() => handlePageChange(pageNumber)}
                         className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                           currentPage === pageNumber
                             ? 'bg-accent-600 text-white'
@@ -294,7 +304,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                   {currentPage} / {totalPages}
                 </div>
                 <button
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
                   className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
