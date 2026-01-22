@@ -32,11 +32,13 @@ Tour operators and travel agencies need reliable methods to assess accommodation
 
 **Property Database** - Centralized repository of inspected properties including complete inspection history, contact information, location data, and operational notes.
 
-**Report Generation** - Professional inspection reports with export capabilities for management review and client communication.
+**Advanced Search & Filtering** - Real-time search functionality across hotels and inspections with intelligent filtering options. Search hotels by name, city, country, or address with instant results. Filter inspections by property, inspector, status, and date range.
+
+**Report Generation** - Professional inspection reports with export capabilities (CSV and PDF) for management review and client communication. Comprehensive analytics with filterable views and downloadable reports.
 
 **Team Collaboration** - Role-based access for inspectors, managers, and optional hotel representatives with shared visibility and communication tools.
 
-**Analytics Dashboard** - Comprehensive metrics tracking inspection trends, property performance, rating distributions, and inspector activity across your portfolio.
+**Analytics Dashboard** - Comprehensive metrics tracking inspection trends, property performance, rating distributions, and inspector activity across your portfolio. Interactive charts with drill-down capabilities and performance indicators.
 
 ## Technology Stack
 
