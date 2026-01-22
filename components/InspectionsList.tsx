@@ -272,6 +272,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                 <button
                   onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
+                  aria-label="Go to previous page"
                   className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
@@ -293,6 +294,8 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                       <button
                         key={pageNumber}
                         onClick={() => handlePageChange(pageNumber)}
+                        aria-label={`Go to page ${pageNumber}`}
+                        aria-current={currentPage === pageNumber ? 'page' : undefined}
                         className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                           currentPage === pageNumber
                             ? 'bg-accent-600 text-white'
@@ -311,6 +314,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                 <button
                   onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
+                  aria-label="Go to next page"
                   className="px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
