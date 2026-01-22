@@ -196,7 +196,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
               <Link
                 key={inspection.id}
                 href={href}
-                className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-md hover:border-accent-300 dark:hover:border-neutral-700 transition-all"
+                className="group block bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 hover:shadow-lg hover:shadow-accent-500/10 hover:border-accent-400 dark:hover:border-accent-700 hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1 min-w-0">
