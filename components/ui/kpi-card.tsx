@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import { TrendingUp, TrendingDown, Minus, Building2, ClipboardCheck, CheckCircle2, TrendingUp as TrendingUpIcon, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 type IconName = 'building' | 'clipboard' | 'check-circle' | 'trending-up'
 
@@ -27,6 +28,7 @@ interface KPICardProps {
   subtitle?: string
   variant?: 'default' | 'success' | 'warning' | 'danger' | 'primary'
   className?: string
+  href?: string
 }
 
 const iconMap = {
@@ -82,6 +84,7 @@ export function KPICard({
   subtitle,
   variant = 'default',
   className,
+  href,
 }: KPICardProps) {
   const styles = variantStyles[variant]
   const Icon = iconMap[icon]
@@ -107,18 +110,19 @@ export function KPICard({
       ? 'text-danger-600 dark:text-danger-400 bg-danger-50 dark:bg-danger-950/20'
       : 'text-neutral-600 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800'
 
-  return (
+  const CardContent = (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -2, scale: 1.005 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      onClick={() => setIsExpanded(!isExpanded)}
+      onClick={() => !href && setIsExpanded(!isExpanded)}
       className={cn(
         'group relative rounded-2xl border overflow-hidden backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
         'shadow-sm shadow-neutral-200/30 dark:shadow-neutral-950/30',
         'hover:shadow-md hover:shadow-neutral-300/40 dark:hover:shadow-neutral-900/40',
-        'transition-all duration-300 touch-manipulation cursor-pointer sm:cursor-default',
+        'transition-all duration-300 touch-manipulation',
+        href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
         className
       )}
@@ -231,4 +235,10 @@ export function KPICard({
       )} />
     </motion.div>
   )
+
+  if (href) {
+    return <Link href={href}>{CardContent}</Link>
+  }
+
+  return CardContent
 }

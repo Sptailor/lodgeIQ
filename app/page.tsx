@@ -254,6 +254,7 @@ export default async function DashboardPage() {
           icon="building"
           variant="primary"
           subtitle="Properties managed"
+          href="/hotels"
         />
         <KPICard
           title="Inspections"
@@ -261,6 +262,7 @@ export default async function DashboardPage() {
           icon="clipboard"
           variant="default"
           subtitle="Last 30 days"
+          href="/inspections"
           trend={{
             value: Number(Math.abs(metrics.inspectionsTrend).toFixed(1)),
             label: 'vs previous period',
