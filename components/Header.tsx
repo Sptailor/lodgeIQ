@@ -87,9 +87,15 @@ export default function Header() {
       </div>
 
       {/* Main header content area */}
-      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/95 dark:bg-neutral-900/95">
+      <div className="flex-1 h-full flex items-center justify-between lg:px-8 bg-white/95 dark:bg-neutral-900/95">
+        {/* Mobile: Left spacer for nav button */}
+        <div className="lg:hidden w-16" />
+
         {/* Mobile: Logo and brand - with scroll detection */}
         <MobileHeader />
+
+        {/* Mobile: Right spacer for symmetry */}
+        <div className="lg:hidden w-16" />
 
         {/* Desktop: Spacer */}
         <div className="hidden lg:flex flex-1" />

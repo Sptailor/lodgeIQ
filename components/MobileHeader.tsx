@@ -19,16 +19,15 @@ export function MobileHeader() {
   }, [])
 
   return (
-    <div className="flex items-center gap-3 group lg:hidden">
+    <div className="flex items-center justify-center flex-1 lg:hidden">
       <AnimatePresence>
         {!scrolled && (
           <motion.div
-            initial={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="flex items-center gap-3"
           >
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 group">
               <div className="bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg p-2.5 shadow-md group-hover:shadow-lg transition-shadow">
                 <Building2 className="w-5 h-5 text-white" />
               </div>
