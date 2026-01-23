@@ -8,18 +8,49 @@
  * Uses mock session from auth-utils
  */
 
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { getSession } from '@/lib/auth-utils'
 import { ClipboardCheck } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
 import { MobileHeader } from '@/components/MobileHeader'
 
-export default async function Header() {
-  const session = await getSession()
+export default function Header() {
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up')
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [session, setSession] = useState<any>(null)
+
+  useEffect(() => {
+    // Fetch session on mount
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(data => setSession(data))
+      .catch(() => setSession(null))
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past threshold
+        setScrollDirection('down')
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setScrollDirection('up')
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm">
+    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
       {/* Desktop: Logo section - fixed width to match sidebar */}
       <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-white via-neutral-50 to-transparent dark:from-accent-800/90 dark:via-accent-800/60 dark:to-neutral-900/40 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-700">
         <Link href="/" className="flex items-center gap-3.5 group">
