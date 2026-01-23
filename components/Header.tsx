@@ -16,11 +16,13 @@ import { ClipboardCheck } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { UserMenu } from '@/components/user-menu'
 import { MobileHeader } from '@/components/MobileHeader'
+import { useSidebar } from '@/components/layout-wrapper'
 
 export default function Header() {
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up')
   const [lastScrollY, setLastScrollY] = useState(0)
   const [session, setSession] = useState<any>(null)
+  const { setHeaderHidden } = useSidebar()
 
   useEffect(() => {
     // Fetch session on mount
@@ -44,9 +46,11 @@ export default function Header() {
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
               // Scrolling down and past threshold
               setScrollDirection('down')
+              setHeaderHidden(true)
             } else if (currentScrollY < lastScrollY) {
               // Scrolling up
               setScrollDirection('up')
+              setHeaderHidden(false)
             }
 
             setLastScrollY(currentScrollY)
