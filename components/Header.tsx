@@ -50,9 +50,9 @@ export default function Header() {
   }, [lastScrollY])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm backdrop-blur-md transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
       {/* Desktop: Logo section - fixed width to match sidebar */}
-      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-white via-neutral-50 to-transparent dark:from-accent-800/90 dark:via-accent-800/60 dark:to-neutral-900/40 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-700">
+      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-white/95 via-neutral-50/95 to-transparent dark:from-accent-800/90 dark:via-accent-800/60 dark:to-neutral-900/40 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-700">
         <Link href="/" className="flex items-center gap-3.5 group">
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 dark:bg-white/25 rounded-lg p-2.5 group-hover:shadow-lg dark:group-hover:bg-white/30 transition-all">
             <ClipboardCheck className="w-5 h-5 text-white" />
@@ -69,7 +69,7 @@ export default function Header() {
       </div>
 
       {/* Main header content area */}
-      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white dark:bg-neutral-900">
+      <div className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/95 dark:bg-neutral-900/95">
         {/* Mobile: Logo and brand - with scroll detection */}
         <MobileHeader />
 
