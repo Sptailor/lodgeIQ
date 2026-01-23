@@ -31,18 +31,32 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          const scrollDifference = Math.abs(currentScrollY - lastScrollY)
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past threshold
-        setScrollDirection('down')
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setScrollDirection('up')
+          // Only update if scroll difference is significant (prevents micro-scrolls)
+          if (scrollDifference > 5) {
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+              // Scrolling down and past threshold
+              setScrollDirection('down')
+            } else if (currentScrollY < lastScrollY) {
+              // Scrolling up
+              setScrollDirection('up')
+            }
+
+            setLastScrollY(currentScrollY)
+          }
+
+          ticking = false
+        })
+
+        ticking = true
       }
-
-      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
