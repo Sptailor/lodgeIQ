@@ -188,7 +188,7 @@ export function Sidebar() {
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="lg:hidden fixed top-[4.5rem] left-4 z-50 p-2.5 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-neutral-300 dark:border-neutral-700 shadow-lg hover:shadow-xl transition-all touch-manipulation"
+        className="lg:hidden fixed top-[4.5rem] left-2 z-50 p-2.5 rounded-xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl border border-neutral-200/30 dark:border-neutral-700/30 shadow-md hover:bg-white/60 dark:hover:bg-neutral-900/60 hover:shadow-lg transition-all touch-manipulation"
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? (
