@@ -19,7 +19,7 @@ export function MobileHeader() {
   }, [])
 
   return (
-    <div className="flex items-center flex-1 lg:hidden pl-14">
+    <div className="flex items-center justify-center flex-1 lg:hidden">
       <AnimatePresence>
         {!scrolled && (
           <motion.div
