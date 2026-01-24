@@ -188,7 +188,7 @@ export function Sidebar() {
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className={`lg:hidden fixed left-2 p-2.5 rounded-xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl border border-neutral-200/30 dark:border-neutral-700/30 shadow-md hover:bg-white/60 dark:hover:bg-neutral-900/60 hover:shadow-lg transition-all touch-manipulation ${mobileMenuOpen ? 'z-[80]' : 'z-50'} ${headerHidden ? 'top-4' : 'top-[4.5rem]'}`}
+        className={`lg:hidden fixed left-2 p-2.5 rounded-xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl border border-neutral-200/30 dark:border-neutral-700/30 shadow-md hover:bg-white/60 dark:hover:bg-neutral-900/60 hover:shadow-lg transition-all duration-300 touch-manipulation ${mobileMenuOpen ? 'z-[80]' : 'z-50'} ${headerHidden ? 'top-4' : 'top-[4.5rem]'}`}
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? (
