@@ -208,7 +208,7 @@ export function Sidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[60]"
               onClick={() => setMobileMenuOpen(false)}
             />
 
@@ -218,7 +218,7 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-900 border-r-2 border-neutral-200 dark:border-neutral-800 z-50 shadow-2xl"
+              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-900 border-r-2 border-neutral-200 dark:border-neutral-800 z-[70] shadow-2xl"
             >
               {/* Mobile Menu Header */}
               <div className="p-4 border-b-2 border-neutral-200 dark:border-neutral-800 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900">
