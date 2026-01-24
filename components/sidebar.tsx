@@ -222,22 +222,14 @@ export function Sidebar() {
             >
               {/* Mobile Menu Header */}
               <div className="p-4 border-b-2 border-neutral-200 dark:border-neutral-800 bg-gradient-to-r from-accent-600 to-accent-700 dark:from-accent-800 dark:to-accent-900">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
-                      <Building2 className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-bold text-white">LodgeIQ</h2>
-                      <p className="text-xs text-white/80">Menu</p>
-                    </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+                    <Building2 className="w-5 h-5 text-white" />
                   </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-white/20 transition-colors"
-                  >
-                    <X className="w-5 h-5 text-white" />
-                  </button>
+                  <div>
+                    <h2 className="text-lg font-bold text-white">LodgeIQ</h2>
+                    <p className="text-xs text-white/80">Menu</p>
+                  </div>
                 </div>
               </div>
 
