@@ -221,7 +221,7 @@ export function Sidebar() {
               className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-900 border-r-2 border-neutral-200 dark:border-neutral-800 z-[70] shadow-2xl"
             >
               {/* Mobile Navigation Items */}
-              <nav className="flex-1 py-6 px-3 space-y-2 overflow-y-auto">
+              <nav className="flex-1 pt-16 pb-6 px-3 space-y-2 overflow-y-auto">
                 {navItems.map((item) => {
                   const Icon = item.icon
                   const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')
