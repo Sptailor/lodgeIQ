@@ -119,3 +119,51 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to see the application.
+
+## Project Structure
+
+```plaintext
+LodgeIQ/
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   ├── hotels/            # Hotel management pages
+│   ├── inspections/       # Inspection pages
+│   ├── reports/           # Analytics and reporting
+│   └── settings/          # Application settings
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   └── ...               # Feature-specific components
+├── lib/                   # Utility functions and helpers
+├── prisma/               # Database schema and migrations
+│   ├── schema.prisma     # Database schema
+│   └── seed.ts           # Sample data seeding
+├── public/               # Static assets
+└── types/                # TypeScript type definitions
+```
+
+## Key Features in Detail
+
+### Inspection Management
+
+- Create and manage property inspections with customizable checklists
+- Track inspection status (In Progress, Completed, Approved, Rejected)
+- Assign inspectors and set inspection dates
+- Add notes and observations for each checklist item
+- Upload and attach photos to specific inspection items
+
+### Property Database
+
+- Comprehensive hotel and resort profiles
+- Contact information and location details
+- Complete inspection history for each property
+- Search and filter by name, city, country, or address
+- Pagination support for large datasets (15 items per page)
+
+### Reporting and Analytics
+
+- Interactive dashboard with key performance indicators
+- Visual charts showing inspection trends and distributions
+- Filter inspections by property, inspector, status, and date range
+- Export capabilities for sharing and documentation
+- Performance metrics and rating distributions
