@@ -68,3 +68,54 @@ LodgeIQ operates as a B2B SaaS platform with subscription-based pricing. Monthly
 LodgeIQ transforms ad-hoc hotel inspections into a systematic quality assurance process. By standardizing evaluation criteria and centralizing inspection data, operators can make informed decisions about property partnerships, identify trends across their accommodation portfolio, and provide clients with confidence in their travel experiences.
 
 The platform reduces operational overhead by eliminating manual paperwork, improves accountability through visual documentation, and enables data-driven decision-making through comprehensive analytics.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- PostgreSQL database (or Neon account)
+- Git
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/LodgeIQ.git
+cd LodgeIQ
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Set up environment variables
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your database credentials and configuration.
+
+4. Run database migrations
+
+```bash
+npx prisma migrate dev
+```
+
+5. Seed the database with sample data
+
+```bash
+npx prisma db seed
+```
+
+6. Start the development server
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to see the application.
