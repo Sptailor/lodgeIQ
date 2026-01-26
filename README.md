@@ -207,3 +207,41 @@ npx prisma studio           # Open Prisma Studio GUI
 npm run lint         # Run ESLint
 npm run type-check   # Run TypeScript compiler check
 ```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, email <support@lodgeiq.com> or open an issue in the GitHub repository.
+
+## Roadmap
+
+- [ ] Mobile app for field inspections
+- [ ] Advanced analytics with AI-powered insights
+- [ ] Integration with popular booking systems
+- [ ] Multi-language support
+- [ ] Offline mode for remote inspections
+- [ ] Automated report generation
+- [ ] Custom branding for white-label solutions
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Database powered by [Neon](https://neon.tech/)
+- UI components from [Tailwind CSS](https://tailwindcss.com/)
+- Charts by [Recharts](https://recharts.org/)
+- Authentication by [NextAuth.js](https://next-auth.js.org/)
