@@ -167,3 +167,43 @@ LodgeIQ/
 - Filter inspections by property, inspector, status, and date range
 - Export capabilities for sharing and documentation
 - Performance metrics and rating distributions
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@host:5432/lodgeiq"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key-here"
+
+# Email (optional - for magic link authentication)
+EMAIL_SERVER_HOST="smtp.example.com"
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER="your-email@example.com"
+EMAIL_SERVER_PASSWORD="your-password"
+EMAIL_FROM="noreply@example.com"
+```
+
+## Available Scripts
+
+```bash
+# Development
+npm run dev          # Start development server
+
+# Production
+npm run build        # Build for production
+npm start            # Start production server
+
+# Database
+npx prisma migrate dev       # Run migrations in development
+npx prisma db seed          # Seed database with sample data
+npx prisma studio           # Open Prisma Studio GUI
+
+# Code Quality
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript compiler check
+```
