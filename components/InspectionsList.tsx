@@ -127,6 +127,11 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
     setCurrentPage(1)
   }, [searchQuery, selectedStatus, selectedHotel])
 
+  // Reset to page 1 when screen size changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [screenSize])
+
   // Handle page change with smooth transition
   const handlePageChange = (newPage: number) => {
     setIsChangingPage(true)
