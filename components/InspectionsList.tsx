@@ -44,7 +44,15 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [currentPage, setCurrentPage] = useState(1)
   const [isChangingPage, setIsChangingPage] = useState(false)
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
-  const itemsPerPage = 15
+
+  // Calculate items per page based on screen size
+  const getItemsPerPage = () => {
+    if (screenSize === 'mobile') return 5
+    if (screenSize === 'tablet') return 10
+    return 15
+  }
+
+  const itemsPerPage = getItemsPerPage()
 
   // Get unique hotels and statuses for filter options
   const hotels = useMemo(() => {
