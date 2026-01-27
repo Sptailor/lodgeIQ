@@ -236,7 +236,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
         </div>
       ) : (
         <>
-          <div className={`space-y-2.5 transition-opacity duration-300 ${isChangingPage ? 'opacity-50' : 'opacity-100'}`}>
+          <div className={`space-y-2.5 transition-all duration-300 ${isChangingPage ? 'opacity-50 scale-[0.98]' : 'opacity-100 scale-100'}`}>
             {paginatedInspections.map((inspection) => {
             const href =
               inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
