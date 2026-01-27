@@ -44,6 +44,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [currentPage, setCurrentPage] = useState(1)
   const [isChangingPage, setIsChangingPage] = useState(false)
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
+  const [mounted, setMounted] = useState(false)
 
   // Calculate items per page based on screen size
   // Mobile (<640px): 5 items | Tablet (640-1024px): 10 items | Desktop (>1024px): 15 items
@@ -107,6 +108,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
   // Detect screen size on mount and resize
   useEffect(() => {
+    setMounted(true)
     let timeoutId: NodeJS.Timeout
 
     const handleResize = () => {
