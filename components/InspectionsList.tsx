@@ -43,6 +43,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [selectedHotel, setSelectedHotel] = useState<string>('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [isChangingPage, setIsChangingPage] = useState(false)
+  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
   const itemsPerPage = 15
 
   // Get unique hotels and statuses for filter options
