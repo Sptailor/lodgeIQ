@@ -46,6 +46,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
 
   // Calculate items per page based on screen size
+  // Mobile (<640px): 5 items | Tablet (640-1024px): 10 items | Desktop (>1024px): 15 items
   const getItemsPerPage = () => {
     if (screenSize === 'mobile') return 5
     if (screenSize === 'tablet') return 10
