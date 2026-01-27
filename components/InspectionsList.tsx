@@ -148,8 +148,11 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
     setIsChangingPage(true)
     setCurrentPage(newPage)
     setTimeout(() => setIsChangingPage(false), 300)
-    // Scroll to top of list
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    // Scroll to top on mobile where content is more compact
+    if (screenSize === 'mobile') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   if (inspections.length === 0) {
