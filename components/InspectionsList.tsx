@@ -106,20 +106,28 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
 
   // Detect screen size on mount and resize
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
     const handleResize = () => {
-      const width = window.innerWidth
-      if (width < 640) {
-        setScreenSize('mobile')
-      } else if (width < 1024) {
-        setScreenSize('tablet')
-      } else {
-        setScreenSize('desktop')
-      }
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        const width = window.innerWidth
+        if (width < 640) {
+          setScreenSize('mobile')
+        } else if (width < 1024) {
+          setScreenSize('tablet')
+        } else {
+          setScreenSize('desktop')
+        }
+      }, 150)
     }
 
     handleResize()
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   // Reset to page 1 when filters change
