@@ -359,7 +359,7 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
                   })}
                 </div>
                 {/* Mobile page indicator */}
-                <div className="sm:hidden px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <div className="sm:hidden px-3 py-1.5 min-h-[44px] flex items-center text-sm font-medium text-neutral-700 dark:text-neutral-300">
                   {currentPage} / {totalPages}
                 </div>
                 <button
