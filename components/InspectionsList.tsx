@@ -218,10 +218,15 @@ export default function InspectionsList({ initialInspections }: InspectionsListP
           </div>
 
           {/* Results Count */}
-          <div className="flex items-end">
+          <div className="flex flex-col items-start sm:items-end gap-1">
             <p className="text-sm text-neutral-600 dark:text-neutral-400 pb-2.5 whitespace-nowrap">
               {filteredInspections.length} {filteredInspections.length === 1 ? 'result' : 'results'}
             </p>
+            {mounted && (
+              <p className="text-xs text-neutral-500 dark:text-neutral-500 pb-2.5 whitespace-nowrap">
+                {itemsPerPage} per page
+              </p>
+            )}
           </div>
         </div>
       </div>
