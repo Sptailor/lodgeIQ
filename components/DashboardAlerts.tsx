@@ -121,9 +121,9 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={`relative flex items-start gap-4 p-4 rounded-lg border ${colors.bg} ${colors.border}`}
+                className={`relative flex items-start gap-4 p-5 rounded-xl border-2 ${colors.bg} ${colors.border} ${colors.shadow} shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm`}
               >
-                <div className={`flex-shrink-0 mt-0.5 ${colors.icon}`}>
+                <div className={`flex-shrink-0 rounded-lg p-2.5 ${colors.iconBg} ${colors.icon} shadow-inner`}>
                   <Icon className="w-5 h-5" />
                 </div>
 
