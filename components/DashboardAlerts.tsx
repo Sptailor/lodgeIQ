@@ -64,22 +64,28 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
 
   const colorClasses = {
     amber: {
-      bg: 'bg-amber-50 dark:bg-amber-950/30',
-      border: 'border-amber-200 dark:border-amber-800',
-      icon: 'text-amber-600 dark:text-amber-500',
-      button: 'text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300',
+      bg: 'bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100/50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-amber-900/20',
+      border: 'border-amber-300/60 dark:border-amber-700/40',
+      icon: 'text-amber-600 dark:text-amber-400',
+      iconBg: 'bg-amber-100 dark:bg-amber-900/30',
+      button: 'text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-200',
+      shadow: 'shadow-amber-500/10 dark:shadow-amber-500/5',
     },
     red: {
-      bg: 'bg-red-50 dark:bg-red-950/30',
-      border: 'border-red-200 dark:border-red-800',
-      icon: 'text-red-600 dark:text-red-500',
-      button: 'text-red-700 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300',
+      bg: 'bg-gradient-to-br from-red-50 via-rose-50 to-red-100/50 dark:from-red-950/40 dark:via-rose-950/30 dark:to-red-900/20',
+      border: 'border-red-300/60 dark:border-red-700/40',
+      icon: 'text-red-600 dark:text-red-400',
+      iconBg: 'bg-red-100 dark:bg-red-900/30',
+      button: 'text-red-700 dark:text-red-400 hover:text-red-900 dark:hover:text-red-200',
+      shadow: 'shadow-red-500/10 dark:shadow-red-500/5',
     },
     violet: {
-      bg: 'bg-violet-50 dark:bg-violet-950/30',
-      border: 'border-violet-200 dark:border-violet-800',
-      icon: 'text-violet-600 dark:text-violet-500',
-      button: 'text-violet-700 dark:text-violet-400 hover:text-violet-900 dark:hover:text-violet-300',
+      bg: 'bg-gradient-to-br from-violet-50 via-purple-50 to-violet-100/50 dark:from-violet-950/40 dark:via-purple-950/30 dark:to-violet-900/20',
+      border: 'border-violet-300/60 dark:border-violet-700/40',
+      icon: 'text-violet-600 dark:text-violet-400',
+      iconBg: 'bg-violet-100 dark:bg-violet-900/30',
+      button: 'text-violet-700 dark:text-violet-400 hover:text-violet-900 dark:hover:text-violet-200',
+      shadow: 'shadow-violet-500/10 dark:shadow-violet-500/5',
     },
   }
 
