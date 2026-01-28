@@ -128,21 +128,21 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-1">{alert.title}</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{alert.description}</p>
+                  <h3 className="font-bold text-base text-neutral-900 dark:text-neutral-50 mb-1.5 tracking-tight">{alert.title}</h3>
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">{alert.description}</p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3 flex-shrink-0">
                   <Link
                     href={alert.link}
-                    className={`flex items-center gap-1 text-sm font-medium ${colors.button} transition-colors`}
+                    className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg ${colors.button} bg-white/60 dark:bg-neutral-800/60 hover:bg-white dark:hover:bg-neutral-800 border border-current/20 transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm`}
                   >
                     View
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <button
                     onClick={() => handleDismiss(alert.id)}
-                    className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                    className="p-2 rounded-lg text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-white/60 dark:hover:bg-neutral-800/60 transition-all duration-200"
                     aria-label="Dismiss alert"
                   >
                     <X className="w-4 h-4" />
