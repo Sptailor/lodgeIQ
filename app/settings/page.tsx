@@ -7,12 +7,16 @@
 
 import { getSession } from '@/lib/auth-utils'
 import { User, Bell, Shield, Users } from 'lucide-react'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 export default async function SettingsPage() {
   const session = await getSession()
 
   return (
     <div className="space-y-6">
+      {/* Breadcrumb navigation */}
+      <Breadcrumb items={[{ label: 'Settings' }]} />
+
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
