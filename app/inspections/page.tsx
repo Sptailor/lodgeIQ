@@ -7,6 +7,7 @@
 
 import { prisma } from '@/lib/prisma'
 import InspectionsList from '@/components/InspectionsList'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 /**
  * Fetch all inspections on the server
@@ -51,6 +52,9 @@ export default async function InspectionsPage() {
 
   return (
     <div className="space-y-6">
+      {/* Breadcrumb navigation */}
+      <Breadcrumb items={[{ label: 'Inspections' }]} />
+
       {/* Page Header */}
       <div className="relative overflow-hidden backdrop-blur-md bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-neutral-900/90 dark:via-neutral-900/80 dark:to-neutral-900/90 rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-800/50 shadow-xl shadow-neutral-200/50 dark:shadow-neutral-950/50">
         {/* Decorative gradient orb */}
