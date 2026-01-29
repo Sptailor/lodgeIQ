@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  /* Soft Neutral Palette with Glass Effects */
-  --background: #f8f9fa;
-  --foreground: #1a1a1a;
+  /* Clean Professional Palette */
+  --background: #e8eef5;
+  --foreground: #1a1f36;
   --surface: #ffffff;
   --card: #ffffff;
-  --border: #e1e4e8;
-  --primary: #4a5568;
-  --secondary: #718096;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
+  --border: #d9dfe8;
+  --primary: #2c3e50;
+  --secondary: #7f8fa6;
+  --accent: #2563eb;
+  --accent-light: #3b82f6;
 }
 
 .dark {
