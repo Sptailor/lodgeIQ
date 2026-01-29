@@ -3,35 +3,25 @@
 @tailwind utilities;
 
 :root {
-  /* Warm Cream Theme - Perfect for Hospitality */
-  --background: #fffefb;
-  --foreground: #2d2416;
-  --surface: #faf8f5;
-  --card: #fffefb;
-  --border: #e8e3da;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #fafafa;
-  --surface: #0a0a0a;
-  --card: #171717;
-  --border: #262626;
 }
 
 body {
   color: var(--foreground);
-  /* Warm gradient background - light mode only */
-  background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
+  background-color: #f5f5f5;
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .dark body {
-  /* Keep dark mode unchanged */
   background-color: #0a0a0a;
-  background: #0a0a0a;
 }
 
 @layer base {
@@ -49,28 +39,15 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    background: #f5f2ed;
-  }
-
-  .dark ::-webkit-scrollbar-track {
-    @apply bg-neutral-900;
+    @apply bg-neutral-100 dark:bg-neutral-900;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #d4cec0;
-    border-radius: 10px;
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-700 rounded-full;
+    @apply bg-neutral-300 dark:bg-neutral-700 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #c4bdb0;
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    @apply bg-neutral-600;
+    @apply bg-neutral-400 dark:bg-neutral-600;
   }
 }
 
@@ -79,24 +56,13 @@ body {
     text-wrap: balance;
   }
 
-  /* Glass morphism effects - warm tinted for light mode */
+  /* Glass morphism effects */
   .glass {
-    background: rgba(255, 254, 251, 0.85);
-    backdrop-filter: blur(12px);
-  }
-
-  .dark .glass {
-    @apply bg-neutral-900/80 backdrop-blur-md;
+    @apply bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md;
   }
 
   .glass-card {
-    background: rgba(255, 254, 251, 0.92);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(232, 227, 218, 0.6);
-  }
-
-  .dark .glass-card {
-    @apply bg-neutral-900/90 backdrop-blur-sm border-neutral-800/50;
+    @apply bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50;
   }
 
   /* Gradient backgrounds */
@@ -150,7 +116,7 @@ body {
 
 .shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(to right, #f5f2ed 4%, #ebe6dc 25%, #f5f2ed 36%);
+  background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
   background-size: 1000px 100%;
 }
 
