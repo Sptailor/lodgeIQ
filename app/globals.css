@@ -161,12 +161,9 @@ body {
     color: #171717;
   }
 
-  /* Accent backgrounds with Apple glass */
+  /* Accent backgrounds */
   .bg-accent-50 {
-    background: rgba(238, 242, 255, 0.5);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: #eff6ff;
   }
 
   .dark .bg-accent-50 {
@@ -174,10 +171,7 @@ body {
   }
 
   .bg-accent-100 {
-    background: rgba(224, 231, 255, 0.45);
-    backdrop-filter: blur(25px) saturate(170%);
-    -webkit-backdrop-filter: blur(25px) saturate(170%);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: #dbeafe;
   }
 
   .dark .bg-accent-100 {
