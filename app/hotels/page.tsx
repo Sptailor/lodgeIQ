@@ -8,6 +8,7 @@
 import { prisma } from '@/lib/prisma'
 import HotelList from '@/components/HotelList'
 import AddHotelForm from '@/components/AddHotelForm'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 /**
  * Fetch all hotels on the server
@@ -36,6 +37,9 @@ export default async function HotelsPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
+      {/* Breadcrumb navigation */}
+      <Breadcrumb items={[{ label: 'Hotels' }]} />
+
       {/* Page Header - Glass UI */}
       <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
