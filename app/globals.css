@@ -96,13 +96,15 @@ body {
 
   /* Rich Hospitality Color Palette */
   .bg-white {
-    background: linear-gradient(135deg, #fff8f0 0%, #f9f1e7 100%);
+    background: linear-gradient(135deg, #fffcf7 0%, #fffaf5 100%);
     border: 1px solid #e8d5bd;
+    box-shadow: 0 1px 3px rgba(196, 145, 111, 0.08);
   }
 
   .dark .bg-white {
     background-color: #ffffff;
     border: 1px solid #e5e5e5;
+    box-shadow: none;
   }
 
   .bg-neutral-50 {
@@ -178,6 +180,23 @@ body {
     background-color: #e0e7ff;
   }
 
+  /* Nested cards - lighter for better contrast */
+  .bg-white .bg-white,
+  .glass-card .bg-white,
+  [class*="bg-white"] [class*="bg-white"] {
+    background: #ffffff !important;
+    border: 1px solid #ddc9b0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+  }
+
+  .dark .bg-white .bg-white,
+  .dark .glass-card .bg-white,
+  .dark [class*="bg-white"] [class*="bg-white"] {
+    background: #171717 !important;
+    border: 1px solid #404040 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  }
+
   /* Glass morphism with rich warm tints */
   .glass {
     background: linear-gradient(135deg, rgba(249, 241, 231, 0.92), rgba(244, 232, 216, 0.95));
@@ -193,10 +212,10 @@ body {
   }
 
   .glass-card {
-    background: linear-gradient(135deg, rgba(255, 248, 240, 0.96), rgba(249, 241, 231, 0.98));
+    background: linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(255, 250, 245, 0.99));
     backdrop-filter: blur(8px);
     border: 2px solid rgba(232, 213, 189, 0.8);
-    box-shadow: 0 4px 16px rgba(196, 145, 111, 0.08);
+    box-shadow: 0 4px 16px rgba(196, 145, 111, 0.08), 0 1px 3px rgba(255, 255, 255, 0.5) inset;
   }
 
   .dark .glass-card {
