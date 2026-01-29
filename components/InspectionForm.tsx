@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import { Check, X, AlertTriangle, Minus, ChevronDown, ChevronUp } from 'lucide-react'
 import PhotoUpload from '@/components/PhotoUpload'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 
 // Types
 type ResultStatus = 'PENDING' | 'PASS' | 'FAIL' | 'NEEDS_IMPROVEMENT' | 'NOT_APPLICABLE'
@@ -132,8 +133,10 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
           photoUrls: results[itemId]?.photoUrls || [],
         }),
       })
+      toast.success('Result saved')
     } catch (error) {
       console.error('Error saving result:', error)
+      toast.error('Failed to save result')
     }
   }
 
@@ -168,8 +171,10 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
           photoUrls: currentResult.photoUrls || [],
         }),
       })
+      toast.success('Notes saved')
     } catch (error) {
       console.error('Error saving notes:', error)
+      toast.error('Failed to save notes')
     }
   }
 
@@ -248,11 +253,12 @@ export default function InspectionForm({ inspection, checklistItems }: Inspectio
         }),
       })
 
+      toast.success('Inspection completed successfully!')
       // Redirect to hotel page
       router.push(`/hotels/${inspection.hotel.id}`)
     } catch (error) {
       console.error('Error completing inspection:', error)
-      alert('Failed to complete inspection. Please try again.')
+      toast.error('Failed to complete inspection. Please try again.')
       setIsCompleting(false)
     }
   }
