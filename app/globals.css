@@ -60,6 +60,7 @@ body {
 
   ::-webkit-scrollbar-track {
     background: #e8eef5;
+    border-radius: 10px;
   }
 
   .dark ::-webkit-scrollbar-track {
