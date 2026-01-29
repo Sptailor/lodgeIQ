@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ClipboardCheck, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 import {
   Dialog,
   DialogContent,
@@ -55,10 +56,13 @@ export default function StartInspectionButton({ hotelId, hotelName }: StartInspe
 
       const inspection = await response.json()
 
+      toast.success('Inspection created successfully!')
       // Redirect to inspection form
       router.push(`/inspections/${inspection.id}`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred'
+      setError(errorMessage)
+      toast.error(errorMessage)
       setIsCreating(false)
     }
   }
