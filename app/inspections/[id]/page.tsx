@@ -9,6 +9,7 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import InspectionForm from '@/components/InspectionForm'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, User } from 'lucide-react'
 import { StatusBadge, InspectionStatus } from '@/components/ui/status-badge'
@@ -74,14 +75,14 @@ export default async function InspectionPage({ params }: PageProps) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
-      {/* Back link */}
-      <Link
-        href={`/hotels/${inspection.hotel.id}`}
-        className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold transition-colors text-sm sm:text-base"
-      >
-        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        Back to {inspection.hotel.name}
-      </Link>
+      {/* Breadcrumb navigation */}
+      <Breadcrumb
+        items={[
+          { label: 'Inspections', href: '/inspections' },
+          { label: inspection.hotel.name, href: `/hotels/${inspection.hotel.id}` },
+          { label: 'Inspection Form' },
+        ]}
+      />
 
       {/* Header Card */}
       <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
