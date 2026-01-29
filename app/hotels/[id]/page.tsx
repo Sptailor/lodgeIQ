@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import StartInspectionButton from '@/components/StartInspectionButton'
 import InspectionHistory from '@/components/InspectionHistory'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { MapPin, Phone, Mail, Globe, Building2, ChevronLeft } from 'lucide-react'
 
 interface PageProps {
@@ -64,14 +65,13 @@ export default async function HotelDetailPage({ params }: PageProps) {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Back link */}
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4" />
-        Back to Dashboard
-      </Link>
+      {/* Breadcrumb navigation */}
+      <Breadcrumb
+        items={[
+          { label: 'Hotels', href: '/hotels' },
+          { label: hotel.name },
+        ]}
+      />
 
       {/* Hero Header with Gradient */}
       <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-tertiary-600 dark:from-primary-700 dark:to-tertiary-700 rounded-2xl p-8 shadow-soft-2xl">
