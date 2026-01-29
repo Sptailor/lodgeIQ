@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { X, Plus, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 export default function AddHotelForm() {
   const router = useRouter()
@@ -62,11 +63,14 @@ export default function AddHotelForm() {
         description: '',
       })
       setIsOpen(false)
+      toast.success('Hotel added successfully!')
 
       // Refresh the page to show the new hotel
       router.refresh()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred'
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
