@@ -11,6 +11,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, User, Star, ImageIcon, Edit } from 'lucide-react'
 import { StatusBadge, InspectionStatus, ResultStatus, getStatusBorderColor } from '@/components/ui/status-badge'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 interface InspectionResultsClientProps {
   inspection: any
@@ -39,25 +40,14 @@ export function InspectionResultsClient({ inspection }: InspectionResultsClientP
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Header navigation */}
-      <div className="flex items-center justify-between gap-4">
-        <Link
-          href={`/hotels/${inspection.hotel.id}`}
-          className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Back to {inspection.hotel.name}
-        </Link>
-
-        {/* Edit Inspection Button */}
-        <Link
-          href={`/inspections/${inspection.id}`}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-accent-600 hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-600 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
-        >
-          <Edit className="w-4 h-4" />
-          Edit Inspection
-        </Link>
-      </div>
+      {/* Breadcrumb navigation */}
+      <Breadcrumb
+        items={[
+          { label: 'Inspections', href: '/inspections' },
+          { label: inspection.hotel.name, href: `/hotels/${inspection.hotel.id}` },
+          { label: 'Results' },
+        ]}
+      />
 
       {/* Hero Header with Gradient */}
       <motion.div
