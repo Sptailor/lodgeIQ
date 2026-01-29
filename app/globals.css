@@ -108,10 +108,7 @@ body {
   }
 
   .bg-neutral-50 {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(30px) saturate(180%) brightness(1.05);
-    -webkit-backdrop-filter: blur(30px) saturate(180%) brightness(1.05);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: #f8fafb;
   }
 
   .dark .bg-neutral-50 {
@@ -119,10 +116,7 @@ body {
   }
 
   .bg-neutral-100 {
-    background: rgba(248, 250, 252, 0.5);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: #f3f5f7;
   }
 
   .dark .bg-neutral-100 {
@@ -130,9 +124,7 @@ body {
   }
 
   .bg-neutral-200 {
-    background: rgba(241, 245, 249, 0.45);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    background-color: #e8eef5;
   }
 
   .dark .bg-neutral-200 {
