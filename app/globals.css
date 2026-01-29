@@ -39,7 +39,7 @@ body {
 
 @layer base {
   * {
-    border-color: #e1e4e8;
+    border-color: #d9dfe8;
   }
 
   .dark * {
