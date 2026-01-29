@@ -13,6 +13,7 @@ import { InspectorActivityChart } from '@/components/charts/InspectorActivityCha
 import { CategoryRatingsChart } from '@/components/charts/CategoryRatingsChart'
 import { GeographicMap } from '@/components/charts/GeographicMap'
 import { ReportsClientWrapper } from '@/components/ReportsClientWrapper'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 interface SearchParams {
   hotel?: string
@@ -571,6 +572,8 @@ export default async function ReportsPage({
       inspectorLeaderboardData={inspectorLeaderboardData}
     >
       <div className="space-y-6 sm:space-y-8">
+        {/* Breadcrumb navigation */}
+        <Breadcrumb items={[{ label: 'Reports' }]} />
         {/* Inspection Status Overview */}
         <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
           <div className="mb-5 sm:mb-6">
