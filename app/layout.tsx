@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { SessionProvider } from '@/components/SessionProvider'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toast'
+import { ToastProvider } from '@/components/ui/toast-provider'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
 import { LayoutWrapper, MainContentWrapper } from '@/components/layout-wrapper'
@@ -69,7 +69,7 @@ export default function RootLayout({
             </LayoutWrapper>
 
             {/* Toast notifications */}
-            <Toaster />
+            <ToastProvider />
           </SessionProvider>
         </ThemeProvider>
       </body>
