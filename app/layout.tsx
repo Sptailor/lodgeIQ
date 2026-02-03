@@ -6,6 +6,7 @@ import { ToastProvider } from '@/components/ui/toast-provider'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
 import { LayoutWrapper, MainContentWrapper } from '@/components/layout-wrapper'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -72,6 +73,7 @@ export default function RootLayout({
             <ToastProvider />
           </SessionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
