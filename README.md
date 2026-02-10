@@ -51,7 +51,7 @@ Tour operators and travel agencies need reliable methods to assess accommodation
 
 ## Technology Stack
 
-**Frontend** - Next.js 14 with App Router, React 18, TypeScript, and Tailwind CSS for responsive, modern interface design.
+**Frontend** - Next.js 14 with App Router, React 18, TypeScript, and Tailwind CSS for a clean, professional interface with a soft blue-gray color palette.
 
 **Backend** - Next.js API Routes providing RESTful endpoints for data operations.
 
