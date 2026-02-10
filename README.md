@@ -255,3 +255,5 @@ For support, email <support@lodgeiq.com> or open an issue in the GitHub reposito
 - UI components from [Tailwind CSS](https://tailwindcss.com/)
 - Charts by [Recharts](https://recharts.org/)
 - Authentication by [NextAuth.js](https://next-auth.js.org/)
+- Animations by [Framer Motion](https://www.framer.com/motion/)
+- Notifications by [Sonner](https://sonner.emilkowal.ski/)
