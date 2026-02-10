@@ -45,6 +45,10 @@ Tour operators and travel agencies need reliable methods to assess accommodation
 
 **Analytics Dashboard** - Comprehensive metrics tracking inspection trends, property performance, rating distributions, and inspector activity across your portfolio. Interactive charts with drill-down capabilities and performance indicators.
 
+**Breadcrumb Navigation** - Hierarchical navigation system showing current location within the application, enabling quick navigation between sections with animated transitions.
+
+**Toast Notifications** - Real-time feedback system for user actions including form submissions, saves, and error states with customizable positioning and styling.
+
 ## Technology Stack
 
 **Frontend** - Next.js 14 with App Router, React 18, TypeScript, and Tailwind CSS for responsive, modern interface design.
