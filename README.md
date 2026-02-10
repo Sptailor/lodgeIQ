@@ -141,6 +141,8 @@ LodgeIQ/
 │   └── settings/          # Application settings
 ├── components/            # React components
 │   ├── ui/               # Reusable UI components
+│   │   ├── breadcrumb.tsx    # Navigation breadcrumbs
+│   │   └── toast-provider.tsx # Toast notifications
 │   └── ...               # Feature-specific components
 ├── lib/                   # Utility functions and helpers
 ├── prisma/               # Database schema and migrations
