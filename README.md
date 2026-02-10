@@ -63,6 +63,8 @@ Tour operators and travel agencies need reliable methods to assess accommodation
 
 **Animations** - Framer Motion for smooth, performant UI animations and transitions.
 
+**Notifications** - Sonner toast library for elegant user feedback and notifications.
+
 **Deployment** - Optimized for Vercel platform with edge runtime capabilities.
 
 ## Business Model
