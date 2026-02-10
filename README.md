@@ -61,6 +61,8 @@ Tour operators and travel agencies need reliable methods to assess accommodation
 
 **Charts and Visualization** - Recharts library for interactive data visualization and reporting.
 
+**Animations** - Framer Motion for smooth, performant UI animations and transitions.
+
 **Deployment** - Optimized for Vercel platform with edge runtime capabilities.
 
 ## Business Model
