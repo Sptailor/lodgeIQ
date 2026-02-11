@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { SessionProvider } from '@/components/SessionProvider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ToastProvider } from '@/components/ui/toast-provider'
+import { WelcomeScreen } from '@/components/ui/welcome-screen'
 import Header from '@/components/Header'
 import { Sidebar } from '@/components/sidebar'
 import { LayoutWrapper, MainContentWrapper } from '@/components/layout-wrapper'
@@ -70,6 +71,9 @@ export default function RootLayout({
 
             {/* Toast notifications */}
             <ToastProvider />
+
+            {/* Welcome screen */}
+            <WelcomeScreen />
           </SessionProvider>
         </ThemeProvider>
       </body>
