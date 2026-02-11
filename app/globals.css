@@ -267,9 +267,15 @@ body {
   inset: 0;
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #e8eef5;
+  background: linear-gradient(135deg, #e8eef5 0%, #dce4ef 50%, #e8eef5 100%);
+}
+
+.welcome-logo {
+  color: #2563eb;
+  margin-bottom: 1rem;
 }
 
 .welcome-text {
@@ -282,4 +288,11 @@ body {
 .welcome-letter {
   display: inline-block;
   text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+}
+
+.welcome-tagline {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #7f8fa6;
+  letter-spacing: 0.1em;
 }
