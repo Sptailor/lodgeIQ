@@ -10,7 +10,15 @@ export function WelcomeScreen() {
     const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome')
     if (hasSeenWelcome) {
       setIsVisible(false)
+      return
     }
+
+    const timer = setTimeout(() => {
+      setIsVisible(false)
+      sessionStorage.setItem('hasSeenWelcome', 'true')
+    }, 2500)
+
+    return () => clearTimeout(timer)
   }, [])
 
   if (!isVisible) return null
