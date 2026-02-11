@@ -309,3 +309,19 @@ body {
 .welcome-letter {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+.dark .welcome-screen {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+}
+
+.dark .welcome-text {
+  color: #fafafa;
+}
+
+.dark .welcome-letter {
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+.dark .welcome-tagline {
+  color: #a3a3a3;
+}
