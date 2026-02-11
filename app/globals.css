@@ -325,3 +325,18 @@ body {
 .dark .welcome-tagline {
   color: #a3a3a3;
 }
+
+.welcome-progress {
+  margin-top: 2rem;
+  width: 200px;
+  height: 3px;
+  background: rgba(37, 99, 235, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.welcome-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  border-radius: 2px;
+}

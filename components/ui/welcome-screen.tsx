@@ -68,6 +68,19 @@ export function WelcomeScreen() {
           >
             Property Inspection & Compliance
           </motion.p>
+          <motion.div
+            className="welcome-progress"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+          >
+            <motion.div
+              className="welcome-progress-bar"
+              initial={{ width: 0 }}
+              animate={{ width: '100%' }}
+              transition={{ delay: 1.5, duration: 1, ease: 'easeInOut' }}
+            />
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
