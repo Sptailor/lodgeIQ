@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Building2 } from 'lucide-react'
 
 export function WelcomeScreen() {
   const [isVisible, setIsVisible] = useState(true)
@@ -33,7 +34,16 @@ export function WelcomeScreen() {
           className="welcome-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
+          <motion.div
+            className="welcome-logo"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            <Building2 size={48} />
+          </motion.div>
           <div className="welcome-text">
             {letters.map((letter, index) => (
               <motion.span
