@@ -17,7 +17,7 @@ export function WelcomeScreen() {
     const timer = setTimeout(() => {
       setIsVisible(false)
       sessionStorage.setItem('hasSeenWelcome', 'true')
-    }, 2500)
+    }, 3000)
 
     return () => clearTimeout(timer)
   }, [])
