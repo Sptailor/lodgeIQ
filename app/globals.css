@@ -296,3 +296,16 @@ body {
   color: #7f8fa6;
   letter-spacing: 0.1em;
 }
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(37, 99, 235, 0.8), 0 0 60px rgba(37, 99, 235, 0.4);
+  }
+}
+
+.welcome-letter {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
