@@ -260,3 +260,26 @@ body {
 .dark .shimmer {
   background: linear-gradient(to right, #1a1a1a 4%, #2a2a2a 25%, #1a1a1a 36%);
 }
+
+/* Welcome Screen */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8eef5;
+}
+
+.welcome-text {
+  display: flex;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #1a1f36;
+}
+
+.welcome-letter {
+  display: inline-block;
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+}
