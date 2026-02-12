@@ -424,3 +424,17 @@ body {
     font-size: 0.875rem;
   }
 }
+
+/* Mobile Button Touch Targets */
+@media (max-width: 640px) {
+  button, a.btn, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+
+  .btn-sm {
+    min-height: 36px;
+    padding: 0.5rem 1rem;
+  }
+}
