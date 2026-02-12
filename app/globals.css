@@ -389,3 +389,19 @@ body {
     border-radius: 0.75rem;
   }
 }
+
+/* Mobile Form Inputs */
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    min-height: auto;
+    width: 20px;
+    height: 20px;
+  }
+}
