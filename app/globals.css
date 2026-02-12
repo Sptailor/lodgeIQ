@@ -356,3 +356,11 @@ body {
     width: 150px;
   }
 }
+
+/* Mobile Header Improvements */
+@media (max-width: 1024px) {
+  header {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
