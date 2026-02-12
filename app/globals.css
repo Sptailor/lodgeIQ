@@ -364,3 +364,16 @@ body {
     padding-right: env(safe-area-inset-right);
   }
 }
+
+/* Mobile Sidebar Improvements */
+@media (max-width: 1024px) {
+  .sidebar-mobile {
+    width: 100%;
+    max-width: 280px;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .sidebar-overlay {
+    backdrop-filter: blur(4px);
+  }
+}
