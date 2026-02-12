@@ -456,3 +456,26 @@ body {
     padding-bottom: calc(1rem + env(safe-area-inset-bottom));
   }
 }
+
+/* Mobile Typography Scale */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  p, li {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+}
