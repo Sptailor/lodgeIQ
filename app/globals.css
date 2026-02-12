@@ -479,3 +479,24 @@ body {
     line-height: 1.5;
   }
 }
+
+/* Mobile Spacing */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .gap-6 {
+    gap: 1rem;
+  }
+
+  .p-6 {
+    padding: 1rem;
+  }
+}
