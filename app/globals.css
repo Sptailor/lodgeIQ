@@ -531,3 +531,18 @@ body {
     bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* Mobile Landscape Mode */
+@media (max-width: 896px) and (orientation: landscape) {
+  header {
+    height: 48px;
+  }
+
+  main {
+    padding-top: 56px;
+  }
+
+  .welcome-text {
+    font-size: 2rem;
+  }
+}
