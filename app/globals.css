@@ -377,3 +377,15 @@ body {
     backdrop-filter: blur(4px);
   }
 }
+
+/* Mobile Card Grid */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+  }
+
+  .card, .bg-white {
+    border-radius: 0.75rem;
+  }
+}
