@@ -500,3 +500,17 @@ body {
     padding: 1rem;
   }
 }
+
+/* Mobile Footer */
+@media (max-width: 640px) {
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+
+  footer .flex {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
