@@ -68,20 +68,18 @@ export default function Header() {
   }, [lastScrollY])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-white/10 bg-neutral-900/80 backdrop-blur-xl shadow-glass transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-primary-200 dark:border-primary-700 bg-white/95 dark:bg-primary-900/95 backdrop-blur-md shadow-sm dark:shadow-none transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
       {/* Desktop: Logo section - fixed width to match sidebar */}
-      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-primary-900/50 via-accent-900/30 to-transparent flex-shrink-0 border-r border-white/10">
+      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-primary-50 dark:bg-primary-800/50 flex-shrink-0 border-r border-primary-200 dark:border-primary-700">
         <Link href="/" className="flex items-center gap-3.5 group">
-          <div className="relative bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl p-2.5 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-105">
+          <div className="relative bg-accent-500 hover:bg-accent-600 rounded-xl p-2.5 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
             <ClipboardCheck className="w-5 h-5 text-white" />
-            {/* Glow ring */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <h1 className="text-xl font-extrabold text-white tracking-tight leading-none">
+            <h1 className="text-xl font-extrabold text-primary-900 dark:text-white tracking-tight leading-none">
               LodgeIQ
             </h1>
-            <p className="text-[10px] text-white/50 font-medium tracking-wide leading-tight">
+            <p className="text-[10px] text-primary-500 dark:text-primary-400 font-medium tracking-wide leading-tight">
               Property Inspection & Compliance
             </p>
           </div>
@@ -106,11 +104,9 @@ export default function Header() {
           ) : (
             <Link
               href="/auth/signin"
-              className="relative px-5 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-xl font-semibold transition-all duration-300 shadow-glow hover:shadow-glow-lg hover:scale-105 overflow-hidden group"
+              className="px-5 py-2.5 bg-accent-500 hover:bg-accent-600 text-white rounded-lg font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
             >
-              <span className="relative z-10">Sign In</span>
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              Sign In
             </Link>
           )}
         </div>
