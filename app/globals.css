@@ -246,20 +246,50 @@ body::before {
 
   /* Gradient backgrounds */
   .gradient-primary {
-    @apply bg-gradient-to-r from-primary-600 to-primary-700;
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
   }
 
-  .gradient-success {
-    @apply bg-gradient-to-r from-success-600 to-success-700;
+  .gradient-secondary {
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
   }
 
-  .gradient-tertiary {
-    @apply bg-gradient-to-r from-tertiary-600 to-tertiary-700;
+  .gradient-accent {
+    background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
   }
 
-  /* Text gradients */
+  .gradient-vibrant {
+    background: linear-gradient(135deg, #7c3aed 0%, #14b8a6 50%, #f97316 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #14b8a6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-primary-600 to-tertiary-600 bg-clip-text text-transparent;
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-secondary {
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Mobile-optimized inputs */
