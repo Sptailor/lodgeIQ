@@ -40,39 +40,44 @@ const iconMap = {
 
 const variantStyles = {
   default: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-neutral-100 dark:bg-neutral-800',
-    iconColor: 'text-neutral-700 dark:text-neutral-300',
-    border: 'border-neutral-200 dark:border-neutral-800',
-    accentBar: 'bg-neutral-300 dark:bg-neutral-700',
+    bg: 'bg-white/5',
+    iconBg: 'bg-white/10',
+    iconColor: 'text-white',
+    border: 'border-white/10',
+    accentBar: 'from-primary-500 to-accent-500',
+    glow: 'shadow-glow',
   },
   success: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-success-100 dark:bg-success-900/30',
-    iconColor: 'text-success-700 dark:text-success-400',
-    border: 'border-success-200 dark:border-success-800/40',
-    accentBar: 'bg-success-500',
+    bg: 'bg-white/5',
+    iconBg: 'bg-teal-500/20',
+    iconColor: 'text-teal-400',
+    border: 'border-teal-500/20',
+    accentBar: 'from-teal-500 to-teal-400',
+    glow: 'shadow-glow-teal',
   },
   warning: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-warning-100 dark:bg-warning-900/30',
-    iconColor: 'text-warning-700 dark:text-warning-400',
-    border: 'border-warning-200 dark:border-warning-800/40',
-    accentBar: 'bg-warning-500',
+    bg: 'bg-white/5',
+    iconBg: 'bg-warning-500/20',
+    iconColor: 'text-warning-400',
+    border: 'border-warning-500/20',
+    accentBar: 'from-warning-500 to-warning-400',
+    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.3)]',
   },
   danger: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-danger-100 dark:bg-danger-900/30',
-    iconColor: 'text-danger-700 dark:text-danger-400',
-    border: 'border-danger-200 dark:border-danger-800/40',
-    accentBar: 'bg-danger-500',
+    bg: 'bg-white/5',
+    iconBg: 'bg-danger-500/20',
+    iconColor: 'text-danger-400',
+    border: 'border-danger-500/20',
+    accentBar: 'from-danger-500 to-danger-400',
+    glow: 'shadow-[0_0_20px_rgba(239,68,68,0.3)]',
   },
   primary: {
-    bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-accent-100 dark:bg-accent-900/30',
-    iconColor: 'text-accent-700 dark:text-accent-400',
-    border: 'border-accent-200 dark:border-accent-800/40',
-    accentBar: 'bg-accent-600',
+    bg: 'bg-white/5',
+    iconBg: 'bg-primary-500/20',
+    iconColor: 'text-primary-400',
+    border: 'border-primary-500/20',
+    accentBar: 'from-primary-500 to-primary-400',
+    glow: 'shadow-glow',
   },
 }
 
@@ -114,13 +119,14 @@ export function KPICard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -2, scale: 1.005 }}
+      whileHover={{ y: -4, scale: 1.02 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={() => !href && setIsExpanded(!isExpanded)}
       className={cn(
-        'group relative rounded-2xl border overflow-hidden backdrop-blur-md bg-white/90 dark:bg-neutral-900/90',
-        'shadow-sm shadow-neutral-200/30 dark:shadow-neutral-950/30',
-        'hover:shadow-md hover:shadow-neutral-300/40 dark:hover:shadow-neutral-900/40',
+        'group relative rounded-2xl border overflow-hidden',
+        'bg-white/8 backdrop-blur-xl',
+        'shadow-glass',
+        'hover:bg-white/12 hover:border-white/20',
         'transition-all duration-300 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
@@ -198,11 +204,11 @@ export function KPICard({
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.05 }}
-            className="text-4xl sm:text-5xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 bg-clip-text text-transparent"
+            className="text-4xl sm:text-5xl font-bold text-white"
           >
             {value}
           </motion.h3>
-          <p className="text-[11px] sm:text-sm font-semibold text-neutral-600 dark:text-neutral-400 tracking-wide">
+          <p className="text-[11px] sm:text-sm font-semibold text-white/60 tracking-wide uppercase">
             {title}
           </p>
         </div>
