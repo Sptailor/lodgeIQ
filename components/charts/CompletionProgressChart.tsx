@@ -8,21 +8,21 @@ interface CompletionProgressChartProps {
   inProgress: number
 }
 
-// Vibrant color palette with gradients
+// Color palette using slate/teal theme
 const COLORS = {
   completed: {
-    base: '#10b981',     // emerald-500 (brighter green)
-    light: '#34d399',    // emerald-400
+    base: '#14b8a6',     // teal-500
+    light: '#2dd4bf',    // teal-400
     gradient: 'url(#completedGradient)'
   },
   inProgress: {
     base: '#f59e0b',     // amber-500
-    light: '#fcd34d',    // amber-300 (brighter yellow)
+    light: '#fcd34d',    // amber-300
     gradient: 'url(#inProgressGradient)'
   },
   pending: {
-    base: '#8b5cf6',     // violet-500
-    light: '#a78bfa',    // violet-400
+    base: '#64748b',     // slate-500
+    light: '#94a3b8',    // slate-400
     gradient: 'url(#pendingGradient)'
   },
 }

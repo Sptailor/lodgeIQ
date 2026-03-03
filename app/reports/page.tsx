@@ -668,19 +668,19 @@ export default async function ReportsPage({
               </div>
 
               {/* Rejected Card */}
-              <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 rounded-xl p-4 border border-violet-200/50 dark:border-violet-800/50">
+              <div className="bg-primary-50 dark:bg-primary-800/30 rounded-xl p-4 border border-primary-200 dark:border-primary-700">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-violet-500"></div>
-                  <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Rejected</h3>
+                  <div className="w-3 h-3 rounded-full bg-primary-500"></div>
+                  <h3 className="text-sm font-semibold text-primary-700 dark:text-primary-300">Rejected</h3>
                 </div>
-                <p className="text-2xl font-bold text-violet-600 dark:text-violet-400 mb-1">
+                <p className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-1">
                   {statusCounts.pending}
                 </p>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-3">Rejected inspections</p>
+                <p className="text-xs text-primary-600 dark:text-primary-400 mb-3">Rejected inspections</p>
                 {/* Progress Bar */}
-                <div className="w-full bg-violet-200/30 dark:bg-violet-900/30 rounded-full h-2">
+                <div className="w-full bg-primary-200/30 dark:bg-primary-700/30 rounded-full h-2">
                   <div
-                    className="h-2 rounded-full bg-violet-500 transition-all duration-500"
+                    className="h-2 rounded-full bg-primary-500 transition-all duration-500"
                     style={{
                       width: `${Math.round(
                         (statusCounts.pending /

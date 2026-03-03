@@ -16,12 +16,12 @@ export function InspectorActivityChart({ data }: InspectorActivityChartProps) {
       <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 60 }}>
         <defs>
           <linearGradient id="completedGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#10b981" stopOpacity={0.6} />
+            <stop offset="0%" stopColor="#14b8a6" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#14b8a6" stopOpacity={0.6} />
           </linearGradient>
           <linearGradient id="ratingGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#6366f1" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#6366f1" stopOpacity={0.6} />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity={0.6} />
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" opacity={0.3} vertical={false} />
@@ -50,7 +50,7 @@ export function InspectorActivityChart({ data }: InspectorActivityChartProps) {
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
-          cursor={{ fill: 'rgba(99, 102, 241, 0.1)' }}
+          cursor={{ fill: 'rgba(20, 184, 166, 0.1)' }}
           formatter={(value: number | undefined, name: string | undefined) => {
             if (!value) return ['0', name || 'Value']
             if (name === 'completed') return [value, 'Completed']

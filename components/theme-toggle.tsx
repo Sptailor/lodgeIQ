@@ -37,9 +37,9 @@ export function ThemeToggle() {
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
     >
-      {/* Animated gradient background */}
+      {/* Animated background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 dark:from-indigo-600 dark:via-purple-600 dark:to-blue-600"
+        className="absolute inset-0 bg-amber-400 dark:bg-primary-700"
         animate={{
           opacity: isDark ? 0.9 : 1,
         }}
@@ -68,11 +68,8 @@ export function ThemeToggle() {
           transition={{ duration: 0.5 }}
         >
           <Sun className="h-4 w-4 scale-100 dark:scale-0 absolute transition-all duration-300 text-amber-500" />
-          <Moon className="h-4 w-4 scale-0 dark:scale-100 transition-all duration-300 text-indigo-500" />
+          <Moon className="h-4 w-4 scale-0 dark:scale-100 transition-all duration-300 text-primary-400" />
         </motion.div>
-
-        {/* Glow effect around icon */}
-        <div className="absolute inset-0 rounded-full bg-amber-400 dark:bg-indigo-500 blur-md opacity-30" />
       </motion.span>
     </motion.button>
   )

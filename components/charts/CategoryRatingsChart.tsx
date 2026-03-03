@@ -15,8 +15,8 @@ export function CategoryRatingsChart({ data }: CategoryRatingsChartProps) {
       <RadarChart data={data}>
         <defs>
           <linearGradient id="radarGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#6366f1" stopOpacity={0.8} />
-            <stop offset="100%" stopColor="#14b8a6" stopOpacity={0.3} />
+            <stop offset="0%" stopColor="#14b8a6" stopOpacity={0.8} />
+            <stop offset="100%" stopColor="#0d9488" stopOpacity={0.3} />
           </linearGradient>
         </defs>
         <PolarGrid stroke="#e5e5e5" strokeDasharray="3 3" />
@@ -43,7 +43,7 @@ export function CategoryRatingsChart({ data }: CategoryRatingsChartProps) {
         <Radar
           name="Rating"
           dataKey="rating"
-          stroke="#6366f1"
+          stroke="#14b8a6"
           fill="url(#radarGradient)"
           fillOpacity={0.6}
           strokeWidth={2}

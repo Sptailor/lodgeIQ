@@ -47,10 +47,10 @@ export function InspectionTrendsChart({ data }: InspectionTrendsChartProps) {
         <Line
           type="monotone"
           dataKey="inspections"
-          stroke="#6366f1"
+          stroke="#14b8a6"
           strokeWidth={4}
-          dot={{ fill: '#6366f1', strokeWidth: 0, r: 6 }}
-          activeDot={{ r: 9, fill: '#6366f1', stroke: '#fff', strokeWidth: 3 }}
+          dot={{ fill: '#14b8a6', strokeWidth: 0, r: 6 }}
+          activeDot={{ r: 9, fill: '#14b8a6', stroke: '#fff', strokeWidth: 3 }}
           animationDuration={1200}
           name="Total Inspections"
         />

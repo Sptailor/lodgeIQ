@@ -32,13 +32,9 @@ export function UserMenu({ user }: UserMenuProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-400/10 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000" />
 
         <div className="relative flex items-center gap-3">
-          {/* User Avatar with pulse animation */}
+          {/* User Avatar */}
           <div className="relative">
-            {/* Pulsing ring around avatar */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-accent-500 to-purple-500 animate-pulse opacity-20" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-accent-500 to-purple-500 blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-
-            <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-accent-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg ring-2 ring-white dark:ring-neutral-900 group-hover:ring-accent-400 dark:group-hover:ring-accent-500 transition-all duration-300">
+            <div className="relative w-9 h-9 rounded-full bg-accent-500 flex items-center justify-center shadow-md ring-2 ring-white dark:ring-primary-900 group-hover:ring-accent-400 transition-all duration-200">
               {user.image ? (
                 <img
                   src={user.image}

@@ -17,11 +17,11 @@ export default function SignInPage({
 
   return (
     <div className="max-w-md mx-auto mt-12">
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl p-8 shadow-lg">
+      <div className="bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-8 shadow-sm">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">Welcome to LodgeIQ</h1>
-          <p className="text-neutral-700 dark:text-neutral-300">Sign in to continue</p>
+          <h1 className="text-3xl font-bold text-primary-900 dark:text-white mb-2">Welcome to LodgeIQ</h1>
+          <p className="text-primary-600 dark:text-primary-400">Sign in to continue</p>
         </div>
 
         {/* Error message */}
@@ -63,7 +63,7 @@ export default function SignInPage({
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+            className="w-full bg-accent-500 hover:bg-accent-600 text-white py-3 rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
           >
             Continue with Email
           </button>
