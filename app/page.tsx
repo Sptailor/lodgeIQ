@@ -231,16 +231,14 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Hero Header */}
-      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-tertiary-500 to-accent-500"></div>
-        <div className="hidden sm:block absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100 to-tertiary-100 dark:from-primary-900/20 dark:to-tertiary-900/20 rounded-full blur-2xl opacity-50"></div>
-        <div className="hidden sm:block absolute -left-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/20 dark:to-primary-900/20 rounded-full blur-2xl opacity-50"></div>
+      <div className="relative overflow-hidden bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-5 sm:p-7 shadow-sm">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-accent-500"></div>
 
         <div className="relative z-10">
-          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-3">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-primary-900 dark:text-white mb-2 sm:mb-3">
             Dashboard
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-base md:text-lg">
+          <p className="text-primary-500 dark:text-primary-400 text-xs sm:text-base md:text-lg">
             High-level overview of your operations
           </p>
         </div>
@@ -303,13 +301,13 @@ export default async function DashboardPage() {
       <DashboardAlerts alerts={alerts} />
 
       {/* Recent Activity Feed */}
-      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+      <div className="bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-5 sm:p-7 shadow-sm">
         <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+            <h2 className="text-lg sm:text-2xl font-bold text-primary-900 dark:text-white mb-2">
               Recent Activity
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="text-xs sm:text-sm text-primary-500 dark:text-primary-400">
               Latest inspection activity across all properties
             </p>
           </div>
@@ -323,37 +321,37 @@ export default async function DashboardPage() {
 
         <div className="space-y-3">
           {recentActivity.length === 0 ? (
-            <p className="text-neutral-500 dark:text-neutral-400 text-sm">No recent activity</p>
+            <p className="text-primary-400 text-sm">No recent activity</p>
           ) : (
             recentActivity.map((inspection) => (
               <div
                 key={inspection.id}
-                className="flex items-center justify-between p-4 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700"
+                className="flex items-center justify-between p-4 rounded-lg bg-primary-50 dark:bg-primary-800 border border-primary-200 dark:border-primary-700"
               >
                 <div className="flex-1">
-                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                  <h3 className="font-semibold text-primary-900 dark:text-white">
                     {inspection.hotel.name}
                   </h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-primary-500 dark:text-primary-400">
                     {new Date(inspection.inspectionDate).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
                   {inspection.overallRating && (
                     <div className="flex items-center gap-1">
-                      <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                      <span className="text-sm font-semibold text-primary-900 dark:text-white">
                         {inspection.overallRating.toFixed(1)}
                       </span>
                       <span className="text-amber-500">★</span>
                     </div>
                   )}
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${
                       inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+                        ? 'bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400'
                         : inspection.status === 'IN_PROGRESS'
-                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-                        : 'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400'
+                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
+                        : 'bg-primary-100 text-primary-700 dark:bg-primary-700 dark:text-primary-300'
                     }`}
                   >
                     {inspection.status}
