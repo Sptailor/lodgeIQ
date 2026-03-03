@@ -68,18 +68,20 @@ export default function Header() {
   }, [lastScrollY])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200/50 dark:border-neutral-800 shadow-sm backdrop-blur-md transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-white/10 bg-neutral-900/80 backdrop-blur-xl shadow-glass transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
       {/* Desktop: Logo section - fixed width to match sidebar */}
-      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-white/95 via-neutral-50/95 to-transparent dark:from-accent-800/90 dark:via-accent-800/60 dark:to-neutral-900/40 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-700">
+      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-gradient-to-r from-primary-900/50 via-accent-900/30 to-transparent flex-shrink-0 border-r border-white/10">
         <Link href="/" className="flex items-center gap-3.5 group">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 dark:bg-white/25 rounded-lg p-2.5 group-hover:shadow-lg dark:group-hover:bg-white/30 transition-all">
+          <div className="relative bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl p-2.5 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-105">
             <ClipboardCheck className="w-5 h-5 text-white" />
+            {/* Glow ring */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <h1 className="text-xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-none">
+            <h1 className="text-xl font-extrabold text-white tracking-tight leading-none">
               LodgeIQ
             </h1>
-            <p className="text-[10px] text-neutral-600 dark:text-white/60 font-normal tracking-wide leading-tight">
+            <p className="text-[10px] text-white/50 font-medium tracking-wide leading-tight">
               Property Inspection & Compliance
             </p>
           </div>
@@ -87,7 +89,7 @@ export default function Header() {
       </div>
 
       {/* Main header content area */}
-      <div className="flex-1 h-full flex items-center justify-between lg:px-8 bg-white/95 dark:bg-neutral-900/95">
+      <div className="flex-1 h-full flex items-center justify-between lg:px-8 bg-transparent">
         {/* Mobile: Logo and brand - with scroll detection */}
         <MobileHeader />
 
@@ -95,7 +97,7 @@ export default function Header() {
         <div className="hidden lg:flex flex-1" />
 
         {/* Right side actions - Hidden on mobile, shown on desktop */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
           {/* Theme toggle - desktop only */}
           <ThemeToggle />
 
@@ -104,9 +106,11 @@ export default function Header() {
           ) : (
             <Link
               href="/auth/signin"
-              className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+              className="relative px-5 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-xl font-semibold transition-all duration-300 shadow-glow hover:shadow-glow-lg hover:scale-105 overflow-hidden group"
             >
-              Sign In
+              <span className="relative z-10">Sign In</span>
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </Link>
           )}
         </div>
