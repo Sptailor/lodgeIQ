@@ -41,40 +41,35 @@ const inspectionStatusConfig: Record<
     bg: string
     text: string
     border: string
-    glow: string
   }
 > = {
   IN_PROGRESS: {
     label: 'In Progress',
     icon: Clock,
-    bg: 'bg-warning-500/20',
-    text: 'text-warning-300',
-    border: 'border-warning-500/30',
-    glow: 'shadow-[0_0_12px_rgba(245,158,11,0.3)]',
+    bg: 'bg-amber-100 dark:bg-amber-500/20',
+    text: 'text-amber-700 dark:text-amber-400',
+    border: 'border-amber-200 dark:border-amber-500/30',
   },
   COMPLETED: {
     label: 'Completed',
     icon: FileCheck,
-    bg: 'bg-accent-500/20',
-    text: 'text-accent-300',
-    border: 'border-accent-500/30',
-    glow: 'shadow-[0_0_12px_rgba(99,102,241,0.3)]',
+    bg: 'bg-accent-100 dark:bg-accent-500/20',
+    text: 'text-accent-700 dark:text-accent-400',
+    border: 'border-accent-200 dark:border-accent-500/30',
   },
   APPROVED: {
     label: 'Approved',
     icon: CheckCircle2,
-    bg: 'bg-teal-500/20',
-    text: 'text-teal-300',
-    border: 'border-teal-500/30',
-    glow: 'shadow-[0_0_12px_rgba(20,184,166,0.3)]',
+    bg: 'bg-teal-100 dark:bg-teal-500/20',
+    text: 'text-teal-700 dark:text-teal-400',
+    border: 'border-teal-200 dark:border-teal-500/30',
   },
   REJECTED: {
     label: 'Rejected',
     icon: XCircle,
-    bg: 'bg-danger-500/20',
-    text: 'text-danger-300',
-    border: 'border-danger-500/30',
-    glow: 'shadow-[0_0_12px_rgba(239,68,68,0.3)]',
+    bg: 'bg-danger-100 dark:bg-danger-500/20',
+    text: 'text-danger-700 dark:text-danger-400',
+    border: 'border-danger-200 dark:border-danger-500/30',
   },
 }
 
@@ -87,48 +82,42 @@ const resultStatusConfig: Record<
     bg: string
     text: string
     border: string
-    glow: string
   }
 > = {
   PASS: {
     label: 'Pass',
     icon: CheckCircle2,
-    bg: 'bg-teal-500/20',
-    text: 'text-teal-300',
-    border: 'border-teal-500/30',
-    glow: 'shadow-[0_0_12px_rgba(20,184,166,0.3)]',
+    bg: 'bg-teal-100 dark:bg-teal-500/20',
+    text: 'text-teal-700 dark:text-teal-400',
+    border: 'border-teal-200 dark:border-teal-500/30',
   },
   FAIL: {
     label: 'Fail',
     icon: XCircle,
-    bg: 'bg-danger-500/20',
-    text: 'text-danger-300',
-    border: 'border-danger-500/30',
-    glow: 'shadow-[0_0_12px_rgba(239,68,68,0.3)]',
+    bg: 'bg-danger-100 dark:bg-danger-500/20',
+    text: 'text-danger-700 dark:text-danger-400',
+    border: 'border-danger-200 dark:border-danger-500/30',
   },
   NEEDS_IMPROVEMENT: {
     label: 'Needs Attention',
     icon: AlertCircle,
-    bg: 'bg-warning-500/20',
-    text: 'text-warning-300',
-    border: 'border-warning-500/30',
-    glow: 'shadow-[0_0_12px_rgba(245,158,11,0.3)]',
+    bg: 'bg-amber-100 dark:bg-amber-500/20',
+    text: 'text-amber-700 dark:text-amber-400',
+    border: 'border-amber-200 dark:border-amber-500/30',
   },
   NOT_APPLICABLE: {
     label: 'N/A',
     icon: MinusCircle,
-    bg: 'bg-white/10',
-    text: 'text-white/60',
-    border: 'border-white/20',
-    glow: '',
+    bg: 'bg-primary-100 dark:bg-primary-800',
+    text: 'text-primary-500 dark:text-primary-400',
+    border: 'border-primary-200 dark:border-primary-700',
   },
   PENDING: {
     label: 'Pending',
     icon: Clock,
-    bg: 'bg-white/10',
-    text: 'text-white/60',
-    border: 'border-white/20',
-    glow: '',
+    bg: 'bg-primary-100 dark:bg-primary-800',
+    text: 'text-primary-500 dark:text-primary-400',
+    border: 'border-primary-200 dark:border-primary-700',
   },
 }
 
@@ -179,12 +168,10 @@ export function StatusBadge({
   const Icon = config.icon
   const sizes = sizeConfig[size]
 
-  const configWithGlow = config as typeof config & { glow?: string }
-
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full font-semibold transition-all backdrop-blur-sm',
+        'inline-flex items-center rounded-full font-medium transition-all',
         sizes.padding,
         sizes.text,
         sizes.gap,
@@ -192,13 +179,11 @@ export function StatusBadge({
         config.bg,
         config.text,
         config.border,
-        configWithGlow.glow,
-        'hover:scale-105',
         className
       )}
     >
       {showIcon && <Icon className={sizes.icon} />}
-      <span className="uppercase tracking-wider">{config.label}</span>
+      <span className="uppercase tracking-wide">{config.label}</span>
     </span>
   )
 }
