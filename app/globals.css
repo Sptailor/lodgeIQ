@@ -60,19 +60,46 @@ body::before {
 
 @layer base {
   * {
-    border-color: #d9dfe8;
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   .dark * {
-    @apply border-neutral-800;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    color: #1a1f36;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #f8fafc;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #f8fafc;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f8fafc;
+  }
+
+  h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #f8fafc;
+  }
+
+  p {
+    color: rgba(248, 250, 252, 0.7);
   }
 
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    @apply text-neutral-50;
+    color: #f8fafc;
   }
 
   /* Custom scrollbar */
