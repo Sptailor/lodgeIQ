@@ -53,7 +53,7 @@ export function RatingDistributionChart({ data }: RatingDistributionChartProps) 
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           }}
           labelStyle={{ fontWeight: 600, marginBottom: 6, color: '#171717' }}
-          cursor={{ fill: 'rgba(99, 102, 241, 0.1)' }}
+          cursor={{ fill: 'rgba(20, 184, 166, 0.1)' }}
         />
         <Bar
           dataKey="count"

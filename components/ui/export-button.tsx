@@ -83,7 +83,7 @@ export function ExportButton({ data, columns, filename, title, filters }: Export
       const pageHeight = doc.internal.pageSize.getHeight()
 
       // Add header with LodgeIQ branding
-      doc.setFillColor(99, 102, 241) // Indigo-500
+      doc.setFillColor(20, 184, 166) // Teal-500
       doc.rect(0, 0, pageWidth, 25, 'F')
 
       doc.setTextColor(255, 255, 255)
@@ -153,7 +153,7 @@ export function ExportButton({ data, columns, filename, title, filters }: Export
           cellPadding: 3,
         },
         headStyles: {
-          fillColor: [99, 102, 241], // Indigo-500
+          fillColor: [20, 184, 166], // Teal-500
           textColor: [255, 255, 255],
           fontStyle: 'bold',
           halign: 'left',
