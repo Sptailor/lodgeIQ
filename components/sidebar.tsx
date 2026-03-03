@@ -105,26 +105,26 @@ export function Sidebar() {
           stiffness: 300,
           damping: 30,
         }}
-        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 z-40 shadow-xl"
+        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-neutral-900/95 backdrop-blur-xl border-r border-white/10 z-40 shadow-glass"
       >
         {/* Close Button */}
-        <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
+        <div className="p-4 border-b border-white/10">
           <button
             onClick={() => setIsCollapsed(true)}
-            className="relative w-full flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all group overflow-hidden bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-800/50 hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/30 dark:hover:to-accent-900/10 border-2 border-neutral-200 dark:border-neutral-700 hover:border-accent-400 dark:hover:border-accent-600 shadow-sm hover:shadow-lg hover:shadow-accent-500/20 dark:hover:shadow-accent-500/10"
+            className="relative w-full flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all group overflow-hidden bg-white/5 hover:bg-gradient-to-r hover:from-primary-500/20 hover:to-accent-500/20 border border-white/10 hover:border-primary-500/30 shadow-glass"
             title="Collapse sidebar"
           >
             {/* Shimmer effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
 
-            <span className="relative text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 group-hover:text-accent-700 dark:group-hover:text-accent-400 transition-colors">
+            <span className="relative text-xs font-black uppercase tracking-wider text-white/70 group-hover:text-white transition-colors">
               Menu
             </span>
 
             {/* Close icon (X) */}
             <div className="relative w-5 h-5">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-700 dark:bg-neutral-300 rounded-full rotate-45 group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-700 dark:bg-neutral-300 rounded-full -rotate-45 group-hover:bg-accent-600 dark:group-hover:bg-accent-400 transition-colors" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-white/50 rounded-full rotate-45 group-hover:bg-accent-400 transition-colors" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-white/50 rounded-full -rotate-45 group-hover:bg-accent-400 transition-colors" />
             </div>
           </button>
         </div>
@@ -142,29 +142,29 @@ export function Sidebar() {
                 className={cn(
                   'relative flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold transition-all group overflow-hidden',
                   isActive
-                    ? 'bg-gradient-to-r from-accent-100 via-accent-50 to-accent-100/50 dark:from-accent-900/50 dark:via-accent-900/30 dark:to-accent-900/10 text-accent-700 dark:text-accent-300 shadow-md shadow-accent-500/20'
-                    : 'text-neutral-700 dark:text-neutral-400 hover:bg-gradient-to-r hover:from-neutral-100 hover:to-neutral-50 dark:hover:from-neutral-800 dark:hover:to-neutral-800/50 hover:text-neutral-900 dark:hover:text-neutral-200 hover:shadow-md',
-                  isActive && 'border-l-4 border-accent-600 dark:border-accent-500 pl-2'
+                    ? 'bg-gradient-to-r from-primary-500/20 via-accent-500/15 to-transparent text-white shadow-lg shadow-primary-500/20'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white',
+                  isActive && 'border-l-4 border-gradient-to-b from-primary-500 to-accent-500 pl-2'
                 )}
               >
-                {/* Active indicator background glow */}
+                {/* Active indicator glow */}
                 {isActive && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-500/10 to-transparent blur-sm" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-500/15 via-accent-500/10 to-transparent blur-sm" />
                 )}
 
                 {/* Hover shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
 
                 <div className={cn(
                   'relative rounded-lg p-2 transition-all duration-300',
                   isActive
-                    ? 'bg-accent-200/50 dark:bg-accent-800/30 shadow-inner'
-                    : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-accent-100 dark:group-hover:bg-accent-900/20'
+                    ? 'bg-gradient-to-br from-primary-500/30 to-accent-500/30'
+                    : 'bg-white/5 group-hover:bg-white/10'
                 )}>
                   <Icon className={cn(
                     'w-5 h-5 flex-shrink-0 transition-all duration-300',
-                    'group-hover:scale-125 group-hover:rotate-6',
-                    isActive && 'drop-shadow-md'
+                    'group-hover:scale-110',
+                    isActive ? 'text-accent-400' : 'text-white/70 group-hover:text-white'
                   )} />
                 </div>
 
@@ -172,11 +172,16 @@ export function Sidebar() {
                   <span className="relative truncate">{item.label}</span>
                 )}
 
+                {/* Active gradient border */}
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-500 rounded-r-full" />
+                )}
+
                 {/* Tooltip for collapsed state */}
                 {isCollapsed && (
-                  <div className="absolute left-full ml-4 px-4 py-2 bg-gradient-to-r from-neutral-900 to-neutral-800 dark:from-white dark:to-neutral-100 text-white dark:text-neutral-900 text-xs font-bold rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-300 shadow-2xl z-50 border border-neutral-700 dark:border-neutral-300">
+                  <div className="absolute left-full ml-4 px-4 py-2 bg-neutral-900/95 backdrop-blur-xl text-white text-xs font-bold rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-300 shadow-glass z-50 border border-white/10">
                     {item.label}
-                    <div className="absolute left-0 top-1/2 -translate-x-1.5 -translate-y-1/2 w-3 h-3 rotate-45 bg-neutral-900 dark:bg-white border-l border-b border-neutral-700 dark:border-neutral-300"></div>
+                    <div className="absolute left-0 top-1/2 -translate-x-1.5 -translate-y-1/2 w-3 h-3 rotate-45 bg-neutral-900/95 border-l border-b border-white/10"></div>
                   </div>
                 )}
               </Link>
@@ -188,13 +193,13 @@ export function Sidebar() {
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className={`lg:hidden fixed top-4 left-2 p-2.5 rounded-xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl border border-neutral-200/30 dark:border-neutral-700/30 shadow-md hover:bg-white/60 dark:hover:bg-neutral-900/60 hover:shadow-lg transition-all duration-300 touch-manipulation ${mobileMenuOpen ? 'z-[80]' : 'z-[60]'}`}
+        className={`lg:hidden fixed top-4 left-2 p-2.5 rounded-xl bg-neutral-900/60 backdrop-blur-xl border border-white/10 shadow-glass hover:bg-neutral-900/80 hover:border-white/20 transition-all duration-300 touch-manipulation ${mobileMenuOpen ? 'z-[80]' : 'z-[60]'}`}
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? (
-          <X className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+          <X className="w-6 h-6 text-white" />
         ) : (
-          <Menu className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+          <Menu className="w-6 h-6 text-white" />
         )}
       </button>
 
@@ -218,7 +223,7 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-900 border-r-2 border-neutral-200 dark:border-neutral-800 z-[70] shadow-2xl"
+              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-neutral-900/95 backdrop-blur-xl border-r border-white/10 z-[70] shadow-glass"
             >
               {/* Mobile Navigation Items */}
               <nav className="flex-1 pt-16 pb-6 px-3 space-y-2 overflow-y-auto">
@@ -232,19 +237,23 @@ export function Sidebar() {
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all',
+                        'relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all',
                         isActive
-                          ? 'bg-gradient-to-r from-accent-100 via-accent-50 to-accent-100/50 dark:from-accent-900/50 dark:via-accent-900/30 dark:to-accent-900/10 text-accent-700 dark:text-accent-300 shadow-md border-l-4 border-accent-600 dark:border-accent-500'
-                          : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-200'
+                          ? 'bg-gradient-to-r from-primary-500/20 via-accent-500/15 to-transparent text-white'
+                          : 'text-white/60 hover:bg-white/5 hover:text-white'
                       )}
                     >
+                      {/* Active gradient border */}
+                      {isActive && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-500 rounded-r-full" />
+                      )}
                       <div className={cn(
                         'rounded-lg p-2',
                         isActive
-                          ? 'bg-accent-200/50 dark:bg-accent-800/30'
-                          : 'bg-neutral-100 dark:bg-neutral-800'
+                          ? 'bg-gradient-to-br from-primary-500/30 to-accent-500/30'
+                          : 'bg-white/5'
                       )}>
-                        <Icon className="w-5 h-5" />
+                        <Icon className={cn('w-5 h-5', isActive ? 'text-accent-400' : 'text-white/70')} />
                       </div>
                       <span>{item.label}</span>
                     </Link>
@@ -253,10 +262,10 @@ export function Sidebar() {
               </nav>
 
               {/* Footer with Theme Toggle and User Info */}
-              <div className="border-t-2 border-neutral-200 dark:border-neutral-800 p-4 space-y-3">
+              <div className="border-t border-white/10 p-4 space-y-3">
                 {/* Theme Toggle */}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                  <span className="text-sm font-semibold text-white/70">
                     Theme
                   </span>
                   <ThemeToggle />
@@ -264,17 +273,17 @@ export function Sidebar() {
 
                 {/* User Info */}
                 {user && (
-                  <div className="pt-3 border-t border-neutral-200 dark:border-neutral-800">
+                  <div className="pt-3 border-t border-white/10">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="bg-accent-100 dark:bg-accent-900/50 rounded-full p-2">
-                        <UserIcon className="w-5 h-5 text-accent-700 dark:text-accent-300" />
+                      <div className="bg-gradient-to-br from-primary-500/30 to-accent-500/30 rounded-full p-2">
+                        <UserIcon className="w-5 h-5 text-accent-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+                        <p className="text-sm font-semibold text-white truncate">
                           {user.name || user.email}
                         </p>
                         {user.name && user.email && (
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400 truncate">
+                          <p className="text-xs text-white/50 truncate">
                             {user.email}
                           </p>
                         )}
@@ -282,10 +291,9 @@ export function Sidebar() {
                     </div>
                     <button
                       onClick={() => {
-                        // Sign out functionality would go here
                         window.location.href = '/api/auth/signout'
                       }}
-                      className="w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+                      className="w-full flex items-center gap-2 px-4 py-2 rounded-xl bg-danger-500/20 text-danger-400 hover:bg-danger-500/30 transition-colors border border-danger-500/30"
                     >
                       <LogOut className="w-4 h-4" />
                       <span className="text-sm font-semibold">Sign Out</span>
