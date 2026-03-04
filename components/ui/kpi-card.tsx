@@ -114,35 +114,42 @@ export function KPICard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -2 }}
+      whileHover={{ y: -4, scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={() => !href && setIsExpanded(!isExpanded)}
       className={cn(
         'group relative rounded-xl border overflow-hidden',
         styles.bg,
-        'shadow-sm hover:shadow-md',
-        'transition-all duration-200 touch-manipulation',
+        'shadow-sm hover:shadow-lg hover:shadow-accent-500/5',
+        'transition-all duration-300 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
+        'hover:border-accent-300 dark:hover:border-accent-600/50',
         className
       )}
     >
+      {/* Hover shimmer effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 pointer-events-none" />
 
       {/* Top accent line with gradient */}
-      <div className={cn('h-1 bg-gradient-to-r', styles.accentBar)} />
+      <div className={cn('h-1 bg-gradient-to-r transition-all duration-300 group-hover:h-1.5', styles.accentBar)} />
 
       <div className="relative p-4 sm:p-5 space-y-3 sm:space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             {/* Icon */}
-            <div
+            <motion.div
+              whileHover={{ rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5 }}
               className={cn(
-                'rounded-lg p-2.5',
+                'rounded-lg p-2.5 transition-all duration-300',
+                'group-hover:shadow-md group-hover:scale-110',
                 styles.iconBg
               )}
             >
-              <Icon className={cn('w-5 h-5', styles.iconColor)} />
-            </div>
+              <Icon className={cn('w-5 h-5 transition-colors duration-300', styles.iconColor)} />
+            </motion.div>
 
             {/* Mobile expand indicator */}
             <motion.div
