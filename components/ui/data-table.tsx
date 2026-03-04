@@ -125,15 +125,22 @@ export function DataTable<T extends Record<string, any>>({
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className={`px-6 py-4 text-left text-xs font-semibold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider ${
-                    column.sortable ? 'cursor-pointer select-none hover:bg-neutral-50 dark:hover:bg-neutral-800/50' : ''
-                  } ${column.className || ''}`}
+                  className={`
+                    px-6 py-4 text-left text-xs font-semibold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider
+                    transition-all duration-200
+                    ${column.sortable ? 'cursor-pointer select-none hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 hover:text-accent-600 dark:hover:text-accent-400' : ''}
+                    ${sortKey === column.key ? 'bg-neutral-50 dark:bg-neutral-800/50 text-accent-600 dark:text-accent-400' : ''}
+                    ${column.className || ''}
+                  `}
                   onClick={() => column.sortable && handleSort(column.key)}
                 >
                   <div className="flex items-center gap-2">
                     {column.label}
                     {column.sortable && (
-                      <span className="text-neutral-400">
+                      <motion.span
+                        className={`transition-colors ${sortKey === column.key ? 'text-accent-500' : 'text-neutral-400'}`}
+                        animate={{ scale: sortKey === column.key ? 1.1 : 1 }}
+                      >
                         {sortKey === column.key ? (
                           sortDirection === 'asc' ? (
                             <ChevronUp className="w-4 h-4" />
@@ -143,7 +150,7 @@ export function DataTable<T extends Record<string, any>>({
                         ) : (
                           <ChevronsUpDown className="w-4 h-4" />
                         )}
-                      </span>
+                      </motion.span>
                     )}
                   </div>
                 </th>
@@ -158,16 +165,26 @@ export function DataTable<T extends Record<string, any>>({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
+                  whileHover={{ backgroundColor: 'rgba(20, 184, 166, 0.04)' }}
                   transition={{ duration: 0.2, delay: index * 0.02 }}
-                  className={`border-b border-neutral-100 dark:border-neutral-800/50 hover:bg-neutral-50 dark:hover:bg-neutral-800/30 transition-colors ${
-                    onRowClick ? 'cursor-pointer' : ''
-                  }`}
+                  className={`
+                    group
+                    border-b border-neutral-100 dark:border-neutral-800/50
+                    hover:bg-accent-50/50 dark:hover:bg-accent-900/10
+                    transition-all duration-200
+                    ${onRowClick ? 'cursor-pointer active:bg-accent-100/50 dark:active:bg-accent-900/20' : ''}
+                  `}
                   onClick={() => onRowClick?.(row)}
                 >
-                  {columns.map((column) => (
+                  {columns.map((column, colIndex) => (
                     <td
                       key={column.key}
-                      className={`px-6 py-4 text-sm text-neutral-900 dark:text-neutral-100 ${column.className || ''}`}
+                      className={`
+                        px-6 py-4 text-sm text-neutral-900 dark:text-neutral-100
+                        transition-all duration-200
+                        ${colIndex === 0 ? 'group-hover:pl-7' : ''}
+                        ${column.className || ''}
+                      `}
                     >
                       {column.render ? column.render(row[column.key], row) : row[column.key]}
                     </td>
@@ -193,18 +210,25 @@ export function DataTable<T extends Record<string, any>>({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
+              whileHover={{ scale: 1.01, y: -2 }}
+              whileTap={{ scale: 0.99 }}
               transition={{ duration: 0.2, delay: index * 0.02 }}
-              className={`bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-800 rounded-xl p-4 space-y-3 ${
-                onRowClick ? 'cursor-pointer hover:border-accent-500 dark:hover:border-accent-600' : ''
-              } transition-colors`}
+              className={`
+                bg-white dark:bg-neutral-900/70 backdrop-blur-xl
+                border border-neutral-200/50 dark:border-neutral-800
+                rounded-xl p-4 space-y-3
+                shadow-sm hover:shadow-md
+                transition-all duration-200
+                ${onRowClick ? 'cursor-pointer hover:border-accent-400 dark:hover:border-accent-600 active:bg-accent-50/50 dark:active:bg-accent-900/20' : ''}
+              `}
               onClick={() => onRowClick?.(row)}
             >
               {columns.map((column) => (
                 <div key={column.key} className="flex justify-between items-start gap-4">
-                  <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
                     {column.label}
                   </span>
-                  <span className="text-sm text-neutral-900 dark:text-neutral-100 text-right">
+                  <span className="text-sm text-neutral-900 dark:text-neutral-100 text-right font-medium">
                     {column.render ? column.render(row[column.key], row) : row[column.key]}
                   </span>
                 </div>
