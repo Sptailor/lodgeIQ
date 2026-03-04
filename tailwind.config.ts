@@ -138,17 +138,50 @@ const config: Config = {
         '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.03em' }],
       },
       boxShadow: {
+        // Soft shadows - subtle, natural elevation
+        'soft-xs': '0 1px 2px rgba(0, 0, 0, 0.04)',
+        'soft-sm': '0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04)',
         'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
-        'soft-lg': '0 4px 16px rgba(0, 0, 0, 0.12)',
-        'soft-xl': '0 8px 24px rgba(0, 0, 0, 0.16)',
-        'soft-2xl': '0 12px 32px rgba(0, 0, 0, 0.2)',
+        'soft-md': '0 4px 12px rgba(0, 0, 0, 0.1)',
+        'soft-lg': '0 8px 24px rgba(0, 0, 0, 0.12)',
+        'soft-xl': '0 12px 32px rgba(0, 0, 0, 0.14)',
+        'soft-2xl': '0 20px 48px rgba(0, 0, 0, 0.18)',
+
+        // Elevated shadows - more prominent for modals and dropdowns
+        'elevated-sm': '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
+        'elevated': '0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06)',
+        'elevated-lg': '0 8px 32px rgba(0, 0, 0, 0.16), 0 4px 8px rgba(0, 0, 0, 0.08)',
+        'elevated-xl': '0 16px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1)',
+
+        // Glow shadows - accent colored for interactive elements
+        'glow-xs': '0 0 8px rgba(20, 184, 166, 0.15)',
+        'glow-sm': '0 0 12px rgba(20, 184, 166, 0.2)',
         'glow': '0 0 20px rgba(20, 184, 166, 0.25)',
+        'glow-md': '0 0 28px rgba(20, 184, 166, 0.3)',
         'glow-lg': '0 0 40px rgba(20, 184, 166, 0.35)',
         'glow-teal': '0 0 20px rgba(20, 184, 166, 0.3)',
         'glow-amber': '0 0 20px rgba(245, 158, 11, 0.3)',
-        'card': '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
-        'card-hover': '0 10px 40px rgba(0, 0, 0, 0.12)',
+        'glow-danger': '0 0 20px rgba(239, 68, 68, 0.25)',
+        'glow-success': '0 0 20px rgba(34, 197, 94, 0.25)',
+
+        // Card shadows - optimized for card components
+        'card': '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
+        'card-hover': '0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)',
+        'card-active': '0 2px 6px rgba(0, 0, 0, 0.1)',
+
+        // Glass shadows - for glassmorphism effects
         'glass': '0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08)',
+        'glass-lg': '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+
+        // Inner shadows - for pressed/active states
+        'inner-sm': 'inset 0 1px 2px rgba(0, 0, 0, 0.06)',
+        'inner': 'inset 0 2px 4px rgba(0, 0, 0, 0.08)',
+        'inner-lg': 'inset 0 4px 8px rgba(0, 0, 0, 0.1)',
+
+        // Colored accent shadows
+        'accent-sm': '0 2px 8px rgba(20, 184, 166, 0.15)',
+        'accent': '0 4px 16px rgba(20, 184, 166, 0.2)',
+        'accent-lg': '0 8px 24px rgba(20, 184, 166, 0.25)',
       },
       borderRadius: {
         'xl': '0.875rem',
