@@ -69,26 +69,53 @@ export default async function InspectionsPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm">
-          <div className="h-1 bg-gradient-to-r from-accent-500 to-accent-600" />
-          <div className="p-5">
-            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Total Inspections</p>
-            <p className="text-3xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Total Inspections</p>
+              <div className="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center">
+                <svg className="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-50">{inspections.length}</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">All time</p>
           </div>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-emerald-200 dark:border-emerald-800/40 rounded-xl overflow-hidden shadow-sm">
-          <div className="h-1 bg-gradient-to-r from-emerald-500 to-emerald-600" />
-          <div className="p-5">
-            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Completed</p>
-            <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{completedCount}</p>
+        <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-teal-400 to-emerald-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Completed</p>
+              <div className="w-10 h-10 rounded-lg bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center">
+                <svg className="w-5 h-5 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl sm:text-4xl font-bold text-teal-600 dark:text-teal-400">{completedCount}</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">{inspections.length > 0 ? Math.round((completedCount / inspections.length) * 100) : 0}% completion rate</p>
           </div>
         </div>
-        <div className="bg-white dark:bg-neutral-900 border border-amber-200 dark:border-amber-800/40 rounded-xl overflow-hidden shadow-sm">
-          <div className="h-1 bg-gradient-to-r from-amber-500 to-amber-600" />
-          <div className="p-5">
-            <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">In Progress</p>
-            <p className="text-3xl font-bold text-amber-600 dark:text-amber-400">{inProgressCount}</p>
+        <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">In Progress</p>
+              <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center">
+                <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl sm:text-4xl font-bold text-amber-600 dark:text-amber-400">{inProgressCount}</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Awaiting completion</p>
           </div>
         </div>
       </div>
