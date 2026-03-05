@@ -310,61 +310,79 @@ export default async function DashboardPage() {
       {/* Alerts & Notifications */}
       <DashboardAlerts alerts={alerts} />
 
-      {/* Recent Activity Feed */}
-      <div className="bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-5 sm:p-7 shadow-sm">
+      {/* Recent Activity Feed - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
         <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-2xl font-bold text-primary-900 dark:text-white mb-2">
+            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
               Recent Activity
             </h2>
-            <p className="text-xs sm:text-sm text-primary-500 dark:text-primary-400">
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
               Latest inspection activity across all properties
             </p>
           </div>
           <Link
             href="/reports"
-            className="text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all duration-200"
           >
             View All
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </Link>
         </div>
 
         <div className="space-y-3">
           {recentActivity.length === 0 ? (
-            <p className="text-primary-400 text-sm">No recent activity</p>
+            <div className="text-center py-8">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+                <svg className="w-6 h-6 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <p className="text-neutral-500 dark:text-neutral-400 text-sm">No recent activity</p>
+            </div>
           ) : (
-            recentActivity.map((inspection) => (
+            recentActivity.map((inspection, index) => (
               <div
                 key={inspection.id}
-                className="flex items-center justify-between p-4 rounded-lg bg-primary-50 dark:bg-primary-800 border border-primary-200 dark:border-primary-700"
+                className="group flex items-center justify-between p-4 rounded-xl bg-white/50 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md hover:border-neutral-300/50 dark:hover:border-neutral-600/50 transition-all duration-200"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="flex-1">
-                  <h3 className="font-semibold text-primary-900 dark:text-white">
-                    {inspection.hotel.name}
-                  </h3>
-                  <p className="text-sm text-primary-500 dark:text-primary-400">
-                    {new Date(inspection.inspectionDate).toLocaleDateString()}
-                  </p>
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="hidden sm:flex w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white truncate group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+                      {inspection.hotel.name}
+                    </h3>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                      {new Date(inspection.inspectionDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   {inspection.overallRating && (
-                    <div className="flex items-center gap-1">
-                      <span className="text-sm font-semibold text-primary-900 dark:text-white">
+                    <div className="flex items-center gap-1 px-2 py-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                      <span className="text-amber-500">★</span>
+                      <span className="text-sm font-semibold text-amber-700 dark:text-amber-300">
                         {inspection.overallRating.toFixed(1)}
                       </span>
-                      <span className="text-amber-500">★</span>
                     </div>
                   )}
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
                         ? 'bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400'
                         : inspection.status === 'IN_PROGRESS'
                         ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
-                        : 'bg-primary-100 text-primary-700 dark:bg-primary-700 dark:text-primary-300'
+                        : 'bg-neutral-100 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300'
                     }`}
                   >
-                    {inspection.status}
+                    {inspection.status.replace('_', ' ')}
                   </span>
                 </div>
               </div>
