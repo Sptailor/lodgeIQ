@@ -34,34 +34,37 @@ export default async function SettingsPage() {
 
       {/* User Profile Section */}
       {session?.user && (
-        <div className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="bg-accent-50 dark:bg-accent-950/20 rounded-md p-2">
-              <User className="w-4 h-4 text-accent-600 dark:text-accent-400" />
-            </div>
-            <h2 className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
-              Profile Information
-            </h2>
-          </div>
+        <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-lg overflow-hidden">
+          {/* Subtle gradient */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-500/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
 
-          <div className="space-y-3">
-            <div>
-              <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1 block">
-                Name
-              </label>
-              <p className="text-sm text-neutral-900 dark:text-neutral-50 font-medium">
-                {session.user.name || 'Not set'}
-              </p>
+          <div className="relative flex items-start sm:items-center gap-4">
+            {/* Avatar */}
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-accent-500 to-teal-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+              <span className="text-xl sm:text-2xl font-bold text-white">
+                {session.user.name ? session.user.name.charAt(0).toUpperCase() : session.user.email.charAt(0).toUpperCase()}
+              </span>
             </div>
 
-            <div>
-              <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1 block">
-                Email
-              </label>
-              <p className="text-sm text-neutral-900 dark:text-neutral-50 font-medium">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-50 truncate">
+                  {session.user.name || 'User'}
+                </h2>
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900/30 text-xs font-medium text-teal-700 dark:text-teal-300">
+                  Active
+                </span>
+              </div>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate">
                 {session.user.email}
               </p>
             </div>
+
+            {/* Edit button placeholder */}
+            <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-xl text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-colors">
+              <User className="w-4 h-4" />
+              Edit Profile
+            </button>
           </div>
         </div>
       )}
@@ -145,10 +148,23 @@ export default async function SettingsPage() {
       </div>
 
       {/* App Info */}
-      <div className="bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
-        <div className="text-center text-xs text-neutral-600 dark:text-neutral-400">
-          <p className="font-medium mb-1">LodgeIQ Hotel Inspection Platform</p>
-          <p>Version 1.0.0 • Built with Next.js 14</p>
+      <div className="relative bg-white/50 dark:bg-neutral-900/50 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent-500/5 via-transparent to-teal-500/5"></div>
+        <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-teal-500 flex items-center justify-center">
+              <span className="text-white font-bold text-xs">LQ</span>
+            </div>
+            <span className="font-semibold text-neutral-900 dark:text-neutral-50">LodgeIQ</span>
+          </div>
+          <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+              Version 1.0.0
+            </span>
+            <span>•</span>
+            <span>Built with Next.js 14</span>
+          </div>
         </div>
       </div>
     </div>
