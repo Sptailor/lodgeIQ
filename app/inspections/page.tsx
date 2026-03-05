@@ -120,11 +120,26 @@ export default async function InspectionsPage() {
         </div>
       </div>
 
-      {/* Inspections List */}
-      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-5">
-          All Inspections
-        </h2>
+      {/* Inspections List - Glass UI */}
+      <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50">
+              All Inspections
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              {inspections.length} {inspections.length === 1 ? 'inspection' : 'inspections'} total
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-lg text-xs font-medium text-neutral-600 dark:text-neutral-400">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filterable
+            </div>
+          </div>
+        </div>
         <InspectionsList initialInspections={inspections} />
       </div>
     </div>
