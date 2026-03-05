@@ -17,17 +17,26 @@
 }
 
 .dark {
-  /* Dark Mode - Slate Professional */
+  /* Dark Mode - Slate Professional with Enhanced Contrast */
   --background: #0f172a;
   --foreground: #f8fafc;
   --surface: #1e293b;
   --card: #1e293b;
-  --border: #334155;
-  --primary: #64748b;
-  --primary-light: #94a3b8;
-  --accent: #14b8a6;
-  --accent-light: #2dd4bf;
-  --highlight: #f59e0b;
+  --border: #475569;
+  --primary: #94a3b8;
+  --primary-light: #cbd5e1;
+  --accent: #2dd4bf;
+  --accent-light: #5eead4;
+  --highlight: #fbbf24;
+
+  /* Enhanced dark mode colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-subtle: #334155;
+  --border-default: #475569;
+  --surface-elevated: #1e293b;
+  --surface-overlay: rgba(30, 41, 59, 0.95);
 }
 
 body {
@@ -995,4 +1004,96 @@ textarea:focus-visible,
   border: 2px dashed #14b8a6;
   border-radius: inherit;
   pointer-events: none;
+}
+
+/* ===== Dark Mode Contrast Enhancements ===== */
+
+/* Improved text contrast in dark mode */
+.dark .text-neutral-500 {
+  color: #94a3b8;
+}
+
+.dark .text-neutral-400 {
+  color: #a1a1aa;
+}
+
+.dark .text-neutral-600 {
+  color: #a3a3a3;
+}
+
+/* Better link visibility in dark mode */
+.dark a:not([class*="text-"]) {
+  color: #5eead4;
+}
+
+.dark a:not([class*="text-"]):hover {
+  color: #99f6e4;
+}
+
+/* Enhanced placeholder contrast */
+.dark ::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+/* Improved disabled state visibility */
+.dark [disabled],
+.dark .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Better badge contrast in dark mode */
+.dark .badge-subtle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Enhanced icon visibility */
+.dark svg:not([class*="text-"]) {
+  color: #94a3b8;
+}
+
+/* Better divider contrast */
+.dark hr,
+.dark .divider {
+  border-color: #334155;
+}
+
+/* Improved code block contrast */
+.dark code,
+.dark pre {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: #334155;
+}
+
+/* Table contrast improvements */
+.dark th {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Alert/notification contrast */
+.dark .alert-info {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: rgba(20, 184, 166, 0.3);
+}
+
+.dark .alert-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.dark .alert-error {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.dark .alert-success {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.3);
 }
