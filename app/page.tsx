@@ -230,17 +230,27 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Hero Header */}
-      <div className="relative overflow-hidden bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-5 sm:p-7 shadow-sm">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-accent-500"></div>
+      {/* Hero Header - Glass UI */}
+      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
+        {/* Accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500"></div>
 
-        <div className="relative z-10">
-          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-primary-900 dark:text-white mb-2 sm:mb-3">
-            Dashboard
-          </h1>
-          <p className="text-primary-500 dark:text-primary-400 text-xs sm:text-base md:text-lg">
-            High-level overview of your operations
-          </p>
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-teal-500/5 pointer-events-none"></div>
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div>
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-1 sm:mb-2">
+              Dashboard
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-base">
+              High-level overview of your operations
+            </p>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-accent-50 dark:bg-accent-900/20 rounded-lg border border-accent-200 dark:border-accent-800/50">
+            <div className="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></div>
+            <span className="text-sm font-medium text-accent-700 dark:text-accent-300">Live Data</span>
+          </div>
         </div>
       </div>
 
