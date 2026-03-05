@@ -514,13 +514,124 @@ body::before {
 
 /* Mobile Card Grid */
 @media (max-width: 640px) {
-  .grid {
+  .grid:not(.grid-cols-2) {
     grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+  }
+
+  /* Allow 2-column grids on mobile for KPI cards */
+  .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.75rem;
   }
 
   .card, .bg-white {
     border-radius: 0.75rem;
+  }
+}
+
+/* Mobile Card Responsiveness */
+@media (max-width: 640px) {
+  /* Responsive card content */
+  .card-content {
+    padding: 1rem;
+  }
+
+  /* Stack card headers on mobile */
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Mobile card title sizing */
+  .card-title {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+
+  /* Mobile card description */
+  .card-description {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  /* Mobile KPI card adjustments */
+  .kpi-card {
+    padding: 1rem;
+  }
+
+  .kpi-value {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .kpi-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Mobile stat cards */
+  .stat-card {
+    padding: 0.875rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Tablet card adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .card-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile horizontal scroll for card groups */
+@media (max-width: 640px) {
+  .horizontal-scroll-mobile {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .horizontal-scroll-mobile > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    width: calc(85vw - 2rem);
+    max-width: 300px;
+  }
+
+  .horizontal-scroll-mobile::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .horizontal-scroll-mobile::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .horizontal-scroll-mobile::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+
+  .dark .horizontal-scroll-mobile::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 
