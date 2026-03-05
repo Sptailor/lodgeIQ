@@ -633,6 +633,86 @@ body::before {
   .p-6 {
     padding: 1rem;
   }
+
+  /* Improved mobile touch spacing */
+  .space-y-6 > * + * {
+    margin-top: 1rem;
+  }
+
+  .space-y-8 > * + * {
+    margin-top: 1.25rem;
+  }
+
+  /* Better mobile margins */
+  .mb-6 {
+    margin-bottom: 1rem;
+  }
+
+  .mt-6 {
+    margin-top: 1rem;
+  }
+
+  /* Mobile-friendly paddings */
+  .p-7 {
+    padding: 1.25rem;
+  }
+
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .py-6 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Enhanced touch targets for mobile */
+@media (max-width: 768px) {
+  /* Larger tap areas for links in lists */
+  .tap-target {
+    position: relative;
+  }
+
+  .tap-target::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
+
+  /* Better spacing for action buttons */
+  .action-buttons {
+    gap: 0.5rem;
+  }
+
+  .action-buttons button,
+  .action-buttons a {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem;
+  }
+
+  /* Mobile-optimized icon buttons */
+  .icon-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Better list item spacing */
+  .list-item {
+    padding: 0.875rem 1rem;
+    min-height: 56px;
+  }
+
+  /* Mobile card padding */
+  .card-mobile {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
 }
 
 /* Mobile Footer */
