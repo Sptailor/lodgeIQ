@@ -121,16 +121,19 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
     filters.statuses.length
 
   return (
-    <div className="bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl overflow-hidden shadow-sm">
+    <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
+      {/* Accent gradient bar */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-500 via-teal-500 to-accent-500"></div>
+
       {/* Filter Header - Always Visible */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-primary-200 dark:border-primary-700">
+      <div className="px-5 sm:px-6 py-4 flex items-center justify-between border-b border-neutral-200/50 dark:border-neutral-700/50">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-accent-100 dark:bg-accent-500/20">
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-accent-100 to-teal-100 dark:from-accent-900/30 dark:to-teal-900/30 shadow-sm">
             <Filter className="w-5 h-5 text-accent-600 dark:text-accent-400" />
           </div>
-          <h3 className="text-lg font-semibold text-primary-900 dark:text-white">Filters</h3>
+          <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">Filters</h3>
           {activeFilterCount > 0 && (
-            <span className="px-2.5 py-0.5 text-xs font-semibold bg-accent-500 text-white rounded-full">
+            <span className="px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-accent-500 to-teal-500 text-white rounded-full shadow-sm">
               {activeFilterCount}
             </span>
           )}
@@ -140,17 +143,17 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
           {activeFilterCount > 0 && (
             <button
               onClick={clearFilters}
-              className="text-sm text-primary-500 dark:text-primary-400 hover:text-primary-700 dark:hover:text-white transition-colors"
+              className="text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
             >
               Clear all
             </button>
           )}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-primary-100 dark:hover:bg-primary-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors"
           >
             <ChevronDown
-              className={`w-5 h-5 text-primary-500 dark:text-primary-400 transition-transform duration-300 ${
+              className={`w-5 h-5 text-neutral-500 dark:text-neutral-400 transition-transform duration-300 ${
                 isExpanded ? 'rotate-180' : ''
               }`}
             />
@@ -160,16 +163,16 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
 
       {/* Filter Content - Collapsible */}
       <div className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {/* Hotel Filter */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Hotel
             </label>
             <select
               value={filters.hotelId || ''}
               onChange={(e) => handleFilterChange('hotelId', e.target.value || undefined)}
-              className="w-full px-4 py-2.5 text-sm border border-primary-200 dark:border-primary-600 bg-white dark:bg-primary-800 text-primary-900 dark:text-white rounded-lg focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
+              className="w-full px-4 py-2.5 text-sm border-2 border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 text-neutral-900 dark:text-white rounded-xl focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
             >
               <option value="">All Hotels</option>
               {hotels.map((hotel) => (
@@ -182,13 +185,13 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
 
           {/* Inspector Filter */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Inspector
             </label>
             <select
               value={filters.inspectorId || ''}
               onChange={(e) => handleFilterChange('inspectorId', e.target.value || undefined)}
-              className="w-full px-4 py-2.5 text-sm border border-primary-200 dark:border-primary-600 bg-white dark:bg-primary-800 text-primary-900 dark:text-white rounded-lg focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
+              className="w-full px-4 py-2.5 text-sm border-2 border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 text-neutral-900 dark:text-white rounded-xl focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
             >
               <option value="">All Inspectors</option>
               {inspectors.map((inspector) => (
@@ -201,45 +204,45 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
 
           {/* Date From */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Date From
             </label>
             <input
               type="date"
               value={filters.dateFrom || ''}
               onChange={(e) => handleFilterChange('dateFrom', e.target.value || undefined)}
-              className="w-full px-4 py-2.5 text-sm border border-primary-200 dark:border-primary-600 bg-white dark:bg-primary-800 text-primary-900 dark:text-white rounded-lg focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
+              className="w-full px-4 py-2.5 text-sm border-2 border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 text-neutral-900 dark:text-white rounded-xl focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
             />
           </div>
 
           {/* Date To */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Date To
             </label>
             <input
               type="date"
               value={filters.dateTo || ''}
               onChange={(e) => handleFilterChange('dateTo', e.target.value || undefined)}
-              className="w-full px-4 py-2.5 text-sm border border-primary-200 dark:border-primary-600 bg-white dark:bg-primary-800 text-primary-900 dark:text-white rounded-lg focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
+              className="w-full px-4 py-2.5 text-sm border-2 border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 text-neutral-900 dark:text-white rounded-xl focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
             />
           </div>
 
           {/* Categories */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
               Categories
             </label>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {CATEGORY_OPTIONS.map((category) => (
-                <label key={category.id} className="flex items-center gap-2 cursor-pointer group">
+                <label key={category.id} className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={filters.categories.includes(category.id)}
                     onChange={() => toggleCategory(category.id)}
-                    className="w-4 h-4 text-accent-500 bg-white dark:bg-primary-800 border-primary-300 dark:border-primary-600 rounded focus:ring-2 focus:ring-accent-500/50"
+                    className="w-4 h-4 text-accent-500 bg-white dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-600 rounded focus:ring-2 focus:ring-accent-500/50"
                   />
-                  <span className="text-sm text-primary-600 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white transition-colors">{category.label}</span>
+                  <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">{category.label}</span>
                 </label>
               ))}
             </div>
@@ -247,19 +250,19 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
 
           {/* Status */}
           <div>
-            <label className="block text-sm font-medium text-primary-700 dark:text-primary-300 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
               Status
             </label>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {STATUS_OPTIONS.map((status) => (
-                <label key={status.id} className="flex items-center gap-2 cursor-pointer group">
+                <label key={status.id} className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={filters.statuses.includes(status.id)}
                     onChange={() => toggleStatus(status.id)}
-                    className="w-4 h-4 text-accent-500 bg-white dark:bg-primary-800 border-primary-300 dark:border-primary-600 rounded focus:ring-2 focus:ring-accent-500/50"
+                    className="w-4 h-4 text-accent-500 bg-white dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-600 rounded focus:ring-2 focus:ring-accent-500/50"
                   />
-                  <span className="text-sm text-primary-600 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white transition-colors">{status.label}</span>
+                  <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">{status.label}</span>
                 </label>
               ))}
             </div>
@@ -268,16 +271,16 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
 
         {/* Active Filters Summary */}
         {activeFilterCount > 0 && (
-          <div className="px-6 py-4 border-t border-primary-200 dark:border-primary-700 bg-primary-50 dark:bg-primary-800/30">
+          <div className="px-5 sm:px-6 py-4 border-t border-neutral-200/50 dark:border-neutral-700/50 bg-neutral-50/50 dark:bg-neutral-800/30">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-primary-600 dark:text-primary-400">Active filters:</span>
+              <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-400">Active filters:</span>
 
               {filters.hotelId && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-700 border border-primary-200 dark:border-primary-600 text-primary-700 dark:text-primary-200 rounded-full">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-full shadow-sm">
                   Hotel: {hotels.find((h) => h.id === filters.hotelId)?.label}
                   <button
                     onClick={() => handleFilterChange('hotelId', undefined)}
-                    className="hover:text-primary-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -285,11 +288,11 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
               )}
 
               {filters.inspectorId && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-accent-100 dark:bg-accent-500/20 border border-accent-200 dark:border-accent-500/30 text-accent-700 dark:text-accent-300 rounded-full">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-accent-50 dark:bg-accent-900/30 border border-accent-200 dark:border-accent-700/50 text-accent-700 dark:text-accent-300 rounded-full shadow-sm">
                   Inspector: {inspectors.find((i) => i.id === filters.inspectorId)?.label}
                   <button
                     onClick={() => handleFilterChange('inspectorId', undefined)}
-                    className="hover:text-accent-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -297,11 +300,11 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
               )}
 
               {filters.dateFrom && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-teal-100 dark:bg-teal-500/20 border border-teal-200 dark:border-teal-500/30 text-teal-700 dark:text-teal-300 rounded-full">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-700/50 text-teal-700 dark:text-teal-300 rounded-full shadow-sm">
                   From: {filters.dateFrom}
                   <button
                     onClick={() => handleFilterChange('dateFrom', undefined)}
-                    className="hover:text-teal-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -309,11 +312,11 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
               )}
 
               {filters.dateTo && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-teal-100 dark:bg-teal-500/20 border border-teal-200 dark:border-teal-500/30 text-teal-700 dark:text-teal-300 rounded-full">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-700/50 text-teal-700 dark:text-teal-300 rounded-full shadow-sm">
                   To: {filters.dateTo}
                   <button
                     onClick={() => handleFilterChange('dateTo', undefined)}
-                    className="hover:text-teal-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -323,12 +326,12 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
               {filters.categories.map((categoryId) => (
                 <span
                   key={categoryId}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-amber-100 dark:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 text-amber-700 dark:text-amber-300 rounded-full"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 text-amber-700 dark:text-amber-300 rounded-full shadow-sm"
                 >
                   {CATEGORY_OPTIONS.find((c) => c.id === categoryId)?.label}
                   <button
                     onClick={() => toggleCategory(categoryId)}
-                    className="hover:text-amber-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -338,12 +341,12 @@ export function FilterBar({ hotels = [], inspectors = [], onFilterChange }: Filt
               {filters.statuses.map((statusId) => (
                 <span
                   key={statusId}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-700 border border-primary-200 dark:border-primary-600 text-primary-700 dark:text-primary-200 rounded-full"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-full shadow-sm"
                 >
                   {STATUS_OPTIONS.find((s) => s.id === statusId)?.label}
                   <button
                     onClick={() => toggleStatus(statusId)}
-                    className="hover:text-primary-900 dark:hover:text-white transition-colors"
+                    className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
