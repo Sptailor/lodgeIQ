@@ -255,3 +255,125 @@ export function AnimatedGrid({
 export function AnimatedGridItem({ children, className }: StaggerItemProps) {
   return <StaggerItem className={className}>{children}</StaggerItem>
 }
+
+// Hero section with gradient text animation
+interface AnimatedHeroProps {
+  children: ReactNode
+  className?: string
+}
+
+export function AnimatedHero({ children, className }: AnimatedHeroProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Card hover animation wrapper
+interface AnimatedCardProps {
+  children: ReactNode
+  className?: string
+  delay?: number
+}
+
+export function AnimatedCard({ children, className, delay = 0 }: AnimatedCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      transition={{
+        duration: 0.4,
+        delay,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Slide in from side
+interface SlideInProps {
+  children: ReactNode
+  className?: string
+  direction?: 'left' | 'right'
+  delay?: number
+}
+
+export function SlideIn({ children, className, direction = 'left', delay = 0 }: SlideInProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: direction === 'left' ? -30 : 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.5,
+        delay,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Scale in animation
+interface ScaleInProps {
+  children: ReactNode
+  className?: string
+  delay?: number
+}
+
+export function ScaleIn({ children, className, delay = 0 }: ScaleInProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.4,
+        delay,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Number counter animation
+interface AnimatedCounterProps {
+  value: number
+  className?: string
+  duration?: number
+}
+
+export function AnimatedCounter({ value, className, duration = 1 }: AnimatedCounterProps) {
+  return (
+    <motion.span
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className={className}
+    >
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration }}
+      >
+        {value}
+      </motion.span>
+    </motion.span>
+  )
+}
