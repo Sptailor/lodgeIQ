@@ -14,6 +14,7 @@ import { CategoryRatingsChart } from '@/components/charts/CategoryRatingsChart'
 import { GeographicMap } from '@/components/charts/GeographicMap'
 import { ReportsClientWrapper } from '@/components/ReportsClientWrapper'
 import { Breadcrumb } from '@/components/ui/breadcrumb'
+import { TrendingUp, Star, Users, BarChart3, MapPin } from 'lucide-react'
 
 interface SearchParams {
   hotel?: string
@@ -733,69 +734,114 @@ export default async function ReportsPage({
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Inspection Trends Chart */}
-          <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-            <div className="mb-5 sm:mb-6">
-              <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-                Inspection Trends
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                Last 6 months
-              </p>
+          <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative mb-5 sm:mb-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+                  Inspection Trends
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                  Last 6 months activity
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+              </div>
             </div>
-            <InspectionTrendsChart data={trendsData} />
+            <div className="relative">
+              <InspectionTrendsChart data={trendsData} />
+            </div>
           </div>
 
           {/* Rating Distribution Chart */}
-          <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-            <div className="mb-5 sm:mb-6">
-              <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-                Rating Distribution
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                All completed inspections
-              </p>
+          <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative mb-5 sm:mb-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+                  Rating Distribution
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                  All completed inspections
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center">
+                <Star className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              </div>
             </div>
-            <RatingDistributionChart data={ratingData} />
+            <div className="relative">
+              <RatingDistributionChart data={ratingData} />
+            </div>
           </div>
 
           {/* Inspector Activity Chart */}
-          <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-            <div className="mb-5 sm:mb-6">
-              <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-                Inspector Activity
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                Completed inspections and ratings
-              </p>
+          <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 to-violet-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative mb-5 sm:mb-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+                  Inspector Activity
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                  Completed inspections and ratings
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center">
+                <Users className="w-5 h-5 text-accent-600 dark:text-accent-400" />
+              </div>
             </div>
-            <InspectorActivityChart data={inspectorActivity} />
+            <div className="relative">
+              <InspectorActivityChart data={inspectorActivity} />
+            </div>
           </div>
 
           {/* Category Ratings Chart */}
-          <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-            <div className="mb-5 sm:mb-6">
-              <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
-                Category Ratings
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-                Average ratings by category
-              </p>
+          <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 to-pink-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative mb-5 sm:mb-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-1">
+                  Category Ratings
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                  Average ratings by category
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+              </div>
             </div>
-            <CategoryRatingsChart data={categoryRatings} />
+            <div className="relative">
+              <CategoryRatingsChart data={categoryRatings} />
+            </div>
           </div>
         </div>
 
         {/* Geographic View */}
-        <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
-          <div className="mb-5 sm:mb-6">
-            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-2 sm:mb-2.5">
-              Geographic View
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-              Hotel locations and inspection activity
-            </p>
+        <div className="group relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-500 via-cyan-500 to-teal-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="relative mb-5 sm:mb-6 flex items-start justify-between">
+            <div>
+              <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-1 sm:mb-2">
+                Geographic View
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                Hotel locations and inspection activity
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-900/30 flex items-center justify-center">
+              <MapPin className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+            </div>
           </div>
-          <GeographicMap hotels={geographicData} />
+          <div className="relative">
+            <GeographicMap hotels={geographicData} />
+          </div>
         </div>
       </div>
     </ReportsClientWrapper>
