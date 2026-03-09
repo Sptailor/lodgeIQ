@@ -127,7 +127,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
-              className="w-full px-3 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+              className="w-full px-4 py-2.5 bg-white/80 dark:bg-neutral-800/80 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all"
             >
               <option value="all">All Cities</option>
               {cities.map((city) => (
@@ -146,7 +146,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
-              className="w-full px-3 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+              className="w-full px-4 py-2.5 bg-white/80 dark:bg-neutral-800/80 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all"
             >
               <option value="all">All Countries</option>
               {countries.map((country) => (
@@ -159,9 +159,11 @@ export default function HotelList({ initialHotels }: HotelListProps) {
 
           {/* Results Count */}
           <div className="flex items-end">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 pb-2.5 whitespace-nowrap">
-              {filteredHotels.length} {filteredHotels.length === 1 ? 'result' : 'results'}
-            </p>
+            <div className="px-4 py-2.5 bg-accent-50 dark:bg-accent-900/20 rounded-xl border border-accent-200/50 dark:border-accent-700/30">
+              <p className="text-sm font-semibold text-accent-700 dark:text-accent-300 whitespace-nowrap">
+                {filteredHotels.length} {filteredHotels.length === 1 ? 'property' : 'properties'}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -194,10 +196,13 @@ export default function HotelList({ initialHotels }: HotelListProps) {
             transition={{ delay: index * 0.03, duration: 0.2 }}
           >
             <div
-              className="group block bg-gradient-to-br from-white via-white to-accent-50/30 dark:from-neutral-800/60 dark:via-neutral-850/50 dark:to-accent-950/20 dark:backdrop-blur-xl border border-accent-200/40 dark:border-accent-800/30 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-accent-400/60 dark:hover:border-accent-600/50 md:hover:scale-[1.01] transition-all duration-300 cursor-pointer h-full flex flex-col"
+              className="group relative block bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl md:hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full flex flex-col"
             >
-              {/* Top accent bar - warm gradient with shimmer */}
-              <div className={`h-2 ${hotel._count?.inspections && hotel._count.inspections > 5 ? 'bg-gradient-to-r from-success-500 via-success-600 to-emerald-600' : hotel._count?.inspections && hotel._count.inspections > 0 ? 'bg-gradient-to-r from-accent-500 via-accent-600 to-gold-600' : 'bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600'}`} />
+              {/* Top accent bar - dynamic gradient based on inspection count */}
+              <div className={`h-1 ${hotel._count?.inspections && hotel._count.inspections > 5 ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500' : hotel._count?.inspections && hotel._count.inspections > 0 ? 'bg-gradient-to-r from-accent-500 via-teal-500 to-accent-500' : 'bg-gradient-to-r from-neutral-400 via-neutral-500 to-neutral-400'}`} />
+
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
             <div className="p-4 md:p-6 flex-1 flex flex-col">
               {/* Hotel header with icon - clickable on mobile */}
@@ -212,15 +217,15 @@ export default function HotelList({ initialHotels }: HotelListProps) {
                 }}
               >
                 <div className="flex items-start gap-3 md:gap-4 mb-3">
-                  <div className="bg-accent-100 dark:bg-accent-900/50 rounded-xl p-2 md:p-3 shadow-soft ring-1 ring-accent-200/50 dark:ring-accent-800/30 md:transition-transform md:group-hover:scale-110 md:group-hover:rotate-3">
-                    <Building2 className="w-5 h-5 md:w-6 md:h-6 text-accent-700 dark:text-accent-200" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-teal-500 flex items-center justify-center shadow-lg md:transition-transform md:group-hover:scale-110 md:group-hover:rotate-3">
+                    <Building2 className="w-6 h-6 md:w-7 md:h-7 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-white mb-1 md:mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors line-clamp-1">
                       {hotel.name}
                     </h3>
                     <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
-                      <MapPin className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0 text-teal-600 dark:text-teal-400" />
                       <span className="text-xs md:text-sm font-semibold">{hotel.city}, {hotel.country}</span>
                     </div>
                   </div>
@@ -228,7 +233,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
                   <motion.div
                     animate={{ rotate: isExpanded ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="md:hidden"
+                    className="md:hidden w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center"
                   >
                     <ChevronDown className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
                   </motion.div>
@@ -254,16 +259,16 @@ export default function HotelList({ initialHotels }: HotelListProps) {
                 <div className="space-y-2.5 mb-5">
                   {hotel.phone && (
                     <div className="flex items-center gap-2.5 text-neutral-700 dark:text-neutral-300">
-                      <div className="bg-primary-100 dark:bg-primary-800/30 rounded-lg p-2 ring-1 ring-primary-200/50 dark:ring-primary-700/20">
-                        <Phone className="w-3 h-3 md:w-4 md:h-4 text-primary-700 dark:text-primary-300" />
+                      <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center">
+                        <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       </div>
                       <span className="text-xs md:text-sm font-medium">{hotel.phone}</span>
                     </div>
                   )}
                   {hotel.email && (
                     <div className="flex items-center gap-2.5 text-neutral-700 dark:text-neutral-300">
-                      <div className="bg-primary-100 dark:bg-primary-800/30 rounded-lg p-2 ring-1 ring-primary-200/50 dark:ring-primary-700/20">
-                        <Mail className="w-3 h-3 md:w-4 md:h-4 text-primary-700 dark:text-primary-300" />
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+                        <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                       </div>
                       <span className="text-xs md:text-sm font-medium truncate">{hotel.email}</span>
                     </div>
@@ -271,12 +276,12 @@ export default function HotelList({ initialHotels }: HotelListProps) {
                 </div>
 
                 {/* Inspection count - prominent badge */}
-                <div className="pt-4 md:pt-5 mt-auto border-t border-accent-200/40 dark:border-accent-800/20">
+                <div className="pt-4 md:pt-5 mt-auto border-t border-neutral-200/50 dark:border-neutral-700/50">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs md:text-sm font-bold uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Inspections</span>
-                    <div className="flex items-center gap-2 md:gap-2.5 bg-gradient-to-br from-accent-100 to-accent-50 dark:from-accent-900/50 dark:to-accent-950/30 px-3 md:px-4 py-1.5 md:py-2 rounded-xl ring-1 ring-accent-200/60 dark:ring-accent-700/40 shadow-soft">
-                      <ClipboardCheck className="w-4 h-4 md:w-5 md:h-5 text-accent-700 dark:text-accent-200" />
-                      <span className="text-lg md:text-xl font-bold text-accent-800 dark:text-accent-200">
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Inspections</span>
+                    <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-900/30 px-3 md:px-4 py-1.5 md:py-2 rounded-xl border border-teal-200/50 dark:border-teal-700/30">
+                      <ClipboardCheck className="w-4 h-4 md:w-5 md:h-5 text-teal-600 dark:text-teal-400" />
+                      <span className="text-lg md:text-xl font-bold text-teal-700 dark:text-teal-300">
                         {hotel._count?.inspections || 0}
                       </span>
                     </div>
@@ -288,7 +293,7 @@ export default function HotelList({ initialHotels }: HotelListProps) {
               {(isExpanded || !isMobile) && (
                 <Link
                   href={`/hotels/${hotel.id}`}
-                  className="mt-4 w-full block text-center bg-accent-600 hover:bg-accent-700 dark:bg-accent-700 dark:hover:bg-accent-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="mt-4 w-full block text-center bg-gradient-to-r from-accent-500 to-teal-500 hover:from-accent-600 hover:to-teal-600 text-white font-semibold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg"
                 >
                   View Details
                 </Link>
