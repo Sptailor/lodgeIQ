@@ -574,6 +574,33 @@ export default async function ReportsPage({
       <div className="space-y-6 sm:space-y-8">
         {/* Breadcrumb navigation */}
         <Breadcrumb items={[{ label: 'Reports' }]} />
+
+        {/* Page Header - Glass UI */}
+        <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg">
+          {/* Accent bar */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-accent-500 to-teal-500"></div>
+
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-accent-500/5 pointer-events-none"></div>
+
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div>
+              <h1 className="text-xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-1 sm:mb-2">
+                Reports & Analytics
+              </h1>
+              <p className="text-xs sm:text-base text-neutral-600 dark:text-neutral-400">
+                Comprehensive insights and performance metrics
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-1 px-4 py-3 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl border border-teal-200/50 dark:border-teal-800/30">
+                <p className="text-xs sm:text-sm font-medium text-teal-700 dark:text-teal-300">Total Records</p>
+                <p className="text-2xl sm:text-4xl font-bold text-teal-600 dark:text-teal-400">{inspections.length}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Inspection Status Overview */}
         <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
           <div className="mb-5 sm:mb-6">
