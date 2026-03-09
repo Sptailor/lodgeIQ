@@ -21,19 +21,25 @@ interface BreadcrumbProps {
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex items-center gap-2 text-sm">
+    <motion.nav
+      aria-label="Breadcrumb"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mb-4 sm:mb-6"
+    >
+      <ol className="flex items-center gap-1.5 sm:gap-2 text-sm flex-wrap">
         {/* Home link */}
         <motion.li
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
         >
           <Link
             href="/"
-            className="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+            className="group flex items-center justify-center w-8 h-8 rounded-lg bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400 hover:bg-accent-100 dark:hover:bg-accent-900/40 transition-all"
           >
-            <Home className="w-4 h-4" />
+            <Home className="w-4 h-4 transition-transform group-hover:scale-110" />
           </Link>
         </motion.li>
 
@@ -46,18 +52,18 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
               key={index}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: index * 0.05 }}
-              className="flex items-center gap-2"
+              transition={{ duration: 0.2, delay: (index + 1) * 0.05 }}
+              className="flex items-center gap-1.5 sm:gap-2"
             >
-              <ChevronRight className="w-4 h-4 text-neutral-400 dark:text-neutral-600" />
+              <ChevronRight className="w-4 h-4 text-neutral-300 dark:text-neutral-600" />
               {isLast ? (
-                <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                <span className="px-2.5 py-1 font-semibold text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
                   {item.label}
                 </span>
               ) : (
                 <Link
                   href={item.href || '#'}
-                  className="text-neutral-600 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+                  className="px-2.5 py-1 text-neutral-600 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all"
                 >
                   {item.label}
                 </Link>
@@ -66,6 +72,6 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
           )
         })}
       </ol>
-    </nav>
+    </motion.nav>
   )
 }
