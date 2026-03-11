@@ -13,12 +13,14 @@ interface SkeletonProps {
   className?: string
   variant?: 'default' | 'circular' | 'rectangular'
   animation?: 'pulse' | 'shimmer' | 'none'
+  style?: React.CSSProperties
 }
 
 export function Skeleton({
   className,
   variant = 'default',
   animation = 'shimmer',
+  style,
 }: SkeletonProps) {
   const baseClasses = 'bg-neutral-200 dark:bg-neutral-700'
 
@@ -42,6 +44,7 @@ export function Skeleton({
         animationClasses[animation],
         className
       )}
+      style={style}
     />
   )
 }
