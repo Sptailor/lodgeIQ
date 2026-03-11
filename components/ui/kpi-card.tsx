@@ -11,8 +11,9 @@
 import { motion } from 'framer-motion'
 import { TrendingUp, TrendingDown, Minus, Building2, ClipboardCheck, CheckCircle2, TrendingUp as TrendingUpIcon, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, type MouseEvent } from 'react'
 import Link from 'next/link'
+import { AnimatedCounter } from './animated-counter'
 
 type IconName = 'building' | 'clipboard' | 'check-circle' | 'trending-up'
 
@@ -90,6 +91,8 @@ export function KPICard({
   const Icon = iconMap[icon]
   const [isExpanded, setIsExpanded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [tiltStyle, setTiltStyle] = useState({})
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640)
@@ -97,6 +100,31 @@ export function KPICard({
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // 3D tilt effect handlers
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isMobile || !cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rotateX = ((y - centerY) / centerY) * -8
+    const rotateY = ((x - centerX) / centerX) * 8
+
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+    })
+  }
+
+  const handleMouseLeave = () => {
+    setTiltStyle({})
+  }
+
+  // Parse numeric value for animation
+  const numericValue = typeof value === 'string' ? parseFloat(value) : value
+  const isNumeric = !isNaN(numericValue)
+  const decimals = typeof value === 'string' && value.includes('.') ? (value.split('.')[1]?.length || 0) : 0
 
   // Determine trend direction if not specified
   const trendDirection = trend?.direction || (trend && trend.value > 0 ? 'up' : trend && trend.value < 0 ? 'down' : 'neutral')
@@ -112,17 +140,20 @@ export function KPICard({
 
   const CardContent = (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4, scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={() => !href && setIsExpanded(!isExpanded)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={tiltStyle}
       className={cn(
         'group relative rounded-xl border overflow-hidden',
         styles.bg,
-        'shadow-sm hover:shadow-lg hover:shadow-accent-500/5',
-        'transition-all duration-300 touch-manipulation',
+        'shadow-sm hover:shadow-xl hover:shadow-accent-500/10',
+        'transition-all duration-200 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
         'hover:border-accent-300 dark:hover:border-accent-600/50',
@@ -131,6 +162,11 @@ export function KPICard({
     >
       {/* Hover shimmer effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 pointer-events-none" />
+
+      {/* 3D Glare effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
+      </div>
 
       {/* Top accent line with gradient */}
       <div className={cn('h-1 bg-gradient-to-r transition-all duration-300 group-hover:h-1.5', styles.accentBar)} />
@@ -181,7 +217,15 @@ export function KPICard({
 
         <div className="space-y-1">
           <h3 className="text-3xl sm:text-4xl font-bold text-primary-900 dark:text-white">
-            {value}
+            {isNumeric ? (
+              <AnimatedCounter
+                value={numericValue}
+                decimals={decimals}
+                duration={1200}
+              />
+            ) : (
+              value
+            )}
           </h3>
           <p className="text-xs sm:text-sm font-medium text-primary-500 dark:text-primary-400 tracking-wide">
             {title}
