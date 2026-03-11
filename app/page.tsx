@@ -8,6 +8,7 @@ import { DashboardAlerts } from '@/components/DashboardAlerts'
 import { FloatingBlobs } from '@/components/ui/floating-blobs'
 import { DiagonalDivider } from '@/components/ui/diagonal-divider'
 import { GradientText } from '@/components/ui/gradient-text'
+import { StaggerContainer, StaggerItem, ScrollReveal } from '@/components/ui/stagger-animation'
 import Link from 'next/link'
 
 async function getDashboardMetrics() {
@@ -272,58 +273,66 @@ export default async function DashboardPage() {
         fillClassName="fill-neutral-50 dark:fill-neutral-950"
       />
 
-      {/* Summary Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-4 sm:pt-6">
-        <KPICard
-          title="Total Hotels"
-          value={metrics.totalHotels}
-          icon="building"
-          variant="primary"
-          subtitle="Properties managed"
-          href="/hotels"
-        />
-        <KPICard
-          title="Inspections"
-          value={metrics.recentInspections}
-          icon="clipboard"
-          variant="default"
-          subtitle="Last 30 days"
-          href="/inspections"
-          trend={{
-            value: Number(Math.abs(metrics.inspectionsTrend).toFixed(1)),
-            label: 'vs previous period',
-            direction: metrics.inspectionsTrend > 0 ? 'up' : metrics.inspectionsTrend < 0 ? 'down' : 'neutral',
-          }}
-        />
-        <KPICard
-          title="Completed"
-          value={metrics.completedInspections}
-          icon="check-circle"
-          variant="success"
-          subtitle="Total completed"
-          trend={{
-            value: Number(Math.abs(metrics.completedTrend).toFixed(1)),
-            label: 'vs previous period',
-            direction: metrics.completedTrend > 0 ? 'up' : metrics.completedTrend < 0 ? 'down' : 'neutral',
-          }}
-        />
-        <KPICard
-          title="Avg Rating"
-          value={metrics.avgRating > 0 ? metrics.avgRating.toFixed(1) : 'N/A'}
-          icon="trending-up"
-          variant={metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'}
-          subtitle="Overall rating"
-          trend={
-            metrics.avgRating > 0
-              ? {
-                  value: Number(Math.abs(metrics.ratingTrend).toFixed(1)),
-                  label: 'vs previous period',
-                  direction: metrics.ratingTrend > 0 ? 'up' : metrics.ratingTrend < 0 ? 'down' : 'neutral',
-                }
-              : undefined
-          }
-        />
-      </div>
+      {/* Summary Metrics with staggered animation */}
+      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-4 sm:pt-6">
+        <StaggerItem>
+          <KPICard
+            title="Total Hotels"
+            value={metrics.totalHotels}
+            icon="building"
+            variant="primary"
+            subtitle="Properties managed"
+            href="/hotels"
+          />
+        </StaggerItem>
+        <StaggerItem>
+          <KPICard
+            title="Inspections"
+            value={metrics.recentInspections}
+            icon="clipboard"
+            variant="default"
+            subtitle="Last 30 days"
+            href="/inspections"
+            trend={{
+              value: Number(Math.abs(metrics.inspectionsTrend).toFixed(1)),
+              label: 'vs previous period',
+              direction: metrics.inspectionsTrend > 0 ? 'up' : metrics.inspectionsTrend < 0 ? 'down' : 'neutral',
+            }}
+          />
+        </StaggerItem>
+        <StaggerItem>
+          <KPICard
+            title="Completed"
+            value={metrics.completedInspections}
+            icon="check-circle"
+            variant="success"
+            subtitle="Total completed"
+            trend={{
+              value: Number(Math.abs(metrics.completedTrend).toFixed(1)),
+              label: 'vs previous period',
+              direction: metrics.completedTrend > 0 ? 'up' : metrics.completedTrend < 0 ? 'down' : 'neutral',
+            }}
+          />
+        </StaggerItem>
+        <StaggerItem>
+          <KPICard
+            title="Avg Rating"
+            value={metrics.avgRating > 0 ? metrics.avgRating.toFixed(1) : 'N/A'}
+            icon="trending-up"
+            variant={metrics.avgRating >= 4 ? 'success' : metrics.avgRating >= 3 ? 'warning' : 'danger'}
+            subtitle="Overall rating"
+            trend={
+              metrics.avgRating > 0
+                ? {
+                    value: Number(Math.abs(metrics.ratingTrend).toFixed(1)),
+                    label: 'vs previous period',
+                    direction: metrics.ratingTrend > 0 ? 'up' : metrics.ratingTrend < 0 ? 'down' : 'neutral',
+                  }
+                : undefined
+            }
+          />
+        </StaggerItem>
+      </StaggerContainer>
 
       {/* Alerts & Notifications */}
       <div className="pt-6 sm:pt-8">
@@ -339,10 +348,11 @@ export default async function DashboardPage() {
         className="mt-6 sm:mt-8"
       />
 
-      {/* Recent Activity Feed - Glass UI */}
-      <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg -mt-1">
-        {/* Subtle floating blobs */}
-        <FloatingBlobs variant="subtle" />
+      {/* Recent Activity Feed - Glass UI with scroll reveal */}
+      <ScrollReveal direction="up" delay={0.2}>
+        <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg -mt-1">
+          {/* Subtle floating blobs */}
+          <FloatingBlobs variant="subtle" />
         <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
@@ -419,8 +429,9 @@ export default async function DashboardPage() {
               </div>
             ))
           )}
+          </div>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
   )
 }
