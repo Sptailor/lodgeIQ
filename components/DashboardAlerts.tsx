@@ -87,7 +87,7 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
   }
 
   return (
-    <div className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg">
+    <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
       <div className="mb-5 sm:mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
