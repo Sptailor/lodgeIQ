@@ -152,24 +152,16 @@ export function KPICard({
       className={cn(
         'group relative rounded-xl border overflow-hidden',
         styles.bg,
-        'shadow-sm hover:shadow-xl hover:shadow-accent-500/10',
+        'shadow-sm hover:shadow-md',
         'transition-all duration-200 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
-        'hover:border-accent-300 dark:hover:border-accent-600/50',
+        'hover:border-accent-200 dark:hover:border-accent-700/50',
         className
       )}
     >
-      {/* Hover shimmer effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 pointer-events-none" />
-
-      {/* 3D Glare effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
-      </div>
-
       {/* Top accent line with gradient */}
-      <div className={cn('h-1 bg-gradient-to-r transition-all duration-300 group-hover:h-1.5', styles.accentBar)} />
+      <div className={cn('h-1 bg-gradient-to-r', styles.accentBar)} />
 
       <div className="relative p-4 sm:p-5 space-y-3 sm:space-y-4">
         <div className="flex items-start justify-between">
