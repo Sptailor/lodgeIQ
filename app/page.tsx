@@ -5,7 +5,6 @@
 import { prisma } from '@/lib/prisma'
 import { KPICard } from '@/components/ui/kpi-card'
 import { DashboardAlerts } from '@/components/DashboardAlerts'
-import { FloatingBlobs } from '@/components/ui/floating-blobs'
 import { GradientText } from '@/components/ui/gradient-text'
 import { StaggerContainer, StaggerItem, ScrollReveal } from '@/components/ui/stagger-animation'
 import Link from 'next/link'
@@ -232,7 +231,7 @@ export default async function DashboardPage() {
   const recentActivity = await getRecentActivity()
 
   return (
-    <div className="space-y-0">
+    <div className="space-y-6 sm:space-y-8">
       {/* Hero Header - Clean Glass UI */}
       <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200/50 dark:border-neutral-700/50 shadow-sm">
         {/* Accent bar */}
@@ -262,7 +261,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Summary Metrics with staggered animation */}
-      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-4 sm:pt-6">
+      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         <StaggerItem>
           <KPICard
             title="Total Hotels"
@@ -323,15 +322,11 @@ export default async function DashboardPage() {
       </StaggerContainer>
 
       {/* Alerts & Notifications */}
-      <div className="pt-6 sm:pt-8">
-        <DashboardAlerts alerts={alerts} />
-      </div>
+      <DashboardAlerts alerts={alerts} />
 
       {/* Recent Activity Feed - Glass UI with scroll reveal */}
-      <ScrollReveal direction="up" delay={0.2}>
-        <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg mt-6 sm:mt-8">
-          {/* Subtle floating blobs */}
-          <FloatingBlobs variant="subtle" />
+      <ScrollReveal direction="up" delay={0.1}>
+        <div className="relative bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
         <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
