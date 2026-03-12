@@ -41,39 +41,39 @@ const iconMap = {
 
 const variantStyles = {
   default: {
-    bg: 'bg-white dark:bg-primary-800/50',
+    bg: 'bg-white dark:bg-neutral-900/80',
     iconBg: 'bg-accent-100 dark:bg-accent-500/20',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-primary-200 dark:border-primary-700',
+    border: 'border-neutral-200 dark:border-neutral-700',
     accentBar: 'from-accent-500 to-accent-400',
   },
   success: {
-    bg: 'bg-white dark:bg-primary-800/50',
+    bg: 'bg-white dark:bg-neutral-900/80',
     iconBg: 'bg-teal-100 dark:bg-teal-500/20',
     iconColor: 'text-teal-600 dark:text-teal-400',
-    border: 'border-teal-200 dark:border-teal-500/30',
+    border: 'border-teal-200 dark:border-teal-700/50',
     accentBar: 'from-teal-500 to-teal-400',
   },
   warning: {
-    bg: 'bg-white dark:bg-primary-800/50',
+    bg: 'bg-white dark:bg-neutral-900/80',
     iconBg: 'bg-amber-100 dark:bg-amber-500/20',
     iconColor: 'text-amber-600 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-500/30',
+    border: 'border-amber-200 dark:border-amber-700/50',
     accentBar: 'from-amber-500 to-amber-400',
   },
   danger: {
-    bg: 'bg-white dark:bg-primary-800/50',
+    bg: 'bg-white dark:bg-neutral-900/80',
     iconBg: 'bg-danger-100 dark:bg-danger-500/20',
     iconColor: 'text-danger-600 dark:text-danger-400',
-    border: 'border-danger-200 dark:border-danger-500/30',
+    border: 'border-danger-200 dark:border-danger-700/50',
     accentBar: 'from-danger-500 to-danger-400',
   },
   primary: {
-    bg: 'bg-white dark:bg-primary-800/50',
-    iconBg: 'bg-primary-100 dark:bg-primary-500/20',
-    iconColor: 'text-primary-600 dark:text-primary-400',
-    border: 'border-primary-200 dark:border-primary-600',
-    accentBar: 'from-primary-600 to-primary-500',
+    bg: 'bg-white dark:bg-neutral-900/80',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
+    iconColor: 'text-accent-600 dark:text-accent-400',
+    border: 'border-neutral-200 dark:border-neutral-700',
+    accentBar: 'from-accent-500 to-accent-400',
   },
 }
 
