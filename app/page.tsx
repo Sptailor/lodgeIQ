@@ -339,9 +339,9 @@ export default async function DashboardPage() {
           </div>
           <Link
             href="/reports"
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all duration-200"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 rounded-lg transition-colors duration-200"
           >
-            View All
+            View all
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
