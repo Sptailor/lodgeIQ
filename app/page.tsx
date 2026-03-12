@@ -5,7 +5,6 @@
 import { prisma } from '@/lib/prisma'
 import { KPICard } from '@/components/ui/kpi-card'
 import { DashboardAlerts } from '@/components/DashboardAlerts'
-import { GradientText } from '@/components/ui/gradient-text'
 import { StaggerContainer, StaggerItem, ScrollReveal } from '@/components/ui/stagger-animation'
 import Link from 'next/link'
 
@@ -242,20 +241,16 @@ export default async function DashboardPage() {
 
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">
-              <GradientText variant="default" className="font-bold">
-                Dashboard
-              </GradientText>
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-1 sm:mb-2">
+              Dashboard
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-base">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
               High-level overview of your operations
             </p>
-            {/* Animated underline accent */}
-            <div className="h-1 w-16 sm:w-20 rounded-full bg-gradient-to-r from-accent-500 to-teal-500 mt-2 sm:mt-3" />
           </div>
-          <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-accent-50 dark:bg-accent-900/20 rounded-lg border border-accent-200 dark:border-accent-800/50">
-            <div className="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></div>
-            <span className="text-sm font-medium text-accent-700 dark:text-accent-300">Live Data</span>
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-teal-50 dark:bg-teal-900/20 rounded-full border border-teal-200/50 dark:border-teal-700/30">
+            <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></div>
+            <span className="text-xs font-medium text-teal-700 dark:text-teal-400">Live</span>
           </div>
         </div>
       </div>
