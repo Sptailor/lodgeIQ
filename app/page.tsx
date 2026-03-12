@@ -6,7 +6,6 @@ import { prisma } from '@/lib/prisma'
 import { KPICard } from '@/components/ui/kpi-card'
 import { DashboardAlerts } from '@/components/DashboardAlerts'
 import { FloatingBlobs } from '@/components/ui/floating-blobs'
-import { DiagonalDivider } from '@/components/ui/diagonal-divider'
 import { GradientText } from '@/components/ui/gradient-text'
 import { StaggerContainer, StaggerItem, ScrollReveal } from '@/components/ui/stagger-animation'
 import Link from 'next/link'
@@ -265,14 +264,6 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Diagonal divider after hero */}
-      <DiagonalDivider
-        variant="wave"
-        direction="down"
-        height={40}
-        fillClassName="fill-neutral-50 dark:fill-neutral-950"
-      />
-
       {/* Summary Metrics with staggered animation */}
       <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-4 sm:pt-6">
         <StaggerItem>
@@ -339,18 +330,9 @@ export default async function DashboardPage() {
         <DashboardAlerts alerts={alerts} />
       </div>
 
-      {/* Curve divider before activity */}
-      <DiagonalDivider
-        variant="curve"
-        direction="up"
-        height={30}
-        fillClassName="fill-white/70 dark:fill-neutral-900/70"
-        className="mt-6 sm:mt-8"
-      />
-
       {/* Recent Activity Feed - Glass UI with scroll reveal */}
       <ScrollReveal direction="up" delay={0.2}>
-        <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border-2 border-white/20 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg -mt-1">
+        <div className="relative bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-lg mt-6 sm:mt-8">
           {/* Subtle floating blobs */}
           <FloatingBlobs variant="subtle" />
         <div className="mb-5 sm:mb-6 flex items-center justify-between">
