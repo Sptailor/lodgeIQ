@@ -27,7 +27,7 @@ function Blob({ className, color, size = 'md', animation = 'float', delay = 0 }:
   return (
     <div
       className={cn(
-        'absolute rounded-full blur-3xl opacity-30 dark:opacity-20',
+        'absolute rounded-full blur-3xl opacity-15 dark:opacity-10',
         sizeClasses[size],
         animationClasses[animation],
         color || 'bg-accent-500',
