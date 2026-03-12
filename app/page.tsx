@@ -233,16 +233,13 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-0">
-      {/* Hero Header - Glass UI with Floating Blobs */}
-      <div className="relative overflow-hidden bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border-2 border-white/20 dark:border-neutral-700/50 shadow-lg mb-0">
-        {/* Floating decorative blobs */}
-        <FloatingBlobs variant="hero" />
-
+      {/* Hero Header - Clean Glass UI */}
+      <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200/50 dark:border-neutral-700/50 shadow-sm">
         {/* Accent bar */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500"></div>
 
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-teal-500/5 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/3 via-transparent to-teal-500/3 pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
