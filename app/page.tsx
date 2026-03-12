@@ -358,11 +358,10 @@ export default async function DashboardPage() {
               <p className="text-neutral-500 dark:text-neutral-400 text-sm">No recent activity</p>
             </div>
           ) : (
-            recentActivity.map((inspection, index) => (
+            recentActivity.map((inspection) => (
               <div
                 key={inspection.id}
-                className="group flex items-center justify-between p-4 rounded-xl bg-white/50 dark:bg-neutral-800/50 border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md hover:border-neutral-300/50 dark:hover:border-neutral-600/50 transition-all duration-200"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="group flex items-center justify-between p-4 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 border border-neutral-200/30 dark:border-neutral-700/30 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm hover:border-neutral-200 dark:hover:border-neutral-600 transition-all duration-200"
               >
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="hidden sm:flex w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 items-center justify-center flex-shrink-0">
