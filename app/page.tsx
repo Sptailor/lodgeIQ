@@ -261,7 +261,9 @@ export default async function DashboardPage() {
       </div>
 
       {/* Summary Metrics with staggered animation */}
-      <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div>
+        <h2 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-4 uppercase tracking-wide">Key Metrics</h2>
+        <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         <StaggerItem>
           <KPICard
             title="Total Hotels"
@@ -319,7 +321,8 @@ export default async function DashboardPage() {
             }
           />
         </StaggerItem>
-      </StaggerContainer>
+        </StaggerContainer>
+      </div>
 
       {/* Alerts & Notifications */}
       <DashboardAlerts alerts={alerts} />
