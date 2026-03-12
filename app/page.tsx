@@ -324,8 +324,11 @@ export default async function DashboardPage() {
 
       {/* Recent Activity Feed - Glass UI with scroll reveal */}
       <ScrollReveal direction="up" delay={0.1}>
-        <div className="relative bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
-        <div className="mb-5 sm:mb-6 flex items-center justify-between">
+        <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
+          {/* Accent bar */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500"></div>
+
+          <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
               Recent Activity
