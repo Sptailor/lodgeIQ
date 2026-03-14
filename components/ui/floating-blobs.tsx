@@ -55,14 +55,14 @@ export function FloatingBlobs({ className, variant = 'default' }: FloatingBlobsP
           delay={0}
         />
         <Blob
-          color="bg-teal-500"
+          color="bg-accent-400"
           size="md"
           className="top-20 right-0"
           animation="drift"
           delay={2}
         />
         <Blob
-          color="bg-accent-400"
+          color="bg-accent-300"
           size="sm"
           className="bottom-10 left-1/3"
           animation="pulse"
@@ -80,14 +80,14 @@ export function FloatingBlobs({ className, variant = 'default' }: FloatingBlobsP
           delay={0}
         />
         <Blob
-          color="bg-gradient-to-br from-teal-400 to-teal-600"
+          color="bg-gradient-to-br from-accent-400 to-accent-500"
           size="lg"
           className="-bottom-32 -left-32"
           animation="drift"
           delay={3}
         />
         <Blob
-          color="bg-accent-400"
+          color="bg-accent-300"
           size="md"
           className="top-1/2 right-1/4"
           animation="pulse"
@@ -105,7 +105,7 @@ export function FloatingBlobs({ className, variant = 'default' }: FloatingBlobsP
           delay={0}
         />
         <Blob
-          color="bg-teal-500/50"
+          color="bg-accent-400/50"
           size="sm"
           className="bottom-0 left-0 opacity-20"
           animation="drift"
@@ -123,7 +123,7 @@ export function FloatingBlobs({ className, variant = 'default' }: FloatingBlobsP
           delay={0}
         />
         <Blob
-          color="bg-teal-500"
+          color="bg-accent-600"
           size="lg"
           className="top-40 -right-20 opacity-40"
           animation="drift"
@@ -137,7 +137,7 @@ export function FloatingBlobs({ className, variant = 'default' }: FloatingBlobsP
           delay={2}
         />
         <Blob
-          color="bg-teal-400"
+          color="bg-accent-300"
           size="sm"
           className="bottom-40 right-1/4 opacity-40"
           animation="float"

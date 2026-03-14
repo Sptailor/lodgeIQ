@@ -55,7 +55,7 @@ export function DiagonalDivider({
 // Decorative diagonal stripe accent
 export function DiagonalStripe({
   className,
-  colors = ['from-accent-500/20', 'to-teal-500/20'],
+  colors = ['from-accent-500/20', 'to-accent-400/20'],
 }: {
   className?: string
   colors?: [string, string]
