@@ -49,10 +49,10 @@ const variantStyles = {
   },
   success: {
     bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-teal-100 dark:bg-teal-500/20',
-    iconColor: 'text-teal-600 dark:text-teal-400',
-    border: 'border-teal-200 dark:border-teal-700/50',
-    accentBar: 'from-teal-500 to-teal-400',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
+    iconColor: 'text-accent-600 dark:text-accent-400',
+    border: 'border-accent-200 dark:border-accent-700/50',
+    accentBar: 'from-accent-500 to-accent-400',
   },
   warning: {
     bg: 'bg-white dark:bg-neutral-900/80',
@@ -133,7 +133,7 @@ export function KPICard({
 
   const trendColor =
     trendDirection === 'up'
-      ? 'text-success-600 dark:text-success-400 bg-success-50 dark:bg-success-950/20'
+      ? 'text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-950/20'
       : trendDirection === 'down'
       ? 'text-danger-600 dark:text-danger-400 bg-danger-50 dark:bg-danger-950/20'
       : 'text-neutral-600 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800'
