@@ -24,19 +24,19 @@ const config: Config = {
           900: '#0f172a',
           950: '#020617',
         },
-        // Teal accent for interactive elements
+        // Vibrant green accent for interactive elements - neon-ish without glow
         accent: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-          950: '#042f2e',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+          950: '#052e16',
         },
         // Amber for highlights and CTAs
         amber: {
@@ -153,13 +153,13 @@ const config: Config = {
         'elevated-lg': '0 8px 32px rgba(0, 0, 0, 0.16), 0 4px 8px rgba(0, 0, 0, 0.08)',
         'elevated-xl': '0 16px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1)',
 
-        // Glow shadows - accent colored for interactive elements
-        'glow-xs': '0 0 8px rgba(20, 184, 166, 0.15)',
-        'glow-sm': '0 0 12px rgba(20, 184, 166, 0.2)',
-        'glow': '0 0 20px rgba(20, 184, 166, 0.25)',
-        'glow-md': '0 0 28px rgba(20, 184, 166, 0.3)',
-        'glow-lg': '0 0 40px rgba(20, 184, 166, 0.35)',
-        'glow-teal': '0 0 20px rgba(20, 184, 166, 0.3)',
+        // Glow shadows - accent colored for interactive elements (vibrant green)
+        'glow-xs': '0 0 8px rgba(34, 197, 94, 0.15)',
+        'glow-sm': '0 0 12px rgba(34, 197, 94, 0.2)',
+        'glow': '0 0 20px rgba(34, 197, 94, 0.25)',
+        'glow-md': '0 0 28px rgba(34, 197, 94, 0.3)',
+        'glow-lg': '0 0 40px rgba(34, 197, 94, 0.35)',
+        'glow-green': '0 0 20px rgba(34, 197, 94, 0.3)',
         'glow-amber': '0 0 20px rgba(245, 158, 11, 0.3)',
         'glow-danger': '0 0 20px rgba(239, 68, 68, 0.25)',
         'glow-success': '0 0 20px rgba(34, 197, 94, 0.25)',
@@ -178,10 +178,10 @@ const config: Config = {
         'inner': 'inset 0 2px 4px rgba(0, 0, 0, 0.08)',
         'inner-lg': 'inset 0 4px 8px rgba(0, 0, 0, 0.1)',
 
-        // Colored accent shadows
-        'accent-sm': '0 2px 8px rgba(20, 184, 166, 0.15)',
-        'accent': '0 4px 16px rgba(20, 184, 166, 0.2)',
-        'accent-lg': '0 8px 24px rgba(20, 184, 166, 0.25)',
+        // Colored accent shadows (vibrant green)
+        'accent-sm': '0 2px 8px rgba(34, 197, 94, 0.15)',
+        'accent': '0 4px 16px rgba(34, 197, 94, 0.2)',
+        'accent-lg': '0 8px 24px rgba(34, 197, 94, 0.25)',
       },
       borderRadius: {
         'xl': '0.875rem',
@@ -210,8 +210,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-10px)' },
         },
         'glow-pulse': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(20, 184, 166, 0.25)' },
-          '50%': { boxShadow: '0 0 40px rgba(20, 184, 166, 0.4)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(34, 197, 94, 0.25)' },
+          '50%': { boxShadow: '0 0 40px rgba(34, 197, 94, 0.4)' },
         },
         'gradient-shift': {
           '0%': { backgroundPosition: '0% 50%' },
