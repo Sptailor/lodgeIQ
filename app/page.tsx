@@ -233,11 +233,11 @@ export default async function DashboardPage() {
     <div className="space-y-6 sm:space-y-8">
       {/* Hero Header - Clean Glass UI */}
       <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200/50 dark:border-neutral-700/50 shadow-sm">
-        {/* Accent bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500"></div>
+        {/* Accent bar - vibrant green gradient */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
 
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/3 via-transparent to-teal-500/3 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-accent-400/5 pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
@@ -248,9 +248,9 @@ export default async function DashboardPage() {
               High-level overview of your operations
             </p>
           </div>
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-teal-50 dark:bg-teal-900/20 rounded-full border border-teal-200/50 dark:border-teal-700/30">
-            <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></div>
-            <span className="text-xs font-medium text-teal-700 dark:text-teal-400">Live</span>
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-accent-50 dark:bg-accent-900/20 rounded-full border border-accent-200/50 dark:border-accent-700/30">
+            <div className="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></div>
+            <span className="text-xs font-medium text-accent-700 dark:text-accent-400">Live</span>
           </div>
         </div>
       </div>
@@ -325,8 +325,8 @@ export default async function DashboardPage() {
       {/* Recent Activity Feed - Glass UI with scroll reveal */}
       <ScrollReveal direction="up" delay={0.1}>
         <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
-          {/* Accent bar */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-teal-500"></div>
+          {/* Accent bar - vibrant green gradient */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
 
           <div className="mb-5 sm:mb-6 flex items-center justify-between">
           <div>
@@ -391,7 +391,7 @@ export default async function DashboardPage() {
                   <span
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       inspection.status === 'COMPLETED' || inspection.status === 'APPROVED'
-                        ? 'bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400'
+                        ? 'bg-accent-100 text-accent-700 dark:bg-accent-500/20 dark:text-accent-400'
                         : inspection.status === 'IN_PROGRESS'
                         ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
                         : 'bg-neutral-100 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300'
