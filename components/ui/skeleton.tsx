@@ -73,7 +73,7 @@ export function SkeletonCard({ className }: { className?: string }) {
       className
     )}>
       {/* Accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-neutral-300 via-neutral-400 to-neutral-300 dark:from-neutral-600 dark:via-neutral-500 dark:to-neutral-600" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-400/50 via-accent-500/50 to-accent-400/50" />
       <div className="flex items-center gap-4 mb-4">
         <Skeleton variant="default" className="w-12 h-12 rounded-2xl" />
         <div className="flex-1 space-y-2">
@@ -123,7 +123,7 @@ export function SkeletonKPICard({ className }: { className?: string }) {
       className
     )}>
       {/* Accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-neutral-300 via-neutral-400 to-neutral-300 dark:from-neutral-600 dark:via-neutral-500 dark:to-neutral-600" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-400/50 via-accent-500/50 to-accent-400/50" />
       <div className="flex items-start justify-between mb-4">
         <Skeleton className="w-12 h-12 rounded-xl" />
         <Skeleton className="w-16 h-6 rounded-lg" />
@@ -141,7 +141,7 @@ export function SkeletonChart({ className }: { className?: string }) {
       className
     )}>
       {/* Accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-neutral-300 via-neutral-400 to-neutral-300 dark:from-neutral-600 dark:via-neutral-500 dark:to-neutral-600" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-400/50 via-accent-500/50 to-accent-400/50" />
       <div className="flex items-start justify-between mb-6">
         <div className="space-y-2">
           <Skeleton className="h-6 w-40 rounded-lg" />
@@ -170,7 +170,7 @@ export function SkeletonPageHeader({ className }: { className?: string }) {
       className
     )}>
       {/* Accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-neutral-300 via-neutral-400 to-neutral-300 dark:from-neutral-600 dark:via-neutral-500 dark:to-neutral-600" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-400/50 via-accent-500/50 to-accent-400/50" />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="space-y-2">
           <Skeleton className="h-8 w-64 rounded-lg" />
@@ -190,7 +190,7 @@ export function SkeletonHotelCard({ className }: { className?: string }) {
       className
     )}>
       {/* Accent bar */}
-      <div className="h-1 bg-gradient-to-r from-neutral-300 via-neutral-400 to-neutral-300 dark:from-neutral-600 dark:via-neutral-500 dark:to-neutral-600" />
+      <div className="h-1 bg-gradient-to-r from-accent-400/50 via-accent-500/50 to-accent-400/50" />
       <div className="p-4 sm:p-6">
         <div className="flex items-start gap-4 mb-4">
           <Skeleton className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl" />
@@ -221,7 +221,7 @@ export function SkeletonInspectionItem({ className }: { className?: string }) {
       className
     )}>
       {/* Left accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neutral-300 to-neutral-400 dark:from-neutral-600 dark:to-neutral-500" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent-400/50 to-accent-500/50" />
       <div className="flex justify-between items-start gap-4 pl-3">
         <div className="flex-1 space-y-3">
           <div className="flex items-center gap-2.5">
@@ -239,6 +239,53 @@ export function SkeletonInspectionItem({ className }: { className?: string }) {
           <Skeleton className="h-8 w-16 rounded-lg" />
         </div>
       </div>
+    </div>
+  )
+}
+
+// Dashboard activity skeleton
+export function SkeletonActivityItem({ className }: { className?: string }) {
+  return (
+    <div className={cn(
+      'flex items-center justify-between p-4 rounded-xl bg-neutral-50/50 dark:bg-neutral-800/30 border border-neutral-200/30 dark:border-neutral-700/30',
+      className
+    )}>
+      <div className="flex items-center gap-3 flex-1">
+        <Skeleton className="w-10 h-10 rounded-lg" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-32 rounded-lg" />
+          <Skeleton className="h-3 w-24 rounded-lg" />
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Skeleton className="h-6 w-12 rounded-lg" />
+        <Skeleton className="h-6 w-20 rounded-lg" />
+      </div>
+    </div>
+  )
+}
+
+// Full loading list with multiple items
+export function SkeletonList({
+  count = 5,
+  variant = 'activity',
+  className
+}: {
+  count?: number
+  variant?: 'activity' | 'inspection' | 'hotel'
+  className?: string
+}) {
+  const ItemComponent = {
+    activity: SkeletonActivityItem,
+    inspection: SkeletonInspectionItem,
+    hotel: SkeletonHotelCard,
+  }[variant]
+
+  return (
+    <div className={cn('space-y-3', className)}>
+      {Array.from({ length: count }).map((_, i) => (
+        <ItemComponent key={i} />
+      ))}
     </div>
   )
 }
