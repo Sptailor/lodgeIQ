@@ -165,14 +165,14 @@ export function DataTable<T extends Record<string, any>>({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  whileHover={{ backgroundColor: 'rgba(20, 184, 166, 0.04)' }}
                   transition={{ duration: 0.2, delay: index * 0.02 }}
                   className={`
                     group
                     border-b border-neutral-100 dark:border-neutral-800/50
-                    hover:bg-accent-50/50 dark:hover:bg-accent-900/10
                     transition-all duration-200
-                    ${onRowClick ? 'cursor-pointer active:bg-accent-100/50 dark:active:bg-accent-900/20' : ''}
+                    ${index % 2 === 0 ? 'bg-white dark:bg-transparent' : 'bg-neutral-50/50 dark:bg-neutral-800/20'}
+                    hover:bg-accent-50 dark:hover:bg-accent-900/20 hover:shadow-sm
+                    ${onRowClick ? 'cursor-pointer active:bg-accent-100 dark:active:bg-accent-900/30' : ''}
                   `}
                   onClick={() => onRowClick?.(row)}
                 >
@@ -182,7 +182,7 @@ export function DataTable<T extends Record<string, any>>({
                       className={`
                         px-6 py-4 text-sm text-neutral-900 dark:text-neutral-100
                         transition-all duration-200
-                        ${colIndex === 0 ? 'group-hover:pl-7' : ''}
+                        ${colIndex === 0 ? 'relative group-hover:pl-7 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-accent-500 before:scale-y-0 group-hover:before:scale-y-100 before:transition-transform before:duration-200 before:origin-center' : ''}
                         ${column.className || ''}
                       `}
                     >
