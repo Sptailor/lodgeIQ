@@ -232,7 +232,7 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Hero Header - Clean Glass UI */}
-      <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200/50 dark:border-neutral-700/50 shadow-sm">
+      <div className="relative overflow-hidden bg-white dark:bg-neutral-900 rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200 dark:border-neutral-800 shadow-md">
         {/* Accent bar - vibrant green gradient */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
 
@@ -324,7 +324,7 @@ export default async function DashboardPage() {
 
       {/* Recent Activity Feed - Glass UI with scroll reveal */}
       <ScrollReveal direction="up" delay={0.1}>
-        <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
+        <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-md">
           {/* Accent bar - vibrant green gradient */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
 
@@ -362,7 +362,7 @@ export default async function DashboardPage() {
             recentActivity.map((inspection) => (
               <div
                 key={inspection.id}
-                className="group flex items-center justify-between p-4 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 border border-neutral-200/30 dark:border-neutral-700/30 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm hover:border-neutral-200 dark:hover:border-neutral-600 transition-all duration-200"
+                className="group flex items-center justify-between p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all duration-200"
               >
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="hidden sm:flex w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 items-center justify-center flex-shrink-0">
