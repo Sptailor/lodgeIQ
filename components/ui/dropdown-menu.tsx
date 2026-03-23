@@ -50,9 +50,9 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-50 min-w-[8rem] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700',
+      'z-50 min-w-[8rem] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800',
       'bg-white dark:bg-neutral-900 p-1',
-      'shadow-lg shadow-neutral-200/50 dark:shadow-neutral-900/50',
+      'shadow-lg shadow-neutral-200/50 dark:shadow-black/50',
       'data-[state=open]:animate-in data-[state=closed]:animate-out',
       'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -74,10 +74,10 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 min-w-[12rem] overflow-hidden rounded-xl border border-neutral-200/80 dark:border-neutral-700/80',
-        'bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl',
+        'z-50 min-w-[12rem] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800',
+        'bg-white dark:bg-neutral-900',
         'p-1.5',
-        'shadow-xl shadow-neutral-200/30 dark:shadow-neutral-900/50',
+        'shadow-xl shadow-neutral-200/30 dark:shadow-black/50',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
