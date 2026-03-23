@@ -95,7 +95,7 @@ const config: Config = {
           950: '#450a0a',
         },
         neutral: {
-          // True neutral grays for clean modern aesthetic
+          // Deep blacks for high contrast dark mode
           50: '#fafafa',
           100: '#f5f5f5',
           200: '#e5e5e5',
@@ -103,10 +103,10 @@ const config: Config = {
           400: '#a3a3a3',
           500: '#737373',
           600: '#525252',
-          700: '#404040',
-          800: '#262626',
-          900: '#171717',
-          950: '#0a0a0a',
+          700: '#2a2a2a',
+          800: '#1a1a1a',
+          900: '#0d0d0d',
+          950: '#050505',
         },
         // Vibrant teal for secondary actions and highlights
         teal: {
