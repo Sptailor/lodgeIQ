@@ -87,7 +87,7 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-sm">
+    <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-md">
       {/* Accent bar - vibrant green gradient */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
       <div className="mb-5 sm:mb-6 flex items-center justify-between">
@@ -135,7 +135,7 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <Link
                     href={alert.link}
-                    className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg ${colors.button} bg-white/80 dark:bg-neutral-800/80 hover:bg-white dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 transition-all duration-200`}
+                    className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg ${colors.button} bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 transition-all duration-200`}
                   >
                     View
                     <ArrowRight className="w-4 h-4" />

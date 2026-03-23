@@ -18,7 +18,7 @@ const buttonVariants = cva(
         default:
           'bg-accent-500 text-white shadow-sm hover:bg-accent-600 hover:shadow-md focus-visible:ring-accent-500 dark:bg-accent-600 dark:hover:bg-accent-500',
         secondary:
-          'bg-primary-100 text-primary-700 border border-primary-200 hover:bg-primary-200 hover:border-primary-300 dark:bg-primary-800 dark:text-primary-100 dark:border-primary-700 dark:hover:bg-primary-700',
+          'bg-neutral-100 text-neutral-700 border border-neutral-200 hover:bg-neutral-200 hover:border-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-700',
         success:
           'bg-teal-500 text-white hover:bg-teal-600 hover:shadow-md focus-visible:ring-teal-500',
         warning:
@@ -26,9 +26,9 @@ const buttonVariants = cva(
         danger:
           'bg-danger-500 text-white hover:bg-danger-600 hover:shadow-md focus-visible:ring-danger-500',
         outline:
-          'border border-primary-300 bg-transparent text-primary-700 hover:bg-primary-50 hover:border-primary-400 dark:border-primary-600 dark:text-primary-200 dark:hover:bg-primary-800 focus-visible:ring-primary-500',
+          'border border-neutral-300 bg-transparent text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800 focus-visible:ring-accent-500',
         ghost:
-          'text-primary-600 hover:bg-primary-100 dark:text-primary-300 dark:hover:bg-primary-800 focus-visible:ring-primary-500',
+          'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus-visible:ring-accent-500',
         link:
           'text-accent-600 underline-offset-4 hover:underline dark:text-accent-400 focus-visible:ring-accent-500',
       },
