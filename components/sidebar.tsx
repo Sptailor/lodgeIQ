@@ -102,13 +102,13 @@ export function Sidebar() {
           stiffness: 300,
           damping: 30,
         }}
-        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-primary-900/95 backdrop-blur-xl border-r border-primary-200 dark:border-primary-700 z-40 shadow-sm"
+        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 z-40 shadow-lg"
       >
         {/* Close Button */}
-        <div className="p-4 border-b border-primary-200 dark:border-primary-700">
+        <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
           <button
             onClick={() => setIsCollapsed(true)}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all group bg-primary-100 dark:bg-primary-800 hover:bg-primary-200 dark:hover:bg-primary-700 border border-primary-200 dark:border-primary-600"
+            className="w-full flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all group bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
             title="Collapse sidebar"
           >
             <span className="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-300 group-hover:text-primary-900 dark:group-hover:text-white transition-colors">
@@ -137,7 +137,7 @@ export function Sidebar() {
                   'relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group',
                   isActive
                     ? 'bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400'
-                    : 'text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-800 hover:text-primary-900 dark:hover:text-white'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white'
                 )}
               >
                 {/* Active indicator */}
@@ -149,11 +149,11 @@ export function Sidebar() {
                   'rounded-lg p-2 transition-all duration-200',
                   isActive
                     ? 'bg-accent-100 dark:bg-accent-500/20'
-                    : 'bg-primary-100 dark:bg-primary-800 group-hover:bg-primary-200 dark:group-hover:bg-primary-700'
+                    : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-neutral-200 dark:group-hover:bg-neutral-700'
                 )}>
                   <Icon className={cn(
                     'w-5 h-5 flex-shrink-0 transition-colors',
-                    isActive ? 'text-accent-600 dark:text-accent-400' : 'text-primary-500 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-white'
+                    isActive ? 'text-accent-600 dark:text-accent-400' : 'text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-white'
                   )} />
                 </div>
 
@@ -206,7 +206,7 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-primary-900 border-r border-primary-200 dark:border-primary-700 z-[70] shadow-lg"
+              className="lg:hidden fixed left-0 top-0 h-full w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 z-[70] shadow-xl"
             >
               {/* Mobile Navigation Items */}
               <nav className="flex-1 pt-16 pb-6 px-3 space-y-1 overflow-y-auto">
