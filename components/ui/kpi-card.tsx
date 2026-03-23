@@ -41,38 +41,38 @@ const iconMap = {
 
 const variantStyles = {
   default: {
-    bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    border: 'border-neutral-200 dark:border-neutral-800',
     accentBar: 'from-accent-500 to-accent-400',
   },
   success: {
-    bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-accent-200 dark:border-accent-700/50',
+    border: 'border-accent-200 dark:border-accent-800/50',
     accentBar: 'from-accent-500 to-accent-400',
   },
   warning: {
-    bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-amber-100 dark:bg-amber-500/20',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-amber-100 dark:bg-amber-500/25',
     iconColor: 'text-amber-600 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-700/50',
+    border: 'border-amber-200 dark:border-amber-800/50',
     accentBar: 'from-amber-500 to-amber-400',
   },
   danger: {
-    bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-danger-100 dark:bg-danger-500/20',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-danger-100 dark:bg-danger-500/25',
     iconColor: 'text-danger-600 dark:text-danger-400',
-    border: 'border-danger-200 dark:border-danger-700/50',
+    border: 'border-danger-200 dark:border-danger-800/50',
     accentBar: 'from-danger-500 to-danger-400',
   },
   primary: {
-    bg: 'bg-white dark:bg-neutral-900/80',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
+    bg: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-neutral-200 dark:border-neutral-700',
+    border: 'border-neutral-200 dark:border-neutral-800',
     accentBar: 'from-accent-500 to-accent-400',
   },
 }
@@ -156,7 +156,7 @@ export function KPICard({
         'transition-all duration-200 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
-        'hover:border-accent-200 dark:hover:border-accent-700/50',
+        'hover:border-accent-300 dark:hover:border-accent-600',
         className
       )}
     >
@@ -208,7 +208,7 @@ export function KPICard({
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-3xl sm:text-4xl font-bold text-primary-900 dark:text-white">
+          <h3 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white">
             {isNumeric ? (
               <AnimatedCounter
                 value={numericValue}
@@ -219,7 +219,7 @@ export function KPICard({
               value
             )}
           </h3>
-          <p className="text-xs sm:text-sm font-medium text-primary-500 dark:text-primary-400 tracking-wide">
+          <p className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-wide">
             {title}
           </p>
         </div>
@@ -234,7 +234,7 @@ export function KPICard({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="text-xs text-primary-400 dark:text-primary-500 pt-2 border-t border-primary-100 dark:border-primary-700">
+            <p className="text-xs text-neutral-500 dark:text-neutral-500 pt-2 border-t border-neutral-100 dark:border-neutral-800">
               {subtitle || trend?.label}
             </p>
           </motion.div>
