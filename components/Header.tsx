@@ -68,18 +68,18 @@ export default function Header() {
   }, [lastScrollY])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-primary-200 dark:border-primary-700 bg-white/95 dark:bg-primary-900/95 backdrop-blur-md shadow-sm dark:shadow-none transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-sm transition-transform duration-300 ${scrollDirection === 'down' ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'}`}>
       {/* Desktop: Logo section - fixed width to match sidebar */}
-      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-primary-50 dark:bg-primary-800/50 flex-shrink-0 border-r border-primary-200 dark:border-primary-700">
+      <div className="hidden lg:flex items-center w-64 h-full px-7 bg-neutral-50 dark:bg-neutral-900 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-800">
         <Link href="/" className="flex items-center gap-3.5 group">
           <div className="relative bg-accent-500 hover:bg-accent-600 rounded-xl p-2.5 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
             <ClipboardCheck className="w-5 h-5 text-white" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <h1 className="text-xl font-extrabold text-primary-900 dark:text-white tracking-tight leading-none">
+            <h1 className="text-xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-none">
               LodgeIQ
             </h1>
-            <p className="text-[10px] text-primary-500 dark:text-primary-400 font-medium tracking-wide leading-tight">
+            <p className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium tracking-wide leading-tight">
               Property Inspection & Compliance
             </p>
           </div>
