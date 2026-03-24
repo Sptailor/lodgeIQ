@@ -17,26 +17,26 @@
 }
 
 .dark {
-  /* Dark Mode - Slate Professional with Enhanced Contrast */
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --surface: #1e293b;
-  --card: #1e293b;
-  --border: #475569;
-  --primary: #94a3b8;
-  --primary-light: #cbd5e1;
-  --accent: #2dd4bf;
-  --accent-light: #5eead4;
+  /* Dark Mode - Unified True Black for OLED & High Contrast */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --surface: #141414;
+  --card: #141414;
+  --border: #262626;
+  --primary: #a3a3a3;
+  --primary-light: #d4d4d4;
+  --accent: #22c55e;
+  --accent-light: #4ade80;
   --highlight: #fbbf24;
 
   /* Enhanced dark mode colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-subtle: #334155;
-  --border-default: #475569;
-  --surface-elevated: #1e293b;
-  --surface-overlay: rgba(30, 41, 59, 0.95);
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+  --border-subtle: #1f1f1f;
+  --border-default: #262626;
+  --surface-elevated: #1a1a1a;
+  --surface-overlay: rgba(20, 20, 20, 0.95);
 }
 
 body {
