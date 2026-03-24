@@ -56,7 +56,7 @@ export default function RootLayout({
                 </main>
 
                 {/* Enhanced footer */}
-                <footer className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-t border-neutral-200 dark:border-neutral-800/50">
+                <footer className="bg-white dark:bg-neutral-950 border-t border-neutral-200 dark:border-neutral-800">
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400">
                       <p>© 2026 LodgeIQ. All rights reserved.</p>

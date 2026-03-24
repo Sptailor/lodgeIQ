@@ -1330,24 +1330,24 @@ textarea:focus-visible,
 /* Better divider contrast */
 .dark hr,
 .dark .divider {
-  border-color: #334155;
+  border-color: #262626;
 }
 
 /* Improved code block contrast */
 .dark code,
 .dark pre {
-  background: rgba(0, 0, 0, 0.3);
-  border-color: #334155;
+  background: #0f0f0f;
+  border-color: #262626;
 }
 
 /* Table contrast improvements */
 .dark th {
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.05);
+  color: #fafafa;
+  background: #141414;
 }
 
 .dark tr:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: #1a1a1a;
 }
 
 /* Alert/notification contrast */
