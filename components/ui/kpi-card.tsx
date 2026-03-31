@@ -42,38 +42,43 @@ const iconMap = {
 const variantStyles = {
   default: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-neutral-200 dark:border-neutral-800',
-    accentBar: 'from-accent-500 to-accent-400',
+    border: 'border-neutral-200/80 dark:border-neutral-800',
+    accentBar: 'from-accent-500 via-accent-400 to-accent-500',
+    glow: 'group-hover:shadow-accent-500/20 dark:group-hover:shadow-accent-500/10',
   },
   success: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-accent-200 dark:border-accent-800/50',
-    accentBar: 'from-accent-500 to-accent-400',
+    border: 'border-accent-200/80 dark:border-accent-800/50',
+    accentBar: 'from-accent-500 via-accent-400 to-accent-500',
+    glow: 'group-hover:shadow-accent-500/25 dark:group-hover:shadow-accent-500/15',
   },
   warning: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-amber-100 dark:bg-amber-500/25',
+    iconBg: 'bg-amber-100 dark:bg-amber-500/20',
     iconColor: 'text-amber-600 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-800/50',
-    accentBar: 'from-amber-500 to-amber-400',
+    border: 'border-amber-200/80 dark:border-amber-800/50',
+    accentBar: 'from-amber-500 via-amber-400 to-amber-500',
+    glow: 'group-hover:shadow-amber-500/25 dark:group-hover:shadow-amber-500/15',
   },
   danger: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-danger-100 dark:bg-danger-500/25',
+    iconBg: 'bg-danger-100 dark:bg-danger-500/20',
     iconColor: 'text-danger-600 dark:text-danger-400',
-    border: 'border-danger-200 dark:border-danger-800/50',
-    accentBar: 'from-danger-500 to-danger-400',
+    border: 'border-danger-200/80 dark:border-danger-800/50',
+    accentBar: 'from-danger-500 via-danger-400 to-danger-500',
+    glow: 'group-hover:shadow-danger-500/25 dark:group-hover:shadow-danger-500/15',
   },
   primary: {
     bg: 'bg-white dark:bg-neutral-900',
-    iconBg: 'bg-accent-100 dark:bg-accent-500/25',
+    iconBg: 'bg-accent-100 dark:bg-accent-500/20',
     iconColor: 'text-accent-600 dark:text-accent-400',
-    border: 'border-neutral-200 dark:border-neutral-800',
-    accentBar: 'from-accent-500 to-accent-400',
+    border: 'border-neutral-200/80 dark:border-neutral-800',
+    accentBar: 'from-accent-500 via-accent-400 to-accent-500',
+    glow: 'group-hover:shadow-accent-500/20 dark:group-hover:shadow-accent-500/10',
   },
 }
 
@@ -143,40 +148,45 @@ export function KPICard({
       ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileTap={{ scale: 0.99 }}
+      whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={() => !href && setIsExpanded(!isExpanded)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={tiltStyle}
       className={cn(
-        'group relative rounded-xl border overflow-hidden',
+        'group relative rounded-2xl border overflow-hidden',
         styles.bg,
-        'shadow-sm hover:shadow-md',
-        'transition-all duration-200 touch-manipulation',
+        'shadow-md hover:shadow-xl',
+        styles.glow,
+        'transition-all duration-300 touch-manipulation',
         href ? 'cursor-pointer' : 'cursor-pointer sm:cursor-default',
         styles.border,
-        'hover:border-accent-300 dark:hover:border-accent-600',
+        'hover:border-accent-400 dark:hover:border-accent-500',
         className
       )}
     >
       {/* Top accent line with gradient */}
       <div className={cn('h-1 bg-gradient-to-r', styles.accentBar)} />
 
-      <div className="relative p-4 sm:p-5 space-y-3 sm:space-y-4">
+      {/* Subtle inner glow on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent-500/0 via-transparent to-accent-500/0 group-hover:from-accent-500/5 group-hover:to-accent-400/5 transition-all duration-300 pointer-events-none" />
+
+      <div className="relative p-5 sm:p-6 space-y-3 sm:space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            {/* Icon */}
+            {/* Icon with glow effect */}
             <motion.div
               whileHover={{ rotate: [0, -10, 10, 0] }}
               transition={{ duration: 0.5 }}
               className={cn(
-                'rounded-lg p-2.5 transition-all duration-300',
-                'group-hover:shadow-md group-hover:scale-110',
+                'rounded-xl p-3 transition-all duration-300',
+                'group-hover:shadow-lg group-hover:scale-105',
+                'ring-1 ring-inset ring-white/10',
                 styles.iconBg
               )}
             >
-              <Icon className={cn('w-5 h-5 transition-colors duration-300', styles.iconColor)} />
+              <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300', styles.iconColor)} />
             </motion.div>
 
             {/* Mobile expand indicator */}
@@ -207,8 +217,8 @@ export function KPICard({
           )}
         </div>
 
-        <div className="space-y-1">
-          <h3 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white">
+        <div className="space-y-1.5">
+          <h3 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
             {isNumeric ? (
               <AnimatedCounter
                 value={numericValue}
@@ -219,7 +229,7 @@ export function KPICard({
               value
             )}
           </h3>
-          <p className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-wide">
+          <p className="text-xs sm:text-sm font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
             {title}
           </p>
         </div>
