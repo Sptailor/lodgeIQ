@@ -182,6 +182,22 @@ const config: Config = {
         'accent-sm': '0 2px 8px rgba(34, 197, 94, 0.15)',
         'accent': '0 4px 16px rgba(34, 197, 94, 0.2)',
         'accent-lg': '0 8px 24px rgba(34, 197, 94, 0.25)',
+
+        // Premium depth shadows
+        'depth-sm': '0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.08)',
+        'depth': '0 4px 8px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.1)',
+        'depth-lg': '0 8px 16px rgba(0, 0, 0, 0.08), 0 16px 32px rgba(0, 0, 0, 0.12)',
+        'depth-xl': '0 12px 24px rgba(0, 0, 0, 0.1), 0 24px 48px rgba(0, 0, 0, 0.15)',
+
+        // Dark mode optimized shadows with accent glow
+        'dark-card': '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.05)',
+        'dark-elevated': '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.08)',
+        'dark-glow': '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(34, 197, 94, 0.1)',
+        'dark-glow-lg': '0 12px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(34, 197, 94, 0.15)',
+
+        // Interactive hover shadows
+        'hover-lift': '0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)',
+        'hover-glow': '0 10px 30px rgba(0, 0, 0, 0.12), 0 0 20px rgba(34, 197, 94, 0.15)',
       },
       borderRadius: {
         'xl': '0.875rem',
