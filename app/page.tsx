@@ -231,33 +231,52 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Hero Header - Clean Glass UI */}
-      <div className="relative overflow-hidden bg-white dark:bg-neutral-900 rounded-xl sm:rounded-2xl p-5 sm:p-7 border border-neutral-200 dark:border-neutral-800 shadow-md">
-        {/* Accent bar - vibrant green gradient */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
+      {/* Hero Header - Premium Glass UI */}
+      <div className="relative overflow-hidden bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-lg dark:shadow-2xl dark:shadow-accent-500/5">
+        {/* Premium gradient border effect */}
+        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-accent-500 via-accent-400 to-accent-500 opacity-0 dark:opacity-100 -z-10 blur-sm"></div>
+        <div className="absolute inset-[1px] rounded-2xl sm:rounded-3xl bg-white dark:bg-neutral-900 -z-5"></div>
 
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-accent-400/5 pointer-events-none"></div>
+        {/* Top accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-400 to-accent-600"></div>
 
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        {/* Ambient glow */}
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent-500/20 dark:bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent-400/15 dark:bg-accent-400/5 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-1 sm:mb-2">
-              Dashboard
-            </h1>
-            <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
-              High-level overview of your operations
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+                Dashboard
+              </h1>
+              <span className="hidden sm:inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-accent-500 text-white rounded-full shadow-lg shadow-accent-500/30">
+                Pro
+              </span>
+            </div>
+            <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base font-medium">
+              Real-time overview of your property operations
             </p>
           </div>
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-accent-50 dark:bg-accent-900/20 rounded-full border border-accent-200/50 dark:border-accent-700/30">
-            <div className="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></div>
-            <span className="text-xs font-medium text-accent-700 dark:text-accent-400">Live</span>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+              <div className="relative">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent-500"></div>
+                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-accent-500 animate-ping"></div>
+              </div>
+              <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">Live</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Summary Metrics with staggered animation */}
       <div>
-        <h2 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-4 uppercase tracking-wide">Key Metrics</h2>
+        <div className="flex items-center gap-3 mb-5">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent"></div>
+          <h2 className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">Key Metrics</h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent"></div>
+        </div>
         <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         <StaggerItem>
           <KPICard
@@ -322,24 +341,27 @@ export default async function DashboardPage() {
       {/* Alerts & Notifications */}
       <DashboardAlerts alerts={alerts} />
 
-      {/* Recent Activity Feed - Glass UI with scroll reveal */}
+      {/* Recent Activity Feed - Premium Glass UI with scroll reveal */}
       <ScrollReveal direction="up" delay={0.1}>
-        <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl sm:rounded-2xl p-5 sm:p-7 shadow-md">
-          {/* Accent bar - vibrant green gradient */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-500 to-accent-400"></div>
+        <div className="relative overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg dark:shadow-2xl dark:shadow-accent-500/5">
+          {/* Premium gradient border effect */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-600 via-accent-400 to-accent-600"></div>
 
-          <div className="mb-5 sm:mb-6 flex items-center justify-between">
+          {/* Ambient glow */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-accent-500/10 dark:bg-accent-500/5 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-1 tracking-tight">
               Recent Activity
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               Latest inspection activity across all properties
             </p>
           </div>
           <Link
             href="/reports"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 rounded-lg transition-colors duration-200"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 bg-accent-50 dark:bg-accent-500/10 hover:bg-accent-100 dark:hover:bg-accent-500/20 rounded-xl border border-accent-200 dark:border-accent-500/20 transition-all duration-200"
           >
             View all
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
