@@ -57,7 +57,7 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Floating Toggle Button - Only visible when collapsed */}
+      {/* Floating Toggle Button - Premium styled */}
       <motion.button
         onClick={() => setIsCollapsed(!isCollapsed)}
         initial={false}
@@ -72,10 +72,11 @@ export function Sidebar() {
         }}
         className={cn(
           'hidden lg:flex fixed left-4 top-20 z-50 items-center justify-center w-12 h-12',
-          'rounded-lg bg-white dark:bg-primary-800',
-          'border border-primary-200 dark:border-primary-600',
+          'rounded-xl bg-white dark:bg-neutral-900',
+          'border border-neutral-200 dark:border-neutral-700',
           'hover:border-accent-400 dark:hover:border-accent-500',
-          'shadow-md hover:shadow-lg',
+          'shadow-lg hover:shadow-xl dark:shadow-2xl',
+          'hover:shadow-accent-500/10 dark:hover:shadow-accent-500/20',
           'group',
           !isCollapsed && 'pointer-events-none'
         )}
@@ -85,9 +86,9 @@ export function Sidebar() {
       >
         {/* Menu icon */}
         <div className="flex flex-col gap-1.5 w-5">
-          <div className="h-0.5 w-full bg-primary-500 dark:bg-primary-400 rounded-full group-hover:bg-accent-500 transition-colors" />
-          <div className="h-0.5 w-full bg-primary-500 dark:bg-primary-400 rounded-full group-hover:bg-accent-500 transition-colors" />
-          <div className="h-0.5 w-full bg-primary-500 dark:bg-primary-400 rounded-full group-hover:bg-accent-500 transition-colors" />
+          <div className="h-0.5 w-full bg-neutral-400 dark:bg-neutral-500 rounded-full group-hover:bg-accent-500 transition-colors duration-200" />
+          <div className="h-0.5 w-3/4 bg-neutral-400 dark:bg-neutral-500 rounded-full group-hover:bg-accent-500 transition-colors duration-200 delay-75" />
+          <div className="h-0.5 w-full bg-neutral-400 dark:bg-neutral-500 rounded-full group-hover:bg-accent-500 transition-colors duration-200 delay-150" />
         </div>
       </motion.button>
 
@@ -102,29 +103,29 @@ export function Sidebar() {
           stiffness: 300,
           damping: 30,
         }}
-        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 z-40 shadow-lg"
+        className="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 z-40 shadow-xl dark:shadow-2xl"
       >
-        {/* Close Button */}
+        {/* Close Button - Premium styled */}
         <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
           <button
             onClick={() => setIsCollapsed(true)}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all group bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 group bg-neutral-50 dark:bg-neutral-900 hover:bg-accent-50 dark:hover:bg-accent-500/10 border border-neutral-200 dark:border-neutral-800 hover:border-accent-300 dark:hover:border-accent-500/30"
             title="Collapse sidebar"
           >
-            <span className="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-300 group-hover:text-primary-900 dark:group-hover:text-white transition-colors">
-              Menu
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+              Navigation
             </span>
 
             {/* Close icon (X) */}
             <div className="relative w-5 h-5">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-primary-400 dark:bg-primary-500 rounded-full rotate-45 group-hover:bg-accent-500 transition-colors" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-primary-400 dark:bg-primary-500 rounded-full -rotate-45 group-hover:bg-accent-500 transition-colors" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-400 dark:bg-neutral-500 rounded-full rotate-45 group-hover:bg-accent-500 transition-colors" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-0.5 bg-neutral-400 dark:bg-neutral-500 rounded-full -rotate-45 group-hover:bg-accent-500 transition-colors" />
             </div>
           </button>
         </div>
 
-        {/* Navigation Items */}
-        <nav className="flex-1 py-4 px-4 space-y-1 overflow-y-auto">
+        {/* Navigation Items - Premium styling */}
+        <nav className="flex-1 py-5 px-4 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')
@@ -134,22 +135,25 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group',
+                  'relative flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold transition-all duration-200 group',
                   isActive
-                    ? 'bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white'
+                    ? 'bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400 shadow-sm'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 hover:text-neutral-900 dark:hover:text-white'
                 )}
               >
-                {/* Active indicator */}
+                {/* Active indicator with glow */}
                 {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-accent-500 rounded-r-full" />
+                  <>
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent-500 rounded-r-full shadow-lg shadow-accent-500/50" />
+                    <div className="absolute inset-0 rounded-xl bg-accent-500/5 dark:bg-accent-500/5 pointer-events-none" />
+                  </>
                 )}
 
                 <div className={cn(
-                  'rounded-lg p-2 transition-all duration-200',
+                  'rounded-xl p-2.5 transition-all duration-200',
                   isActive
-                    ? 'bg-accent-100 dark:bg-accent-500/20'
-                    : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-neutral-200 dark:group-hover:bg-neutral-700'
+                    ? 'bg-accent-100 dark:bg-accent-500/20 shadow-sm'
+                    : 'bg-neutral-100 dark:bg-neutral-800 group-hover:bg-neutral-200 dark:group-hover:bg-neutral-700 group-hover:shadow-sm'
                 )}>
                   <Icon className={cn(
                     'w-5 h-5 flex-shrink-0 transition-colors',
@@ -158,12 +162,19 @@ export function Sidebar() {
                 </div>
 
                 {!isCollapsed && (
-                  <span className="truncate">{item.label}</span>
+                  <span className="truncate tracking-wide">{item.label}</span>
+                )}
+
+                {/* Hover arrow indicator */}
+                {!isActive && !isCollapsed && (
+                  <svg className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 )}
 
                 {/* Tooltip for collapsed state */}
                 {isCollapsed && (
-                  <div className="absolute left-full ml-4 px-3 py-2 bg-primary-900 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-opacity duration-200 shadow-lg z-50">
+                  <div className="absolute left-full ml-4 px-3 py-2 bg-neutral-900 text-white text-xs font-semibold rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-opacity duration-200 shadow-xl z-50">
                     {item.label}
                   </div>
                 )}
@@ -171,6 +182,11 @@ export function Sidebar() {
             )
           })}
         </nav>
+
+        {/* Bottom accent line */}
+        <div className="px-4 pb-4">
+          <div className="h-px bg-gradient-to-r from-transparent via-accent-500/30 to-transparent"></div>
+        </div>
       </motion.aside>
 
       {/* Mobile Hamburger Button */}
