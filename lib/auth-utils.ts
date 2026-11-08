@@ -43,16 +43,3 @@ export function toErrorResponse(e: unknown) {
   console.error('API error:', e instanceof Error ? e.message : e)
   return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })
 }
-
-// Kept only until the old API routes are removed in the next step.
-export const getCurrentUser = requireUser
-export async function canCreateInspection(): Promise<boolean> {
-  const session = await auth()
-  return !!session?.user && !session.user.isDemo && ['INSPECTOR', 'ADMIN'].includes(session.user.role)
-}
-export async function canModifyInspection(inspectorId: string): Promise<boolean> {
-  const session = await auth()
-  if (!session?.user || session.user.isDemo) return false
-  if (session.user.role === 'ADMIN') return true
-  return session.user.role === 'INSPECTOR' && session.user.id === inspectorId
-}
