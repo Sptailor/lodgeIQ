@@ -2,7 +2,7 @@
 
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { HOME } from '@/lib/domain/sample-data'
-import { GlobeEngine, type GlobeChange, type GlobeData, type GlobeProperty } from './globe-engine'
+import { GlobeEngine, type EngineOptions, type GlobeChange, type GlobeData, type GlobeProperty } from './globe-engine'
 
 export type GlobeHandle = {
   goCountry: (code: string) => void
@@ -38,7 +38,8 @@ export const Globe = forwardRef<GlobeHandle, {
   label: string
   initial?: { country?: string; property?: string }
   onChange?: (c: GlobeChange) => void
-}>(function Globe({ properties, label, initial, onChange }, ref) {
+  options?: Partial<EngineOptions>
+}>(function Globe({ properties, label, initial, onChange, options }, ref) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const engineRef = useRef<GlobeEngine | null>(null)
   const onChangeRef = useRef(onChange)
@@ -52,6 +53,7 @@ export const Globe = forwardRef<GlobeHandle, {
     if (!canvas) return
     const engine = new GlobeEngine(canvas, {
       home: HOME,
+      ...options,
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       onChange: (c) => onChangeRef.current?.(c),
     })

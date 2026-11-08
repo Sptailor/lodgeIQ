@@ -1,8 +1,11 @@
 import '@/styles/landing.css'
 import { Evidence } from './evidence'
+import { GlobeSection } from './globe-section'
 import { Hero } from './hero'
+import { HowItWorks } from './how-it-works'
 import { LandingNav } from './nav'
 import { PropertyStrip } from './property-strip'
+import { Tagline } from './tagline'
 
 /** The public landing page. Every colour and class is scoped under .lp. */
 export function Landing() {
@@ -15,7 +18,10 @@ export function Landing() {
       <main id="main">
         <Hero />
         <PropertyStrip />
+        <Tagline />
         <Evidence />
+        <HowItWorks />
+        <GlobeSection />
       </main>
     </div>
   )

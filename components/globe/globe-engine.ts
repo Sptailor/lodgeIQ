@@ -59,6 +59,22 @@ export const APP_THEME: GlobeTheme = {
   labelWarnLight: '#A16207',
 }
 
+/** Colours for the landing page (teal and amber on black). */
+export const LANDING_THEME: GlobeTheme = {
+  good: '47,198,201',
+  warn: '240,178,62',
+  goodHex: '#2FC6C9',
+  warnHex: '#F0B23E',
+  sphereFill: '#181818',
+  sphereStroke: '#313131',
+  pinOutline: '#000000',
+  labelBg: 'rgba(31,31,31,0.94)',
+  labelGood: '#2FC6C9',
+  labelWarn: '#F0B23E',
+  labelGoodLight: '#0B7378',
+  labelWarnLight: '#A16207',
+}
+
 export type GlobeChange = { level: string; sel: string | null }
 
 export type EngineOptions = {
