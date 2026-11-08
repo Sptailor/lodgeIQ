@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { useAppState } from './AppState'
+import { CommandPalette } from './CommandPalette'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 
@@ -17,6 +19,24 @@ export function useMainRef() {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement>(null)
   const pathname = usePathname()
+  const { ui } = useAppState()
+
+  // Ctrl K (or Cmd K) toggles search. Escape closes the top most overlay: activity, search, then plan a visit.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        ui.setPaletteOpen(!ui.paletteOpen)
+        return
+      }
+      if (e.key !== 'Escape') return
+      if (ui.bellOpen) ui.setBellOpen(false)
+      else if (ui.paletteOpen) ui.setPaletteOpen(false)
+      else if (ui.planFor) ui.closePlan()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [ui])
 
   // Start each page at the top.
   useEffect(() => {
@@ -33,6 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {children}
           </main>
         </div>
+        <CommandPalette />
       </div>
     </MainRefContext.Provider>
   )
