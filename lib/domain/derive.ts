@@ -39,6 +39,9 @@ export const portfolioAverage = (props: Property[]): number =>
 
 export const checkName = (i: number): string => CHECKS[i].name
 
+/** A photo that can be shown as an image: a path in the app or an uploaded https URL. Demo placeholder tiles are not. */
+export const isImageUrl = (u: unknown): u is string => typeof u === 'string' && (u.startsWith('/') || u.startsWith('https://'))
+
 /** The line shown for a property in Needs you, and on the globe card. */
 export function why(p: Property, now: Date): string {
   const l = latest(p)
@@ -63,7 +66,7 @@ export type ApplyResult = {
  * - One whose check is now "needs work" stays open with an "improved" note.
  * - One whose check failed again stays open with a "failed again" note.
  * - Every failed check without a not-done follow up opens a new one.
- * `photos[i]` holds the photo URLs added to check i (an empty string is a placeholder).
+ * `photos[i]` holds the photos added to check i. Placeholder tiles are skipped.
  */
 export function applyInspection(
   followUps: FollowUp[],
@@ -100,7 +103,7 @@ export function applyInspection(
       propertyId,
       checkIndex: i,
       text: `${CHECKS[i].name} failed today. The photos are attached.`,
-      photo: (photos[i] ?? []).find(Boolean) ?? null,
+      photo: (photos[i] ?? []).find(isImageUrl) ?? null,
       status: 'open',
       owner: null,
       due: addDays(now, 7).toISOString(),

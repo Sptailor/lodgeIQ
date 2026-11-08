@@ -16,7 +16,7 @@
 import { createContext, useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { ACTOR_COLORS, SAMPLE_ACTIVITY } from '@/lib/domain/sample-data'
 import { startOfUtcDay, weekdayDayMonth } from '@/lib/domain/format'
-import { applyInspection, latest, submitBanner } from '@/lib/domain/derive'
+import { applyInspection, isImageUrl, latest, submitBanner } from '@/lib/domain/derive'
 import { fullScore } from '@/lib/domain/checks'
 import type { Check, FollowUp, InspectionSummary, Note, Person, PortfolioSnapshot, Property, Visit } from '@/lib/domain/types'
 
@@ -290,7 +290,7 @@ export function AppStateProvider({ snapshot, children }: { snapshot: PortfolioSn
       inspection,
       followUps: propertyFollowUps,
       banner: submitBanner(inspection.score, previousScore, counts),
-      photo: p.photo ? null : (photos.flat().find(Boolean) ?? null),
+      photo: p.photo ? null : (photos.flat().find(isImageUrl) ?? null),
     })
     const improved = inspection.score > previousScore
     if (improved && !reducedMotion) {
