@@ -1,154 +1,58 @@
 /**
- * Authentication & Authorization Utilities
+ * Access helpers for server components and API routes.
  *
- * Helper functions for checking user roles and permissions
- *
- * AUTHENTICATION TEMPORARILY DISABLED FOR TESTING
- * Set AUTH_DISABLED to false to enable authentication
+ * - requireUser(): any signed in user, including the demo account.
+ * - requireWriter(): a signed in user who may change data. The demo account may not.
  */
 
+import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
-import { UserRole } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
 
-// TEMPORARY: Disable auth for testing - Set to false to enable auth
-const AUTH_DISABLED = true
-
-/**
- * Get the current session
- * Returns null if not authenticated
- */
-export async function getSession() {
-  if (AUTH_DISABLED) {
-    // Return mock session for testing
-    const defaultUser = await prisma.user.findUnique({
-      where: { email: 'john.doe@lodgeiq.com' },
-    })
-    if (defaultUser) {
-      return {
-        user: {
-          id: defaultUser.id,
-          email: defaultUser.email,
-          name: defaultUser.name,
-          image: defaultUser.image,
-          role: defaultUser.role,
-        },
-      }
-    }
-    return null
+export class HttpError extends Error {
+  status: number
+  constructor(status: number, message: string) {
+    super(message)
+    this.status = status
   }
+}
+
+/** The current session, or null when signed out. */
+export async function getSession() {
   return await auth()
 }
 
-/**
- * Get the current user
- * Throws error if not authenticated (unless AUTH_DISABLED)
- */
-export async function getCurrentUser() {
-  const session = await getSession()
-  if (!session?.user) {
-    throw new Error('Not authenticated')
-  }
+/** The signed in user. Throws a 401 when signed out. */
+export async function requireUser() {
+  const session = await auth()
+  if (!session?.user) throw new HttpError(401, 'Sign in to continue')
   return session.user
 }
 
-/**
- * Check if user has a specific role
- */
-export async function hasRole(role: UserRole): Promise<boolean> {
-  const session = await getSession()
-  return session?.user?.role === role
-}
-
-/**
- * Check if user is an inspector
- */
-export async function isInspector(): Promise<boolean> {
-  return hasRole('INSPECTOR')
-}
-
-/**
- * Check if user is a manager
- */
-export async function isManager(): Promise<boolean> {
-  return hasRole('MANAGER')
-}
-
-/**
- * Check if user is an admin
- */
-export async function isAdmin(): Promise<boolean> {
-  return hasRole('ADMIN')
-}
-
-/**
- * Require authentication
- * Throws error if not authenticated
- */
-export async function requireAuth() {
-  const user = await getCurrentUser()
+/** A signed in user who may write data. Throws a 403 for the demo account. */
+export async function requireWriter() {
+  const user = await requireUser()
+  if (user.isDemo) throw new HttpError(403, 'The demo account cannot change data')
   return user
 }
 
-/**
- * Require specific role
- * Throws error if user doesn't have the role
- */
-export async function requireRole(role: UserRole) {
-  const user = await requireAuth()
-  if (user.role !== role) {
-    throw new Error(`Required role: ${role}`)
+/** Turn a thrown error into a JSON response. */
+export function toErrorResponse(e: unknown) {
+  if (e instanceof HttpError) {
+    return NextResponse.json({ error: e.message }, { status: e.status })
   }
-  return user
+  console.error('API error:', e instanceof Error ? e.message : e)
+  return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })
 }
 
-/**
- * Require one of multiple roles
- * Throws error if user doesn't have any of the roles
- */
-export async function requireAnyRole(roles: UserRole[]) {
-  const user = await requireAuth()
-  if (!roles.includes(user.role)) {
-    throw new Error(`Required one of roles: ${roles.join(', ')}`)
-  }
-  return user
-}
-
-/**
- * Check if user can create inspections
- * Only inspectors and admins can create inspections
- */
+// Kept only until the old API routes are removed in the next step.
+export const getCurrentUser = requireUser
 export async function canCreateInspection(): Promise<boolean> {
-  const session = await getSession()
-  if (!session?.user) return false
-  return ['INSPECTOR', 'ADMIN'].includes(session.user.role)
+  const session = await auth()
+  return !!session?.user && !session.user.isDemo && ['INSPECTOR', 'ADMIN'].includes(session.user.role)
 }
-
-/**
- * Check if user can modify an inspection
- * Only the inspector who created it or admins can modify
- */
 export async function canModifyInspection(inspectorId: string): Promise<boolean> {
-  const session = await getSession()
-  if (!session?.user) return false
-
-  // Admins can modify any inspection
+  const session = await auth()
+  if (!session?.user || session.user.isDemo) return false
   if (session.user.role === 'ADMIN') return true
-
-  // Inspectors can only modify their own inspections
-  if (session.user.role === 'INSPECTOR') {
-    return session.user.id === inspectorId
-  }
-
-  return false
-}
-
-/**
- * Check if user can view all inspections
- * Managers and admins can view all inspections
- */
-export async function canViewAllInspections(): Promise<boolean> {
-  const session = await getSession()
-  if (!session?.user) return false
-  return ['MANAGER', 'ADMIN'].includes(session.user.role)
+  return session.user.role === 'INSPECTOR' && session.user.id === inspectorId
 }
