@@ -23,15 +23,22 @@ const cellStyle = (v: number): React.CSSProperties => ({
 /** A readable country name for a property. */
 const countryName = (p: Pick<Property, 'countryCode' | 'country'>) => COUNTRY_NAMES[p.countryCode] ?? p.country
 
+/** The region a property reports under. Kenya and Tanzania are grouped as East Africa. */
+const EAST_AFRICA = ['KEN', 'TZA']
+const regionOf = (p: Pick<Property, 'countryCode' | 'region'>) => (EAST_AFRICA.includes(p.countryCode) ? 'East Africa' : p.region)
+const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+
+type Row = { key: string; name: string; c: number[]; score: number; extra: number | null; open: () => void }
+
 /**
  * Four panels computed from the real inspections: trend, most failed checks, category scores, biggest changes.
- * Everything follows the scope: the whole portfolio, or one country (?country=KEN).
+ * Everything follows the scope: the whole portfolio, one region (?region=europe) or one country (?country=KEN).
+ * The scores table drills down: regions, then the countries in a region, then the properties in a country.
  */
-export function ReportsView({ initialCountry }: { initialCountry?: string }) {
+export function ReportsView({ initialRegion, initialCountry }: { initialRegion?: string; initialCountry?: string }) {
   const { state, now, isDemo, showToast, markGuide, followUpsOpenCount } = useReportState()
   const router = useRouter()
   const [range, setRange] = useState<6 | 12>(6)
-  const [country, setCountry] = useState<string>(initialCountry && state.properties.some((p) => p.countryCode === initialCountry) ? initialCountry : 'all')
   const [hover, setHover] = useState<number | null>(null)
 
   // Demo tour: opening Reports is the last step.
@@ -39,22 +46,39 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
     if (isDemo) markGuide(3)
   }, [isDemo, markGuide])
 
-  // Countries in the portfolio, by name, with how many properties each has.
+  // Regions and countries in the portfolio, by name, with how many properties each has.
+  const regions = Array.from(new Set(state.properties.map(regionOf)))
+    .map((name) => ({ id: slug(name), name, n: state.properties.filter((p) => regionOf(p) === name).length }))
+    .sort((a, b) => a.name.localeCompare(b.name))
   const countries = Array.from(new Set(state.properties.map((p) => p.countryCode)))
     .map((code) => {
       const ps = state.properties.filter((p) => p.countryCode === code)
-      return { code, name: countryName(ps[0]), n: ps.length }
+      return { code, name: countryName(ps[0]), region: regionOf(ps[0]), n: ps.length }
     })
     .sort((a, b) => a.name.localeCompare(b.name))
-  const scopeName = countries.find((c) => c.code === country)?.name ?? null
 
-  const pickCountry = (code: string) => {
-    setCountry(code)
+  // The scope. A country implies its region.
+  const startCountry = countries.find((c) => c.code === initialCountry)
+  const startRegion = startCountry ? slug(startCountry.region) : regions.find((r) => r.id === initialRegion)?.id
+  const [scope, setScope] = useState<{ region: string | null; country: string | null }>({ region: startRegion ?? null, country: startCountry?.code ?? null })
+  const region = regions.find((r) => r.id === scope.region) ?? null
+  const country = countries.find((c) => c.code === scope.country) ?? null
+  const inRegion = countries.filter((c) => !region || c.region === region.name)
+
+  const pick = (next: { region: string | null; country: string | null }) => {
+    setScope(next)
     setHover(null)
-    window.history.replaceState(null, '', code === 'all' ? '/app/reports' : `/app/reports?country=${code}`)
+    const q = next.country ? `?country=${next.country}` : next.region ? `?region=${next.region}` : ''
+    window.history.replaceState(null, '', `/app/reports${q}`)
+  }
+  const pickRegion = (id: string | null) => pick({ region: id, country: null })
+  const pickCountry = (code: string | null) => {
+    const c = countries.find((x) => x.code === code)
+    pick({ region: c ? slug(c.region) : scope.region, country: c?.code ?? null })
   }
 
-  const set = state.properties.filter((p) => country === 'all' || p.countryCode === country)
+  const scopeName = country?.name ?? region?.name ?? null
+  const set = state.properties.filter((p) => (country ? p.countryCode === country.code : region ? regionOf(p) === region.name : true))
   const avg = set.length ? set.reduce((s, p) => s + latest(p).score, 0) / set.length : 0
   const months = monthlyAverages(set, now, range)
   const known = months.filter((m) => m.value != null)
@@ -74,22 +98,28 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
     .slice(0, 5)
   const maxFail = Math.max(1, ...failCounts.map((f) => f.n))
 
-  // The scores table: countries for the whole portfolio, or the properties of the chosen country. Worst first.
+  // The scores table, worst first: regions, the countries in a region, or the properties in a country.
   const mean = (xs: number[]) => xs.reduce((t, v) => t + v, 0) / xs.length
-  const rows = scopeName
-    ? set
-        .map((p) => {
+  const group = (key: string, name: string, ps: Property[], open: () => void): Row => ({
+    key,
+    name,
+    c: [0, 1, 2].map((k) => mean(ps.map((p) => latest(p).cats[k]))),
+    score: mean(ps.map((p) => latest(p).score)),
+    extra: ps.length,
+    open,
+  })
+  const rows: Row[] = (
+    country
+      ? set.map((p) => {
           const l = latest(p)
           const prev = previous(p)
           return { key: p.id, name: p.name, c: l.cats as number[], score: l.score, extra: prev ? Math.round((l.score - prev.score) * 10) / 10 : null, open: () => router.push(`/app/properties/${p.id}`) }
         })
-        .sort((a, b) => a.score - b.score)
-    : countries
-        .map((c) => {
-          const ps = set.filter((p) => p.countryCode === c.code)
-          return { key: c.code, name: c.name, c: [0, 1, 2].map((k) => mean(ps.map((p) => latest(p).cats[k]))), score: mean(ps.map((p) => latest(p).score)), extra: ps.length, open: () => pickCountry(c.code) }
-        })
-        .sort((a, b) => a.score - b.score)
+      : region
+        ? inRegion.map((c) => group(c.code, c.name, set.filter((p) => p.countryCode === c.code), () => pickCountry(c.code)))
+        : regions.map((r) => group(r.id, r.name, set.filter((p) => regionOf(p) === r.name), () => pickRegion(r.id)))
+  ).sort((a, b) => a.score - b.score)
+  const level = country ? 'property' : region ? 'country' : 'region'
 
   const movers = set
     .flatMap((p) => {
@@ -119,7 +149,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
     const [{ jsPDF }, { default: autoTable }] = await Promise.all([import('jspdf'), import('jspdf-autotable')])
     const doc = new jsPDF()
     doc.setFontSize(18)
-    doc.text(scopeName ? `LodgeIQ report, ${scopeName}` : 'LodgeIQ report, all countries', 14, 18)
+    doc.text(`LodgeIQ report, ${scopeName ?? 'all regions'}`, 14, 18)
     doc.setFontSize(11)
     doc.text(`Average score ${avg.toFixed(1)}. ${set.length} properties, ${openFollowUps} open follow ups, ${visited}% visited in 90 days.`, 14, 26)
     autoTable(doc, {
@@ -127,7 +157,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
       head: [['Property', 'Place', 'Latest score', 'Last visit']],
       body: set.map((p) => [p.name, p.place, latest(p).score.toFixed(1), shortDate(latest(p).date)]),
     })
-    doc.save(scopeName ? `lodgeiq-report-${country.toLowerCase()}.pdf` : 'lodgeiq-report.pdf')
+    doc.save(scopeName ? `lodgeiq-report-${slug(scopeName)}.pdf` : 'lodgeiq-report.pdf')
   }
 
   const kpis = [
@@ -163,29 +193,64 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
             </button>
           ))}
         </div>
-        <nav aria-label="Scope" className="body-5 flex items-center gap-2 text-ink-2">
-          {scopeName ? (
+        <nav aria-label="Scope" className="body-5 flex flex-wrap items-center gap-2 text-ink-2">
+          {region ? (
+            <button type="button" className="crumb body-5" onClick={() => pickRegion(null)}>
+              All regions
+            </button>
+          ) : (
+            <span className="text-white" aria-current="location">
+              All regions
+            </span>
+          )}
+          {region && (
             <>
-              <button type="button" className="crumb body-5" onClick={() => pickCountry('all')}>
-                All countries
-              </button>
+              <span aria-hidden="true">/</span>
+              {country ? (
+                <button type="button" className="crumb body-5" onClick={() => pickRegion(region.id)}>
+                  {region.name}
+                </button>
+              ) : (
+                <span className="text-white" aria-current="location">
+                  {region.name}
+                </span>
+              )}
+            </>
+          )}
+          {country && (
+            <>
               <span aria-hidden="true">/</span>
               <span className="text-white" aria-current="location">
-                {scopeName}
+                {country.name}
               </span>
             </>
-          ) : (
-            <span className="text-white">All countries</span>
           )}
         </nav>
         <label className="body-5 flex items-center gap-2 text-ink-2">
-          Country
-          <select className="pick body-5" value={country} onChange={(e) => pickCountry(e.target.value)}>
-            <option value="all">All countries</option>
-            {countries.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.name} ({c.n})
+          Region
+          <select className="pick body-5" value={region?.id ?? 'all'} onChange={(e) => pickRegion(e.target.value === 'all' ? null : e.target.value)}>
+            <option value="all">All regions</option>
+            {regions.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name} ({r.n})
               </option>
+            ))}
+          </select>
+        </label>
+        <label className="body-5 flex items-center gap-2 text-ink-2">
+          Country
+          <select className="pick body-5" value={country?.code ?? 'all'} onChange={(e) => pickCountry(e.target.value === 'all' ? null : e.target.value)}>
+            <option value="all">{region ? `All of ${region.name}` : 'All countries'}</option>
+            {regions.map((r) => (
+              <optgroup key={r.id} label={r.name}>
+                {countries
+                  .filter((c) => c.region === r.name)
+                  .map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.name} ({c.n})
+                    </option>
+                  ))}
+              </optgroup>
             ))}
           </select>
         </label>
@@ -290,7 +355,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
         <section aria-labelledby="heat" className="card min-w-0 overflow-x-auto p-6" style={{ flex: '2 1 0' }}>
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <h2 id="heat" className="heading-6">
-              {scopeName ? `Properties in ${scopeName}` : 'Category scores by country'}
+              {country ? `Properties in ${country.name}` : region ? `Countries in ${region.name}` : 'Category scores by region'}
             </h2>
             <div className="caption-5 flex gap-4 text-ink-2">
               {[['rgba(255,138,122,.32)', 'Below 3.0'], ['rgba(255,197,107,.24)', '3.0 to 3.4'], ['rgba(255,255,255,.12)', '3.5 and above']].map(([bg, t]) => (
@@ -305,7 +370,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
             <thead>
               <tr>
                 <th scope="col" className="caption-3 py-1 text-left text-ink-2">
-                  {scopeName ? 'Property' : 'Country'}
+                  {level === 'property' ? 'Property' : level === 'country' ? 'Country' : 'Region'}
                 </th>
                 {CATS.map((c) => (
                   <th key={c} scope="col" className="caption-3 text-ink-2">
@@ -316,7 +381,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
                   Score
                 </th>
                 <th scope="col" className="caption-3 text-ink-2">
-                  {scopeName ? 'Change' : 'Properties'}
+                  {level === 'property' ? 'Change' : 'Properties'}
                 </th>
               </tr>
             </thead>
@@ -331,7 +396,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
                         e.stopPropagation()
                         r.open()
                       }}
-                      aria-label={scopeName ? `Open ${r.name}` : `Show the properties in ${r.name}`}
+                      aria-label={level === 'property' ? `Open ${r.name}` : level === 'country' ? `Show the properties in ${r.name}` : `Show the countries in ${r.name}`}
                     >
                       {r.name}
                     </button>
@@ -342,7 +407,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
                     </td>
                   ))}
                   <td className="body-4 text-center">{r.score.toFixed(1)}</td>
-                  {scopeName ? (
+                  {level === 'property' ? (
                     <td className="body-6 text-center" style={{ color: r.extra == null || r.extra === 0 ? 'rgba(255,255,255,.72)' : r.extra > 0 ? COLORS.pass : COLORS.failInk }}>
                       {r.extra == null ? 'First visit' : r.extra === 0 ? '0.0' : `${r.extra > 0 ? '+' : ''}${r.extra.toFixed(1)}`}
                     </td>
