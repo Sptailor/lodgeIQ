@@ -7,9 +7,10 @@ import { useAppState } from '@/components/app/AppState'
 import { CATS, CHECKS } from '@/lib/domain/checks'
 import { attn, COLORS, daysSince, latest, previous } from '@/lib/domain/derive'
 import { shortDate } from '@/lib/domain/format'
+import { COUNTRY_NAMES } from '@/lib/domain/sample-data'
 import { monthlyAverages } from '@/lib/domain/selectors'
+import type { Property } from '@/lib/domain/types'
 
-const EAST_AFRICA = ['KEN', 'TZA']
 const REGION_ORDER = ['Kenya', 'Tanzania', 'Europe', 'Asia Pacific', 'Americas', 'Middle East']
 
 const cellStyle = (v: number): React.CSSProperties => ({
@@ -20,12 +21,18 @@ const cellStyle = (v: number): React.CSSProperties => ({
   background: v < 3 ? 'rgba(255,138,122,.32)' : v < 3.5 ? 'rgba(255,197,107,.24)' : 'rgba(255,255,255,.12)',
 })
 
-/** Four panels computed from the real inspections: trend, most failed checks, categories by region, biggest changes. */
-export function ReportsView() {
+/** A readable country name for a property. */
+const countryName = (p: Pick<Property, 'countryCode' | 'country'>) => COUNTRY_NAMES[p.countryCode] ?? p.country
+
+/**
+ * Four panels computed from the real inspections: trend, most failed checks, category scores, biggest changes.
+ * Everything follows the scope: the whole portfolio, or one country (?country=KEN).
+ */
+export function ReportsView({ initialCountry }: { initialCountry?: string }) {
   const { state, now, isDemo, showToast, markGuide, followUpsOpenCount } = useReportState()
   const router = useRouter()
   const [range, setRange] = useState<6 | 12>(6)
-  const [region, setRegion] = useState<'all' | 'ea' | 'row'>('all')
+  const [country, setCountry] = useState<string>(initialCountry && state.properties.some((p) => p.countryCode === initialCountry) ? initialCountry : 'all')
   const [hover, setHover] = useState<number | null>(null)
 
   // Demo tour: opening Reports is the last step.
@@ -33,7 +40,22 @@ export function ReportsView() {
     if (isDemo) markGuide(3)
   }, [isDemo, markGuide])
 
-  const set = state.properties.filter((p) => region === 'all' || (region === 'ea' ? EAST_AFRICA.includes(p.countryCode) : !EAST_AFRICA.includes(p.countryCode)))
+  // Countries in the portfolio, by name, with how many properties each has.
+  const countries = Array.from(new Set(state.properties.map((p) => p.countryCode)))
+    .map((code) => {
+      const ps = state.properties.filter((p) => p.countryCode === code)
+      return { code, name: countryName(ps[0]), n: ps.length }
+    })
+    .sort((a, b) => a.name.localeCompare(b.name))
+  const scopeName = countries.find((c) => c.code === country)?.name ?? null
+
+  const pickCountry = (code: string) => {
+    setCountry(code)
+    setHover(null)
+    window.history.replaceState(null, '', code === 'all' ? '/app/reports' : `/app/reports?country=${code}`)
+  }
+
+  const set = state.properties.filter((p) => country === 'all' || p.countryCode === country)
   const avg = set.length ? set.reduce((s, p) => s + latest(p).score, 0) / set.length : 0
   const months = monthlyAverages(set, now, range)
   const known = months.filter((m) => m.value != null)
@@ -135,13 +157,32 @@ export function ReportsView() {
             </button>
           ))}
         </div>
-        <div role="group" aria-label="Region" className="flex gap-2">
-          {([['all', 'All regions'], ['ea', 'East Africa'], ['row', 'Rest of world']] as const).map(([id, label]) => (
-            <button key={id} type="button" className={chip(region === id)} aria-pressed={region === id} onClick={() => { setRegion(id); setHover(null) }}>
-              <span className="body-5">{label}</span>
-            </button>
-          ))}
-        </div>
+        <nav aria-label="Scope" className="body-5 flex items-center gap-2 text-ink-2">
+          {scopeName ? (
+            <>
+              <button type="button" className="crumb body-5" onClick={() => pickCountry('all')}>
+                All countries
+              </button>
+              <span aria-hidden="true">/</span>
+              <span className="text-white" aria-current="location">
+                {scopeName}
+              </span>
+            </>
+          ) : (
+            <span className="text-white">All countries</span>
+          )}
+        </nav>
+        <label className="body-5 flex items-center gap-2 text-ink-2">
+          Country
+          <select className="pick body-5" value={country} onChange={(e) => pickCountry(e.target.value)}>
+            <option value="all">All countries</option>
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name} ({c.n})
+              </option>
+            ))}
+          </select>
+        </label>
         <div className="ml-auto flex gap-2">
           <button type="button" className="btn btn-ghost button-sm" onClick={share}>
             Share
