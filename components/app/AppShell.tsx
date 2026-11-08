@@ -6,6 +6,7 @@ import { useAppState } from './AppState'
 import { CommandPalette } from './CommandPalette'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
+import { Confetti } from './Confetti'
 import { Toast } from './Toast'
 
 const MainRefContext = createContext<React.RefObject<HTMLElement> | null>(null)
@@ -56,6 +57,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
         <CommandPalette />
         <Toast />
+        <Confetti />
       </div>
     </MainRefContext.Provider>
   )
