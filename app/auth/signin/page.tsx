@@ -1,131 +1,89 @@
 /**
- * Sign In Page
- *
- * Authentication page with email (magic link) sign-in
- * Optional Google OAuth if configured
+ * Sign in page.
+ * One click demo, plus email and Google when they are set up.
  */
 
-import { signIn } from '@/auth'
 import { redirect } from 'next/navigation'
+import { auth, hasEmailSignIn, hasGoogleSignIn, signIn } from '@/auth'
+import { BrandMark } from '@/components/shared/brand-mark'
 
-export default function SignInPage({
-  searchParams,
-}: {
-  searchParams: { callbackUrl?: string; error?: string }
-}) {
-  const callbackUrl = searchParams.callbackUrl || '/'
+const ERRORS: Record<string, string> = {
+  OAuthAccountNotLinked: 'This email is already registered with a different sign in method.',
+  Verification: 'The sign in link has expired or was already used. Request a new one.',
+  AccessDenied: 'You do not have permission to sign in.',
+}
+
+export default async function SignInPage({ searchParams }: { searchParams: { callbackUrl?: string; error?: string } }) {
+  const session = await auth()
+  if (session?.user) redirect('/app')
+
+  const requested = searchParams.callbackUrl ?? '/app'
+  const callbackUrl = requested.startsWith('/app') ? requested : '/app'
+  const error = searchParams.error ? (ERRORS[searchParams.error] ?? 'Something went wrong while signing in. Try again.') : null
 
   return (
-    <div className="max-w-md mx-auto mt-12">
-      <div className="bg-white dark:bg-primary-800/50 border border-primary-200 dark:border-primary-700 rounded-xl p-8 shadow-sm">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-900 dark:text-white mb-2">Welcome to LodgeIQ</h1>
-          <p className="text-primary-600 dark:text-primary-400">Sign in to continue</p>
-        </div>
+    <main className="card w-full max-w-[400px] p-8">
+      <div className="flex items-center gap-2">
+        <BrandMark />
+        <span className="body-1">LodgeIQ</span>
+      </div>
+      <h1 className="heading-5 mt-8">Sign in to LodgeIQ</h1>
+      <p className="body-6 mt-2" style={{ color: 'rgba(255,255,255,.72)' }}>
+        Hotel and lodge inspections for tour operators.
+      </p>
 
-        {/* Error message */}
-        {searchParams.error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
-            <p className="text-sm text-red-700">
-              {searchParams.error === 'OAuthAccountNotLinked'
-                ? 'This email is already registered with a different sign-in method.'
-                : 'An error occurred during sign in. Please try again.'}
-            </p>
-          </div>
-        )}
+      {error && (
+        <p role="alert" className="body-6 mt-6 rounded-md p-3" style={{ background: 'rgba(255,138,122,.14)', color: '#FFC2B8' }}>
+          {error}
+        </p>
+      )}
 
-        {/* Email Sign In Form */}
+      <a href="/demo" className="btn btn-primary button-md mt-6 w-full">
+        Explore the live demo
+      </a>
+      <p className="caption-5 mt-2" style={{ color: 'rgba(255,255,255,.56)' }}>
+        No sign up and no card. Your changes stay in your browser tab.
+      </p>
+
+      {hasEmailSignIn && (
         <form
+          className="mt-8 space-y-3 border-t border-line-2 pt-6"
           action={async (formData: FormData) => {
             'use server'
-            const email = formData.get('email') as string
-            await signIn('resend', {
-              email,
-              redirectTo: callbackUrl,
-            })
+            await signIn('resend', { email: String(formData.get('email') ?? ''), redirectTo: callbackUrl })
           }}
-          className="space-y-4 mb-6"
         >
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-              Email Address
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="you@example.com"
-              className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-accent-500 hover:bg-accent-600 text-white py-3 rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
-          >
-            Continue with Email
+          <label htmlFor="email" className="body-5 block">
+            Work email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="you@company.com"
+            className="body-6 w-full rounded-md border border-line-2 bg-transparent px-4 py-3 text-ink placeholder:text-ink-3"
+          />
+          <button type="submit" className="btn btn-quiet button-md w-full">
+            Email me a sign in link
           </button>
-
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center">
-            We&apos;ll send you a magic link to sign in
-          </p>
         </form>
+      )}
 
-        {/* Google OAuth (if configured) */}
-        {process.env.GOOGLE_CLIENT_ID && (
-          <>
-            <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-neutral-300 dark:border-neutral-600" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white/90 dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-300">Or continue with</span>
-              </div>
-            </div>
-
-            <form
-              action={async () => {
-                'use server'
-                await signIn('google', { redirectTo: callbackUrl })
-              }}
-            >
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-3 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 py-3 rounded-md font-medium hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  />
-                  <path
-                    fill="currentColor"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  />
-                </svg>
-                Sign in with Google
-              </button>
-            </form>
-          </>
-        )}
-
-        {/* Info */}
-        <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center">
-            By signing in, you agree to our Terms of Service and Privacy Policy.
-          </p>
-        </div>
-      </div>
-    </div>
+      {hasGoogleSignIn && (
+        <form
+          className={hasEmailSignIn ? 'mt-3' : 'mt-8 border-t border-line-2 pt-6'}
+          action={async () => {
+            'use server'
+            await signIn('google', { redirectTo: callbackUrl })
+          }}
+        >
+          <button type="submit" className="btn btn-quiet button-md w-full">
+            Continue with Google
+          </button>
+        </form>
+      )}
+    </main>
   )
 }
