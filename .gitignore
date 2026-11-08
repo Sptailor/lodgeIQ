@@ -63,3 +63,8 @@ notes.txt
 # Documentation (exclude all .md files except README.md)
 *.md
 !README.md
+
+# Design handoff and local tool settings
+design-handoff/
+.claude/
+tsconfig.tsbuildinfo

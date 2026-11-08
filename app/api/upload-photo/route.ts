@@ -9,7 +9,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { put } from '@vercel/blob'
-import { getCurrentUser } from '@/lib/auth-utils'
+import { requireWriter, toErrorResponse, HttpError } from '@/lib/auth-utils'
 
 /**
  * POST /api/upload-photo
@@ -24,8 +24,8 @@ import { getCurrentUser } from '@/lib/auth-utils'
  */
 export async function POST(request: NextRequest) {
   try {
-    // Verify authentication
-    await getCurrentUser()
+    // Only signed in users who can write data may upload (not the demo account)
+    await requireWriter()
 
     // Parse form data
     const formData = await request.formData()
@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
 
     // Generate unique filename with timestamp
     const timestamp = Date.now()
-    const filename = `inspections/${inspectionId}/${checklistItemId}/${timestamp}-${file.name}`
+    const safe = (v: string) => v.replace(/[^a-zA-Z0-9._-]/g, '-').slice(0, 80)
+    const filename = `inspections/${safe(inspectionId)}/${safe(checklistItemId)}/${timestamp}-${safe(file.name)}`
 
     // Upload to Vercel Blob
     const blob = await put(filename, file, {
@@ -84,12 +85,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error uploading photo:', error)
 
-    // Handle authentication errors
-    if (error instanceof Error && error.message === 'Not authenticated') {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
-      )
+    // Handle access errors (signed out, or the demo account)
+    if (error instanceof HttpError) {
+      return toErrorResponse(error)
     }
 
     // Handle Vercel Blob errors
