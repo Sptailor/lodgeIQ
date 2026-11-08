@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppState } from '@/components/app/AppState'
 import { CHECK_COUNT } from '@/lib/domain/checks'
+import { DEFAULT_SAMPLE_ANSWERS, SAMPLE_ANSWERS } from '@/lib/domain/sample-data'
 import { latest } from '@/lib/domain/derive'
 import { PhoneChecklist, type Draft } from './phone-checklist'
 
@@ -14,10 +15,11 @@ const blank = (): Draft => ({ idx: 0, res: Array(CHECK_COUNT).fill(null), photos
  * Answers are kept as a draft in this browser while you work, so "Saved on this phone" is true.
  */
 export function InspectionOverlay({ id }: { id: string }) {
-  const { state, user, isDemo, ui } = useAppState()
+  const { state, user, isDemo, ui, submitInspection } = useAppState()
   const router = useRouter()
   const p = state.properties.find((x) => x.id === id)
   const [draft, setDraft] = useState<Draft>(blank)
+  const [submitting, setSubmitting] = useState(false)
   const key = `lodgeiq-draft-v1:${user.id}:${id}`
 
   // Restore a saved draft, if there is one.
@@ -40,6 +42,25 @@ export function InspectionOverlay({ id }: { id: string }) {
     } catch {
       // ignore
     }
+  }
+
+  const fillSample = () => {
+    const a = SAMPLE_ANSWERS[id] ?? DEFAULT_SAMPLE_ANSWERS
+    update({ ...draft, res: a.split(''), done: true })
+  }
+
+  const submit = async () => {
+    if (submitting) return
+    setSubmitting(true)
+    const r = await submitInspection(id, draft.res.join(''), draft.photos)
+    if (r.ok) {
+      try {
+        localStorage.removeItem(key)
+      } catch {
+        // ignore
+      }
+      router.push(`/app/properties/${id}`)
+    } else setSubmitting(false)
   }
 
   const close = () => router.push(`/app/properties/${id}`)
@@ -65,7 +86,7 @@ export function InspectionOverlay({ id }: { id: string }) {
         <p className="body-3 text-ink-2">Answer each check the way an inspector would on site at {p.name}. Answers save as you go, even without signal.</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {isDemo && (
-            <button type="button" className="btn btn-quiet button-md" onClick={() => undefined}>
+            <button type="button" className="btn btn-quiet button-md" onClick={fillSample}>
               Fill in sample answers
             </button>
           )}
@@ -75,7 +96,7 @@ export function InspectionOverlay({ id }: { id: string }) {
         </div>
         <p className="caption-5 text-ink-3">Esc also closes it. Nothing is submitted until you press Submit.</p>
       </div>
-      <PhoneChecklist propertyName={p.name} previousScore={latest(p).score} draft={draft} setDraft={update} />
+      <PhoneChecklist propertyName={p.name} previousScore={latest(p).score} draft={draft} setDraft={update} onSubmit={submit} submitting={submitting} />
     </div>
   )
 }
