@@ -27,8 +27,13 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  // Demo and planning
+  isDemo Boolean @default(false) // The shared demo account. It can never write data.
+  region String? // Area an inspector covers, for example "Kenya"
+
   // App relations
   inspections Inspection[] // Inspections created by this user
+  visits      Visit[] // Planned visits assigned to this user
 
   @@map("users")
 }
@@ -78,8 +83,8 @@ model VerificationToken {
 // Enum for user roles
 enum UserRole {
   INSPECTOR // Field inspector who performs inspections
-  MANAGER   // Manager who reviews inspections
-  ADMIN     // System administrator
+  MANAGER // Manager who reviews inspections
+  ADMIN // System administrator
 }
 
 // Hotel model - Represents properties to be inspected
@@ -98,8 +103,20 @@ model Hotel {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  // Portfolio details
+  kind              String? // For example "Tented camp"
+  sizeLabel         String? // For example "18 tents"
+  photoUrl          String?
+  countryCode       String? // ISO 3166 alpha 3, matches the globe data (KEN, TZA, ...)
+  region            String? // Kenya, Tanzania, Europe, Asia Pacific, Americas, Middle East
+  visitStandardDays Int     @default(90)
+  isSample          Boolean @default(false) // Sample data that the nightly reseed replaces
+
   // Relations
   inspections Inspection[] // All inspections for this hotel
+  followUps   FollowUp[]
+  visits      Visit[]
+  activities  Activity[]
 
   @@map("hotels")
 }
@@ -120,8 +137,8 @@ model Inspection {
   updatedAt        DateTime         @updatedAt
 
   // Relations
-  hotel            Hotel              @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  inspector        User               @relation(fields: [inspectorId], references: [id])
+  hotel             Hotel              @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  inspector         User               @relation(fields: [inspectorId], references: [id])
   inspectionResults InspectionResult[] // Individual checklist item results
 
   @@map("inspections")
@@ -130,9 +147,9 @@ model Inspection {
 // Enum for inspection status
 enum InspectionStatus {
   IN_PROGRESS // Currently being conducted
-  COMPLETED   // Finished and ready for review
-  APPROVED    // Reviewed and approved by manager
-  REJECTED    // Needs re-inspection
+  COMPLETED // Finished and ready for review
+  APPROVED // Reviewed and approved by manager
+  REJECTED // Needs re-inspection
 }
 
 // ChecklistItem model - Represents standardized checklist items
@@ -145,11 +162,14 @@ model ChecklistItem {
   weight      Float    @default(1.0) // Importance weight for scoring (1.0 = normal)
   isActive    Boolean  @default(true) // Can be disabled without deleting
   order       Int      @default(0) // Display order within category
+  slug        String?  @unique // Stable id for the seed and the UI, for example "door-locks"
+  evidence    String? // Sample evidence photo path, may be empty
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
   inspectionResults InspectionResult[] // Results from inspections using this item
+  followUps         FollowUp[]
 
   @@map("checklist_items")
 }
@@ -180,9 +200,65 @@ model InspectionResult {
 
 // Enum for checklist item results
 enum ResultStatus {
-  PENDING           // Not yet checked
-  PASS              // Meets standards
-  FAIL              // Does not meet standards
+  PENDING // Not yet checked
+  PASS // Meets standards
+  FAIL // Does not meet standards
   NEEDS_IMPROVEMENT // Acceptable but could be better
-  NOT_APPLICABLE    // Item doesn't apply to this property
+  NOT_APPLICABLE // Item doesn't apply to this property
+}
+
+// FollowUp model - Work a property owes after a check failed
+model FollowUp {
+  id              String         @id @default(cuid())
+  hotelId         String
+  checklistItemId String
+  inspectionId    String?
+  text            String
+  photoUrl        String?
+  status          FollowUpStatus @default(OPEN)
+  ownerName       String?
+  note            String?
+  dueDate         DateTime
+  closedAt        DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  hotel         Hotel         @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  checklistItem ChecklistItem @relation(fields: [checklistItemId], references: [id])
+
+  @@map("follow_ups")
+}
+
+enum FollowUpStatus {
+  OPEN // Not assigned yet
+  IN_PROGRESS // Assigned and being fixed
+  DONE // Fixed
+}
+
+// Visit model - A planned inspection visit in the schedule
+model Visit {
+  id          String   @id @default(cuid())
+  hotelId     String
+  inspectorId String
+  date        DateTime
+  createdAt   DateTime @default(now())
+
+  hotel     Hotel @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  inspector User  @relation(fields: [inspectorId], references: [id])
+
+  @@map("visits")
+}
+
+// Activity model - Recent happenings shown in the activity bell
+model Activity {
+  id            String   @id @default(cuid())
+  hotelId       String?
+  actorName     String
+  actorInitials String
+  text          String
+  createdAt     DateTime @default(now())
+
+  hotel Hotel? @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+
+  @@map("activities")
 }
