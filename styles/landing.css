@@ -30,6 +30,7 @@
 .lp .btn-quiet:hover{background:#313131;color:#FFFFFF}
 .lp .btn-light{background:#F5F5F5;color:#000000}
 .lp .btn-light:hover{background:#E5E5E5;color:#000000}
+.lp .nav-links{display:flex;gap:2px}
 .lp .navlink{color:#D4D4D4;text-decoration:none;padding:8px 12px;border-radius:9999px;transition:background-color 300ms cubic-bezier(.22,1,.36,1),color 300ms cubic-bezier(.22,1,.36,1)}
 .lp .navlink:hover{background:#272727;color:#FFFFFF}
 .lp .kb{animation:lp-kb 24000ms cubic-bezier(.22,1,.36,1) infinite alternate;transform-origin:50% 60%}

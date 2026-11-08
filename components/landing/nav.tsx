@@ -8,7 +8,7 @@ export function LandingNav() {
         <BrandMark size={24} a="#2FC6C9" b="#F0B23E" />
         <span className="body-1">LodgeIQ</span>
       </a>
-      <nav className="nav-links" aria-label="Site" style={{ display: 'flex', gap: 2 }}>
+      <nav className="nav-links" aria-label="Site">
         <a className="navlink body-5" href="#properties">Properties</a>
         <a className="navlink body-5" href="#evidence">Evidence</a>
         <a className="navlink body-5" href="#globe">Portfolio</a>
