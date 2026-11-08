@@ -3,6 +3,7 @@
 import { SearchIcon } from '@/components/shared/icon'
 import { sameUtcDay } from '@/lib/domain/format'
 import { DEMO_TEAM } from '@/lib/domain/sample-data'
+import { ActivityBell } from './ActivityBell'
 import { useAppState } from './AppState'
 
 export function Header() {
@@ -33,7 +34,7 @@ export function Header() {
       </button>
 
       <div className="ml-auto flex items-center gap-3">
-        {/* The activity bell is added in a later step. */}
+        <ActivityBell />
         {team.length > 0 && (
           <div className="mr-4 flex items-center gap-3">
             <span className="caption-2 inline-flex items-center gap-2 text-ink-2">
