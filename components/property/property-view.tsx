@@ -27,7 +27,7 @@ export function PropertyView({ id }: { id: string }) {
 
   if (!p) {
     return (
-      <div className="px-10 pb-12 pt-6">
+      <div className="px-10 pb-12 pt-6 max-md:px-4">
         <h1 className="heading-4">Property not found</h1>
         <p className="body-3 mt-2 max-w-[680px] text-ink-2">That property is not in your portfolio. It may have been removed, or the link may be wrong.</p>
         <Link href="/app/portfolio" className="btn btn-quiet button-md mt-6">
@@ -49,7 +49,7 @@ export function PropertyView({ id }: { id: string }) {
   const banner = state.banners[p.id]
 
   return (
-    <div className="fade flex flex-col gap-6 px-10 pb-16 pt-6" key={p.id}>
+    <div className="fade flex flex-col gap-6 px-10 pb-16 pt-6 max-md:px-4" key={p.id}>
       <nav aria-label="Breadcrumb" className="body-5 flex items-center gap-2 text-ink-2">
         <Link href="/app/portfolio" className="crumb body-5">
           Portfolio

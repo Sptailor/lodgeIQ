@@ -44,8 +44,8 @@ export function PortfolioView({ initial }: { initial?: { country?: string; prope
   const globeLabel = inCountry ? `Globe zoomed to ${COUNTRY_NAMES[view.level] ?? view.level}` : `Globe showing ${state.properties.length} properties in ${order.length} countries`
 
   return (
-    <div className="flex h-full min-h-[560px]">
-      <section aria-label="Portfolio list" className="scroll flex w-[360px] flex-none flex-col gap-6 overflow-y-auto p-6" style={{ borderRight: '1px solid rgba(255,255,255,.12)' }}>
+    <div className="flex h-full min-h-[560px] max-md:h-auto max-md:flex-col">
+      <section aria-label="Portfolio list" className="scroll flex w-[360px] flex-none flex-col gap-6 overflow-y-auto p-6 max-md:w-full max-md:overflow-visible max-md:p-4" style={{ borderRight: '1px solid rgba(255,255,255,.12)' }}>
         <nav aria-label="Breadcrumb" className="body-5 flex items-center gap-2 text-ink-2">
           {inCountry ? (
             <>
@@ -156,7 +156,7 @@ export function PortfolioView({ initial }: { initial?: { country?: string; prope
         )}
       </section>
 
-      <section aria-label="Globe" className="relative min-w-0 flex-1">
+      <section aria-label="Globe" className="relative min-w-0 flex-1 max-md:h-[360px] max-md:flex-none">
         <Globe ref={globe} properties={globeProps} label={globeLabel} initial={initial} onChange={setView} />
 
         <div className="absolute right-6 top-6 flex flex-col gap-2">
@@ -200,7 +200,7 @@ function DetailCard({ property: p }: { property: Property }) {
   const l = latest(p)
   const needs = attn(p, now)
   return (
-    <div className="fade absolute right-20 top-6 box-border w-[304px] overflow-hidden rounded-lg" style={{ background: '#FFFFFF', color: '#000000' }}>
+    <div className="fade absolute right-20 top-6 box-border w-[304px] max-md:inset-x-4 max-md:right-auto max-md:w-auto overflow-hidden rounded-lg" style={{ background: '#FFFFFF', color: '#000000' }}>
       {p.photo && <Image src={p.photo} alt="" width={304} height={128} className="h-32 w-full object-cover" />}
       <div className="p-4">
         <div className="flex items-center gap-3">

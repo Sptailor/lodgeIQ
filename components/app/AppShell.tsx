@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useAppState } from './AppState'
 import { CommandPalette } from './CommandPalette'
 import { Header } from './Header'
-import { Sidebar } from './Sidebar'
+import { BottomTabs, Sidebar } from './Sidebar'
 import { Confetti } from './Confetti'
 import { PlanVisitDialog } from './PlanVisitDialog'
 import { Toast } from './Toast'
@@ -50,9 +50,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <MainRefContext.Provider value={mainRef}>
       <div className="lq flex h-screen min-h-[640px] overflow-hidden bg-page tabular-nums text-ink">
         <Sidebar />
+        <BottomTabs />
         <div className="relative z-[1] flex min-w-0 flex-1 flex-col">
           <Header />
-          <main ref={mainRef} className="scroll relative min-h-0 flex-1 overflow-y-auto">
+          <main ref={mainRef} className="scroll relative min-h-0 flex-1 overflow-y-auto max-md:pb-16">
             {children}
           </main>
         </div>

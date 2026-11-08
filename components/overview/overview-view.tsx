@@ -10,7 +10,7 @@ import { WaitingOnYou } from './waiting-on-you'
 
 export function OverviewView() {
   return (
-    <div className="fade flex flex-col gap-6 px-10 pb-12 pt-6">
+    <div className="fade flex flex-col gap-6 px-10 pb-12 pt-6 max-md:px-4">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <Greeting />
         <TourPill />
