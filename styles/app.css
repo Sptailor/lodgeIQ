@@ -24,8 +24,8 @@
 .lq .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
 .lq .btn-primary{background:#FFFFFF;color:#000000}
 .lq .btn-primary:hover{background:#E5E5E5;color:#000000}
-.lq .btn-dark{background:rgba(0,0,0,.35);color:#FFFFFF}
-.lq .btn-dark:hover{background:rgba(255,255,255,.12);color:#FFFFFF}
+.lq .btn-dark{background:#000000;color:#FFFFFF}
+.lq .btn-dark:hover{background:#272727;color:#FFFFFF}
 .lq .btn-quiet{background:rgba(255,255,255,.12);color:#FFFFFF}
 .lq .btn-quiet:hover{background:rgba(255,255,255,.18);color:#FFFFFF}
 .lq .btn-onphoto{background:#FFFFFE;color:#0A0A0A}
