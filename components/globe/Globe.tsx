@@ -78,6 +78,8 @@ export const Globe = forwardRef<GlobeHandle, {
       engine.destroy()
       engineRef.current = null
     }
+    // The engine is created once. Options are read when it starts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
