@@ -96,7 +96,7 @@ export function InspectionOverlay({ id }: { id: string }) {
         </div>
         <p className="caption-5 text-ink-3">Esc also closes it. Nothing is submitted until you press Submit.</p>
       </div>
-      <PhoneChecklist propertyName={p.name} previousScore={latest(p).score} draft={draft} setDraft={update} onSubmit={submit} submitting={submitting} />
+      <PhoneChecklist propertyId={id} propertyName={p.name} previousScore={latest(p).score} draft={draft} setDraft={update} onSubmit={submit} submitting={submitting} />
     </div>
   )
 }

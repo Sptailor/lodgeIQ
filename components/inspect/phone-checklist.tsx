@@ -1,6 +1,9 @@
 'use client'
 
-import { CheckIcon } from '@/components/shared/icon'
+import { useRef, useState } from 'react'
+import Image from 'next/image'
+import { useAppState } from '@/components/app/AppState'
+import { CameraIcon, CheckIcon } from '@/components/shared/icon'
 import { ScoreSeal } from '@/components/shared/score-seal'
 import { CATS, CHECKS, RES_LABEL, scoreOf } from '@/lib/domain/checks'
 import { COLORS } from '@/lib/domain/derive'
@@ -20,6 +23,7 @@ export function PhoneChecklist({
   setDraft,
   onSubmit,
   submitting = false,
+  propertyId,
 }: {
   propertyName: string
   previousScore: number
@@ -27,7 +31,11 @@ export function PhoneChecklist({
   setDraft: (d: Draft) => void
   onSubmit?: () => void
   submitting?: boolean
+  propertyId?: string
 }) {
+  const { isDemo, reducedMotion, showToast } = useAppState()
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
   const { idx, res, done } = draft
   const cur = CHECKS[idx]
   const sc = scoreOf(res)
@@ -42,6 +50,52 @@ export function PhoneChecklist({
     if (nx >= 0) return set({ idx: nx })
     if (answered === CHECKS.length) return set({ done: true })
     set({ idx: res.findIndex((r) => !r) })
+  }
+
+  const ripple = (e: React.MouseEvent<HTMLElement>) => {
+    if (reducedMotion) return
+    const el = e.currentTarget
+    const r = el.getBoundingClientRect()
+    const dot = document.createElement('span')
+    dot.className = 'rip'
+    dot.style.left = `${e.clientX - r.left}px`
+    dot.style.top = `${e.clientY - r.top}px`
+    el.appendChild(dot)
+    setTimeout(() => dot.remove(), 800)
+  }
+
+  const addPhotoAt = (url: string) => {
+    const photos = draft.photos.map((a) => a.slice())
+    photos[idx] = [...photos[idx], url]
+    set({ photos })
+  }
+
+  const addPhoto = () => {
+    if (draft.photos[idx].length >= 3) return
+    if (isDemo) {
+      // Demo: use the evidence image for this check, or a grey placeholder tile.
+      addPhotoAt(cur.evidence ?? `placeholder:${draft.photos[idx].length + 1}`)
+    } else fileRef.current?.click()
+  }
+
+  const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file || !propertyId) return
+    setUploading(true)
+    try {
+      const body = new FormData()
+      body.append('file', file)
+      body.append('inspectionId', propertyId)
+      body.append('checklistItemId', cur.slug)
+      const r = await fetch('/api/upload-photo', { method: 'POST', body })
+      const j = await r.json().catch(() => ({}))
+      if (r.ok && j.url) addPhotoAt(j.url)
+      else showToast(j.error ?? 'The photo could not be uploaded. Try again.')
+    } catch {
+      showToast('The photo could not be uploaded. Try again.')
+    }
+    setUploading(false)
   }
 
   const label = sc.s == null ? 'No answers yet' : `Score so far ${sc.s.toFixed(1)}`
@@ -103,7 +157,8 @@ export function PhoneChecklist({
                     type="button"
                     className={`res${on ? ` res-${k}` : ''}`}
                     aria-pressed={on}
-                    onClick={() => {
+                    onClick={(e) => {
+                      ripple(e)
                       const r = res.slice()
                       r[idx] = k
                       set({ res: r })
@@ -114,6 +169,27 @@ export function PhoneChecklist({
                   </button>
                 )
               })}
+            </div>
+            <div>
+              <p className="caption-4 mb-2 text-ink-2">Photos</p>
+              <div className="flex gap-2">
+                {draft.photos[idx].map((u, i) =>
+                  u.startsWith('placeholder:') ? (
+                    <div key={u + i} className="caption-5 flex h-20 w-20 items-center justify-center rounded-lg bg-white/10 text-ink-2">
+                      Photo {u.split(':')[1]}
+                    </div>
+                  ) : (
+                    <Image key={u + i} src={u} alt={cur.alt} width={80} height={80} unoptimized={u.startsWith('http')} className="h-20 w-20 rounded-lg object-cover" />
+                  ),
+                )}
+                {draft.photos[idx].length < 3 && (
+                  <button type="button" className="photo-add" onClick={addPhoto} disabled={uploading}>
+                    <CameraIcon size={20} aria-hidden="true" />
+                    <span className="caption-4">{uploading ? 'Uploading' : 'Add photo'}</span>
+                  </button>
+                )}
+              </div>
+              <input ref={fileRef} type="file" accept="image/*" capture="environment" hidden onChange={onFile} />
             </div>
             {res[idx] === 'f' && (
               <p className="body-6 rounded-md p-3" style={{ border: `1px solid ${COLORS.fail}`, color: COLORS.failInk }}>
