@@ -11,7 +11,6 @@ import { COUNTRY_NAMES } from '@/lib/domain/sample-data'
 import { monthlyAverages } from '@/lib/domain/selectors'
 import type { Property } from '@/lib/domain/types'
 
-const REGION_ORDER = ['Kenya', 'Tanzania', 'Europe', 'Asia Pacific', 'Americas', 'Middle East']
 
 const cellStyle = (v: number): React.CSSProperties => ({
   textAlign: 'center',
@@ -75,15 +74,22 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
     .slice(0, 5)
   const maxFail = Math.max(1, ...failCounts.map((f) => f.n))
 
-  const regions = Array.from(new Set(set.map((p) => p.region))).sort((a, b) => {
-    const ia = REGION_ORDER.indexOf(a)
-    const ib = REGION_ORDER.indexOf(b)
-    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b)
-  })
-  const heat = regions.map((r) => {
-    const xs = set.filter((p) => p.region === r)
-    return { name: r, n: xs.length, c: [0, 1, 2].map((k) => xs.reduce((s, p) => s + latest(p).cats[k], 0) / xs.length) }
-  })
+  // The scores table: countries for the whole portfolio, or the properties of the chosen country. Worst first.
+  const mean = (xs: number[]) => xs.reduce((t, v) => t + v, 0) / xs.length
+  const rows = scopeName
+    ? set
+        .map((p) => {
+          const l = latest(p)
+          const prev = previous(p)
+          return { key: p.id, name: p.name, c: l.cats as number[], score: l.score, extra: prev ? Math.round((l.score - prev.score) * 10) / 10 : null, open: () => router.push(`/app/properties/${p.id}`) }
+        })
+        .sort((a, b) => a.score - b.score)
+    : countries
+        .map((c) => {
+          const ps = set.filter((p) => p.countryCode === c.code)
+          return { key: c.code, name: c.name, c: [0, 1, 2].map((k) => mean(ps.map((p) => latest(p).cats[k]))), score: mean(ps.map((p) => latest(p).score)), extra: ps.length, open: () => pickCountry(c.code) }
+        })
+        .sort((a, b) => a.score - b.score)
 
   const movers = set
     .flatMap((p) => {
@@ -284,7 +290,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
         <section aria-labelledby="heat" className="card min-w-0 overflow-x-auto p-6" style={{ flex: '2 1 0' }}>
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <h2 id="heat" className="heading-6">
-              Category scores by region
+              {scopeName ? `Properties in ${scopeName}` : 'Category scores by country'}
             </h2>
             <div className="caption-5 flex gap-4 text-ink-2">
               {[['rgba(255,138,122,.32)', 'Below 3.0'], ['rgba(255,197,107,.24)', '3.0 to 3.4'], ['rgba(255,255,255,.12)', '3.5 and above']].map(([bg, t]) => (
@@ -299,7 +305,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
             <thead>
               <tr>
                 <th scope="col" className="caption-3 py-1 text-left text-ink-2">
-                  Region
+                  {scopeName ? 'Property' : 'Country'}
                 </th>
                 {CATS.map((c) => (
                   <th key={c} scope="col" className="caption-3 text-ink-2">
@@ -307,22 +313,42 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
                   </th>
                 ))}
                 <th scope="col" className="caption-3 text-ink-2">
-                  Properties
+                  Score
+                </th>
+                <th scope="col" className="caption-3 text-ink-2">
+                  {scopeName ? 'Change' : 'Properties'}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {heat.map((h) => (
-                <tr key={h.name}>
-                  <th scope="row" className="body-5 py-2 text-left" style={{ fontWeight: 500 }}>
-                    {h.name}
+              {rows.map((r) => (
+                <tr key={r.key} className="cursor-pointer" onClick={r.open}>
+                  <th scope="row" className="py-2 text-left" style={{ fontWeight: 500 }}>
+                    <button
+                      type="button"
+                      className="crumb body-5 text-left"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        r.open()
+                      }}
+                      aria-label={scopeName ? `Open ${r.name}` : `Show the properties in ${r.name}`}
+                    >
+                      {r.name}
+                    </button>
                   </th>
-                  {h.c.map((v, k) => (
+                  {r.c.map((v, k) => (
                     <td key={k} className="body-4" style={cellStyle(v)}>
                       {v.toFixed(1)}
                     </td>
                   ))}
-                  <td className="body-6 text-center text-ink-2">{h.n}</td>
+                  <td className="body-4 text-center">{r.score.toFixed(1)}</td>
+                  {scopeName ? (
+                    <td className="body-6 text-center" style={{ color: r.extra == null || r.extra === 0 ? 'rgba(255,255,255,.72)' : r.extra > 0 ? COLORS.pass : COLORS.failInk }}>
+                      {r.extra == null ? 'First visit' : r.extra === 0 ? '0.0' : `${r.extra > 0 ? '+' : ''}${r.extra.toFixed(1)}`}
+                    </td>
+                  ) : (
+                    <td className="body-6 text-center text-ink-2">{r.extra}</td>
+                  )}
                 </tr>
               ))}
             </tbody>
