@@ -30,15 +30,15 @@ export function NeedsYou() {
           const person = planned ? people.find((x) => x.id === planned.inspectorId) : undefined
           const text = planned && noSafety ? `Visit planned for ${weekdayDayMonth(planned.date)} with ${person?.name ?? 'an inspector'}.` : why(p, now)
           return (
-            <div key={p.id} className="flex items-center gap-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,.10)' }}>
+            <div key={p.id} className="flex items-center gap-4 py-3 max-md:flex-wrap" style={{ borderBottom: '1px solid rgba(255,255,255,.10)' }}>
               {p.photo ? (
-                <Image src={p.photo} alt="" width={80} height={60} className="h-[60px] w-20 flex-none rounded-sm object-cover" />
+                <Image src={p.photo} alt="" width={80} height={60} className="h-[60px] w-20 flex-none rounded-sm object-cover max-md:hidden" />
               ) : (
-                <span className="flex h-[60px] w-20 flex-none items-center justify-center rounded-sm text-ink-4" style={{ background: 'rgba(255,255,255,.10)' }}>
+                <span className="flex h-[60px] w-20 flex-none max-md:hidden items-center justify-center rounded-sm text-ink-4" style={{ background: 'rgba(255,255,255,.10)' }}>
                   <ImageIcon size={20} aria-hidden="true" />
                 </span>
               )}
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 max-md:basis-full">
                 <p className="body-1 flex items-center gap-2">
                   {p.name}
                   <span className="caption-3 rounded-full px-2 py-[2px]" style={{ background: 'rgba(255,255,255,.12)', color: tone(l.score) }}>
