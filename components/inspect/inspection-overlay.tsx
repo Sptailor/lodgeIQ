@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppState } from '@/components/app/AppState'
-import { CHECK_COUNT } from '@/lib/domain/checks'
+import { CHECK_COUNT, CHECKS } from '@/lib/domain/checks'
 import { DEFAULT_SAMPLE_ANSWERS, SAMPLE_ANSWERS } from '@/lib/domain/sample-data'
 import { latest } from '@/lib/domain/derive'
 import { PhoneChecklist, type Draft } from './phone-checklist'
@@ -45,8 +45,10 @@ export function InspectionOverlay({ id }: { id: string }) {
   }
 
   const fillSample = () => {
-    const a = SAMPLE_ANSWERS[id] ?? DEFAULT_SAMPLE_ANSWERS
-    update({ ...draft, res: a.split(''), done: true })
+    // As the board does: each check that is not a pass gets its sample photo, when it has one.
+    const res = (SAMPLE_ANSWERS[id] ?? DEFAULT_SAMPLE_ANSWERS).split('')
+    const photos = res.map((r, i) => (r !== 'p' && CHECKS[i].evidence ? [CHECKS[i].evidence as string] : []))
+    update({ idx: CHECK_COUNT - 1, res, photos, done: true })
   }
 
   const submit = async () => {
