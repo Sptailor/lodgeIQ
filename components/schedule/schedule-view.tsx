@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAppState } from '@/components/app/AppState'
 import { attn, COLORS, daysSince, latest } from '@/lib/domain/derive'
 import { addDays, dayMonthLong, sameUtcDay, weekdayDay, weekdayDayMonth } from '@/lib/domain/format'
@@ -13,6 +13,7 @@ type Selection = { kind: 'tray'; propertyId: string } | { kind: 'block'; id: str
 export function ScheduleView() {
   const { state, people, weekStart, now, placeVisit } = useAppState()
   const [sel, setSel] = useState<Selection | null>(null)
+  const dragItem = useRef<Selection | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -31,7 +32,17 @@ export function ScheduleView() {
     .filter((p) => daysSince(p, now) > 45 && !planned(p.id))
     .sort((a, b) => daysSince(b, now) - daysSince(a, now))
 
-  const drop = (inspectorId: string, day: Date) => {
+  const startDrag = (item: Selection) => (e: React.DragEvent) => {
+    dragItem.current = item
+    try {
+      e.dataTransfer.setData('text/plain', item.kind === 'tray' ? item.propertyId : item.id)
+    } catch {
+      // some browsers refuse; the ref carries the item anyway
+    }
+  }
+
+  const drop = (inspectorId: string, day: Date, item: Selection | null = sel) => {
+    const sel = item
     if (!sel) return
     if (sel.kind === 'tray') placeVisit({ propertyId: sel.propertyId, inspectorId, date: day.toISOString() })
     else {
@@ -59,7 +70,7 @@ export function ScheduleView() {
           const on = sel?.kind === 'tray' && sel.propertyId === p.id
           const d = daysSince(p, now)
           return (
-            <button key={p.id} type="button" className={`tray${on ? ' tray-on' : ''}`} aria-pressed={on} onClick={() => setSel(on ? null : { kind: 'tray', propertyId: p.id })}>
+            <button key={p.id} type="button" className={`tray${on ? ' tray-on' : ''}`} aria-pressed={on} draggable onDragStart={startDrag({ kind: 'tray', propertyId: p.id })} onClick={() => setSel(on ? null : { kind: 'tray', propertyId: p.id })}>
               <span style={{ width: 8, height: 8, borderRadius: 9999, background: d > 90 ? COLORS.fail : COLORS.warn }} />
               <span className="body-5">{p.name}</span>
               <span className="caption-5 text-ink-3">{d} days</span>
@@ -71,7 +82,7 @@ export function ScheduleView() {
             Everything due is planned.
           </span>
         )}
-        <span className="caption-5 ml-auto text-ink-3">{sel ? 'Now click a day to place it' : 'Select a property, then click a day'}</span>
+        <span className="caption-5 ml-auto text-ink-3">{sel ? 'Now click a day to place it' : 'Drag a property onto a day, or select it first'}</span>
       </section>
 
       <section className="card overflow-x-auto p-0" aria-label="Week planner">
@@ -110,6 +121,12 @@ export function ScheduleView() {
                     className={`cell${di > 4 ? ' cell-wkend' : ''}${sel ? ' cell-target' : ''}${warn ? ' cell-warn' : ''}`}
                     aria-label={`${person.name}, ${weekdayDayMonth(d)}, ${here.length ? `${here.length} visits` : 'free'}`}
                     onClick={() => drop(person.id, d)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault()
+                      drop(person.id, d, dragItem.current)
+                      dragItem.current = null
+                    }}
                   >
                     {here.map((v) => {
                       const p = byId(v.propertyId)
@@ -121,6 +138,8 @@ export function ScheduleView() {
                           type="button"
                           className={`blk${on ? ' blk-on' : ''}`}
                           aria-pressed={on}
+                          draggable
+                          onDragStart={startDrag({ kind: 'block', id: v.id })}
                           style={{ color: '#05080A', background: v.planned ? '#FFFFFF' : attn(p, now) ? COLORS.warn : COLORS.pass }}
                           onClick={(e) => {
                             e.stopPropagation()
