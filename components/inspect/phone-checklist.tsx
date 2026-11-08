@@ -179,7 +179,7 @@ export function PhoneChecklist({
                       Photo {u.split(':')[1]}
                     </div>
                   ) : (
-                    <Image key={u + i} src={u} alt={cur.alt} width={80} height={80} unoptimized={u.startsWith('http')} className="h-20 w-20 rounded-lg object-cover" />
+                    <Image key={u + i} src={u} alt={cur.alt} width={80} height={80} className="h-20 w-20 rounded-lg object-cover" />
                   ),
                 )}
                 {draft.photos[idx].length < 3 && (

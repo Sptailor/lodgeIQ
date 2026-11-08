@@ -5,6 +5,10 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  // Inspection photos uploaded by real accounts are stored in Vercel Blob.
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: '*.public.blob.vercel-storage.com' }],
+  },
   // The old pages now live under /app.
   async redirects() {
     return [
