@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useAppState } from '@/components/app/AppState'
 import { CheckIcon } from '@/components/shared/icon'
 import { DetailsTab } from './details-tab'
+import { FollowUpsTab } from './follow-ups-tab'
 import { HistoryTab } from './history-tab'
 import { OverviewTab } from './overview-tab'
 import { PropertyHeader } from './property-header'
@@ -88,7 +89,7 @@ export function PropertyView({ id }: { id: string }) {
         ))}
       </div>
 
-      {tab === 'details' ? <DetailsTab property={p} /> : tab === 'inspections' ? <HistoryTab key={p.inspections.length} property={p} /> : tab === 'follow' ? null : <OverviewTab property={p} />}
+      {tab === 'details' ? <DetailsTab property={p} /> : tab === 'inspections' ? <HistoryTab key={p.inspections.length} property={p} /> : tab === 'follow' ? <FollowUpsTab property={p} /> : <OverviewTab property={p} />}
     </div>
   )
 }
