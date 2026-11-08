@@ -1,32 +1,12 @@
 /**
- * Auth.js Configuration
- *
- * Defines authentication providers and options
- * Used by both middleware (edge runtime) and API routes
+ * Auth.js configuration that is safe to run in middleware (edge runtime).
+ * The providers that touch the database live in auth.ts.
  */
 
 import type { NextAuthConfig } from 'next-auth'
-import Google from 'next-auth/providers/google'
-import Resend from 'next-auth/providers/resend'
 
 export const authConfig: NextAuthConfig = {
-  providers: [
-    // Email provider using Resend (passwordless magic links)
-    Resend({
-      from: 'no-reply@lodgeiq.com',
-    }),
-
-    // Optional: Google OAuth provider
-    // Uncomment and add credentials to .env to enable
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
-      ? [
-          Google({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          }),
-        ]
-      : []),
-  ],
+  providers: [],
 
   pages: {
     signIn: '/auth/signin',
@@ -34,40 +14,33 @@ export const authConfig: NextAuthConfig = {
   },
 
   callbacks: {
-    // Determine which routes are protected
+    // Only the app itself is private. The landing page, the demo link and the sign in pages are public.
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
-      const isOnApp = !nextUrl.pathname.startsWith('/auth') &&
-                      nextUrl.pathname !== '/'
-
-      // Redirect unauthenticated users to sign-in
-      if (!isLoggedIn && isOnApp) {
+      const isOnApp = nextUrl.pathname === '/app' || nextUrl.pathname.startsWith('/app/')
+      if (isOnApp && !isLoggedIn) {
         const signInUrl = new URL('/auth/signin', nextUrl.origin)
         signInUrl.searchParams.set('callbackUrl', nextUrl.pathname)
         return Response.redirect(signInUrl)
       }
-
-      // Redirect authenticated users away from auth pages to home
-      if (isLoggedIn && nextUrl.pathname.startsWith('/auth/signin')) {
-        return Response.redirect(new URL('/', nextUrl.origin))
-      }
-
       return true
     },
 
-    // Add user role to the session
+    // Keep the role and demo flag on the token and the session.
     async jwt({ token, user }) {
       if (user?.id) {
-        token.role = user.role
         token.id = user.id
+        token.role = user.role
+        token.isDemo = user.isDemo === true
       }
       return token
     },
 
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.role = token.role
         session.user.id = token.id
+        session.user.role = token.role
+        session.user.isDemo = token.isDemo === true
       }
       return session
     },
