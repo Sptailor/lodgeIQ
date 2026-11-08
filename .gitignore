@@ -67,3 +67,4 @@ notes.txt
 # Design handoff and local tool settings
 design-handoff/
 .claude/
+tsconfig.tsbuildinfo
