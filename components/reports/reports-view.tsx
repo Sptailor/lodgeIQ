@@ -119,7 +119,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
     const [{ jsPDF }, { default: autoTable }] = await Promise.all([import('jspdf'), import('jspdf-autotable')])
     const doc = new jsPDF()
     doc.setFontSize(18)
-    doc.text('LodgeIQ report', 14, 18)
+    doc.text(scopeName ? `LodgeIQ report, ${scopeName}` : 'LodgeIQ report, all countries', 14, 18)
     doc.setFontSize(11)
     doc.text(`Average score ${avg.toFixed(1)}. ${set.length} properties, ${openFollowUps} open follow ups, ${visited}% visited in 90 days.`, 14, 26)
     autoTable(doc, {
@@ -127,7 +127,7 @@ export function ReportsView({ initialCountry }: { initialCountry?: string }) {
       head: [['Property', 'Place', 'Latest score', 'Last visit']],
       body: set.map((p) => [p.name, p.place, latest(p).score.toFixed(1), shortDate(latest(p).date)]),
     })
-    doc.save('lodgeiq-report.pdf')
+    doc.save(scopeName ? `lodgeiq-report-${country.toLowerCase()}.pdf` : 'lodgeiq-report.pdf')
   }
 
   const kpis = [
