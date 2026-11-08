@@ -1,6 +1,6 @@
 import { CHECKS } from './checks'
-import { shortDate } from './format'
-import type { InspectionSummary, Property } from './types'
+import { addDays, shortDate } from './format'
+import type { FollowUp, InspectionSummary, Property } from './types'
 
 /** Colours that carry meaning in the app. */
 export const COLORS = {
@@ -48,4 +48,75 @@ export function why(p: Property, now: Date): string {
   if (days > p.visitStandardDays) return `${days} days since the last visit. Your standard is ${p.visitStandardDays}.`
   if (l.score < 3) return `Scored ${l.score.toFixed(1)} on the last visit.`
   return ''
+}
+
+export type ApplyResult = {
+  followUps: FollowUp[]
+  closed: number
+  improved: number
+  opened: number
+}
+
+/**
+ * Apply a submitted set of answers to a property's follow ups.
+ * - A not-done follow up whose check is now a pass is closed.
+ * - One whose check is now "needs work" stays open with an "improved" note.
+ * - One whose check failed again stays open with a "failed again" note.
+ * - Every failed check without a not-done follow up opens a new one.
+ * `photos[i]` holds the photo URLs added to check i (an empty string is a placeholder).
+ */
+export function applyInspection(
+  followUps: FollowUp[],
+  propertyId: string,
+  res: string,
+  photos: string[][],
+  now: Date,
+  makeId: (checkIndex: number) => string = (i) => `fu-${now.getTime()}-${i}`
+): ApplyResult {
+  let closed = 0
+  let improved = 0
+  let opened = 0
+  const next = followUps.map((f) => {
+    if (f.propertyId !== propertyId || f.status === 'done') return f
+    const r = res[f.checkIndex]
+    if (r === 'p') {
+      closed++
+      return { ...f, status: 'done' as const, note: "Closed by today's inspection", isNew: false }
+    }
+    if (r === 'n') {
+      improved++
+      return { ...f, note: 'Improved to needs work today' }
+    }
+    return { ...f, note: 'Failed again today' }
+  })
+  const created: FollowUp[] = []
+  // Newest first: later checks end up above earlier ones, as when each is inserted at the top.
+  for (let i = res.length - 1; i >= 0; i--) {
+    if (res[i] !== 'f') continue
+    if (next.some((f) => f.propertyId === propertyId && f.checkIndex === i && f.status !== 'done')) continue
+    opened++
+    created.push({
+      id: makeId(i),
+      propertyId,
+      checkIndex: i,
+      text: `${CHECKS[i].name} failed today. The photos are attached.`,
+      photo: (photos[i] ?? []).find(Boolean) ?? null,
+      status: 'open',
+      owner: null,
+      due: addDays(now, 7).toISOString(),
+      note: null,
+      isNew: true,
+    })
+  }
+  return { followUps: [...created, ...next], closed, improved, opened }
+}
+
+/** "Inspection submitted. Score 4.5, up 1.6 since the last visit. 1 follow up closed, 1 improved." */
+export function submitBanner(score: number, previousScore: number, r: { closed: number; improved: number; opened: number }): string {
+  const diff = Math.round((score - previousScore) * 10) / 10
+  const parts: string[] = []
+  if (r.closed) parts.push(`${r.closed} follow up${r.closed > 1 ? 's' : ''} closed`)
+  if (r.improved) parts.push(`${r.improved} improved`)
+  if (r.opened) parts.push(`${r.opened} opened`)
+  return `Inspection submitted. Score ${score.toFixed(1)}, ${diff >= 0 ? 'up' : 'down'} ${Math.abs(diff).toFixed(1)} since the last visit${parts.length ? '. ' + parts.join(', ') + '.' : '.'}`
 }
