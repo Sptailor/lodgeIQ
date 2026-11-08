@@ -6,7 +6,7 @@ import { CheckIcon, CloseIcon } from '@/components/shared/icon'
 
 const EWASO = 'ewaso-river-camp'
 
-const STEPS = [
+export const TOUR_STEPS = [
   { title: 'Open the property that needs you', sub: 'Ewaso River Camp failed two safety checks', href: `/app/properties/${EWASO}` },
   { title: 'Run an inspection', sub: 'Use the phone view, or fill in sample answers', href: `/app/properties/${EWASO}/inspect` },
   { title: 'Assign a follow up', sub: 'Send a failed check to whoever fixes it', href: '/app/follow-ups' },
@@ -44,9 +44,9 @@ export function TourPill() {
           />
         ))}
       </svg>
-      <span className="body-5">{done === 4 ? 'Demo tour complete' : `Demo tour ${next + 1} of 4: ${STEPS[next].title}`}</span>
+      <span className="body-5">{done === 4 ? 'Demo tour complete' : `Demo tour ${next + 1} of 4: ${TOUR_STEPS[next].title}`}</span>
       {done < 4 && (
-        <button type="button" className="btn btn-primary button-sm" onClick={() => router.push(STEPS[next].href)}>
+        <button type="button" className="btn btn-primary button-sm" onClick={() => router.push(TOUR_STEPS[next].href)}>
           Go
         </button>
       )}
@@ -69,7 +69,7 @@ export function TourSteps() {
 
   return (
     <div className="pop grid grid-cols-4 gap-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
-      {STEPS.map((s, i) => (
+      {TOUR_STEPS.map((s, i) => (
         <button key={s.title} type="button" className={`step${i === next ? ' step-next' : ''}`} onClick={() => router.push(s.href)}>
           <span
             className="caption-3 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
