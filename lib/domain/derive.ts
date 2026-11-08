@@ -1,4 +1,5 @@
 import { CHECKS } from './checks'
+import { shortDate } from './format'
 import type { InspectionSummary, Property } from './types'
 
 /** Colours that carry meaning in the app. */
@@ -37,3 +38,14 @@ export const portfolioAverage = (props: Property[]): number =>
   props.length ? props.reduce((s, p) => s + latest(p).score, 0) / props.length : 0
 
 export const checkName = (i: number): string => CHECKS[i].name
+
+/** The line shown for a property in Needs you, and on the globe card. */
+export function why(p: Property, now: Date): string {
+  const l = latest(p)
+  const sf = safetyFails(l.res)
+  if (sf.length) return `${sf.map(checkName).join(' and ')} failed on ${shortDate(l.date)}.`
+  const days = daysSince(p, now)
+  if (days > p.visitStandardDays) return `${days} days since the last visit. Your standard is ${p.visitStandardDays}.`
+  if (l.score < 3) return `Scored ${l.score.toFixed(1)} on the last visit.`
+  return ''
+}
