@@ -7,6 +7,7 @@ import { CommandPalette } from './CommandPalette'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import { Confetti } from './Confetti'
+import { PlanVisitDialog } from './PlanVisitDialog'
 import { Toast } from './Toast'
 
 const MainRefContext = createContext<React.RefObject<HTMLElement> | null>(null)
@@ -56,6 +57,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </main>
         </div>
         <CommandPalette />
+        <PlanVisitDialog />
         <Toast />
         <Confetti />
       </div>
