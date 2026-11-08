@@ -120,3 +120,8 @@ export function submitBanner(score: number, previousScore: number, r: { closed: 
   if (r.opened) parts.push(`${r.opened} opened`)
   return `Inspection submitted. Score ${score.toFixed(1)}, ${diff >= 0 ? 'up' : 'down'} ${Math.abs(diff).toFixed(1)} since the last visit${parts.length ? '. ' + parts.join(', ') + '.' : '.'}`
 }
+
+/** Spoken description of a score seal. */
+export function sealLabel(l: { score: number; cats: number[] }): string {
+  return `Score ${l.score.toFixed(1)} out of 5. Cleanliness ${l.cats[0].toFixed(1)}, Safety ${l.cats[1].toFixed(1)}, Amenities ${l.cats[2].toFixed(1)}`
+}
