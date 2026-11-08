@@ -1,8 +1,11 @@
 'use client'
 
 import { Greeting } from './greeting'
+import { LatestInspections } from './latest-inspections'
 import { NeedsYou } from './needs-you'
 import { KeyFigures, PortfolioScore } from './portfolio-score'
+import { ThisWeek } from './this-week'
+import { WaitingOnYou } from './waiting-on-you'
 
 export function OverviewView() {
   return (
@@ -16,6 +19,11 @@ export function OverviewView() {
           <PortfolioScore />
           <KeyFigures />
         </div>
+      </div>
+      <div className="grid grid-cols-3 items-start gap-6 max-lg:grid-cols-1">
+        <WaitingOnYou />
+        <ThisWeek />
+        <LatestInspections />
       </div>
     </div>
   )
