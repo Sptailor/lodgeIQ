@@ -41,7 +41,7 @@ const HINTS: Hint[][] = [
   [{ keys: nav('reports'), title: 'Open Reports' }],
 ]
 
-type Spot = { key: string; title: string; dot: { x: number; y: number }; label: { x: number; y: number; place: Place } }
+type Spot = { key: string; title: string; dot: { x: number; y: number }; label: { x: number; y: number; place: Place; arrow: number } }
 
 // On screen and not covered by something else (a dialog, the full screen inspection on a phone).
 // A target scrolled out of view still counts, so the page can scroll to it.
@@ -65,48 +65,62 @@ function locate(step: number): { el: HTMLElement; hint: Hint } | null {
   return null
 }
 
-function measure(el: HTMLElement, hint: Hint): Spot {
+const DOT = 10 // px
+
+/**
+ * Lines up the label, its arrow and the dot on one axis through the target.
+ * Above or below: the label is centred on the button (or near the left of a wide row), the arrow points
+ * at that spot and the dot sits on the button's edge right under the arrow.
+ * Beside: everything lines up with the middle of the target. Sidebar labels keep the dot just after the text.
+ */
+function measure(el: HTMLElement, hint: Hint, half: number): Spot {
   const r = el.getBoundingClientRect()
-  // Dot: after the text (sidebar labels), on the top left corner (wide rows), or on the top right corner.
-  const dotAt = el.dataset.tourDot
-  const dot =
-    dotAt === 'after'
-      ? { x: r.right + 8, y: r.top + r.height / 2 - 5 }
-      : dotAt === 'start'
-        ? { x: r.left - 4, y: r.top - 4 }
-        : dotAt === 'icon'
-          ? { x: r.left + r.width / 2 + 6, y: r.top + 8 }
-          : { x: r.right - 6, y: r.top - 4 }
-  let place = (el.dataset.tourPlace as Place) || 'up'
-  // Keep the label on screen.
-  if (place === 'up' && r.top < 90) place = 'down'
-  if (place === 'up' && r.right < 220) place = 'down'
-  const edge = el.closest('nav')?.getBoundingClientRect().right ?? r.right
-  if (place === 'right' && Math.max(edge, r.right) + 230 > window.innerWidth) place = 'left'
   const vw = window.innerWidth
-  const label =
-    place === 'up'
-      ? { x: Math.min(r.right + 6, vw - 8), y: r.top - 10, place }
-      : place === 'down'
-        ? { x: Math.max(8, Math.min(r.left, vw - 208)), y: r.bottom + 10, place }
-        : place === 'right'
-          ? { x: Math.max(edge, r.right) + 10, y: r.top + r.height / 2, place }
-          : { x: r.left - 10, y: r.top + r.height / 2, place }
-  return { key: `${hint.title}:${el.dataset.tour}`, title: hint.title, dot, label }
+  const midY = r.top + r.height / 2
+  let place = (el.dataset.tourPlace as Place) || 'up'
+  if (place === 'up' && r.top < 70) place = 'down'
+  const after = el.dataset.tourDot === 'after'
+  const edge = after ? (el.closest('nav')?.getBoundingClientRect().right ?? r.right) : r.right
+  if (place === 'right' && edge + 12 + half * 2 > vw) place = 'left'
+
+  const key = `${hint.title}:${el.dataset.tour}`
+  if (place === 'up' || place === 'down') {
+    const ax = r.width > 400 ? r.left + 32 : r.left + r.width / 2
+    // Keep the label on screen; the arrow stays on the target and never leaves the label.
+    const cx = Math.max(8 + half, Math.min(ax, vw - 8 - half))
+    const edgeY = place === 'up' ? r.top : r.bottom
+    return {
+      key,
+      title: hint.title,
+      dot: { x: ax - DOT / 2, y: edgeY - DOT / 2 },
+      label: { x: cx, y: place === 'up' ? r.top - 12 : r.bottom + 12, place, arrow: Math.round(Math.max(-half + 12, Math.min(ax - cx, half - 12))) },
+    }
+  }
+  if (place === 'right') {
+    return {
+      key,
+      title: hint.title,
+      dot: after ? { x: r.right + 8, y: midY - DOT / 2 } : { x: r.right - DOT / 2, y: midY - DOT / 2 },
+      label: { x: (after ? edge : r.right) + 12, y: midY, place, arrow: 0 },
+    }
+  }
+  return { key, title: hint.title, dot: { x: r.left - DOT / 2, y: midY - DOT / 2 }, label: { x: r.left - 12, y: midY, place, arrow: 0 } }
 }
 
 const LABEL_SHIFT: Record<Place, string> = {
-  up: 'translate(-100%, -100%)',
-  down: 'none',
+  up: 'translate(-50%, -100%)',
+  down: 'translateX(-50%)',
   right: 'translateY(-50%)',
   left: 'translate(-100%, -50%)',
 }
-const ARROW: Record<Place, React.CSSProperties> = {
-  up: { right: 12, bottom: -4 },
-  down: { left: 12, top: -4 },
-  right: { left: -4, top: 'calc(50% - 4px)' },
-  left: { right: -4, top: 'calc(50% - 4px)' },
-}
+const arrowStyle = (place: Place, offset: number): React.CSSProperties =>
+  place === 'up'
+    ? { left: `calc(50% + ${offset}px - 4px)`, bottom: -4 }
+    : place === 'down'
+      ? { left: `calc(50% + ${offset}px - 4px)`, top: -4 }
+      : place === 'right'
+        ? { left: -4, top: 'calc(50% - 4px)' }
+        : { right: -4, top: 'calc(50% - 4px)' }
 
 /**
  * The demo tour's beacon: a pulsing dot on the next thing to click and a label saying what to do,
@@ -120,6 +134,7 @@ export function TourBeacon() {
   const [done, setDone] = useState<{ id: number; text: string } | null>(null)
   const prevCount = useRef<number | null>(null)
   const scrolledFor = useRef<string | null>(null)
+  const labelRef = useRef<HTMLDivElement>(null)
 
   const step = state.guide.indexOf(false)
   const active = isDemo && ready && !state.guideHidden && step !== -1 && !ui.paletteOpen && !ui.bellOpen && !ui.planFor
@@ -134,7 +149,8 @@ export function TourBeacon() {
     let last = ''
     const tick = () => {
       const found = locate(step)
-      const next = found ? measure(found.el, found.hint) : null
+      const half = (labelRef.current?.offsetWidth || 160) / 2
+      const next = found ? measure(found.el, found.hint, half) : null
       const sig = next ? `${next.key}|${Math.round(next.dot.x)}|${Math.round(next.dot.y)}|${Math.round(next.label.x)}|${Math.round(next.label.y)}|${next.label.place}` : ''
       if (sig !== last) {
         last = sig
@@ -191,10 +207,11 @@ export function TourBeacon() {
           </span>
           <div
             key={spot.key}
+            ref={labelRef}
             className="tour-label fixed z-[25] box-border w-max max-w-[200px] rounded-[8px] px-2 py-[5px]"
             style={{ left: spot.label.x, top: spot.label.y, transform: LABEL_SHIFT[spot.label.place], background: '#6FE3C6', color: '#05221C' }}
           >
-            <span className="absolute h-2 w-2 rotate-45" style={{ background: '#6FE3C6', ...ARROW[spot.label.place] }} />
+            <span className="absolute h-2 w-2 rotate-45" style={{ background: '#6FE3C6', ...arrowStyle(spot.label.place, spot.label.arrow) }} />
             <span className="relative block text-[10px] font-semibold leading-[14px]">Step {step + 1} of 4</span>
             <span className="caption-3 relative block">{spot.title}</span>
           </div>

@@ -185,7 +185,6 @@ export function BottomTabs() {
           aria-current={i === active ? 'page' : undefined}
           data-tour={`tab-${NAV_KEYS[i]}`}
           data-tour-place="up"
-          data-tour-dot="icon"
           className="caption-5 flex min-w-0 flex-1 flex-col items-center justify-center gap-1 no-underline"
           style={{ color: i === active ? '#FFFFFF' : 'rgba(255,255,255,.56)' }}
         >

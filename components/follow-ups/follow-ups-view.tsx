@@ -100,7 +100,6 @@ export function FollowUpsView({ initialProperty }: { initialProperty?: string })
                 onClick={() => setOpenId(open ? null : f.id)}
                 data-tour={tab === 'open' && ri === 0 && !openId ? 'fu-row' : undefined}
                 data-tour-place="down"
-                data-tour-dot="start"
               >
                 {f.photo ? (
                   <Image src={f.photo} alt="" width={48} height={48} className="h-12 w-12 flex-none rounded-md object-cover" />
