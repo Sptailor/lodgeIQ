@@ -71,7 +71,8 @@ const DOT = 10 // px
  * Lines up the label, its arrow and the dot on one axis through the target.
  * Above or below: the label is centred on the button (or near the left of a wide row), the arrow points
  * at that spot and the dot sits on the button's edge right under the arrow.
- * Beside: everything lines up with the middle of the target. Sidebar labels keep the dot just after the text.
+ * Beside: everything lines up with the middle of the target. On the sidebar the dot follows the text
+ * and the label follows the dot, so the arrow points straight at it.
  */
 function measure(el: HTMLElement, hint: Hint, half: number): Spot {
   const r = el.getBoundingClientRect()
@@ -80,8 +81,9 @@ function measure(el: HTMLElement, hint: Hint, half: number): Spot {
   let place = (el.dataset.tourPlace as Place) || 'up'
   if (place === 'up' && r.top < 70) place = 'down'
   const after = el.dataset.tourDot === 'after'
-  const edge = after ? (el.closest('nav')?.getBoundingClientRect().right ?? r.right) : r.right
-  if (place === 'right' && edge + 12 + half * 2 > vw) place = 'left'
+  // Sidebar text: the dot sits just after the words and the label starts right after the dot.
+  const startX = after ? r.right + 8 + DOT + 8 : r.right + 12
+  if (place === 'right' && startX + half * 2 > vw - 8) place = 'left'
 
   const key = `${hint.title}:${el.dataset.tour}`
   if (place === 'up' || place === 'down') {
@@ -101,7 +103,7 @@ function measure(el: HTMLElement, hint: Hint, half: number): Spot {
       key,
       title: hint.title,
       dot: after ? { x: r.right + 8, y: midY - DOT / 2 } : { x: r.right - DOT / 2, y: midY - DOT / 2 },
-      label: { x: (after ? edge : r.right) + 12, y: midY, place, arrow: 0 },
+      label: { x: startX, y: midY, place, arrow: 0 },
     }
   }
   return { key, title: hint.title, dot: { x: r.left - DOT / 2, y: midY - DOT / 2 }, label: { x: r.left - 12, y: midY, place, arrow: 0 } }
