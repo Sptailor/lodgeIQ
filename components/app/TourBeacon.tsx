@@ -174,7 +174,7 @@ export function TourBeacon() {
     <>
       {spot && (
         <div aria-hidden="true" className="pointer-events-none">
-          <span className="fixed z-[25] h-[7px] w-[7px]" style={{ left: spot.dot.x, top: spot.dot.y }}>
+          <span className="fixed z-[25] h-2 w-2" style={{ left: spot.dot.x, top: spot.dot.y }}>
             <span
               className={`absolute inset-0 rounded-full${reducedMotion ? '' : ' beacon-flicker'}`}
               style={{ background: '#6FE3C6', boxShadow: '0 0 0 2px #0B0C0D' }}
