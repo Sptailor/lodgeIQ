@@ -9,6 +9,7 @@ import { BottomTabs, Sidebar } from './Sidebar'
 import { Confetti } from './Confetti'
 import { PlanVisitDialog } from './PlanVisitDialog'
 import { Toast } from './Toast'
+import { TourBeacon } from './TourBeacon'
 
 const MainRefContext = createContext<React.RefObject<HTMLElement> | null>(null)
 
@@ -60,6 +61,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <CommandPalette />
         <PlanVisitDialog />
         <Toast />
+        <TourBeacon />
         <Confetti />
       </div>
     </MainRefContext.Provider>
