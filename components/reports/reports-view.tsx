@@ -36,15 +36,16 @@ type Row = { key: string; name: string; c: number[]; score: number; extra: numbe
  * The scores table drills down: regions, then the countries in a region, then the properties in a country.
  */
 export function ReportsView({ initialRegion, initialCountry }: { initialRegion?: string; initialCountry?: string }) {
-  const { state, now, isDemo, showToast, markGuide, followUpsOpenCount } = useReportState()
+  const { state, now, isDemo, ready, showToast, markGuide, followUpsOpenCount } = useReportState()
   const router = useRouter()
   const [range, setRange] = useState<6 | 12>(6)
   const [hover, setHover] = useState<number | null>(null)
 
   // Demo tour: opening Reports is the last step.
+  // Wait until the tab's saved demo state is restored, or the restore would undo this.
   useEffect(() => {
-    if (isDemo) markGuide(3)
-  }, [isDemo, markGuide])
+    if (ready && isDemo) markGuide(3)
+  }, [ready, isDemo, markGuide])
 
   // Regions and countries in the portfolio, by name, with how many properties each has.
   const regions = Array.from(new Set(state.properties.map(regionOf)))

@@ -14,16 +14,17 @@ import { PropertyHeader } from './property-header'
 const EWASO = 'ewaso-river-camp'
 
 export function PropertyView({ id }: { id: string }) {
-  const { state, isDemo, markGuide } = useAppState()
+  const { state, isDemo, ready, markGuide } = useAppState()
   const router = useRouter()
   const pathname = usePathname()
   const search = useSearchParams()
   const p = state.properties.find((x) => x.id === id)
 
   // The demo tour's first step is done once the Ewaso page is open.
+  // Wait until the tab's saved demo state is restored, or the restore would undo this.
   useEffect(() => {
-    if (isDemo && id === EWASO) markGuide(0)
-  }, [isDemo, id, markGuide])
+    if (ready && isDemo && id === EWASO) markGuide(0)
+  }, [ready, isDemo, id, markGuide])
 
   if (!p) {
     return (
