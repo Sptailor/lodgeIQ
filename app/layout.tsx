@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -16,7 +17,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${GeistSans.variable} ${GeistSans.className}`}>{children}</body>
+      <body className={`${GeistSans.variable} ${GeistSans.className}`}>
+        {children}
+        {/* Vercel Web Analytics: cookieless page view counts. It only reports on Vercel deployments. */}
+        <Analytics />
+      </body>
     </html>
   )
 }
