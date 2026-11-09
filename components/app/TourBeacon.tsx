@@ -103,7 +103,7 @@ const LABEL_SHIFT: Record<Place, string> = {
 }
 
 /**
- * The demo tour's beacon: a pulsing dot on the next thing to click and a label saying what to do,
+ * The demo tour's beacon: a small flickering dot on the next thing to click and a label saying what to do,
  * floating above the page so cards and menus never clip it. Also a short "step done" message
  * each time a step completes. Demo only.
  */
@@ -175,8 +175,10 @@ export function TourBeacon() {
       {spot && (
         <div aria-hidden="true" className="pointer-events-none">
           <span className="fixed z-[25] h-[7px] w-[7px]" style={{ left: spot.dot.x, top: spot.dot.y }}>
-            <span className={`beacon-glow absolute inset-0 rounded-full${reducedMotion ? '' : ' beacon-breathe'}`} />
-            <span className="absolute inset-0 rounded-full" style={{ background: '#6FE3C6', boxShadow: '0 0 4px 1px rgba(111,227,198,.9)' }} />
+            <span
+              className={`absolute inset-0 rounded-full${reducedMotion ? '' : ' beacon-flicker'}`}
+              style={{ background: '#6FE3C6', boxShadow: '0 0 0 2px #0B0C0D' }}
+            />
           </span>
           <div
             key={spot.key}
