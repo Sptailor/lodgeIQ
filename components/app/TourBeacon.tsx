@@ -71,27 +71,27 @@ function measure(el: HTMLElement, hint: Hint): Spot {
   const dotAt = el.dataset.tourDot
   const dot =
     dotAt === 'after'
-      ? { x: r.right + 8, y: r.top + r.height / 2 - 3 }
+      ? { x: r.right + 8, y: r.top + r.height / 2 - 5 }
       : dotAt === 'start'
-        ? { x: r.left - 3, y: r.top - 3 }
+        ? { x: r.left - 4, y: r.top - 4 }
         : dotAt === 'icon'
-          ? { x: r.left + r.width / 2 + 7, y: r.top + 9 }
-          : { x: r.right - 6, y: r.top - 3 }
+          ? { x: r.left + r.width / 2 + 6, y: r.top + 8 }
+          : { x: r.right - 6, y: r.top - 4 }
   let place = (el.dataset.tourPlace as Place) || 'up'
   // Keep the label on screen.
   if (place === 'up' && r.top < 90) place = 'down'
-  if (place === 'up' && r.right < 300) place = 'down'
+  if (place === 'up' && r.right < 220) place = 'down'
   const edge = el.closest('nav')?.getBoundingClientRect().right ?? r.right
-  if (place === 'right' && Math.max(edge, r.right) + 240 > window.innerWidth) place = 'left'
+  if (place === 'right' && Math.max(edge, r.right) + 230 > window.innerWidth) place = 'left'
   const vw = window.innerWidth
   const label =
     place === 'up'
-      ? { x: Math.min(r.right, vw - 8), y: r.top - 8, place }
+      ? { x: Math.min(r.right + 6, vw - 8), y: r.top - 10, place }
       : place === 'down'
-        ? { x: Math.max(8, Math.min(r.left, vw - 228)), y: r.bottom + 8, place }
+        ? { x: Math.max(8, Math.min(r.left, vw - 208)), y: r.bottom + 10, place }
         : place === 'right'
-          ? { x: Math.max(edge, r.right) + 8, y: r.top + r.height / 2, place }
-          : { x: r.left - 8, y: r.top + r.height / 2, place }
+          ? { x: Math.max(edge, r.right) + 10, y: r.top + r.height / 2, place }
+          : { x: r.left - 10, y: r.top + r.height / 2, place }
   return { key: `${hint.title}:${el.dataset.tour}`, title: hint.title, dot, label }
 }
 
@@ -101,9 +101,15 @@ const LABEL_SHIFT: Record<Place, string> = {
   right: 'translateY(-50%)',
   left: 'translate(-100%, -50%)',
 }
+const ARROW: Record<Place, React.CSSProperties> = {
+  up: { right: 12, bottom: -4 },
+  down: { left: 12, top: -4 },
+  right: { left: -4, top: 'calc(50% - 4px)' },
+  left: { right: -4, top: 'calc(50% - 4px)' },
+}
 
 /**
- * The demo tour's beacon: a small flickering dot on the next thing to click and a label saying what to do,
+ * The demo tour's beacon: a pulsing dot on the next thing to click and a label saying what to do,
  * floating above the page so cards and menus never clip it. Also a short "step done" message
  * each time a step completes. Demo only.
  */
@@ -174,27 +180,23 @@ export function TourBeacon() {
     <>
       {spot && (
         <div aria-hidden="true" className="pointer-events-none">
-          <span className="fixed z-[25] h-2 w-2" style={{ left: spot.dot.x, top: spot.dot.y }}>
-            <span
-              className={`absolute inset-0 rounded-full${reducedMotion ? '' : ' beacon-flicker'}`}
-              style={{ background: '#6FE3C6', boxShadow: '0 0 0 2px #0B0C0D' }}
-            />
+          <span className="fixed z-[25] h-[10px] w-[10px]" style={{ left: spot.dot.x, top: spot.dot.y }}>
+            {!reducedMotion && (
+              <>
+                <span className="beacon-wave absolute inset-0 rounded-full" />
+                <span className="beacon-wave beacon-wave-2 absolute inset-0 rounded-full" />
+              </>
+            )}
+            <span className="absolute inset-[2px] rounded-full" style={{ background: '#6FE3C6', boxShadow: '0 0 0 2px #0B0C0D' }} />
           </span>
           <div
             key={spot.key}
-            className="tour-label caption-3 fixed z-[25] flex w-max max-w-[220px] items-center gap-2 rounded-[6px] px-2 py-1"
-            style={{
-              left: spot.label.x,
-              top: spot.label.y,
-              transform: LABEL_SHIFT[spot.label.place],
-              background: 'rgba(20,22,23,.94)',
-              border: '1px solid rgba(111,227,198,.32)',
-              color: '#FFFFFF',
-              boxShadow: '0 8px 24px rgba(0,0,0,.35)',
-            }}
+            className="tour-label fixed z-[25] box-border w-max max-w-[200px] rounded-[8px] px-2 py-[5px]"
+            style={{ left: spot.label.x, top: spot.label.y, transform: LABEL_SHIFT[spot.label.place], background: '#6FE3C6', color: '#05221C' }}
           >
-            <span style={{ color: '#6FE3C6' }}>{step + 1}/4</span>
-            <span style={{ fontWeight: 500 }}>{spot.title}</span>
+            <span className="absolute h-2 w-2 rotate-45" style={{ background: '#6FE3C6', ...ARROW[spot.label.place] }} />
+            <span className="relative block text-[10px] font-semibold leading-[14px]">Step {step + 1} of 4</span>
+            <span className="caption-3 relative block">{spot.title}</span>
           </div>
         </div>
       )}
@@ -203,10 +205,10 @@ export function TourBeacon() {
         <div
           key={done.id}
           role="status"
-          className="toast caption-3 fixed bottom-24 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-3 py-[6px] max-md:bottom-[152px]"
-          style={{ background: 'rgba(20,22,23,.94)', border: '1px solid rgba(111,227,198,.32)', color: '#FFFFFF', fontWeight: 500 }}
+          className="toast caption-3 fixed bottom-24 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-[6px] max-md:bottom-[152px]"
+          style={{ background: '#6FE3C6', color: '#05221C' }}
         >
-          <CheckIcon size={12} color="#6FE3C6" aria-hidden="true" />
+          <CheckIcon size={12} aria-hidden="true" />
           {done.text}
         </div>
       )}
