@@ -3,7 +3,7 @@
  * Run: npx ts-node --compiler-options '{"module":"CommonJS","moduleResolution":"node"}' scripts/check-domain.ts
  */
 import { scoreOf } from '../lib/domain/checks'
-import { applyInspection, submitBanner } from '../lib/domain/derive'
+import { applyInspection, submitSummary } from '../lib/domain/derive'
 import { SAMPLE_FOLLOW_UPS, SAMPLE_PROPERTIES } from '../lib/domain/sample-data'
 import type { FollowUp } from '../lib/domain/types'
 
@@ -37,7 +37,9 @@ expect('Ewaso closes one follow up', r.closed, 1)
 expect('Ewaso improves one follow up', r.improved, 1)
 expect('Ewaso opens none', r.opened, 0)
 expect('Other properties untouched', r.followUps.filter((f) => f.propertyId !== 'ewaso-river-camp').length, 4)
-expect('Banner', submitBanner(4.5, 2.9, r), 'Inspection submitted. Score 4.5, up 1.6 since the last visit. 1 follow up closed, 1 improved.')
+expect('Summary', JSON.stringify(submitSummary(4.5, 2.9, r)), JSON.stringify({ score: 4.5, diff: 1.6, followUps: '2 follow ups updated' }))
+expect('Summary, one opened', submitSummary(3.1, 3.4, { closed: 0, improved: 0, opened: 1 }).followUps, '1 follow up opened')
+expect('Summary, mixed', submitSummary(4, 3, { closed: 1, improved: 0, opened: 2 }).followUps, '1 follow up updated, 2 opened')
 
 const r2 = applyInspection(fus, 'red-earth-camp', 'pppfpnppp', [[], [], [], ['/images/evidence-extinguisher.jpg'], [], [], [], [], []], now)
 expect('A new fail opens a follow up', r2.opened, 1)
