@@ -165,8 +165,8 @@
 .lq .btn,.lq .nav,.lq .lift,.lq .step,.lq .chip,.lq .item,.lq .bar,.lq .arcv,.lq .res,.lq .seg,.lq .pt span,.lq .tab,.lq .fu,.lq .chev{transition:none}
 }
 /* Demo tour beacon */
-.lq .beacon-flicker{animation:lq-flicker 2600ms linear infinite}
-@keyframes lq-flicker{0%,62%,100%{opacity:1}68%{opacity:.45}72%{opacity:.9}76%{opacity:.55}82%{opacity:1}}
+.lq .beacon-flicker{animation:lq-flicker 1400ms ease-in-out infinite alternate}
+@keyframes lq-flicker{from{opacity:1}to{opacity:.3}}
 .lq .tour-label{animation:lq-label 400ms cubic-bezier(.22,1,.36,1) both}
 @keyframes lq-label{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion: reduce){.lq .beacon-flicker,.lq .tour-label{animation:none}}
