@@ -165,9 +165,9 @@
 .lq .btn,.lq .nav,.lq .lift,.lq .step,.lq .chip,.lq .item,.lq .bar,.lq .arcv,.lq .res,.lq .seg,.lq .pt span,.lq .tab,.lq .fu,.lq .chev{transition:none}
 }
 /* Demo tour beacon */
-.lq .beacon-wave{background:#6FE3C6;animation:lq-wave 2400ms cubic-bezier(.22,1,.36,1) infinite}
-.lq .beacon-wave-2{animation-delay:800ms}
-@keyframes lq-wave{from{opacity:.45;transform:scale(1)}to{opacity:0;transform:scale(2.4)}}
+.lq .beacon-glow{box-shadow:0 0 8px 3px rgba(111,227,198,.55)}
+.lq .beacon-breathe{animation:lq-breathe 2200ms cubic-bezier(.22,1,.36,1) infinite alternate}
+@keyframes lq-breathe{from{opacity:.35}to{opacity:1}}
 .lq .tour-label{animation:lq-label 400ms cubic-bezier(.22,1,.36,1) both}
 @keyframes lq-label{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion: reduce){.lq .beacon-wave,.lq .tour-label{animation:none}}
+@media (prefers-reduced-motion: reduce){.lq .beacon-breathe,.lq .tour-label{animation:none}}

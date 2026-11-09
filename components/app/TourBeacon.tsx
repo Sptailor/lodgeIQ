@@ -71,12 +71,12 @@ function measure(el: HTMLElement, hint: Hint): Spot {
   const dotAt = el.dataset.tourDot
   const dot =
     dotAt === 'after'
-      ? { x: r.right + 8, y: r.top + r.height / 2 - 5 }
+      ? { x: r.right + 8, y: r.top + r.height / 2 - 3 }
       : dotAt === 'start'
-        ? { x: r.left - 4, y: r.top - 4 }
+        ? { x: r.left - 3, y: r.top - 3 }
         : dotAt === 'icon'
-          ? { x: r.left + r.width / 2 + 6, y: r.top + 8 }
-          : { x: r.right - 7, y: r.top - 4 }
+          ? { x: r.left + r.width / 2 + 7, y: r.top + 9 }
+          : { x: r.right - 6, y: r.top - 3 }
   let place = (el.dataset.tourPlace as Place) || 'up'
   // Keep the label on screen.
   if (place === 'up' && r.top < 90) place = 'down'
@@ -174,13 +174,13 @@ export function TourBeacon() {
     <>
       {spot && (
         <div aria-hidden="true" className="pointer-events-none">
-          <span className="fixed z-[25] h-[10px] w-[10px]" style={{ left: spot.dot.x, top: spot.dot.y }}>
-            {!reducedMotion && <span className="beacon-wave absolute inset-0 rounded-full" />}
-            <span className="absolute inset-0 rounded-full" style={{ background: '#6FE3C6', boxShadow: '0 0 0 2px #0B0C0D' }} />
+          <span className="fixed z-[25] h-[7px] w-[7px]" style={{ left: spot.dot.x, top: spot.dot.y }}>
+            <span className={`beacon-glow absolute inset-0 rounded-full${reducedMotion ? '' : ' beacon-breathe'}`} />
+            <span className="absolute inset-0 rounded-full" style={{ background: '#6FE3C6', boxShadow: '0 0 4px 1px rgba(111,227,198,.9)' }} />
           </span>
           <div
             key={spot.key}
-            className="tour-label caption-3 fixed z-[25] flex w-max max-w-[220px] items-center gap-2 rounded-sm px-2 py-1"
+            className="tour-label caption-3 fixed z-[25] flex w-max max-w-[220px] items-center gap-2 rounded-[6px] px-2 py-1"
             style={{
               left: spot.label.x,
               top: spot.label.y,
