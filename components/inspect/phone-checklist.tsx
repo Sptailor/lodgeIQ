@@ -148,7 +148,7 @@ export function PhoneChecklist({
               <h3 className="heading-5 mt-1">{cur.name}</h3>
               <p className="body-6 mt-2 text-ink-2">{cur.help}</p>
             </div>
-            <div role="group" aria-label="Result" className="flex flex-col gap-2">
+            <div role="group" aria-label="Result" className="flex flex-col gap-2" data-tour={res[idx] ? undefined : 'answer'} data-tour-place="up">
               {(['p', 'n', 'f'] as const).map((k) => {
                 const on = res[idx] === k
                 return (
@@ -201,7 +201,7 @@ export function PhoneChecklist({
             <button type="button" className="btn btn-quiet button-md" onClick={() => set({ idx: Math.max(0, idx - 1) })} disabled={idx === 0}>
               Previous
             </button>
-            <button type="button" className="btn btn-primary button-md flex-1" onClick={next} disabled={!res[idx]}>
+            <button type="button" className="btn btn-primary button-md flex-1" onClick={next} disabled={!res[idx]} data-tour={res[idx] ? 'next' : undefined} data-tour-place="up">
               {answered === CHECKS.length ? 'Review and submit' : 'Next check'}
             </button>
           </footer>
@@ -232,7 +232,7 @@ export function PhoneChecklist({
             <button type="button" className="btn btn-quiet button-md" onClick={() => set({ done: false, idx: 0 })}>
               Review answers
             </button>
-            <button type="button" className="btn btn-primary button-md flex-1" onClick={onSubmit} disabled={!onSubmit || submitting}>
+            <button type="button" className="btn btn-primary button-md flex-1" onClick={onSubmit} disabled={!onSubmit || submitting} data-tour="submit" data-tour-place="up">
               {submitting ? 'Submitting' : 'Submit inspection'}
             </button>
           </div>

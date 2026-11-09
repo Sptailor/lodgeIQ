@@ -37,7 +37,7 @@ export function PropertyHeader({ property: p }: { property: Property }) {
           <button type="button" className="btn btn-glass button-md" onClick={() => ui.openPlan(p.id)}>
             Plan a visit
           </button>
-          <Link href={`/app/properties/${p.id}/inspect`} className="btn btn-onphoto button-md">
+          <Link href={`/app/properties/${p.id}/inspect`} className="btn btn-onphoto button-md" data-tour="start" data-tour-place="up">
             Start inspection
           </Link>
         </div>

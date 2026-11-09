@@ -52,7 +52,12 @@ export function NeedsYou() {
                   Plan a visit
                 </button>
               ) : (
-                <Link href={`/app/properties/${p.id}`} className={`btn button-sm ${i === 0 ? 'btn-primary' : 'btn-quiet'}`}>
+                <Link
+                  href={`/app/properties/${p.id}`}
+                  className={`btn button-sm ${i === 0 ? 'btn-primary' : 'btn-quiet'}`}
+                  data-tour={p.id === 'ewaso-river-camp' ? 'needs-ewaso' : undefined}
+                  data-tour-place="up"
+                >
                   Open property
                 </Link>
               )}

@@ -63,7 +63,7 @@ export function AssignDropdown({ followUpId, align = 'right' }: { followUpId: st
 
   return (
     <div className="relative flex-none">
-      <button type="button" className="btn btn-primary button-sm" onClick={toggle} aria-expanded={open} aria-haspopup="dialog">
+      <button type="button" className="btn btn-primary button-sm" onClick={toggle} aria-expanded={open} aria-haspopup="dialog" data-tour={open ? undefined : 'assign'} data-tour-place="down">
         Assign
         <CaretIcon size={12} className="chev" aria-hidden="true" style={{ transform: open ? 'rotate(180deg)' : undefined }} />
       </button>
@@ -92,8 +92,17 @@ export function AssignDropdown({ followUpId, align = 'right' }: { followUpId: st
                 />
               </label>
               <div role="listbox" aria-label="People" className="scroll mt-1 h-40 overflow-y-auto">
-                {people.map((o) => (
-                  <button key={o.name} type="button" role="option" aria-selected={false} className="sugg h-10 justify-start gap-2 px-2 py-1" onClick={() => pick(o.name)}>
+                {people.map((o, oi) => (
+                  <button
+                    key={o.name}
+                    type="button"
+                    role="option"
+                    aria-selected={false}
+                    className="sugg h-10 justify-start gap-2 px-2 py-1"
+                    onClick={() => pick(o.name)}
+                    data-tour={oi === 0 ? 'assign-option' : undefined}
+                    data-tour-place="right"
+                  >
                     <span
                       className="caption-3 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
                       aria-hidden="true"
