@@ -114,14 +114,17 @@ export function applyInspection(
   return { followUps: [...created, ...next], closed, improved, opened }
 }
 
-/** "Inspection submitted. Score 4.5, up 1.6 since the last visit. 1 follow up closed, 1 improved." */
-export function submitBanner(score: number, previousScore: number, r: { closed: number; improved: number; opened: number }): string {
+/** What the property page shows after an inspection is submitted: the new score, the change, and the follow ups it touched. */
+export type SubmitSummary = { score: number; diff: number; followUps: string }
+
+/** followUps reads "2 follow ups updated", "1 follow up opened", "1 follow up updated, 1 opened", or "" when none changed. */
+export function submitSummary(score: number, previousScore: number, r: { closed: number; improved: number; opened: number }): SubmitSummary {
   const diff = Math.round((score - previousScore) * 10) / 10
-  const parts: string[] = []
-  if (r.closed) parts.push(`${r.closed} follow up${r.closed > 1 ? 's' : ''} closed`)
-  if (r.improved) parts.push(`${r.improved} improved`)
-  if (r.opened) parts.push(`${r.opened} opened`)
-  return `Inspection submitted. Score ${score.toFixed(1)}, ${diff >= 0 ? 'up' : 'down'} ${Math.abs(diff).toFixed(1)} since the last visit${parts.length ? '. ' + parts.join(', ') + '.' : '.'}`
+  const updated = r.closed + r.improved
+  const fu = (n: number) => `${n} follow up${n > 1 ? 's' : ''}`
+  const followUps =
+    updated && r.opened ? `${fu(updated)} updated, ${r.opened} opened` : updated ? `${fu(updated)} updated` : r.opened ? `${fu(r.opened)} opened` : ''
+  return { score, diff, followUps }
 }
 
 /** Spoken description of a score seal. */

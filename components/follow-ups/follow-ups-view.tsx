@@ -56,6 +56,8 @@ export function FollowUpsView({ initialProperty }: { initialProperty?: string })
                 role="tab"
                 className={`tab${on ? ' tab-on' : ''}`}
                 aria-selected={on}
+                data-tour={t.id === 'open' && !on ? 'fu-tab-open' : undefined}
+                data-tour-place="down"
                 onClick={() => {
                   setTab(t.id)
                   setOpenId(null)
@@ -84,14 +86,21 @@ export function FollowUpsView({ initialProperty }: { initialProperty?: string })
       </div>
 
       <div role="tabpanel" aria-label={current.label} className="flex flex-col gap-2">
-        {rows.map((f) => {
+        {rows.map((f, ri) => {
           const p = state.properties.find((x) => x.id === f.propertyId)!
           const check = CHECKS[f.checkIndex]
           const open = openId === f.id
           const owner = f.owner
           return (
             <article key={f.id} className={`fu${open ? ' fu-open' : ''}`}>
-              <button type="button" className="fu-head" aria-expanded={open} onClick={() => setOpenId(open ? null : f.id)}>
+              <button
+                type="button"
+                className="fu-head"
+                aria-expanded={open}
+                onClick={() => setOpenId(open ? null : f.id)}
+                data-tour={tab === 'open' && ri === 0 && !openId ? 'fu-row' : undefined}
+                data-tour-place="down"
+              >
                 {f.photo ? (
                   <Image src={f.photo} alt="" width={48} height={48} className="h-12 w-12 flex-none rounded-md object-cover" />
                 ) : (

@@ -16,7 +16,7 @@
 import { createContext, useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { ACTOR_COLORS, SAMPLE_ACTIVITY } from '@/lib/domain/sample-data'
 import { startOfUtcDay, weekdayDayMonth } from '@/lib/domain/format'
-import { applyInspection, isImageUrl, latest, submitBanner } from '@/lib/domain/derive'
+import { applyInspection, isImageUrl, latest, submitSummary, type SubmitSummary } from '@/lib/domain/derive'
 import { fullScore } from '@/lib/domain/checks'
 import type { Check, FollowUp, InspectionSummary, Note, Person, PortfolioSnapshot, Property, Visit } from '@/lib/domain/types'
 
@@ -25,7 +25,7 @@ export type Mutable = {
   followUps: FollowUp[]
   visits: Visit[]
   notes: Note[]
-  banners: Record<string, string> // propertyId -> text shown after submitting an inspection
+  banners: Record<string, SubmitSummary> // propertyId -> what to show after submitting an inspection
   plannedVisitIds: string[] // visits planned in this session
   guide: boolean[] // four demo tour steps
   guideHidden: boolean
@@ -34,7 +34,7 @@ export type Mutable = {
 
 type Action =
   | { type: 'restore'; state: Mutable }
-  | { type: 'submitted'; propertyId: string; inspection: InspectionSummary; followUps: FollowUp[]; banner: string; photo: string | null }
+  | { type: 'submitted'; propertyId: string; inspection: InspectionSummary; followUps: FollowUp[]; banner: SubmitSummary; photo: string | null }
   | { type: 'followUp'; followUp: FollowUp }
   | { type: 'visit'; visit: Visit; removeIds: string[] }
   | { type: 'guide'; index: number }
@@ -289,7 +289,7 @@ export function AppStateProvider({ snapshot, children }: { snapshot: PortfolioSn
       propertyId,
       inspection,
       followUps: propertyFollowUps,
-      banner: submitBanner(inspection.score, previousScore, counts),
+      banner: submitSummary(inspection.score, previousScore, counts),
       photo: p.photo ? null : (photos.flat().find(isImageUrl) ?? null),
     })
     const improved = inspection.score > previousScore

@@ -88,7 +88,7 @@ export function InspectionOverlay({ id }: { id: string }) {
         <p className="body-3 text-ink-2">Answer each check the way an inspector would on site at {p.name}. Answers save as you go, even without signal.</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {isDemo && (
-            <button type="button" className="btn btn-quiet button-md" onClick={fillSample}>
+            <button type="button" className="btn btn-quiet button-md" onClick={fillSample} data-tour="sample" data-tour-place="down">
               Fill in sample answers
             </button>
           )}

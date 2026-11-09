@@ -8,6 +8,9 @@ import { TOUR_STEPS } from '@/components/overview/tour-pill'
 import { CalendarIcon, CheckIcon, FollowIcon, GlobeIcon, OverviewIcon, ReportsIcon } from '@/components/shared/icon'
 import { useAppState } from './AppState'
 
+/** Short keys for the tour hints, in NAV order. */
+export const NAV_KEYS = ['overview', 'portfolio', 'schedule', 'follow', 'reports']
+
 export const NAV = [
   { href: '/app', label: 'Overview', Icon: OverviewIcon },
   { href: '/app/portfolio', label: 'Portfolio', Icon: GlobeIcon },
@@ -44,9 +47,22 @@ export function Sidebar() {
       <div className="relative flex flex-col gap-1">
         <span className="ind" aria-hidden="true" style={{ transform: `translateY(${active * 40}px)` }} />
         {NAV.map(({ href, label, Icon }, i) => (
-          <Link key={href} href={href} title={label} aria-label={label} className={`nav${i === active ? ' nav-on' : ''}`} aria-current={i === active ? 'page' : undefined}>
+          <Link
+            key={href}
+            href={href}
+            title={label}
+            aria-label={label}
+            className={`nav${i === active ? ' nav-on' : ''}`}
+            aria-current={i === active ? 'page' : undefined}
+            data-tour={`nav-${NAV_KEYS[i]}-link`}
+            data-tour-place="right"
+          >
             <Icon size={20} aria-hidden="true" />
-            <span className="body-5 flex-1 max-xl:hidden">{label}</span>
+            <span className="body-5 flex-1 max-xl:hidden">
+              <span data-tour={`nav-${NAV_KEYS[i]}`} data-tour-place="right" data-tour-dot="after">
+                {label}
+              </span>
+            </span>
             {i === 3 && openFollowUps > 0 && (
               <span className="caption-3 rounded-full px-2 py-[2px] max-xl:hidden" style={{ background: '#FFC56B', color: '#000000' }}>
                 {openFollowUps}
@@ -167,6 +183,8 @@ export function BottomTabs() {
           key={href}
           href={href}
           aria-current={i === active ? 'page' : undefined}
+          data-tour={`tab-${NAV_KEYS[i]}`}
+          data-tour-place="up"
           className="caption-5 flex min-w-0 flex-1 flex-col items-center justify-center gap-1 no-underline"
           style={{ color: i === active ? '#FFFFFF' : 'rgba(255,255,255,.56)' }}
         >

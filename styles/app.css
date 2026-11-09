@@ -164,3 +164,10 @@
 @media (prefers-reduced-motion: reduce){.lq .fade,.lq .pop,.lq .toast,.lq .sk,.lq .tick,.lq .slide{animation:none}
 .lq .btn,.lq .nav,.lq .lift,.lq .step,.lq .chip,.lq .item,.lq .bar,.lq .arcv,.lq .res,.lq .seg,.lq .pt span,.lq .tab,.lq .fu,.lq .chev{transition:none}
 }
+/* Demo tour beacon */
+.lq .beacon-wave{background:#6FE3C6;animation:lq-wave 1600ms cubic-bezier(.22,1,.36,1) infinite}
+.lq .beacon-wave-2{animation-delay:800ms}
+@keyframes lq-wave{from{opacity:.6;transform:scale(1)}to{opacity:0;transform:scale(2.6)}}
+.lq .tour-label{animation:lq-label 400ms cubic-bezier(.22,1,.36,1) both}
+@keyframes lq-label{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.lq .beacon-wave,.lq .tour-label{animation:none}}
