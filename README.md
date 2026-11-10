@@ -1,5 +1,7 @@
 # LodgeIQ
 
+[![CI](https://github.com/Sptailor/lodgeIQ/actions/workflows/ci.yml/badge.svg)](https://github.com/Sptailor/lodgeIQ/actions/workflows/ci.yml)
+
 LodgeIQ gives tour operators one inspection standard for every lodge, camp and hotel they sell. Inspectors score a property on their phone, and the operations team sees the whole portfolio, the follow ups and the trends in one place.
 
 ## Stack
@@ -30,6 +32,16 @@ LodgeIQ gives tour operators one inspection standard for every lodge, camp and h
    ```
 
 4. Start the app with `npm run dev`.
+
+## Tests
+
+```bash
+npm test          # Vitest, once
+npm run test:watch
+npm run typecheck
+```
+
+The tests cover the scoring model, the follow up rules applied when an inspection is submitted, the dashboard selectors and date handling, and the API guards: the demo account gets a 403 before the database is touched, and the nightly reseed refuses calls without `CRON_SECRET`. Prisma and Auth.js are mocked, so no database is needed. GitHub Actions runs typecheck, lint and tests on every push and pull request.
 
 ## How the demo works
 
